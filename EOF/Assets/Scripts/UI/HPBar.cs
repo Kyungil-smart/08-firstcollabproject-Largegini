@@ -2,7 +2,8 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+// 작성자 : 홍정옥
+// 기능 : 공격시 HP바 및 HP 텍스트 감소
 public class HPBar : MonoBehaviour
 {
     [SerializeField] int currentHP;
