@@ -15,5 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/AJY/ChageTestScene.unity
     guid: 7fe031efc18adf0498b38ce4412131ac
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d0125230e7dd39545bbfece8d6adc6c3, type: 3}
+    com.unity.addressableassets: {fileID: 11400000, guid: a2e14f18230f90e4fbae8f134f7d0e2c, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
