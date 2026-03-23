@@ -3,7 +3,7 @@
 **작성자**: 이성규  
 **게임명**: 스러진 왕의 영원한 행진(The Eternal March of the Fallen King)  
 **작성일**: 2026-03-23  
-**최종 수정**: 2026-03-23  
+**최종 수정**: 2026-03-24  
 
 ## 프로젝트 개요
 
@@ -78,3 +78,51 @@ Unity 직렬화가 다차원 배열을 지원하지 않아서다.
 - 타일(블록)이 떨어질때는 위에서 아래 방식이지만 그리드 밖에서는 안보이게 한다.
   - 마스킹 기법 사용(RectMask2D)
   - RectMask2D 컴포넌트를 퍼즐 보드 캔버스 최상단에 추가한다
+
+### 데이터 및 상태 열거형(Enum) 작성
+- **BlockType**: 블록의 타입을 담을 열거형 스크립트 작성 (None, Attack, Defense, Heal, Special)
+- **EBlockStatus**: 블록의 상태를 담을 열거형 스크립트 작성 (None, Freeze 등)
+
+### BlockDataSO 스크립트 작성 (ScriptableObject)
+- 타입별 데이터를 관리하는 데이터 컨테이너 구현.
+- EBlockType type: 블록의 타입.
+- Color color: 임시 컬러 세팅 (나중에 스프라이트로 교체 예정).
+- Sprite sprite: 나중에 아트 리소스가 들어오면 교체할 용도.
+- float effectValue: 블록당 효과 수치 (공격 5, 방어 2 등 매칭 시 전투 시스템에 전달).
+
+### Block 스크립트 작성 (MonoBehaviour)
+- 그리드에 채워질 기본 단위인 블록 오브젝트에 붙는 런타임 스크립트.
+- 인스턴스별 런타임 데이터 관리: BlockDataSO data(SO 참조), EBlockStatus status(상태), int2 gridPosition(그리드 좌표).
+- Image 컴포넌트를 참조하여 SetBlock 등에서 타입 세팅 및 비주얼을 반영함.
+- 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 블록 상태를 초기화하는 기능 추가.
+- 위치 설정(SetPosition) 및 상태 설정(SetStatus) 메서드 추가.
+- 매칭되어 터질 때를 위해 파괴 대신 비활성화하는 Despawn 스크립트 추가.
+
+### SGrid2D 스크립트 개선
+- 보드 전체를 비우는 초기화 메서드(`Clear()`) 추가.
+- `yield return`과 튜플을 사용해 모든 셀을 순회하는 반복자(`GetAllCells()`)를 추가하여 편의성을 높임.
+
+
+## 임시 메모
+BlockType (enum) — None, Attack, Defense, Heal, Special
+
+BlockDataSO (ScriptableObject) — 타입별 데이터
+├── BlockType type
+├── Color color          ← 임시 컬러 (나중에 스프라이트로 교체)
+├── Sprite sprite        ← 나중에 픽셀 아트 들어오면
+└── float effectValue    ← 블록당 효과 수치 (공격 5, 방어 2 등)
+
+Block (MonoBehaviour) — 그리드 위의 블록 오브젝트
+├── BlockDataSO 참조
+├── 자기 그리드 좌표 (x, y)
+├── Image 컴포넌트 참조
+└── SetBlock(BlockDataSO) — 타입 세팅 + 비주얼 반영
+
+Scripts/Puzzle/Core/
+├── BlockType.cs        ← enum: None, Attack, Defense, Heal, Special
+├── BlockDataSO.cs      ← SO: 타입별 색상, 스프라이트, 효과 수치
+└── Grid2D.cs           ← 이미 완성
+
+Scripts/Puzzle/Board/
+├── Block.cs            ← MonoBehaviour: BlockType 세팅, 이미지 교체, 드래그
+└── BoardManager.cs     ← 보드 초기화, 블록 배치
