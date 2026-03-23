@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour, Monster
 {
     [SerializeField] private float _maxhealth;
     public float _health;
-    private float _damage;
+    private float _damage = 5f;
     public static Enemy Instance;
     private void Awake()
     {
@@ -18,7 +18,11 @@ public class Enemy : MonoBehaviour, Monster
     {
         _health -= damage;
     }
-    
+
+    public void Attack()
+    {
+        Player.Instance.ReceiveDamage(_damage);
+    }
     public void FirstPattern()
     {
         
