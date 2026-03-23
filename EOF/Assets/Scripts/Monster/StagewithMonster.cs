@@ -1,6 +1,9 @@
 using UnityEngine;
 
-// 스테이지마다 다른 몬스터를 지정하는 오브젝트
+/*
+ * 작성자 : 김동현
+ * 각 스테이지마다 다른 몬스터를 가지는 데이터
+ */
 [CreateAssetMenu(fileName = "MonsterSpawn", menuName = "Scriptable Objects/MonsterSpawn")]
 public class StagewithMonster : ScriptableObject
 {

@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
 
-// 전투씬 입장했을 때 플레이어 소환하는 스크립트
+/*
+ * 작성자 : 김동현
+ * 스테이지 입장시 플레이어 소환
+ */
 public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] GameObject _player;
-    private void Start()
+    private void Awake()
     {
         Instantiate(_player, transform.position, transform.rotation);
     }

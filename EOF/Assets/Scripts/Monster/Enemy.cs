@@ -1,12 +1,18 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using Random = System.Random;
 
-// 몬스터가 가지는 기능
+/*
+ * 작성자 : 김동현
+ * 각각의 몬스터가 가지는 기능이며,
+ * 아래의 스크립트는 테스트용 몬스터
+ */
 public class Enemy : MonoBehaviour, Monster
 {
     [SerializeField] private float _maxhealth;
     public float _health;
-    private float _damage = 5f;
+    private float _damage = 10f;
     public static Enemy Instance;
     private void Awake()
     {
@@ -23,6 +29,26 @@ public class Enemy : MonoBehaviour, Monster
     {
         Player.Instance.ReceiveDamage(_damage);
     }
+
+    public IEnumerator PatternProbability()
+    {
+       Random rnd = new Random();
+       int _probability = rnd.Next(0, 100);
+       if (0 < _probability && _probability < 60)
+       {
+           FirstPattern();
+       }
+       else if(59 < _probability && _probability < 85)
+       {
+           SecondPattern();
+       }
+       else
+       {
+           ThirdPattern();
+       }
+       yield return new WaitForSeconds(1f);
+    }
+    
     public void FirstPattern()
     {
         

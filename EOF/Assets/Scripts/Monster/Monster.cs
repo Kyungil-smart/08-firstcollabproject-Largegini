@@ -1,6 +1,8 @@
 using UnityEngine;
 
-// 몬스터 인터페이스
+/*
+ * 각 몬스터가 가질수 있는 기능 인터페이스
+ */
 public interface Monster
 {
     public void FirstPattern();
