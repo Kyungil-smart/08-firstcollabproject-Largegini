@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Title.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/AJY/AJYTestScene.unity
+    guid: a69da4e248adc6844b7a402bfc91d350
+  - enabled: 1
+    path: Assets/Scenes/AJY/ChageTestScene.unity
+    guid: 7fe031efc18adf0498b38ce4412131ac
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a2e14f18230f90e4fbae8f134f7d0e2c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
