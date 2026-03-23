@@ -12,6 +12,38 @@
 
 ---
 
+코드 컨밴션
+```cs
+메서드클래스, , // 클래스: PascalCase
+public class PlayerController { }
+
+// 메서드: PascalCase
+void MovePlayer() { }
+
+// 변수: camelCase
+float moveSpeed;
+
+// private 필드: _camelCase (선택)
+private float _currentSpeed;
+
+// 상수: UPPER_CASE
+const float MAX_SPEED = 10f;
+
+// 프로퍼티: PascalCase
+public bool IsGrounded { get; private set; }
+
+// Enum : E + PascalCase
+enum EType;
+
+// 구조체 : S + PascalCase
+struct SItemInfo;
+
+// 인터페이스 : I + PascalCase
+interface IMove;
+```
+
+
+---
 ## 3매치 구현 방식 학습
 
 Catlike Coding 사이트에 기술 된 3 매치 구현 방식을 연구했다.
@@ -32,7 +64,3 @@ https://catlikecoding.com/unity/tutorials/prototypes/match-3/
   - 매칭된 셀을 None으로 바꾸고, 열 단위로 빈 칸 위의 블록을 내리고, 상단에 새 랜덤 블록 채우기.
 - 5단계: 체인 루프
   - 드롭 후 다시 FindMatches 호출해서 연쇄가 있으면 반복. 콤보 카운트 누적.
-
-### 작업
-
-우선 유니티상에서 더미 UI 작성
