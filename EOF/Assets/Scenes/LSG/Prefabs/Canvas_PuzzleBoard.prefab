@@ -2425,7 +2425,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -292, y: 365}
-  m_SizeDelta: {x: 120, y: 120}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8483834051556614488
 CanvasRenderer:
@@ -2573,8 +2573,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a22349e91b0564486b0e9c90cdb076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardManager
-  _rows: 6
+  _rows: 12
   _columns: 5
+  _startRect: {fileID: 6387591891965741898}
+  _cellSize: 130
+  _spacing: 16
   _blockPrefab: {fileID: 6891878649472635510, guid: e7f992a630c75f2428567656380bdaa9, type: 3}
   _boardPanel: {fileID: 7864051115157299834}
   _blockDatas:
@@ -2582,34 +2585,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98f6bb7385a2d91408d8157587383808, type: 2}
   - {fileID: 11400000, guid: 45a300d3e67c94a4fa3834a3544d4839, type: 2}
   - {fileID: 11400000, guid: 41e3fd25cee36444eb6b04134ffd7111, type: 2}
-  _gridSlots:
-  - {fileID: 6387591891965741898}
-  - {fileID: 3249152715855352040}
-  - {fileID: 1155899732819745717}
-  - {fileID: 9083907009412217051}
-  - {fileID: 593489364804153588}
-  - {fileID: 4618068894678398959}
-  - {fileID: 7012788720082652860}
-  - {fileID: 6589031560757802437}
-  - {fileID: 5132708024337103541}
-  - {fileID: 1472343507036545879}
-  - {fileID: 301462368699833390}
-  - {fileID: 7132456346369014055}
-  - {fileID: 5804623710628612808}
-  - {fileID: 2828213156100346124}
-  - {fileID: 7533527271890092511}
-  - {fileID: 3900864205322021759}
-  - {fileID: 5641154744074641427}
-  - {fileID: 8414961010510913795}
-  - {fileID: 2567404196790983020}
-  - {fileID: 4853882172085300322}
-  - {fileID: 430237294374074031}
-  - {fileID: 8072629642196069675}
-  - {fileID: 3220655243292534963}
-  - {fileID: 3562474161752488337}
-  - {fileID: 6128735394046639060}
-  - {fileID: 7898296188864803763}
-  - {fileID: 7911972050619676564}
-  - {fileID: 2104197425978835474}
-  - {fileID: 2907861398496089}
-  - {fileID: 5933951418192889725}
