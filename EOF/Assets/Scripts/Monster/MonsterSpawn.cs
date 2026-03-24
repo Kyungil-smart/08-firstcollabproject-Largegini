@@ -13,4 +13,8 @@ public class MonsterSpawn : MonoBehaviour
     {
         Instantiate(_enemy, transform.position, transform.rotation);
     }
+    public Monster Spawn()
+    {
+        GameObject go = Instantiate(enemyPrefab, transform.position, transform.rotation);
+    }
 }

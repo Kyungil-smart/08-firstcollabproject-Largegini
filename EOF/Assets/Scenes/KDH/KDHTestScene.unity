@@ -300,6 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4573417ac1c33df49807e6ad1b25268b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
+  stages:
+  - {fileID: 11400000, guid: 9a2473f24e9b8e943a0fbc02d42be966, type: 2}
 --- !u!1 &1415925436
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _player: {fileID: 2556820692507486031, guid: ae000f7e0f159704eb3094a4beae9bc0, type: 3}
-  _battleSystem: {fileID: 0}
 --- !u!1 &1671707708
 GameObject:
   m_ObjectHideFlags: 0

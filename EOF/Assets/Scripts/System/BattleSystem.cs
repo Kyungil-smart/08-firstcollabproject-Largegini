@@ -11,14 +11,15 @@ using UnityEngine.InputSystem;
 public class BattleSystem : MonoBehaviour
 {
     private BattleTurn _battle;
+    public StagewithMonster[] stages;
     private Player _player;
-    private Enemy _enemy;
+    private Monster _enemy;
     
     private void Start()
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        _enemy = Enemy.Instance;
+        _enemy = Monster.Instance;
         StartCoroutine(Battle());
     }
 
@@ -28,8 +29,6 @@ public class BattleSystem : MonoBehaviour
         {
                 // 죽는 기능
             if (_player._health <= 0) break;
-            
-            
             
             if (_battle == BattleTurn.pTurn)
             {

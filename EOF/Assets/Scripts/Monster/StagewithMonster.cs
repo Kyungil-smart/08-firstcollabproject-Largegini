@@ -8,5 +8,5 @@ using UnityEngine;
 public class StagewithMonster : ScriptableObject
 {
     public GameObject Enemy;
-    public string StageName;
+    public int StageNumber;
 }

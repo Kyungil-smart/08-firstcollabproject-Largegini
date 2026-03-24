@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1741540724686975000}
   - component: {fileID: 4739259599224278504}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: RedOak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
