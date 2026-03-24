@@ -8,13 +8,15 @@ using UnityEngine;
  */
 public class MonsterSpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemy;
-    private void Awake()
+    // [SerializeField] private GameObject _enemy;
+    // private void Awake()
+    // {
+    //     Instantiate(_enemy, transform.position, transform.rotation);
+    // }
+    public Monster Spawn(GameObject _enemy)
     {
-        Instantiate(_enemy, transform.position, transform.rotation);
-    }
-    public Monster Spawn()
-    {
-        GameObject go = Instantiate(enemyPrefab, transform.position, transform.rotation);
+        GameObject go = Instantiate(_enemy, transform.position, transform.rotation);
+        Monster _monScrpit = go.GetComponent<Monster>();
+        return _monScrpit;
     }
 }

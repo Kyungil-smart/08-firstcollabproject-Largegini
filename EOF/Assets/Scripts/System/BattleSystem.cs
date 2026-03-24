@@ -14,6 +14,7 @@ public class BattleSystem : MonoBehaviour
     public StagewithMonster[] stages;
     private Player _player;
     private Monster _enemy;
+    public MonsterSpawn _monsterSpawn;
     
     private void Start()
     {
@@ -25,6 +26,7 @@ public class BattleSystem : MonoBehaviour
 
     private IEnumerator Battle()
     {
+        // _enemy = _monsterSpawn.Spawn()
         while (true)
         {
                 // 죽는 기능
