@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 // 요약 : 퍼즐 보드 전체를 관리하고 블록을 스폰하는 관리자 스크립트
 // 작성자 : 이성규
-public class BoardManager : MonoBehaviour
+public class BoardManager : MonoBehaviour, IBoardInteractable
 {
     [Header("Board Settings")]
     [SerializeField, Tooltip("행/높이")] private int _rows = 12;
@@ -21,7 +21,7 @@ public class BoardManager : MonoBehaviour
     
     private SGrid2D<Block> _blocks;
     private BoardLayout _layout;
-
+    
     private void Awake()
     {
         // ResetBoard에서는 _layout을 안 쓰지만 낙하 로직에서 좌표 조회할 때 필요하니 Awake에서 한 번만 생성
@@ -34,7 +34,7 @@ public class BoardManager : MonoBehaviour
         
         InitializeBoard();
     }
-
+    
     private void InitializeBoard()
     {
         // 블록으로 그리드 구조 데이터 생성
@@ -60,7 +60,7 @@ public class BoardManager : MonoBehaviour
                 var pos = new int2(x, y);
                 var block = _blocks[pos];
                 int randomIndex = Random.Range(0, _blockDatas.Length);
-                block.Init(pos, _blockDatas[randomIndex]); // 데이터만 교체
+                block.Init(pos, _blockDatas[randomIndex], this); // 데이터만 교체
             }
         }
     }
@@ -78,9 +78,31 @@ public class BoardManager : MonoBehaviour
 
         // 랜덤 데이터 할당 및 초기화
         int randomIndex = Random.Range(0, _blockDatas.Length);
-        newBlock.Init(pos, _blockDatas[randomIndex]);
+        newBlock.Init(pos, _blockDatas[randomIndex], this);
         
         // 그리드 데이터에 등록
         _blocks[pos] = newBlock;
+    }
+    
+    // 블록 상호작용 가능 여부 체크
+    public bool CanInteract(int2 pos)
+    {
+        // 버퍼 구역이면 터치 금지
+        if (pos.y < _bufferRows) return false;
+        
+        // 해당 블록이 연출 중이거나 비활성이면 금지
+        Block targetBlock = _blocks[pos];
+        if (targetBlock == null || targetBlock.Status != EBlockStatus.None) return false;
+        
+        // TODO (나중에 추가): 보드 전체가 낙하(Fall) 중이거나 터지는 중이면 return false;
+        
+        return true;
+    }
+    
+    // 드래그 방향이 결정되면 핸들러가 이 함수를 요청
+    public void OnSwipeBlock(int2 pos, Vector2Int direction)
+    {
+        Debug.Log($"[BoardManager] {pos} 블록을 {direction} 방향으로 스왑 요청");
+        // 실제 위치를 바꾸는 Swap 로직
     }
 }

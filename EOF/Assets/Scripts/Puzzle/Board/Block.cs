@@ -20,13 +20,16 @@ public class Block : MonoBehaviour
     public BlockDataSO Data => _blockData;
     public EBlockType Type => _blockData != null ? _blockData.Type : EBlockType.None;
     public EBlockStatus Status => _status;
-    
+
+    public IBoardInteractable Board { get; private set; }
+
     // 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 호출 
-    public void Init(int2 pos, BlockDataSO data)
+    public void Init(int2 pos, BlockDataSO data, IBoardInteractable board)
     {
         if(_blockImage == null)
             _blockImage = GetComponent<Image>();
         
+        Board = board;
         _gridPosition = pos;
         _blockData = data;
         _status = EBlockStatus.None;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 882405577466836469}
   - component: {fileID: 1396709207067685860}
   - component: {fileID: 6891878649472635510}
+  - component: {fileID: 216360538523813391}
   m_Layer: 5
   m_Name: Block
   m_TagString: Untagged
@@ -89,3 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
   _blockImage: {fileID: 1396709207067685860}
+--- !u!114 &216360538523813391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330402205592356580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bc1d2203bb41a40837affd3c6f1cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockDragHandler
