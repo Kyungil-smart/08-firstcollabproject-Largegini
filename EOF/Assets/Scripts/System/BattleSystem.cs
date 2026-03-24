@@ -54,7 +54,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                _enemy.Attack();
+                StartCoroutine(_enemy.PatternProbability());
                 _battle = BattleTurn.pTurn;
             }
 

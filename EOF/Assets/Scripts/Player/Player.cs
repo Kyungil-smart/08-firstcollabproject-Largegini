@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
             if (_defensive >= damage)
             {
                 _defensive -= damage;
+                _defensive = 0;
                 return;
             }
             else

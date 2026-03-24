@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour, Monster
     public float _health;
     private float _damage = 10f;
     public static Enemy Instance;
+    Random rnd = new Random();
     private void Awake()
     {
         Instance = this;
@@ -32,7 +33,8 @@ public class Enemy : MonoBehaviour, Monster
 
     public IEnumerator PatternProbability()
     {
-       Random rnd = new Random();
+       yield return new WaitForSeconds(.5f);
+       
        int _probability = rnd.Next(0, 100);
        if (0 < _probability && _probability < 60)
        {
@@ -46,12 +48,14 @@ public class Enemy : MonoBehaviour, Monster
        {
            ThirdPattern();
        }
-       yield return new WaitForSeconds(1f);
+       yield return new WaitForSeconds(.5f);
     }
     
     public void FirstPattern()
     {
-        
+        Debug.Log("눈먼 휘두르기");
+        _damage = rnd.Next(10, 21);
+        Player.Instance.ReceiveDamage(_damage);
     }
 
     public void SecondPattern()
