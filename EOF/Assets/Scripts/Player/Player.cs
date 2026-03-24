@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         _health = _maxHealth;
-        _attack = 20f;
+        _attack = 5f;
         _defensive = 20f;
     }
 

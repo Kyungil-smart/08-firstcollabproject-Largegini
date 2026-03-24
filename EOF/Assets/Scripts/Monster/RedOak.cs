@@ -40,7 +40,6 @@ public class RedOak : Monster
     {
         Debug.Log("눈먼 휘두르기");
         _damage = rnd.Next(_minDamage, 21);
-        Debug.Log(_damage);
         Player.Instance.ReceiveDamage(_damage);
     }
 

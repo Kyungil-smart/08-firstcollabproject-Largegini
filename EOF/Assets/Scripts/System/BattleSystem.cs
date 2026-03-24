@@ -22,7 +22,6 @@ public class BattleSystem : MonoBehaviour
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        _enemy = Monster.Instance;
         StartCoroutine(Battle());
     }
 
