@@ -15,6 +15,7 @@ public abstract class Monster : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        _health = _maxhealth;
     }
     
     public void ReceiveDamage(float damage)
@@ -23,4 +24,7 @@ public abstract class Monster : MonoBehaviour
     }
 
     public abstract IEnumerator PatternProbability();
+    public abstract void FirstPattern();
+    public abstract void SecondPattern();
+    public abstract void ThirdPattern();
 }

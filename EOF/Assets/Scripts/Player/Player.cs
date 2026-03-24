@@ -5,6 +5,8 @@ using UnityEngine;
 /*
  * 작성자 : 김동현
  * 플레이어가 가지는 기능
+ * (ex. 공격)
+ * 코루틴으로 작성
  */
 public class Player : MonoBehaviour
 {
@@ -12,9 +14,7 @@ public class Player : MonoBehaviour
     public float _health;
     public float _maxHealth = 100f;
     public float _attack;
-    public float _defensive;     // 실드량
-    public float _resilience;    // 힐량
-    public int _behavioralGauge; // 행동력 게이지
+    public float _defensive;
     private void Awake()
     {
         Instance = this;
@@ -23,33 +23,14 @@ public class Player : MonoBehaviour
         _defensive = 20f;
     }
 
-    public IEnumerator Attack()
+    public IEnumerator Attack(Monster target)
     {
         Debug.Log("공격");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f); 
         Monster.Instance.ReceiveDamage(_attack);
         yield return new WaitForSeconds(0.5f);
     }
 
-    public IEnumerator SpecialATK()
-    {
-        yield return new WaitForSeconds(0.5f);
-        Monster.Instance.ReceiveDamage(_attack);
-        _behavioralGauge += 5;
-        yield return new WaitForSeconds(0.5f);
-    }
-    
-    public IEnumerator Heal()
-    {
-        Debug.Log("회복");
-        _health += _resilience;
-        if (_health > _maxHealth)
-        {
-            _health = _maxHealth;
-        }
-        yield return new WaitForSeconds(0.5f);
-    }
-    
     public void ReceiveDamage(float damage)
     {
         if (_defensive > 0)

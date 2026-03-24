@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,21 +13,22 @@ public class BattleSystem : MonoBehaviour
 {
     private BattleTurn _battle;
     public StagewithMonster[] stages;
+    public MonsterSpawn spawnPoint;
     private Player _player;
     private Monster _enemy;
-    public MonsterSpawn _monsterSpawn;
+    public int _currentStageIndex = 0;
     
     private void Start()
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        _enemy = Monster.Instance;
         StartCoroutine(Battle());
     }
 
     private IEnumerator Battle()
     {
-        // _enemy = _monsterSpawn.Spawn()
+        // StagewithMonster data = stages.FirstOrDefault(s => s.StageNumber == stageNum);
+        _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
         while (true)
         {
                 // 죽는 기능
@@ -37,18 +39,18 @@ public class BattleSystem : MonoBehaviour
                 for (int i = 3; i > 0; i--)
                 {
                     yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
-                    yield return StartCoroutine(_player.Attack());
-                        // 승리 기능
+                    yield return StartCoroutine(_player.Attack(_enemy));
+                    // 승리 기능
                     if (_enemy._health <= 0)
                     {
                         Destroy(_enemy.gameObject);
-                        Debug.Log("이김");
-                        break;
-                    }
-                    if (_player._behavioralGauge >= 10)
-                    {
-                        i++;
-                        _player._behavioralGauge = 0;
+                        _currentStageIndex++;
+                        if (_currentStageIndex >= stages.Length)
+                        {
+                            _currentStageIndex = stages.Length - 1;
+                        }
+
+                        yield break;
                     }
                 }
                 _battle = BattleTurn.eTurn;
@@ -58,7 +60,6 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(_enemy.PatternProbability());
                 _battle = BattleTurn.pTurn;
             }
-
             yield return null;
         }
     }
