@@ -1,0 +1,4 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="JetBrains.Frontend.2022.2.csproj" />
+</Solution>
