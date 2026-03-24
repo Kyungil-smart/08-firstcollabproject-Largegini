@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // 작성자 : 한성우
-// MonsterData에서 원하는 값을 쉽게 찾도록 딕셔너리 형태로 관리하는 스크립트
+// MonsterData 에서 원하는 값을 쉽게 찾도록 딕셔너리 형태로 관리하는 스크립트
 
 public class MonsterTable : IDataTableInfo
 {
@@ -32,7 +32,7 @@ public class MonsterTable : IDataTableInfo
             MonsterData newMonster = new MonsterData();
             newMonster.SetMonsterData(row);
 
-            // 중복 ID가 아니라면 MonsterDic에 추가 (중복이면 가장 먼저 온 ID가 읽어짐)
+            // 중복 ID가 아니라면 MonsterDic 에 추가 (중복이면 가장 먼저 온 ID가 읽어짐)
             if (!MonsterDic.ContainsKey(newMonster.ID)) MonsterDic.Add(newMonster.ID, newMonster);
 
             // ID 중복이면 에러 뱉기
