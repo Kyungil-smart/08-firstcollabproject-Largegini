@@ -14,7 +14,6 @@ public class RedOak : Monster
     private void Start()
     {
         _maxhealth = 200f;
-        _health = _maxhealth;
         _minDamage = 10;
     }
 
@@ -37,7 +36,7 @@ public class RedOak : Monster
        yield return new WaitForSeconds(.5f);
     }
     
-    public void FirstPattern()
+    public override void FirstPattern()
     {
         Debug.Log("눈먼 휘두르기");
         _damage = rnd.Next(_minDamage, 21);
@@ -45,14 +44,14 @@ public class RedOak : Monster
         Player.Instance.ReceiveDamage(_damage);
     }
 
-    public void SecondPattern()
+    public override void SecondPattern()
     {
         Debug.Log("전력 휘두르기");
         _damage = rnd.Next(_minDamage + 10, 71);
         Player.Instance.ReceiveDamage(_damage);
     }
 
-    public void ThirdPattern()
+    public override void ThirdPattern()
     {
         Debug.Log("깨부수기");
         _damage = rnd.Next(_minDamage + 10, 71);
