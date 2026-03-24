@@ -170,28 +170,27 @@ inputAction을 활용하기 보다는 UI에서 지원하는 Handler 이벤트를
 
 IPointerDownHandler + IDragHandler + IPointerUpHandler
 
+UI에 클릭했을때 Down, 그 상태에서 드래그할때 Drag, 클릭을 멈추고 땔때 Up
 
+**Block**
+- 드래그 시작점을 저장
+- 스와이프 방향 판정
+  - 델타값에서 상하좌우 중 가장 큰 축으로 (OnPointerUp 또는 OnDrag에서 임계값 넘었을 때)
+- 판정된 방향 + 자신의 그리드 좌표를 BoardManager에 전달
 
-## 임시 메모
-BlockType (enum) — None, Attack, Defense, Heal, Special
+**BoardManager**
+- 스왑 요청 수신 (어떤 블록이 어느 방향으로)
+- 인접 좌표 유효성 검사 (보드 범위 내인지, 버퍼 행 아닌지)
+- 두 블록의 그리드 데이터 + 좌표 교환
 
-BlockDataSO (ScriptableObject) — 타입별 데이터
-├── BlockType type
-├── Color color          ← 임시 컬러 (나중에 스프라이트로 교체)
-├── Sprite sprite        ← 나중에 픽셀 아트 들어오면
-└── float effectValue    ← 블록당 효과 수치 (공격 5, 방어 2 등)
+- Block.cs 에서 Board 매니저를 연결해서 의존성 주입(DI)
+  - BlockDragHandler에서 보드를 안찾아도된다.
+  - BoardManager에서 블록을 생성할때 자신을 연결해준다.
 
-Block (MonoBehaviour) — 그리드 위의 블록 오브젝트
-├── BlockDataSO 참조
-├── 자기 그리드 좌표 (x, y)
-├── Image 컴포넌트 참조
-└── SetBlock(BlockDataSO) — 타입 세팅 + 비주얼 반영
+- `IBoardInteractable` 인터페이스 도입으로 Block/DragHandler가 BoardManager 구체 타입에 의존하지 않도록 분리
+  - `CanInteract(int2 pos)`: 버퍼 영역 및 블록 상태 기반 입력 차단
+  - `OnSwipeBlock(int2 pos, Vector2Int dir)`: 스왑 요청 수신
 
-Scripts/Puzzle/Core/
-├── BlockType.cs        ← enum: None, Attack, Defense, Heal, Special
-├── BlockDataSO.cs      ← SO: 타입별 색상, 스프라이트, 효과 수치
-└── Grid2D.cs           ← 이미 완성
+- `_isDragging` 플래그로 `CanInteract` 실패한 터치가 `OnPointerUp`까지 흘러가는 엣지 케이스 차단
 
-Scripts/Puzzle/Board/
-├── Block.cs            ← MonoBehaviour: BlockType 세팅, 이미지 교체, 드래그
-└── BoardManager.cs     ← 보드 초기화, 블록 배치
+- 임계값(DRAG_THRESHOLD = 30px) 미만의 미세 터치는 무시하여 의도치 않은 스와이프 방지

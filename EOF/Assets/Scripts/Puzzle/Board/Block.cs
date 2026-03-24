@@ -22,10 +22,13 @@ public class Block : MonoBehaviour
     public EBlockStatus Status => _status;
 
     public IBoardInteractable Board { get; private set; }
+    public RectTransform Rect { get; private set; }
 
     // 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 호출 
     public void Init(int2 pos, BlockDataSO data, IBoardInteractable board)
     {
+        if (Rect == null)
+            Rect = GetComponent<RectTransform>();
         if(_blockImage == null)
             _blockImage = GetComponent<Image>();
         
