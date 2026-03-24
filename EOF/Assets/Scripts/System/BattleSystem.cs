@@ -29,8 +29,7 @@ public class BattleSystem : MonoBehaviour
                 // 죽는 기능
             if (_player._health <= 0) break;
             
-                // 승리 기능
-            if (_enemy._health <= 0) break;
+            
             
             if (_battle == BattleTurn.pTurn)
             {
@@ -38,6 +37,18 @@ public class BattleSystem : MonoBehaviour
                 {
                     yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
                     yield return StartCoroutine(_player.Attack());
+                        // 승리 기능
+                    if (_enemy._health <= 0)
+                    {
+                        Destroy(_enemy.gameObject);
+                        Debug.Log("이김");
+                        break;
+                    }
+                    if (_player._behavioralGauge >= 10)
+                    {
+                        i++;
+                        _player._behavioralGauge = 0;
+                    }
                 }
                 _battle = BattleTurn.eTurn;
             }

@@ -104,3 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2eabaed625852641955ad876974e0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  _health: 0
+  _maxHealth: 100
+  _attack: 0
+  _defensive: 0
+  _resilience: 0

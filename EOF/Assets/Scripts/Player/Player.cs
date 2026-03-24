@@ -15,22 +15,43 @@ public class Player : MonoBehaviour
     public float _maxHealth = 100f;
     public float _attack;
     public float _defensive;
+    public float _resilience;
+    public int _behavioralGauge;
     private void Awake()
     {
         Instance = this;
         _health = _maxHealth;
-        _attack = 5f;
+        _attack = 20f;
         _defensive = 20f;
     }
 
     public IEnumerator Attack()
     {
         Debug.Log("공격");
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
         Enemy.Instance.ReceiveDamage(_attack);
         yield return new WaitForSeconds(0.5f);
     }
 
+    public IEnumerator SpecialATK()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Enemy.Instance.ReceiveDamage(_attack);
+        _behavioralGauge += 5;
+        yield return new WaitForSeconds(0.5f);
+    }
+    
+    public IEnumerator Heal()
+    {
+        Debug.Log("회복");
+        _health += _resilience;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
+    
     public void ReceiveDamage(float damage)
     {
         if (_defensive > 0)
