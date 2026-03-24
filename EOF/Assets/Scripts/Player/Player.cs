@@ -6,7 +6,6 @@ using UnityEngine;
  * 작성자 : 김동현
  * 플레이어가 가지는 기능
  * (ex. 공격)
- * 코루틴으로 작성
  */
 public class Player : MonoBehaviour
 {

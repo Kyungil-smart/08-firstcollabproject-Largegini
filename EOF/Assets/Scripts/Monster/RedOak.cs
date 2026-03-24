@@ -1,7 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
+
 
 /*
  * 작성자 : 김동현
@@ -9,18 +10,16 @@ using Random = System.Random;
  */
 public class RedOak : Monster
 {
-    Random rnd = new Random();
-
-    private void Start()
+    private void Awake()
     {
-        _maxhealth = 200f;
+        _maxhealth = 100f;
         _minDamage = 10;
     }
 
     public override IEnumerator PatternProbability()
     {
        yield return new WaitForSeconds(.5f);
-       int _probability = rnd.Next(0, 100);
+       int _probability = Random.Range(0, 100);
        if (0 <= _probability && _probability < 60)
        {
            FirstPattern();
@@ -39,21 +38,21 @@ public class RedOak : Monster
     public override void FirstPattern()
     {
         Debug.Log("눈먼 휘두르기");
-        _damage = rnd.Next(_minDamage, 21);
+        _damage = Random.Range(_minDamage, 21);
         Player.Instance.ReceiveDamage(_damage);
     }
 
     public override void SecondPattern()
     {
         Debug.Log("전력 휘두르기");
-        _damage = rnd.Next(_minDamage + 10, 71);
+        _damage = Random.Range(_minDamage, 71);
         Player.Instance.ReceiveDamage(_damage);
     }
 
     public override void ThirdPattern()
     {
         Debug.Log("깨부수기");
-        _damage = rnd.Next(_minDamage + 10, 71);
+        _damage = Random.Range(_minDamage, 71);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;
         Player.Instance.ReceiveDamage(_damage);

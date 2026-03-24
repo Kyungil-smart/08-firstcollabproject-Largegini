@@ -8,11 +8,11 @@ using UnityEngine;
 public abstract class Monster : MonoBehaviour
 {
     [SerializeField] protected float _maxhealth;
+    protected float _damage;
     public static Monster Instance;
     public float _health;
-    public float _damage;
     public int _minDamage;
-    private void Awake()
+    private void Start()
     {
         Instance = this;
         _health = _maxhealth;
