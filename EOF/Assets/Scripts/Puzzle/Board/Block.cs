@@ -24,6 +24,9 @@ public class Block : MonoBehaviour
     // 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 호출 
     public void Init(int2 pos, BlockDataSO data)
     {
+        if(_blockImage == null)
+            _blockImage = GetComponent<Image>();
+        
         _gridPosition = pos;
         _blockData = data;
         _status = EBlockStatus.None;
@@ -38,7 +41,7 @@ public class Block : MonoBehaviour
         if (_blockImage == null || _blockData == null) return;
         
         // 재사용되는 경우를 위한 상태 초기화
-        _blockImage.sprite = _blockData.Sprite;
+        // _blockImage.sprite = _blockData.Sprite;
         _blockImage.color = _blockData.Color;
         
         // TODO (차후 구현): 상태에 따른 시각적 변화 처리

@@ -88,4 +88,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52066b6fe8f58f64585e0bcb8396fcbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
-  blockType: 0
+  _blockImage: {fileID: 1396709207067685860}
