@@ -10,93 +10,94 @@ using static UnityEngine.Rendering.DebugUI;
 
 
 // 작성자 : 한성우
-// 데이터를 종합적으로 관리하는 싱글톤 매니저
+// 주로 csv 데이터를 중심으로 데이터를 종합적으로 관리하는 싱글톤 매니저
 
 public class DataManager : MonoBehaviour
 {
+
     private Dictionary<Type, IDataTableInfo> loadedTables = new Dictionary<Type, IDataTableInfo>();
 
 
-
-
-    // 데이터 매니저 인스턴스와 프로퍼티
-    private static DataManager instance = null;
-    public static DataManager Instance
-    {
-        get
-        {
-            if (instance == null) return null;
-            return instance;
-        }
-    }
+    // 싱글톤용 인스턴스
+    public static DataManager _instance = null;
 
 
 
     private void Awake()
     {
+        // 싱글톤
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+
+
         Init();
     }
 
 
     private void Init()
     {
-        // 싱글톤
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        else Destroy(gameObject);
-
-
         // 데이터 테이블 로드
         LoadDataTables();
     }
 
 
-    // 게임에 필요한 모든 데이터 테이블 등록 필요
+    // *** 게임에 필요한 모든 데이터 테이블을 미리 로드해놓음
     private void LoadDataTables()
     {
-
+        // *** 게임에 필요한 테이블 생길 때 마다 등록 필요 (추후 어드레서블로 변경 필요)
         LoadTable<MonsterTable>("Data/MonsterData");
 
     }
 
 
-    public MonsterTable GetMonsterTable()
-    {
-        Type type = typeof(MonsterTable);
-
-        if (loadedTables.ContainsKey(type)) return loadedTables[type] as MonsterTable;
-
-        return null;
-    }
-
-
 
     // 테이블 객체 생성 후 Load 호출하여 딕셔너리에 등록
-    private void LoadTable<T>(string path) where T : IDataTableInfo, new()
+    private void LoadTable<T>(string path) where T : IDataTableInfo, new()  // new() : 빈 객체로 생성 가능해야
     {
+        bool isSuccessReadTable = false;
+
+        // 빈 객체로 table 생성
         T table = new T();
 
-        table.LoadCSVFile(path);
 
-        if (loadedTables.ContainsKey(typeof(T))) loadedTables[typeof(T)] = table;
-        else loadedTables.Add(typeof(T), table);
+        isSuccessReadTable = table.LoadCSVFile(path);
 
-    }
 
-    // 외부에서 특정 테이블 가져오기
-    public T Get<T>() where T : class, IDataTableInfo
-    {
-        if (loadedTables.TryGetValue(typeof(T), out IDataTableInfo table))
+        // 테이블 없을 때 예외 처리
+        if (!isSuccessReadTable)
         {
-            return table as T;
+            Debug.LogError($"{typeof(T)}가 없습니다. path : {path}");
+            return;
         }
 
-        Debug.LogError($"[DataTableManager] 로드 실패 : {typeof(T).Name}");
+        // 중복 테이블 예외 처리
+        if (loadedTables.ContainsKey(typeof(T)))
+        {
+            Debug.LogError($"이미 {typeof(T)} 가 이미 존재합니다. path : {path}");
+            return;
+        }
 
+
+        // 불러온 테이블 IDataTableInfo 형식으로 저장 -> 이후 필요하면 GetMonsterTable 등에서 다운 캐스팅 해서 사용
+        loadedTables.Add(typeof(T), table);
+    }
+
+
+
+    // *** 게임에 필요한 테이블 생길 때 마다 생성 필요
+    public MonsterTable GetMonsterTable()
+    {
+
+        // loadedTables 안에 MonsterTable 이 있으면 리턴하고, 아니면 null 리턴하기
+        if (loadedTables.ContainsKey(typeof(MonsterTable))) return loadedTables[typeof(MonsterTable)] as MonsterTable;  // IDataTableInfo 라서 마지막에 MonsterTable 로 형변환 필요
         return null;
     }
+
+
 }
