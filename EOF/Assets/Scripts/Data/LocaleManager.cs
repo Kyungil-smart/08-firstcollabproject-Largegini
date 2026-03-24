@@ -2,9 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
-
-// 작성자 : 한성우
-// 번역을 관리하는 매니저
 public class LocaleManager : MonoBehaviour
 {
 
