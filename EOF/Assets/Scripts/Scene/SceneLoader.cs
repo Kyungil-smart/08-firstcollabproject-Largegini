@@ -16,9 +16,6 @@ public class SceneLoader : MonoBehaviour
    public TitleScene Title;
    public StageScene Stage;
    
-   // 테스트용
-   private DebugInput _debugInput;
-
    private void Awake()
    {
        if (Intance != null && Intance != this)
@@ -60,7 +57,5 @@ public class SceneLoader : MonoBehaviour
        
        Title = new TitleScene();
        Stage = new StageScene();
-       
-       _debugInput = new DebugInput();
    }
 }
