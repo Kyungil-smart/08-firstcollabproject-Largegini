@@ -22,7 +22,7 @@ public class TitleManager : MonoBehaviour
     }
     public void OnClickStart()
     {
-        SceneManager.LoadScene("Stage");
+        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
     }
     
     public void OnClickSettings()
