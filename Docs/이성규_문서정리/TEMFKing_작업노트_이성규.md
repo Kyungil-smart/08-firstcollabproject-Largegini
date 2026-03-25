@@ -284,8 +284,42 @@ UI 좌표 → 그리드 인덱스 인덱스 역변환 스크립트를 `BoardLayo
 - 매 스왑 시작 시 카운터를 0으로 리셋하여 누적 버그 방지
 - 매칭/낙하/연쇄 처리에서도 동일한 `_isProcessing` 플래그로 확장 예정
 
+### 인터페이스 역할 분리 리팩터링
 
+`IBoardInteractable`이 비대해져서 역할별로 분리했다.
 
+- **IBoard**: 복수 인터페이스의 통합 접근 창구
+- **IBoardInteraction**: 블록 입력 검증 및 스왑 요청
+- **IBoardQuery**: 보드 레이아웃 정보 조회
+- **IBoardData**: 그리드 데이터 접근
+
+BoardSwapper는 `IBoardData`만, BlockDragHandler는 `IBoardQuery` + `IBoardInteraction`을, Block/Spawner는 `IBoard`를 참조. 각 클래스가 필요한 만큼만 보드에 접근하도록 의존성 범위를 제한했다.
+
+하위 시스템이 `SGrid2D<Block>`을 직접 참조하던 구조에서 `IBoardData` 인터페이스를 통한 간접 접근으로 전환하여, 그리드 자료구조가 변경되어도 하위 시스템은 수정 불필요.
+
+### 매칭 시스템 뼈대 구축
+
+매칭 판정 구현을 위한 기초 구조를 작성했다.
+
+**Match 구조체**
+- 매치 정보의 기본 단위: 시작 좌표, 길이, 방향(가로/세로), 블록 타입
+- 콤보 계산 및 전투 아웃풋에서 타입별 집계에 활용 예정
+
+**MatchFinder 클래스**
+- IBoardData를 통해 그리드 데이터에 접근
+- 플레이 영역(bufferRows ~ rows)에서만 매치 탐색
+- FindAllMatches: List<Match> 반환 (로직은 내일 구현)
+- BoardManager.Awake에서 생성 및 연결 완료
+
+**SGrid2D 범위 순회 추가**
+- `GetCellsInRange(startY, endY)`: 지정 영역만 순회하는 반복자 추가
+- MatchFinder에서 플레이 영역만 탐색할 때 활용 예정
+
+### 다음 작업 (내일)
+- FindAllMatches 로직 구현 (가로/세로 3매치 탐색)
+- 매치 후 블록 제거 → 낙하 → 리필 → 연쇄 루프
+- 콤보 카운트 및 퍼즐 결과 아웃풋
+- 이후 폴리싱으로 DoTween 연출, 셀 하이라이트, 초기 보드 3매치 방지, 데드락 판정 
 
 ### 대기 작업 목록
 - 매칭 판정 (MatchFinder)

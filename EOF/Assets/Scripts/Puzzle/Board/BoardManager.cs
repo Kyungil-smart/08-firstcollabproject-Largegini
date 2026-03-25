@@ -22,6 +22,7 @@ public class BoardManager : MonoBehaviour, IBoard
     private BoardLayout _layout;
     private BoardSwapper _swapper;
     private BoardSpawner _spawner;
+    private MatchFinder _matchFinder;
     private bool _isProcessing;
     
     public Block GetBlock(int2 pos) => _blocks[pos];
@@ -40,6 +41,8 @@ public class BoardManager : MonoBehaviour, IBoard
 
         // 블록으로 그리드 구조 데이터 생성
         _blocks = new SGrid2D<Block>(new int2(_columns, _rows));
+        // 매칭 탐색기 생성
+        _matchFinder = new MatchFinder(this, _columns, _rows, _bufferRows);
 
         // 하위 시스템 생성
         _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas);
