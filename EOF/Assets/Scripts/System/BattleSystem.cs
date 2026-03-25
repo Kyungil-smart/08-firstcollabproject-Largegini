@@ -44,7 +44,7 @@ public class BattleSystem : MonoBehaviour
                         i--;
                         Player.Instance._freeze = false;
                     }
-                    yield return StartCoroutine(_player.Attack());
+                    yield return StartCoroutine(_player.Heal());
                     // 승리 기능
                     if (_enemy._health <= 0)
                     {

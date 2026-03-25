@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b416cf396cb1b4d468a058061fa323ff, type: 3}
   m_Name: 3Stage
   m_EditorClassIdentifier: Assembly-CSharp::StagewithMonster
-  Enemy: {fileID: 0}
+  Enemy: {fileID: 6770616939483295838, guid: 7d3a9c9c61c19d543a33211281d3d7c5, type: 3}
   StageNumber: 2

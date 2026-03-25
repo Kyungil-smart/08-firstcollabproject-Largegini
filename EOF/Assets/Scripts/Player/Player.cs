@@ -14,8 +14,10 @@ public class Player : MonoBehaviour
     public float _maxHealth = 100f;
     public float _attack;
     public float _defensive;
-    public int _behavioralGauge;
-    public bool _freeze;
+    public int _behavioralGauge;// 행동력게이지
+    public bool _freeze;        // 냉동
+    public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
+    public float _heal;
     private void Awake()
     {
         Instance = this;
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour
         _attack = 5f;
         _freeze = false;
         _defensive = 20f;
+        _reverse = false;
+        _heal = 5f;
     }
 
     public IEnumerator Attack()
@@ -59,5 +63,24 @@ public class Player : MonoBehaviour
             }
         }
         _health -= damage;
+    }
+
+    public IEnumerator Heal()
+    {
+        Debug.Log("회복");
+        yield return new WaitForSeconds(0.5f);
+        if (_reverse)
+        {
+            ReceiveDamage(_heal);
+            _reverse = false;
+        }
+        else
+        {
+            _health += _heal;
+            if (_health > _maxHealth)
+            {
+                _health = _maxHealth;
+            }
+        }
     }
 }
