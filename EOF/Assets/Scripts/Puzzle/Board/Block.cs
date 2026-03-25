@@ -20,10 +20,23 @@ public class Block : MonoBehaviour
     public BlockDataSO Data => _blockData;
     public EBlockType Type => _blockData != null ? _blockData.Type : EBlockType.None;
     public EBlockStatus Status => _status;
-    
+
+    public IBoardInteractable Board { get; private set; }
+    public RectTransform Rect { get; private set; }
+
+    public BlockDragHandler DragHandler { get; private set; }
+
     // 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 호출 
-    public void Init(int2 pos, BlockDataSO data)
+    public void Init(int2 pos, BlockDataSO data, IBoardInteractable board)
     {
+        if (Rect == null)
+            Rect = GetComponent<RectTransform>();
+        if(_blockImage == null)
+            _blockImage = GetComponent<Image>();
+        if (DragHandler == null)
+            DragHandler = GetComponent<BlockDragHandler>();
+        
+        Board = board;
         _gridPosition = pos;
         _blockData = data;
         _status = EBlockStatus.None;
@@ -38,7 +51,7 @@ public class Block : MonoBehaviour
         if (_blockImage == null || _blockData == null) return;
         
         // 재사용되는 경우를 위한 상태 초기화
-        _blockImage.sprite = _blockData.Sprite;
+        // _blockImage.sprite = _blockData.Sprite;
         _blockImage.color = _blockData.Color;
         
         // TODO (차후 구현): 상태에 따른 시각적 변화 처리

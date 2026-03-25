@@ -25,7 +25,7 @@
 
 R&D 시작
 
-## 테스트용 UI 및 프리팹 제작
+### 테스트용 UI 및 프리팹 제작
 
 **테스트용 더미 UI 그리드**
 ![alt text](Resources/Grid_Dummy.png)
@@ -52,7 +52,7 @@ RectTransformUtility.RectangleContainsScreenPoint로
 드롭 위치가 인접 그리드 슬롯(상하좌우 4칸) 안에 있는지 판정한다.
 해당 슬롯 안이면 스왑, 아니면 원위치 복귀. 
 
-## Grid2D 스크립트 작성
+### Grid2D 스크립트 작성
 
 **기본 게임플레이**
 기본 매치3 게임플레이는 2D 그리드를 타일(블록)로 채운 뒤, 플레이어가 타일을 교환하여 매치를 만드는 것이다. 매칭된 타일은 제거되고, 위의 타일들이 떨어져 빈 칸을 채우며, 필요에 따라 새 타일이 추가된다.
@@ -102,27 +102,193 @@ Unity 직렬화가 다차원 배열을 지원하지 않아서다.
 - 보드 전체를 비우는 초기화 메서드(`Clear()`) 추가.
 - `yield return`과 튜플을 사용해 모든 셀을 순회하는 반복자(`GetAllCells()`)를 추가하여 편의성을 높임.
 
+## Day 3 — 2026-03-24
 
-## 임시 메모
-BlockType (enum) — None, Attack, Defense, Heal, Special
+아침 회의 및 에셋 세팅 진행
 
-BlockDataSO (ScriptableObject) — 타입별 데이터
-├── BlockType type
-├── Color color          ← 임시 컬러 (나중에 스프라이트로 교체)
-├── Sprite sprite        ← 나중에 픽셀 아트 들어오면
-└── float effectValue    ← 블록당 효과 수치 (공격 5, 방어 2 등)
+### BoardManager 스크립트 작성
 
-Block (MonoBehaviour) — 그리드 위의 블록 오브젝트
-├── BlockDataSO 참조
-├── 자기 그리드 좌표 (x, y)
-├── Image 컴포넌트 참조
-└── SetBlock(BlockDataSO) — 타입 세팅 + 비주얼 반영
+그리드와 블록까지 기본 단위 스크립트를 작성했으므로 이제 게임 보드를 채우고 관리하기 위한 스크립트를 작성한다.
 
-Scripts/Puzzle/Core/
-├── BlockType.cs        ← enum: None, Attack, Defense, Heal, Special
-├── BlockDataSO.cs      ← SO: 타입별 색상, 스프라이트, 효과 수치
-└── Grid2D.cs           ← 이미 완성
+우선 블록을 담을 그리드 변수 필요.
+보드관리자 스크립트니 보드의 정보를 담을 변수 선언.
+행과 열의 갯수를 설정한다.
 
-Scripts/Puzzle/Board/
-├── Block.cs            ← MonoBehaviour: BlockType 세팅, 이미지 교체, 드래그
-└── BoardManager.cs     ← 보드 초기화, 블록 배치
+- 스폰할 블록 프리팹
+- 블록들이 생성될 부모 캔버스 패널
+- 스폰 시 랜덤으로 부여할 SO 데이터 풀
+- 스폰 위치(그리드) 계산용 시작 좌표 및 셀 간격 세팅
+- 초기 생성시 보드를 초기화 호출한다.
+- 블록으로 그리드 구조 데이터를 생성하고
+- 기존 수동 할당 방식에서 동적 계산 방식으로 전환하여, `BoardLayout` 클래스를 통해 산출된 UI 좌표에 맞춰 블록 객체를 생성 및 배치한다.
+- 생성된 블록에는 SO 데이터를 통해 랜덤하게 데이터를 초기화하며 랜덤 스폰을 완료한다.
+- 캔버스 기반 UI 객체이므로 위치 할당 시 `RectTransform.anchoredPosition`을 사용하며, 슬롯 앵커는 Center로 통일하여 좌표가 어긋남을 방지함.
+- `ResetBoard` 로직 추가: 불필요한 파괴 및 재생성을 하지 않고 기존 오브젝트를 유지하되 데이터만 교체하며 비주얼 및 데이터를 갱신한다.
+
+![alt text](Resources/RandomSpawn.png)
+랜덤 스폰이 완료된 모습, 아직 초기 매칭 방지 로직은 없고 보드 초기화 기능 정상 동작 확인.
+
+### 퍼즐 로직 보강 논의
+
+---
+
+**보드 구조**
+
+전체 그리드를 12행 x 5열(보이는 6행 + 버퍼 6행)로 통합 관리한다. `SGrid2D<Block>`은 하나만 쓰고, y 0~5가 버퍼 영역, y 6~11이 플레이 영역이다. 그리드 슬롯 오브젝트는 60개(보드 30 + 버퍼 30)를 배치하되, 보드 패널에 `RectMask2D`를 걸어서 버퍼 행은 시각적으로 가린다.
+
+**블록 라이프사이클**
+
+블록 GameObject는 초기 생성 후 파괴하지 않는다. 매치 소멸 시 연출(알파 off 등) 후 비활성 상태로 전환하고, 버퍼 최상단 슬롯으로 논리적 재배치한 뒤 새 SO 데이터로 `Init()`하여 재사용한다.
+
+**낙하 로직**
+
+매치 제거 후 각 열별로 빈 칸을 아래부터 탐색한다. 빈 칸 위에 있는 블록들을 순차적으로 아래로 당기고, 버퍼 행의 블록들이 보드 영역으로 내려온다. 이동은 DoTween `DOAnchorPos`로 목표 슬롯 좌표까지 연출하며, 열별로 약간의 delay를 주어 캐스케이드 느낌을 준다.
+
+**블록 상태 관리**
+
+블록에 상태 구분을 둔다(활성 / 연출중 / 비활성 등). 연출중·비활성 블록은 입력 및 매칭 판정에서 제외한다. 낙하 완료 후 전체 블록이 활성 상태가 되면 보드 전체 매칭 스캔을 수행한다.
+
+**시드 기반 초기화**
+
+`UnityEngine.Random` 대신 `System.Random` 인스턴스를 사용한다. 스테이지 SO에 시드값 필드를 두고, CSV 파이프라인으로 세팅한다. 시드가 있으면 해당 시드로, 없으면 순수 랜덤으로 보드를 생성한다.
+
+**매칭 판정 범위**
+
+매칭 체크는 보이는 보드 영역(y 6~11)에서만 수행한다. 버퍼 행 블록은 내려와서 보드에 안착한 시점부터 판정 대상이 된다.
+
+![alt text](Resources/BufferBlocks.png)
+버퍼 영역까지 위치 보정해서 블록 생성 완료된 모습  
+마스킹은 일부러 끈 상태
+
+---
+
+### 블록 드래그 시스템 개발
+
+퍼즐에 한해서만 동작할 블록 드래그처리를 담당할 기능을 개발한다.
+
+inputAction을 활용하기 보다는 UI에서 지원하는 Handler 이벤트를 활용해 구현한다.
+
+IPointerDownHandler + IDragHandler + IPointerUpHandler
+
+UI에 클릭했을때 Down, 그 상태에서 드래그할때 Drag, 클릭을 멈추고 땔때 Up
+
+**Block**
+- 드래그 시작점을 저장
+- 스와이프 방향 판정
+  - 델타값에서 상하좌우 중 가장 큰 축으로 (OnPointerUp 또는 OnDrag에서 임계값 넘었을 때)
+- 판정된 방향 + 자신의 그리드 좌표를 BoardManager에 전달
+
+**BoardManager**
+- 스왑 요청 수신 (어떤 블록이 어느 방향으로)
+- 인접 좌표 유효성 검사 (보드 범위 내인지, 버퍼 행 아닌지)
+- 두 블록의 그리드 데이터 + 좌표 교환
+
+- Block.cs 에서 Board 매니저를 연결해서 의존성 주입(DI)
+  - BlockDragHandler에서 보드를 안찾아도된다.
+  - BoardManager에서 블록을 생성할때 자신을 연결해준다.
+
+- `IBoardInteractable` 인터페이스 도입으로 Block/DragHandler가 BoardManager 구체 타입에 의존하지 않도록 분리
+  - `CanInteract(int2 pos)`: 버퍼 영역 및 블록 상태 기반 입력 차단
+  - `OnSwipeBlock(int2 pos, Vector2Int dir)`: 스왑 요청 수신
+
+- `_isDragging` 플래그로 `CanInteract` 실패한 터치가 `OnPointerUp`까지 흘러가는 엣지 케이스 차단
+
+- 임계값(DRAG_THRESHOLD = 30px) 미만의 미세 터치는 무시하여 의도치 않은 스와이프 방지
+
+### 블록 스왑 구현
+
+스와이프 방향으로 인접 블록과 교체하는 스왑 로직을 구현했다.
+
+- 스왑 시 세 가지를 교환: 그리드 데이터 참조, 논리 좌표(SetPosition), UI 좌표(anchoredPosition)
+- UI Y축 반전 보정: UI에서 위로 드래그하면 direction.y = 1이지만 그리드에서는 y 감소 방향이므로 `pos.y - direction.y`로 보정
+- `IsValidPlayArea`로 타겟 좌표가 보이는 영역 내인지 검증
+- 매칭 없을 시 되돌리기는 같은 SwapBlocks를 한 번 더 호출하면 됨
+
+### Block RectTransform 캐싱
+
+스왑마다 `GetComponent<RectTransform>()` 호출하는 성능 낭비를 방지하기 위해, `Block.Init()` 시점에 `Rect` 프로퍼티로 캐싱. 이후 모든 좌표 접근은 `block.Rect.anchoredPosition`으로 통일.
+
+### 보드 시스템 역할 분리
+
+BoardManager가 비대해지는 것을 방지하기 위해 역할별로 클래스를 분리했다.
+
+- **BoardManager**: 흐름 제어 컨트롤러. Inspector 설정 보유, 하위 시스템 생성 및 조율, 입력 검증(CanInteract, IsValidPlayArea)
+- **BoardSpawner**: 블록 생성(SpawnBlock/SpawnAll) 및 데이터 교체(ResetAll) 담당
+- **BoardSwapper**: 블록 스왑 실행 담당. 그리드 데이터 교환, 논리 좌표 교환, UI 좌표 교환
+
+모두 순수 C# 클래스로 구현하여 MonoBehaviour 의존 없이 동작하며, BoardManager가 Awake에서 `SGrid2D<Block>`과 `BoardLayout`을 주입하여 생성한다.
+
+`SGrid2D`가 struct이지만 내부 `T[] cells`가 참조 타입이므로, 복사되어도 같은 배열을 가리켜 하위 시스템 간 데이터 동기화에 문제없음. 단, `readonly` 키워드를 붙이면 struct 멤버 수정이 불가하므로 제거하여 사용.
+
+## Day 4 - 2026-03-25
+
+아침 회의 및 WBS 등 문서 작업 사전 진행
+
+### 스왑 DoTween 연출
+
+즉시 좌표 교환 대신 `DOAnchorPos`로 슬라이딩 이동 연출을 적용했다.
+
+블록 상태(EBlockStatus)에 연출 중 상태(Moving)을 추가해서 연출 중 블록 조작 방지
+
+BoardSwapper에 DoTween 연출을 넣는다.  
+스왑 시 즉시 좌표 교환 대신 DOAnchorPos로 슬라이딩하고, 연출 시작 시 블록 상태를 연출중으로 바꾸고 완료 시 복귀하는 흐름
+
+- 스왑 시작 시 양쪽 블록을 `EBlockStatus.Moving`으로 전환
+- `DOAnchorPos`로 목표 좌표까지 0.2초 슬라이딩 (`Ease.OutQuad`)
+- 완료 콜백에서 `EBlockStatus.None`으로 복귀
+- `CanInteract`에서 `Status != None`이면 차단하므로 연출 중 입력 차단은 자동으로 처리됨
+
+### 드래그 앤 드랍 방식 스왑 구현
+
+스와이프 방식 DoTween 연출 테스트를 완료 했으므로 드래그 앤 드랍 방식의 스왑을 구현한다.
+
+1. OnPointerDown: 블록 들어올림 (시각적 피드백 + 원래 위치 저장)
+2. OnDrag: 블록이 손가락 따라 이동
+3. OnPointerUp: 놓은 위치 → 그리드 인덱스 역변환 → 인접 칸이면 스왑, 아니면 원위치 복귀
+
+UI 좌표 → 그리드 인덱스 인덱스 역변환 스크립트를 `BoardLayout`에 작성
+
+**드래그 시 동작 방식**
+유효한 칸에 놓음: 즉시 스냅 + 상대 블록만 DoTween으로 드래그한 블록의 자리로 슬라이딩
+잘못된 칸에 놓음: 드래그한 블록만 DoTween으로 원위치 복귀
+
+**필요 요소**
+드래그 시작 전 원래 UI 좌표
+터치 지점과 블록 중심의 오프셋
+
+**드래그 범위 제한 (클램핑)**
+- 1차: 원래 위치에서 stride + cellSize * 0.3f 범위 내로 제한. 셀 외곽 허용치를 0.5가 아닌 0.3으로 제한한 이유는 `BoardLayout.GetGridIndex`의 `RoundToInt` 반올림 시 0.5면 인접 1칸이 아닌 2칸 인덱스가 반환될 수 있기 때문.
+- 2차: 보드 외곽선(셀 중심 ± cellSize * 0.5f) 범위로 추가 클램핑. 이중 제한으로 보드 밖으로 절대 나가지 않도록 보장.
+
+**놓은 위치 판정 방식**
+`OnPointerUp`에서 마우스 원본 좌표 대신 클램핑된 블록의 현재 `anchoredPosition`으로 그리드 인덱스를 계산. 드래그 중 보이는 위치와 판정 위치가 일치하도록 보장.
+
+**스왑 참조 타이밍 주의점**
+`SwapFromDrag`에서 `_blocks.Swap` 호출 후 참조를 잡아야 논리 좌표와 그리드 위치가 일치함. Swap 전에 참조를 잡으면 `SetPosition`과 UI 좌표 방향이 뒤바뀌어 두 번째 스왑부터 데이터가 꼬이는 버그 발생. `Swap` 메서드와 동일한 패턴(Swap 후 참조)으로 통일.
+
+**IBoardInteractable 확장**
+- `GetGridIndex(Vector2)`: UI 좌표 → 그리드 인덱스 역변환
+- `IsValidSwapTarget(int2, int2)`: 맨해튼 거리 기반 인접 1칸 검증
+- `OnDragSwapBlock(int2, int2)`: 드래그 스왑 요청
+- `GetStride()`, `GetCellSize()`: 드래그 클램핑용
+- `GetBoardMin()`, `GetBoardMax()`: 보드 외곽 클램핑용
+
+### 보드 프로세싱 잠금
+
+스왑 연출 중 다른 블록 조작을 방지하기 위해 `_isProcessing` 플래그를 BoardManager에 도입했다.
+
+- BoardManager가 `_isProcessing` 플래그를 소유하고, `CanInteract`에서 체크하여 전체 입력 차단
+- BoardSwapper는 `System.Action` 콜백(`onSwapStart`, `onSwapEnd`)으로 BoardManager에 연출 시작/완료를 알림
+- Swapper가 플래그를 직접 모르고 콜백으로만 통신하여 책임 분리 유지
+- 양쪽 블록 DoTween 완료를 카운터(`completed`)로 추적하여, 두 블록 모두 완료된 시점에 `onSwapEnd` 호출
+- 매 스왑 시작 시 카운터를 0으로 리셋하여 누적 버그 방지
+- 매칭/낙하/연쇄 처리에서도 동일한 `_isProcessing` 플래그로 확장 예정
+
+
+
+
+### 대기 작업 목록
+- 매칭 판정 (MatchFinder)
+- 블록 제거 + 낙하 + 리필 + 연쇄 루프
+- 드래그 중 교환 가능 셀 하이라이트 시스템
+- 퍼즐 결과 아웃풋 (UnityEvent<PuzzleResult>)
