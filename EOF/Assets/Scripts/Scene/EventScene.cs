@@ -26,5 +26,6 @@ public class EventScene: IScene
     public void Exit()
     {
         // 이벤트 씬 퇴장
+        SceneLoader.Intance.StageIndex += 1;
     }
 }

@@ -26,5 +26,6 @@ public class BattleScene:IScene
     public void Exit()
     {
         // 배틀 씬 퇴장
+        SceneLoader.Intance.StageIndex += 1;
     }
 }

@@ -4701,6 +4701,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingManager
   settingCanvas: {fileID: 348245892}
+  NodeBtns:
+  - {fileID: 1228811424}
+  - {fileID: 1594346069}
+  - {fileID: 35486225}
+  - {fileID: 254314926}
+  - {fileID: 1394699292}
 --- !u!1 &1637895365
 GameObject:
   m_ObjectHideFlags: 0
