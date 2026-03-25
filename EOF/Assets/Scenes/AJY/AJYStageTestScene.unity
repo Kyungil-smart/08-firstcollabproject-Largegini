@@ -276,7 +276,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 35486228}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1607860732}
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: OnClickBattleNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &35486228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,7 +879,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 254314929}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1607860732}
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: OnClickEventNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &254314929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3241,7 +3265,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1228811427}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1607860732}
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: OnClickBattleNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1228811427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3861,7 +3897,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1394699295}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1607860732}
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: OnClickBattleNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1394699295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4470,7 +4518,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1594346072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1607860732}
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: OnClickEventNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1594346072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4641,6 +4701,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingManager
   settingCanvas: {fileID: 348245892}
+  NodeBtns:
+  - {fileID: 1228811424}
+  - {fileID: 1594346069}
+  - {fileID: 35486225}
+  - {fileID: 254314926}
+  - {fileID: 1394699292}
 --- !u!1 &1637895365
 GameObject:
   m_ObjectHideFlags: 0
@@ -5486,19 +5552,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1985573177}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1985573177
 MonoBehaviour:
   m_ObjectHideFlags: 0
