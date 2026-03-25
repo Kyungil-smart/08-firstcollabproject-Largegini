@@ -15,7 +15,7 @@ public class Envoy : Monster
     public override IEnumerator PatternProbability()
     {
         yield return new WaitForSeconds(.5f);
-        int _probability = Random.Range(60, 100);
+        int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
             FirstPattern();
