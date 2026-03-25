@@ -305,7 +305,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1e83b6833c3903640aa3de757116180c, type: 2}
   - {fileID: 11400000, guid: 7456159e83db4914bb69cc7fcc12b75b, type: 2}
   spawnPoint: {fileID: 1671707711}
-  _currentStageIndex: 2
+  _currentStageIndex: 0
 --- !u!1 &1415925436
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,49 +10,61 @@ using Random = UnityEngine.Random;
  */
 public class RedOak : Monster
 {
+    public bool _berserker;
     private void Awake()
     {
         _maxhealth = 100f;
-        _minDamage = 10;
+        _minDamage = 30;
+        _berserker = false;
     }
 
     public override IEnumerator PatternProbability()
     {
-       yield return new WaitForSeconds(.5f);
-       int _probability = Random.Range(0, 100);
-       if (0 <= _probability && _probability < 60)
-       {
-           FirstPattern();
-       }
-       else if(60 <= _probability && _probability < 85)
-       {
-           SecondPattern();
-       }
-       else
-       {
-           ThirdPattern();
-       }
-       yield return new WaitForSeconds(.5f);
+        if (_health <= _maxhealth * 0.5f) 
+        {
+            Debug.Log("광전사");
+            _berserker = true;
+        }
+
+        if (_berserker)
+        {
+            _minDamage += 10;
+        }
+        yield return new WaitForSeconds(.5f);
+        int _probability = Random.Range(0, 100);
+        if (0 <= _probability && _probability < 60)
+        {
+            FirstPattern();
+        }
+        else if(60 <= _probability && _probability < 85)
+        {
+            SecondPattern();
+        }
+        else
+        {
+            ThirdPattern();
+        }
+        yield return new WaitForSeconds(.5f);
     }
     
     public override void FirstPattern()
     {
-        Debug.Log("눈먼 휘두르기");
-        _damage = Random.Range(_minDamage, 21);
+        Debug.Log("휘두르기");
+        _damage = Random.Range(_minDamage - 10, 31);
         Player.Instance.ReceiveDamage(_damage);
     }
 
     public override void SecondPattern()
     {
-        Debug.Log("전력 휘두르기");
-        _damage = Random.Range(_minDamage, 71);
+        Debug.Log("강타");
+        _damage = Random.Range(_minDamage, 41);
         Player.Instance.ReceiveDamage(_damage);
     }
 
     public override void ThirdPattern()
     {
         Debug.Log("깨부수기");
-        _damage = Random.Range(_minDamage, 71);
+        _damage = Random.Range(_minDamage, 41);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;
         Player.Instance.ReceiveDamage(_damage);
