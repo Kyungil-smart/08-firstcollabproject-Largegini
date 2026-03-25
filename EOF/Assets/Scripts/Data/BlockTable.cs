@@ -25,7 +25,7 @@ public class BlockTable : IDataTableInfo
             return false;
         }
 
-
+        /*
         foreach (var row in dataList)
         {
             BlockDataSO newBlock = new BlockDataSO();
@@ -37,7 +37,7 @@ public class BlockTable : IDataTableInfo
             // ID 중복이면 에러 뱉기
             else Debug.LogError($"{newBlock.Type}가 중복입니다.");
         }
-
+        */
 
         return true;
     }
