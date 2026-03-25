@@ -44,8 +44,7 @@ public class BlueDragon : Monster
     public override void SecondPattern()
     {
         Debug.Log("회복");
-        float _heal = _health * 0.1f;
-        _health += _heal;
+        _health += _health * 0.1f;
         if (_health > _maxhealth)
         {
             _health = _maxhealth;
