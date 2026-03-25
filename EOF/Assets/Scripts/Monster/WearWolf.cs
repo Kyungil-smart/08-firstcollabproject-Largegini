@@ -8,6 +8,7 @@ public class WearWolf : Monster
         _maxhealth = 200f;
         _minDamage = 20;
     }
+
     public override IEnumerator PatternProbability()
     { 
         int _probability = Random.Range(0, 100);

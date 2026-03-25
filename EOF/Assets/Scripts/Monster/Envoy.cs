@@ -14,6 +14,7 @@ public class Envoy : Monster
         _minDamage = 30;
         _soulHarvest = 0;
     }
+    
     public override IEnumerator PatternProbability()
     {
         Debug.Log(_soulHarvest);
