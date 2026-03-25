@@ -15,6 +15,10 @@ public class SceneLoader : MonoBehaviour
 
    public TitleScene Title;
    public StageScene Stage;
+   public BattleScene Battle;
+   public EventScene Event;
+   
+   // 스테이지 진행 정보
    
    private void Awake()
    {
@@ -59,5 +63,7 @@ public class SceneLoader : MonoBehaviour
        
        Title = new TitleScene();
        Stage = new StageScene();
+       Battle = new BattleScene();
+       Event = new EventScene();
    }
 }
