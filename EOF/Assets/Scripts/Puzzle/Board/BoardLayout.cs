@@ -8,6 +8,8 @@ public class BoardLayout
     private readonly Vector2 _startPos;
     private readonly float _stride;
     private readonly int _bufferRows;
+    
+    public float Stride => _stride;
 
     public BoardLayout(Vector2 startPos, float cellSize, float spacing, int bufferRows)
     {
@@ -20,4 +22,12 @@ public class BoardLayout
         => new(_startPos.x + x * _stride, _startPos.y - (y - _bufferRows) * _stride);
     public Vector2 GetPosition(int2 pos)
         => new(_startPos.x + pos.x * _stride, _startPos.y - (pos.y - _bufferRows) * _stride);
+    
+    // UI 좌표 → 그리드 인덱스
+    public int2 GetGridIndex(Vector2 position)
+    {
+        int x = Mathf.RoundToInt((position.x - _startPos.x) / _stride);
+        int y = _bufferRows - Mathf.RoundToInt((position.y - _startPos.y) / _stride);
+        return new int2(x, y);
+    }
 }

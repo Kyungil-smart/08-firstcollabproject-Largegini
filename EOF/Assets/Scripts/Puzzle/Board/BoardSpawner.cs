@@ -39,6 +39,8 @@ public class BoardSpawner
 
         // UI 좌표 설정 - Init 이후 Rect 캐싱됨
         newBlock.Rect.anchoredPosition = _layout.GetPosition(pos);
+        // 스크린 -> 로컬 좌표 변환
+        newBlock.DragHandler.SetBoardPanel(_boardPanel);
 
         // 그리드 데이터에 등록
         _blocks[pos] = newBlock;

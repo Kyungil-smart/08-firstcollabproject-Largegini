@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // 요약 : 블록의 정보를 담을 SO
@@ -16,4 +18,19 @@ public class BlockDataSO : ScriptableObject
     public Color Color => _color;
     public Sprite Sprite => _sprite;
     public float EffectValue => _effectValue;
+    
+    public void SetBlockData(Dictionary<string, object> row)
+    {
+        _type = (EBlockType)Enum.Parse(typeof(EBlockType), Convert.ToString(row["Type"]));
+    
+        float r = Convert.ToSingle(row["ColorR"]);
+        float g = Convert.ToSingle(row["ColorG"]);
+        float b = Convert.ToSingle(row["ColorB"]);
+        _color = new Color(r, g, b);
+    
+        string spriteName = Convert.ToString(row["Sprite"]);
+        _sprite = Resources.Load<Sprite>(spriteName); // 또는 Addressables
+    
+        _effectValue = Convert.ToInt32(row["EffectValue"]);
+    }
 }

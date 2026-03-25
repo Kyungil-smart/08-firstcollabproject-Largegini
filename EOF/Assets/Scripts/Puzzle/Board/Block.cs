@@ -24,6 +24,8 @@ public class Block : MonoBehaviour
     public IBoardInteractable Board { get; private set; }
     public RectTransform Rect { get; private set; }
 
+    public BlockDragHandler DragHandler { get; private set; }
+
     // 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 호출 
     public void Init(int2 pos, BlockDataSO data, IBoardInteractable board)
     {
@@ -31,6 +33,8 @@ public class Block : MonoBehaviour
             Rect = GetComponent<RectTransform>();
         if(_blockImage == null)
             _blockImage = GetComponent<Image>();
+        if (DragHandler == null)
+            DragHandler = GetComponent<BlockDragHandler>();
         
         Board = board;
         _gridPosition = pos;

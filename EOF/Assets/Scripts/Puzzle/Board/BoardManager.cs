@@ -22,6 +22,7 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
     private BoardLayout _layout;
     private BoardSwapper _swapper;
     private BoardSpawner _spawner;
+    private bool _isProcessing;
 
     private void Awake()
     {
@@ -38,7 +39,10 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
 
         // 하위 시스템 생성
         _spawner = new BoardSpawner(_blocks, _layout, _blockPrefab, _boardPanel, _blockDatas, this);
-        _swapper = new BoardSwapper(_blocks, _layout);
+        _swapper = new BoardSwapper(_blocks, _layout,
+            () => _isProcessing = true,
+            () => _isProcessing = false
+        );
 
         // 초기 블록 스폰
         _spawner.SpawnAll(_columns, _rows);
@@ -53,6 +57,9 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
     // 블록 상호작용 가능 여부 체크
     public bool CanInteract(int2 pos)
     {
+        // 스왑, 드랍 등의 프로세스 진행중엔 상호작용 금지
+        if (_isProcessing) return false;
+        
         // 버퍼 구역이면 터치 금지
         if (pos.y < _bufferRows) return false;
 
@@ -65,6 +72,8 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
         return true;
     }
 
+    // ====== 스와이프 ======
+    
     // 드래그 방향이 결정되면 핸들러가 이 함수를 요청
     public void OnSwipeBlock(int2 pos, Vector2Int direction)
     {
@@ -76,6 +85,64 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
 
         // 스왑 실행
         _swapper.Swap(pos, targetPos);
+    }
+
+    // ====== 드래그 앤 드롭 ======
+    
+    // 스크린 -> 로컬 좌표 변환을 통해 블록을 놓을 그리드 번호 반환
+    public int2 GetGridIndex(Vector2 anchoredPosition)
+    {
+        return _layout.GetGridIndex(anchoredPosition);
+    }
+    
+    // 스왑 가능한 칸인지 체크
+    public bool IsValidSwapTarget(int2 from, int2 to)
+    {
+        // 플레이 영역 내인지
+        if (!IsValidPlayArea(to)) return false;
+    
+        // 인접 1칸인지 (대각선 불가)
+        int2 diff = to - from;
+        // 맨해튼 거리가 1이 아니면 인접하지 않음 (대각선은 거리 2이므로 자동 차단)
+        if (math.abs(diff.x) + math.abs(diff.y) != 1) return false;
+    
+        // 대상 블록이 상호작용 가능한지
+        if (!CanInteract(to)) return false;
+    
+        return true;
+    }
+
+    public void OnDragSwapBlock(int2 from, int2 to)
+    {
+        _swapper.SwapFromDrag(from, to);
+    }
+    
+    public float GetStride()
+    {
+        return _layout.Stride;
+    }
+    
+    public float GetCellSize()
+    {
+        return _cellSize;
+    }
+    
+    // 블록 중심이 외곽선에 걸치도록 셀 반칸(cellSize/2)만큼 바깥으로 확장
+    
+    public Vector2 GetBoardMin()
+    {
+        // 보이는 영역 좌하단 (x=0, y=rows-1)
+        Vector2 min = _layout.GetPosition(0, _rows - 1);
+        float half = _cellSize * 0.5f;
+        return new Vector2(min.x - half, min.y - half);
+    }
+
+    public Vector2 GetBoardMax()
+    {
+        // 보이는 영역 우상단 (x=columns-1, y=bufferRows)
+        Vector2 min = _layout.GetPosition(_columns - 1, _bufferRows);
+        float half = _cellSize * 0.5f;
+        return new Vector2(min.x + half, min.y + half);
     }
 
     // 플레이 가능한 영역에서만 스왑이 가능하도록 설정

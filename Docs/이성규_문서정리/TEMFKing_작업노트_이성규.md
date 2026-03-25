@@ -194,3 +194,101 @@ UI에 클릭했을때 Down, 그 상태에서 드래그할때 Drag, 클릭을 멈
 - `_isDragging` 플래그로 `CanInteract` 실패한 터치가 `OnPointerUp`까지 흘러가는 엣지 케이스 차단
 
 - 임계값(DRAG_THRESHOLD = 30px) 미만의 미세 터치는 무시하여 의도치 않은 스와이프 방지
+
+### 블록 스왑 구현
+
+스와이프 방향으로 인접 블록과 교체하는 스왑 로직을 구현했다.
+
+- 스왑 시 세 가지를 교환: 그리드 데이터 참조, 논리 좌표(SetPosition), UI 좌표(anchoredPosition)
+- UI Y축 반전 보정: UI에서 위로 드래그하면 direction.y = 1이지만 그리드에서는 y 감소 방향이므로 `pos.y - direction.y`로 보정
+- `IsValidPlayArea`로 타겟 좌표가 보이는 영역 내인지 검증
+- 매칭 없을 시 되돌리기는 같은 SwapBlocks를 한 번 더 호출하면 됨
+
+### Block RectTransform 캐싱
+
+스왑마다 `GetComponent<RectTransform>()` 호출하는 성능 낭비를 방지하기 위해, `Block.Init()` 시점에 `Rect` 프로퍼티로 캐싱. 이후 모든 좌표 접근은 `block.Rect.anchoredPosition`으로 통일.
+
+### 보드 시스템 역할 분리
+
+BoardManager가 비대해지는 것을 방지하기 위해 역할별로 클래스를 분리했다.
+
+- **BoardManager**: 흐름 제어 컨트롤러. Inspector 설정 보유, 하위 시스템 생성 및 조율, 입력 검증(CanInteract, IsValidPlayArea)
+- **BoardSpawner**: 블록 생성(SpawnBlock/SpawnAll) 및 데이터 교체(ResetAll) 담당
+- **BoardSwapper**: 블록 스왑 실행 담당. 그리드 데이터 교환, 논리 좌표 교환, UI 좌표 교환
+
+모두 순수 C# 클래스로 구현하여 MonoBehaviour 의존 없이 동작하며, BoardManager가 Awake에서 `SGrid2D<Block>`과 `BoardLayout`을 주입하여 생성한다.
+
+`SGrid2D`가 struct이지만 내부 `T[] cells`가 참조 타입이므로, 복사되어도 같은 배열을 가리켜 하위 시스템 간 데이터 동기화에 문제없음. 단, `readonly` 키워드를 붙이면 struct 멤버 수정이 불가하므로 제거하여 사용.
+
+## Day 4 - 2026-03-25
+
+아침 회의 및 WBS 등 문서 작업 사전 진행
+
+### 스왑 DoTween 연출
+
+즉시 좌표 교환 대신 `DOAnchorPos`로 슬라이딩 이동 연출을 적용했다.
+
+블록 상태(EBlockStatus)에 연출 중 상태(Moving)을 추가해서 연출 중 블록 조작 방지
+
+BoardSwapper에 DoTween 연출을 넣는다.  
+스왑 시 즉시 좌표 교환 대신 DOAnchorPos로 슬라이딩하고, 연출 시작 시 블록 상태를 연출중으로 바꾸고 완료 시 복귀하는 흐름
+
+- 스왑 시작 시 양쪽 블록을 `EBlockStatus.Moving`으로 전환
+- `DOAnchorPos`로 목표 좌표까지 0.2초 슬라이딩 (`Ease.OutQuad`)
+- 완료 콜백에서 `EBlockStatus.None`으로 복귀
+- `CanInteract`에서 `Status != None`이면 차단하므로 연출 중 입력 차단은 자동으로 처리됨
+
+### 드래그 앤 드랍 방식 스왑 구현
+
+스와이프 방식 DoTween 연출 테스트를 완료 했으므로 드래그 앤 드랍 방식의 스왑을 구현한다.
+
+1. OnPointerDown: 블록 들어올림 (시각적 피드백 + 원래 위치 저장)
+2. OnDrag: 블록이 손가락 따라 이동
+3. OnPointerUp: 놓은 위치 → 그리드 인덱스 역변환 → 인접 칸이면 스왑, 아니면 원위치 복귀
+
+UI 좌표 → 그리드 인덱스 인덱스 역변환 스크립트를 `BoardLayout`에 작성
+
+**드래그 시 동작 방식**
+유효한 칸에 놓음: 즉시 스냅 + 상대 블록만 DoTween으로 드래그한 블록의 자리로 슬라이딩
+잘못된 칸에 놓음: 드래그한 블록만 DoTween으로 원위치 복귀
+
+**필요 요소**
+드래그 시작 전 원래 UI 좌표
+터치 지점과 블록 중심의 오프셋
+
+**드래그 범위 제한 (클램핑)**
+- 1차: 원래 위치에서 stride + cellSize * 0.3f 범위 내로 제한. 셀 외곽 허용치를 0.5가 아닌 0.3으로 제한한 이유는 `BoardLayout.GetGridIndex`의 `RoundToInt` 반올림 시 0.5면 인접 1칸이 아닌 2칸 인덱스가 반환될 수 있기 때문.
+- 2차: 보드 외곽선(셀 중심 ± cellSize * 0.5f) 범위로 추가 클램핑. 이중 제한으로 보드 밖으로 절대 나가지 않도록 보장.
+
+**놓은 위치 판정 방식**
+`OnPointerUp`에서 마우스 원본 좌표 대신 클램핑된 블록의 현재 `anchoredPosition`으로 그리드 인덱스를 계산. 드래그 중 보이는 위치와 판정 위치가 일치하도록 보장.
+
+**스왑 참조 타이밍 주의점**
+`SwapFromDrag`에서 `_blocks.Swap` 호출 후 참조를 잡아야 논리 좌표와 그리드 위치가 일치함. Swap 전에 참조를 잡으면 `SetPosition`과 UI 좌표 방향이 뒤바뀌어 두 번째 스왑부터 데이터가 꼬이는 버그 발생. `Swap` 메서드와 동일한 패턴(Swap 후 참조)으로 통일.
+
+**IBoardInteractable 확장**
+- `GetGridIndex(Vector2)`: UI 좌표 → 그리드 인덱스 역변환
+- `IsValidSwapTarget(int2, int2)`: 맨해튼 거리 기반 인접 1칸 검증
+- `OnDragSwapBlock(int2, int2)`: 드래그 스왑 요청
+- `GetStride()`, `GetCellSize()`: 드래그 클램핑용
+- `GetBoardMin()`, `GetBoardMax()`: 보드 외곽 클램핑용
+
+### 보드 프로세싱 잠금
+
+스왑 연출 중 다른 블록 조작을 방지하기 위해 `_isProcessing` 플래그를 BoardManager에 도입했다.
+
+- BoardManager가 `_isProcessing` 플래그를 소유하고, `CanInteract`에서 체크하여 전체 입력 차단
+- BoardSwapper는 `System.Action` 콜백(`onSwapStart`, `onSwapEnd`)으로 BoardManager에 연출 시작/완료를 알림
+- Swapper가 플래그를 직접 모르고 콜백으로만 통신하여 책임 분리 유지
+- 양쪽 블록 DoTween 완료를 카운터(`completed`)로 추적하여, 두 블록 모두 완료된 시점에 `onSwapEnd` 호출
+- 매 스왑 시작 시 카운터를 0으로 리셋하여 누적 버그 방지
+- 매칭/낙하/연쇄 처리에서도 동일한 `_isProcessing` 플래그로 확장 예정
+
+
+
+
+### 대기 작업 목록
+- 매칭 판정 (MatchFinder)
+- 블록 제거 + 낙하 + 리필 + 연쇄 루프
+- 드래그 중 교환 가능 셀 하이라이트 시스템
+- 퍼즐 결과 아웃풋 (UnityEvent<PuzzleResult>)
