@@ -1,20 +1,17 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 /*
  * 작성자 : 김동현
- * 블루드래곤용 스크립트
+ * 보스몬스터(사신)용 스크립트
  */
-public class BlueDragon : Monster
+public class Envoy : Monster
 {
     private void Awake()
     {
-        _maxhealth = 200f;
+        _maxhealth = 300f;
         _minDamage = 20;
     }
-
     public override IEnumerator PatternProbability()
     {
         yield return new WaitForSeconds(.5f);
@@ -36,26 +33,23 @@ public class BlueDragon : Monster
 
     public override void FirstPattern()
     {
-        Debug.Log("깨물기");
-        _damage = Random.Range(_minDamage, 21);
+        Debug.Log("영혼베기");
+        Player.Instance._defensive = 0;
+        _damage = Random.Range(_minDamage, 31);
         Player.Instance.ReceiveDamage(_damage);
     }
 
     public override void SecondPattern()
     {
-        Debug.Log("회복");
-        _health += _health * 0.1f;
-        if (_health > _maxhealth)
-        {
-            _health = _maxhealth;
-        }
+        Debug.Log("생자필멸");
+        _damage = Random.Range(_minDamage, 31);
+        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance._reverse = true;
     }
 
     public override void ThirdPattern()
     {
-        Debug.Log("프로스트 브레스");
-        _damage = Random.Range(_minDamage, 21);
-        Player.Instance.ReceiveDamage(_damage);
-        Player.Instance._freeze = true;
+        Debug.Log("종말의 전조");
+        Player.Instance._theEnd = true;
     }
 }

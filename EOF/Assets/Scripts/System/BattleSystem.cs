@@ -54,16 +54,17 @@ public class BattleSystem : MonoBehaviour
                         {
                             _currentStageIndex = stages.Length - 1;
                         }
-
                         yield break;
                     }
 
+                    if (Player.Instance._theEnd) Player.Instance.ReceiveDamage(5f);
+             
                     if (Player.Instance._behavioralGauge >= 10)
                     {
                         i++;
                         Player.Instance._behavioralGauge = 0;
                     }
-                    
+                    Player.Instance._reverse = false;
                 }
                 _battle = BattleTurn.eTurn;
             }
