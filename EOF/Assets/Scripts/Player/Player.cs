@@ -6,7 +6,6 @@ using UnityEngine;
  * 작성자 : 김동현
  * 플레이어가 가지는 기능
  * (ex. 공격)
- * 코루틴으로 작성
  */
 public class Player : MonoBehaviour
 {
@@ -15,15 +14,18 @@ public class Player : MonoBehaviour
     public float _maxHealth = 100f;
     public float _attack;
     public float _defensive;
+    public int _behavioralGauge;
+    public bool _freeze;
     private void Awake()
     {
         Instance = this;
         _health = _maxHealth;
         _attack = 5f;
+        _freeze = false;
         _defensive = 20f;
     }
 
-    public IEnumerator Attack(Monster target)
+    public IEnumerator Attack()
     {
         Debug.Log("공격");
         yield return new WaitForSeconds(0.5f); 
@@ -31,6 +33,13 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+    public IEnumerator SpecialATK()
+    {
+        Debug.Log("특수 공격");
+        yield return new WaitForSeconds(0.5f);
+        Monster.Instance.ReceiveDamage(_attack / 2);
+        _behavioralGauge += 5;
+    }
     public void ReceiveDamage(float damage)
     {
         if (_defensive > 0)
