@@ -16,20 +16,21 @@ public class BlueDragon : Monster
         _maxhealth = 200f;
         _damage = 20;
         _dragonScale = false;
-        _passiveCount = 0;
+        _passiveCount = 1;
     }
 
     public override IEnumerator PatternProbability()
     {
-        if (_health <= 1f)
+        if (_health <= 1f && _passiveCount > 0)
         {
             _health = 1f;
             _dragonScale = true;
         }
 
+        
         if (_dragonScale)
         {
-            _health += 10f;
+            
             
         }
         
@@ -73,5 +74,10 @@ public class BlueDragon : Monster
         _damage = Random.Range(_minDamage, 21);
         Player.Instance.ReceiveDamage(_damage);
         Player.Instance._freeze = true;
+    }
+
+    public void DragonScale()
+    {
+        _health += 10;
     }
 }
