@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b416cf396cb1b4d468a058061fa323ff, type: 3}
-  m_Name: 3Stage
+  m_Name: BlueDragon
   m_EditorClassIdentifier: Assembly-CSharp::StagewithMonster
-  Enemy: {fileID: 6770616939483295838, guid: 7d3a9c9c61c19d543a33211281d3d7c5, type: 3}
+  Enemy: {fileID: 1033207694988195695, guid: 953d608fbac54384d83c5fb1115bf102, type: 3}
   StageNumber: 2

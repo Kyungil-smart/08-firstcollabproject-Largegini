@@ -18,12 +18,12 @@ public class Player : MonoBehaviour
     public bool _freeze;        // 냉동
     public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
     public float _heal;
-    public bool _theEnd;
+    public bool _theEnd;        // 사신 필살기용 도트대미지
     private void Awake()
     {
         Instance = this;
         _health = _maxHealth;
-        _attack = 5f;
+        _attack = 20f;
         _freeze = false;
         _defensive = 20f;
         _reverse = false;
@@ -83,5 +83,12 @@ public class Player : MonoBehaviour
                 _health = _maxHealth;
             }
         }
+    }
+
+    public IEnumerator Defensive()
+    {
+        Debug.Log("쉴드");
+        yield return new WaitForSeconds(0.5f);
+        _defensive += 20;
     }
 }

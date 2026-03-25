@@ -18,7 +18,7 @@ public abstract class Monster : MonoBehaviour
         _health = _maxhealth;
     }
     
-    public void ReceiveDamage(float damage)
+    public virtual void ReceiveDamage(float damage)
     {
         _health -= damage;
     }
