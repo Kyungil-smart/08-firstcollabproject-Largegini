@@ -39,7 +39,12 @@ public class BattleSystem : MonoBehaviour
                 for (int i = 3; i > 0; i--)
                 {
                     yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
-                    yield return StartCoroutine(_player.Attack(_enemy));
+                    if (Player.Instance._freeze)
+                    {
+                        i--;
+                        Player.Instance._freeze = false;
+                    }
+                    yield return StartCoroutine(_player.Attack());
                     // 승리 기능
                     if (_enemy._health <= 0)
                     {
@@ -52,6 +57,13 @@ public class BattleSystem : MonoBehaviour
 
                         yield break;
                     }
+
+                    if (Player.Instance._behavioralGauge >= 10)
+                    {
+                        i++;
+                        Player.Instance._behavioralGauge = 0;
+                    }
+                    
                 }
                 _battle = BattleTurn.eTurn;
             }

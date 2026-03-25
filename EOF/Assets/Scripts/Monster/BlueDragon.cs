@@ -54,6 +54,9 @@ public class BlueDragon : Monster
 
     public override void ThirdPattern()
     {
-        
+        Debug.Log("프로스트 브레스");
+        _damage = Random.Range(_minDamage, 21);
+        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance._freeze = true;
     }
 }
