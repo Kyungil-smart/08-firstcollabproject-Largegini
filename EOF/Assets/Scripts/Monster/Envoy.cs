@@ -40,16 +40,14 @@ public class Envoy : Monster
     {
         Debug.Log("영혼가르기");
         Player.Instance._defensive = 0;
-        _damage = Random.Range(_minDamage, _minDamage + 11);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
         _soulHarvest++;
     }
 
     public override void SecondPattern()
     {
         Debug.Log("생자필멸");
-        _damage = Random.Range(_minDamage - 10, _minDamage);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage));
         Player.Instance._reverse = true;
         _soulHarvest++;
     }
@@ -57,8 +55,7 @@ public class Envoy : Monster
     public override void ThirdPattern()
     {
         Debug.Log("종말");
-        _damage = Random.Range(_minDamage + 20, _minDamage + 41);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage + 20, _minDamage + 41));
         Player.Instance._theEnd = true;
         _soulHarvest++;
     }

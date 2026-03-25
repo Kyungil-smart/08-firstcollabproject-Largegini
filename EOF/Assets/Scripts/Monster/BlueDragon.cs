@@ -14,7 +14,7 @@ public class BlueDragon : Monster
     private void Awake()
     {
         _maxhealth = 200f;
-        _damage = 20;
+        _minDamage = 40;
         _dragonScale = false;
         _passiveCount = 1;
     }
@@ -26,12 +26,10 @@ public class BlueDragon : Monster
             _health = 1f;
             _dragonScale = true;
         }
-
         
         if (_dragonScale)
         {
-            
-            
+            DragonScale();
         }
         
         int _probability = Random.Range(0, 100);
@@ -54,8 +52,7 @@ public class BlueDragon : Monster
     public override void FirstPattern()
     {
         Debug.Log("드래곤 클로");
-        _damage = Random.Range(_minDamage, 21);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
     }
 
     public override void SecondPattern()
@@ -71,8 +68,7 @@ public class BlueDragon : Monster
     public override void ThirdPattern()
     {
         Debug.Log("프로스트 브레스");
-        _damage = Random.Range(_minDamage, 21);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
         Player.Instance._freeze = true;
     }
 

@@ -84,4 +84,11 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator Defensive()
+    {
+        Debug.Log("쉴드");
+        yield return new WaitForSeconds(0.5f);
+        _defensive += 20;
+    }
 }

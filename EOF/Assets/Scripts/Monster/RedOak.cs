@@ -49,15 +49,13 @@ public class RedOak : Monster
     public override void FirstPattern()
     {
         Debug.Log("휘두르기");
-        _damage = Random.Range(_minDamage - 10, _minDamage + 11);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
     }
 
     public override void SecondPattern()
     {
         Debug.Log("강타");
-        _damage = Random.Range(_minDamage, _minDamage + 11);
-        Player.Instance.ReceiveDamage(_damage);
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
     }
 
     public override void ThirdPattern()
