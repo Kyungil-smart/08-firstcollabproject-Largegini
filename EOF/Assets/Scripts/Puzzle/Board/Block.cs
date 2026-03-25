@@ -21,13 +21,13 @@ public class Block : MonoBehaviour
     public EBlockType Type => _blockData != null ? _blockData.Type : EBlockType.None;
     public EBlockStatus Status => _status;
 
-    public IBoardInteractable Board { get; private set; }
+    public IBoard Board { get; private set; }
     public RectTransform Rect { get; private set; }
 
     public BlockDragHandler DragHandler { get; private set; }
 
     // 처음 생성될 때, 또는 화면 밖에서 재배치되어 내려올 때 호출 
-    public void Init(int2 pos, BlockDataSO data, IBoardInteractable board)
+    public void Init(int2 pos, BlockDataSO data, IBoard board)
     {
         if (Rect == null)
             Rect = GetComponent<RectTransform>();

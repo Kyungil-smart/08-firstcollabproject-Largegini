@@ -3,7 +3,7 @@ using UnityEngine;
 
 // 요약 : 퍼즐 보드 전체를 관리하는 컨트롤러 스크립트
 // 작성자 : 이성규
-public class BoardManager : MonoBehaviour, IBoardInteractable
+public class BoardManager : MonoBehaviour, IBoard
 {
     [Header("Board Settings")]
     [SerializeField, Tooltip("행/높이")] private int _rows = 12;
@@ -23,7 +23,11 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
     private BoardSwapper _swapper;
     private BoardSpawner _spawner;
     private bool _isProcessing;
-
+    
+    public Block GetBlock(int2 pos) => _blocks[pos];
+    public void SetBlock(int2 pos, Block block) => _blocks[pos] = block;
+    public void SwapBlocks(int2 posA, int2 posB) => _blocks.Swap(posA, posB);
+    
     private void Awake()
     {
         // 레이아웃은 보드 초기화와 무관하게 고정값이므로 Awake에서 한 번만 생성
@@ -38,8 +42,8 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
         _blocks = new SGrid2D<Block>(new int2(_columns, _rows));
 
         // 하위 시스템 생성
-        _spawner = new BoardSpawner(_blocks, _layout, _blockPrefab, _boardPanel, _blockDatas, this);
-        _swapper = new BoardSwapper(_blocks, _layout,
+        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas);
+        _swapper = new BoardSwapper(this, _layout,
             () => _isProcessing = true,
             () => _isProcessing = false
         );

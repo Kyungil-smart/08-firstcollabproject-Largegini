@@ -6,7 +6,7 @@ using System;
 // 작성자 : 이성규
 public class BoardSwapper
 {
-    private SGrid2D<Block> _blocks;
+    private readonly IBoardData _data;
     private readonly BoardLayout _layout;
     private const float SWAP_DURATION = 0.5f;
     private readonly Action _onSwapStart;
@@ -14,10 +14,10 @@ public class BoardSwapper
 
     private int completed;
 
-    public BoardSwapper(SGrid2D<Block> blocks, BoardLayout layout, 
+    public BoardSwapper(IBoardData data, BoardLayout layout, 
         Action onSwapStart, Action onSwapEnd)
     {
-        _blocks = blocks;
+        _data = data;
         _layout = layout;
         _onSwapStart = onSwapStart;
         _onSwapEnd = onSwapEnd;
@@ -40,10 +40,10 @@ public class BoardSwapper
         OnSwapStart();
         
         // 그리드 데이터 교환
-        _blocks.Swap(posA, posB);
+        _data.SwapBlocks(posA, posB);
 
-        Block blockA = _blocks[posA];
-        Block blockB = _blocks[posB];
+        Block blockA = _data.GetBlock(posA);
+        Block blockB = _data.GetBlock(posB);
 
         // 논리 좌표 교환
         blockA.SetPosition(posA);
@@ -73,11 +73,11 @@ public class BoardSwapper
         OnSwapStart();
         
         // 그리드 데이터 교환
-        _blocks.Swap(draggedPos, targetPos);
+        _data.SwapBlocks(draggedPos, targetPos);
 
         // Swap 후 참조 — draggedPos에는 원래 target이, targetPos에는 원래 dragged가 있음
-        Block nowAtDragged = _blocks[draggedPos]; // 원래 target
-        Block nowAtTarget = _blocks[targetPos];   // 원래 dragged
+        Block nowAtDragged = _data.GetBlock(draggedPos); // 원래 target
+        Block nowAtTarget = _data.GetBlock(targetPos);   // 원래 dragged
         
         // 논리 좌표 교환 — Swap 후 dragged는 targetPos에, target은 draggedPos에 있음
         // 논리 좌표를 현재 그리드 위치와 일치시킴
