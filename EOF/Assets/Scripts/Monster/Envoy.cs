@@ -15,7 +15,7 @@ public class Envoy : Monster
     public override IEnumerator PatternProbability()
     {
         yield return new WaitForSeconds(.5f);
-        int _probability = Random.Range(60, 85);
+        int _probability = Random.Range(60, 100);
         if (0 <= _probability && _probability < 60)
         {
             FirstPattern();
@@ -49,6 +49,7 @@ public class Envoy : Monster
 
     public override void ThirdPattern()
     {
-        
+        Debug.Log("종말의 전조");
+        Player.Instance._theEnd = true;
     }
 }

@@ -44,7 +44,7 @@ public class BattleSystem : MonoBehaviour
                         i--;
                         Player.Instance._freeze = false;
                     }
-                    yield return StartCoroutine(_player.Heal());
+                    yield return StartCoroutine(_player.Attack());
                     // 승리 기능
                     if (_enemy._health <= 0)
                     {
@@ -54,16 +54,17 @@ public class BattleSystem : MonoBehaviour
                         {
                             _currentStageIndex = stages.Length - 1;
                         }
-
                         yield break;
                     }
 
+                    if (Player.Instance._theEnd) Player.Instance.ReceiveDamage(5f);
+             
                     if (Player.Instance._behavioralGauge >= 10)
                     {
                         i++;
                         Player.Instance._behavioralGauge = 0;
                     }
-                    
+                    Player.Instance._reverse = false;
                 }
                 _battle = BattleTurn.eTurn;
             }

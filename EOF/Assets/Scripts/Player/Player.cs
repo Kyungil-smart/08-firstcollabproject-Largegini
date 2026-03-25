@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public bool _freeze;        // 냉동
     public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
     public float _heal;
+    public bool _theEnd;
     private void Awake()
     {
         Instance = this;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
         _freeze = false;
         _defensive = 20f;
         _reverse = false;
+        _theEnd = false;
         _heal = 5f;
     }
 
@@ -72,7 +74,6 @@ public class Player : MonoBehaviour
         if (_reverse)
         {
             ReceiveDamage(_heal);
-            _reverse = false;
         }
         else
         {
