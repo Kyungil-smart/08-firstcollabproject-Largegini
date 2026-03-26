@@ -7,16 +7,17 @@ using UnityEngine;
  */
 public abstract class Monster : MonoBehaviour
 {
-    [SerializeField] protected float _maxhealth;
+    [SerializeField] public float _maxhealth;
     protected float _damage;
     public static Monster Instance;
     public float _health;
     public float _tableMaxHP;
     public int _minDamage;
+    
     private void Start()
     {
         Instance = this;
-        InitStat();
+        //InitStat();
         _health = _maxhealth;
         
     }

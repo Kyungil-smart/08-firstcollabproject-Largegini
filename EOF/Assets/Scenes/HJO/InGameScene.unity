@@ -338,6 +338,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6323738018598151837, guid: 52e9c94bbef5a5f4cbaf3f9924f38c90, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -292
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323738018598151837, guid: 52e9c94bbef5a5f4cbaf3f9924f38c90, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 365
+      objectReference: {fileID: 0}
     - target: {fileID: 8518868437066038059, guid: 52e9c94bbef5a5f4cbaf3f9924f38c90, type: 3}
       propertyPath: m_Name
       value: =====InGame=====
