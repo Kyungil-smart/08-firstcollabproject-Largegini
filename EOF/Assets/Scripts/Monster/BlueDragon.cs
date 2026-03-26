@@ -35,6 +35,7 @@ public class BlueDragon : Monster
                 _defensive = 0;
                 _health -= damage;
                 _dragonScale = false;
+                
             }
         }
         else
@@ -46,6 +47,8 @@ public class BlueDragon : Monster
                 _health = 1f;
                 _dragonScale = true;
                 _defensive = 200f;
+                _passiveCount--;
+                if (_passiveCount <= 0) _passiveCount = 0;
             }
         }
     }
@@ -100,8 +103,6 @@ public class BlueDragon : Monster
 
     public void DragonScale()
     {
-        _passiveCount--;
-        if (_passiveCount <= 0) _passiveCount = 0;
         _health += 30f;
         _defensive = 200f;
         if (_health > _maxhealth * 0.5f)
