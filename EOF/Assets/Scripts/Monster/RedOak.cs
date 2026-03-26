@@ -17,6 +17,7 @@ public class RedOak : Monster
         // InitStat();
         _minDamage = 30;
         _berserker = false;
+        _maxhealth = 200f;
     }
 
     public override IEnumerator PatternProbability()
