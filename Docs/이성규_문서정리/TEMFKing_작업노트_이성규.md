@@ -3,7 +3,7 @@
 **작성자**: 이성규  
 **게임명**: 스러진 왕의 영원한 행진(The Eternal March of the Fallen King)  
 **작성일**: 2026-03-23  
-**최종 수정**: 2026-03-24  
+**최종 수정**: 2026-03-26  
 
 ## 프로젝트 개요
 
@@ -458,7 +458,7 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 
 **처리 흐름**
 - 스왑 완료 후 매치 없을 때 데드락 체크 수행
-- 데드락 발견 시 UnityEvent(_onDeadlock) 발사 + ResetBoard
+- 데드락 발견 시 UnityEvent(_onDeadlock) 발사
 - UI 팀은 _onDeadlock에 팝업 연결
 
 **BoardValidator 분리**
@@ -469,10 +469,18 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 - CreateDeadlockBoard: 체커보드 패턴으로 강제 데드락 보드 생성
 - 테스트 버튼에 할당하여 데드락 감지 및 리셋 동작 검증
 
+### 셀 하이라이트
 
+드래그 중 블록이 위치한 셀에 이동 가능 여부를 시각적으로 표시하는 기능.
 
-### 진행 작업 리스트
-- 셀 하이라이트, 초기 보드 3매치 방지, 데드락 판정
+**구현 방식**
+- Block 프리팹 자식에 하이라이트 Image를 배치, 기본 비활성 상태
+- 별도 셀 오브젝트 시스템 없이 블록 자체가 하이라이트를 들고 있는 구조
+- Block.SetHighlight(bool, Color?)로 켜고 끄기 + 색상 변경
 
-Inspector에서 BoardManager의 OnPuzzleComplete에 연결하거나
-    // 코드로 AddListener
+**드래그 중 동작**
+- OnDrag에서 매 프레임 현재 위치의 그리드 인덱스 계산
+- 자기 자신 위치면 하이라이트 끔
+- 호버된 블록이 이전과 같으면 스킵 (불필요한 갱신 방지)
+- 맨해튼 거리로 대각선 여부 판별: 인접 1칸이면 초록색, 대각선이면 빨간색
+- OnPointerUp에서 하이라이트 전부 해제

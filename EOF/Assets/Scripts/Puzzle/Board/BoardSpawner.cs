@@ -52,11 +52,11 @@ public class BoardSpawner
     }
 
     // 전체 블록 스폰 (초기 생성)
-    public void SpawnAll(int columns, int rows)
+    public void SpawnAll()
     {
-        for (int y = 0; y < rows; y++)
+        for (int y = 0; y < _rows; y++)
         {
-            for (int x = 0; x < columns; x++)
+            for (int x = 0; x < _columns; x++)
             {
                 var pos = new int2(x, y);
                 Block newBlock = Object.Instantiate(_blockPrefab, _boardPanel);
@@ -70,11 +70,11 @@ public class BoardSpawner
     }
 
     // 기존 오브젝트를 유지하되 데이터만 교체 (리셋)
-    public void ResetAll(int columns, int rows)
+    public void ResetAll()
     {
-        for (int y = 0; y < rows; y++)
+        for (int y = 0; y < _rows; y++)
         {
-            for (int x = 0; x < columns; x++)
+            for (int x = 0; x < _columns; x++)
             {
                 var pos = new int2(x, y);
                 var block = _board.GetBlock(pos);

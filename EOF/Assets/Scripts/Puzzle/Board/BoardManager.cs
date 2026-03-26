@@ -81,12 +81,12 @@ public class BoardManager : MonoBehaviour, IBoard
             _animSettings, _columns, _rows, _bufferRows);
         _validator = new BoardValidator(this, _matchFinder, _columns, _rows, _bufferRows);
         
-        _spawner.SpawnAll(_columns, _rows);
+        _spawner.SpawnAll();
     }
 
     public void ResetBoard()
     {
-        _spawner.ResetAll(_columns, _rows);
+        _spawner.ResetAll();
     }
 
     // ====== 상호작용 검증 ======
