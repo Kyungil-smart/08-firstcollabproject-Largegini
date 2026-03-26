@@ -458,6 +458,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: _currentStageIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: 'stages.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 9a2473f24e9b8e943a0fbc02d42be966, type: 2}
