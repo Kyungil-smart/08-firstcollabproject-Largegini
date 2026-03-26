@@ -73,7 +73,7 @@ public class BoardManager : MonoBehaviour, IBoard
         _matchFinder = new MatchFinder(this, _columns, _rows, _bufferRows);
         
         // 블록 Spawner 생성
-        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas, _columns, _rows);
+        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas, _columns, _rows, _bufferRows);
         // 블록 Swapper 생성
         _swapper = new BoardSwapper(this, _layout, _animSettings, 
             () => _isProcessing = true, OnSwapComplete);
