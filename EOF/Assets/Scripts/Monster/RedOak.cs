@@ -14,10 +14,9 @@ public class RedOak : Monster
     private void Awake()
     {
         // _maxhealth = _tableMaxHP;
-        // InitStat();
+        InitStat();
         _minDamage = 30;
         _berserker = false;
-        _maxhealth = 200f;
     }
 
     public override IEnumerator PatternProbability()
