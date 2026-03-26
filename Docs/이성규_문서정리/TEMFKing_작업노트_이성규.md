@@ -303,7 +303,7 @@ BoardSwapper는 `IBoardData`만, BlockDragHandler는 `IBoardQuery` + `IBoardInte
 
 **Match 구조체**
 - 매치 정보의 기본 단위: 시작 좌표, 길이, 방향(가로/세로), 블록 타입
-- 콤보 계산 및 전투 아웃풋에서 타입별 집계에 활용 예정
+- 콤보 계산 및 전투 아웃풋에서 타입별 집계에 활용
 
 **MatchFinder 클래스**
 - IBoardData를 통해 그리드 데이터에 접근
@@ -313,16 +313,104 @@ BoardSwapper는 `IBoardData`만, BlockDragHandler는 `IBoardQuery` + `IBoardInte
 
 **SGrid2D 범위 순회 추가**
 - `GetCellsInRange(startY, endY)`: 지정 영역만 순회하는 반복자 추가
-- MatchFinder에서 플레이 영역만 탐색할 때 활용 예정
+- MatchFinder에서 플레이 영역만 탐색할 때 활용
 
-### 다음 작업 (내일)
-- FindAllMatches 로직 구현 (가로/세로 3매치 탐색)
-- 매치 후 블록 제거 → 낙하 → 리필 → 연쇄 루프
+
+## Day 5 - 2026-03-26
+
+### FindAllMatches 로직 구현
+
+가로/세로 3매치 탐색
+
+- 플레이 영역 전체에서 3개 이상 연속된 동일 타입 블록을 탐색
+- 가로/세로 독립 탐색으로 L자, T자 매치도 자연스럽게 잡힘
+- 기획서 기준 매치 형태 무관 일괄 소멸이므로 형태별 분기 불필요, "동일 타입 3개 이상 연속"만 판정
+
+GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 통합 순회보다 개별 for 루프를 돌려야해 안쓰게 됨.
+
+- 가로 매치 탐색 — 각 행을 왼쪽부터 스캔하며 연속 동일 타입 카운트
+- 세로 매치 탐색 — 각 열을 위에서부터 스캔하며 연속 동일 타입 카운트
+- 연속 끝까지 건너뛰어 중복 탐색 방지, 4매치 5매치도 count로 자연스럽게 처리
+- 탐색 범위는 플레이 영역(bufferRows ~ rows-1)만, 버퍼 행 블록은 기획서 규칙대로 판정 제외
+- 결과를 SMatch 구조체(시작 좌표, 길이, 방향, 블록 타입) 리스트로 반환, 타입별 콤보 집계에 활용
+
+### 스왑 완료 → 매칭 체크 연결
+
+- 스왑 연출 완료 콜백(`_onSwapEnd`)에서 `OnSwapComplete` 호출
+- 매치 발견 시 `_isProcessing` 유지한 채 연쇄 처리 진행, 모든 연쇄 완료 후 해제
+- 매치 없으면 되돌리기 스왑 후 `_isProcessing` 해제
+- `_isProcessing = false`를 콜백에서 직접 하지 않고 `OnSwapComplete` 안에서만 제어 — 매치 있을 때 잠깐 false 되는 틈에 입력이 들어오는 버그 방지
+
+### BoardSwapper 리팩터링
+
+- Swap/SwapFromDrag 중복 로직을 ExecuteSwap + AnimateBlock으로 통합
+- 드래그 스왑도 양쪽 DoTween 슬라이딩으로 통일
+
+### 연쇄 루프 구현
+
+스왑 완료 → 매칭 체크 → 제거 → 낙하 완료 → 매칭 체크 → 제거 → 낙하 완료 → 매칭 체크 → 없으면 끝
+
+#### 클리어
+
+- SMatch 리스트에서 실제 블록 좌표를 추출하여 제거
+- 가로/세로 매치의 시작 좌표 + 길이 + 방향으로 개별 좌표를 펼침
+- HashSet으로 중복 제거 — L자, T자 매치에서 교차점 블록이 가로/세로 양쪽에 잡히므로
+
+### 낙하(DropBlocks)
+
+매치 제거 후 빈 칸을 채우기 위해 블록을 아래로 당김
+
+**낙하 로직 흐름**
+1. 열별로 빈 칸 채우기
+   - 각 열을 맨 아래(rows-1)부터 위로 스캔. 빈 칸 발견하면 그 위에서 활성 블록 찾아서 당겨내림. 버퍼 행 블록도 포함해서 전체 열을 처리.
+2. 그리드 데이터 + 논리 좌표 갱신
+   - 블록이 새 위치로 이동하면 _data.SetBlock + SetPosition으로 데이터 동기화.
+3. DoTween 낙하 연출
+   - 원래 위치에서 새 위치로 DOAnchorPos. 낙하 거리에 비례해서 duration 설정하면 자연스럽고, 열별로 약간의 딜레이 주면 캐스케이드 느낌.
+4. 완료 감지
+   - 모든 낙하 DoTween 완료 시 콜백.
+
+**그리드 데이터 동기화**
+- `SetBlock(newPos, block)` + `SetBlock(oldPos, null)`로 그리드 데이터 갱신
+- `block.SetPosition(newPos)`로 논리 좌표 갱신
+- UI 좌표는 DoTween이 처리
+
+**낙하 연출**
+- 낙하 거리에 비례한 duration으로 자연스러운 속도 차이
+- `Ease.InQuad`로 가속 낙하 느낌
+- 모든 블록 낙하 완료를 카운터로 추적, 전부 완료 시 콜백 호출
+- 낙하할 블록이 없으면 즉시 완료 콜백
+
+### 애니메이션 설정 인스펙터 노출
+
+하드코딩된 연출 수치를 `BoardAnimationSettings` 직렬화 클래스로 분리하여 Inspector에서 실시간 튜닝 가능하게 했다.
+
+- `[System.Serializable]` 클래스로 BoardManager 안에 배치
+- Swap: duration, Ease 타입
+- Drop: 셀당 duration, Ease 타입
+- Match: 제거 후 대기시간, 리필 후 대기시간
+- BoardSwapper, BoardProcessor 생성 시 주입하여 내부 const 교체
+- 코드 수정 없이 인스펙터에서 수치/Ease 조절 가능
+
+### 리필 구현
+
+낙하 처리 후 빈 칸(null)에 비활성 블록을 재활용하여 채우는 로직.
+
+**재활용 풀 방식**
+- DropBlocks에서 빈 칸을 null로 처리하므로 Despawn된 블록 참조가 그리드에서 사라짐
+- ClearMatches에서 Despawn된 블록을 별도 리스트(`_recyclePool`)에 보관하여 참조 유지
+- RefillBuffer에서 빈 칸(null)을 위에서부터 순회하며 풀에서 순서대로 꺼내 재활용
+- 루프 종료 후 풀 클리어
+
+**리필 책임 분리**
+- 블록 데이터 교체 및 배치는 BoardSpawner의 `RefillBlock(pos, recycled)` 담당
+- BoardProcessor는 빈 칸 탐색 + Spawner 호출만 수행
+- Init이 데이터 + 상태 + 비주얼 + SetActive(true) 전부 복원하므로 별도 활성화 처리 불필요
+
+
+
+### 진행 작업 리스트
 - 콤보 카운트 및 퍼즐 결과 아웃풋
 - 이후 폴리싱으로 DoTween 연출, 셀 하이라이트, 초기 보드 3매치 방지, 데드락 판정 
 
-### 대기 작업 목록
-- 매칭 판정 (MatchFinder)
-- 블록 제거 + 낙하 + 리필 + 연쇄 루프
-- 드래그 중 교환 가능 셀 하이라이트 시스템
-- 퍼즐 결과 아웃풋 (UnityEvent<PuzzleResult>)
+- 드래그 중 하이라이트: 놓을 위치에 임시 스왑 후 FindAllMatches로 매치 가능 여부 확인
