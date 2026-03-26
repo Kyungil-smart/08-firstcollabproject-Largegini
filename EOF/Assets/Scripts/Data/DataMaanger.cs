@@ -53,7 +53,7 @@ public class DataManager : MonoBehaviour
         // *** 게임에 필요한 테이블 생길 때 마다 등록 필요 (추후 어드레서블로 변경 필요)
         LoadTable<MonsterTable>("Tables/MonsterDataTable");
         LoadTable<PuzzleTable>("Tables/PuzzleDataTable");
-        LoadTable<PuzzleTable>("Tables/BlockDataTable");
+        LoadTable<BlockTable>("Tables/Table_Block");
 
     }
 

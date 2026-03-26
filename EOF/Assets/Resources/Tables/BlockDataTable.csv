@@ -1,5 +1,0 @@
-﻿Type,ColorR,ColorG,ColorB,ColorAlpha,SpriteAddress,EffectValue
-Attack,0,0,0,255,,0
-Defense,64,0,64,255,,0
-Heal,0,128,0,255,,0
-Special,192,192,0,255,,0
