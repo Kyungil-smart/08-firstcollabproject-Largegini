@@ -427,5 +427,52 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 - 전투 팀원은 인스펙터에서 자기 스크립트 메서드 드래그 연결하거나 코드로 AddListener
 - 콤보 계산식(결과 = 기본값 * (1 + (N-1) * 배율))은 전투 쪽 책임, 퍼즐에서는 원재료만 전달
 
+### 초기 보드 3매치 방지
+
+초기 스폰 및 리셋 시 플레이 영역에서 3매치가 성립되지 않도록 블록 타입을 선택하는 로직.
+
+**방지 원리**
+- 왼쪽에서 오른쪽, 위에서 아래 순서로 배치하므로 현재 칸 기준 왼쪽/위쪽 블록은 이미 확정됨
+- WouldCauseMatch: 왼쪽 2칸 + 위쪽 2칸이 같은 타입이면 매치 성립으로 판정
+- GetNonMatchingData: 매치 유발 타입을 제외한 후보 리스트에서 랜덤 선택, 시도 횟수 반복 방식 대신 후보 필터링으로 무한 루프 가능성 제거
+- 블록 타입 4개 중 가로/세로 최대 2개 제외돼도 후보가 최소 2개 남음
+
+**적용 범위**
+- SpawnAll(초기 생성)과 ResetAll(리셋) 시에만 적용
+- 버퍼 영역(y < bufferRows)은 기획서대로 매치 허용, 플레이 영역만 방지
+- SpawnBlock(단일 생성)과 RefillBlock(리필)은 순수 랜덤 유지
+
+**리팩터링**
+- SpawnAll/ResetAll 공통 로직을 InitBlockSafe로 추출
+- 생성자에서 받은 필드(_rows, _columns, _bufferRows) 활용, 메서드 파라미터 제거
+
+### 데드락 판정
+
+플레이 영역에서 어떤 인접 스왑도 매치를 만들 수 없는 상태를 판정하는 로직.
+
+**판정 방식**
+- 플레이 영역 전체 순회, 각 블록에서 오른쪽/아래쪽 인접 스왑 시뮬레이션
+- 임시 스왑 → MatchFinder.FindAllMatches로 매치 여부 체크 → 즉시 되돌림
+- 오른쪽/아래쪽만 체크하면 모든 인접 쌍이 커버됨 (왼쪽/위쪽은 이전 칸에서 이미 체크)
+- 매치 가능한 스왑이 하나라도 있으면 즉시 false 반환 (early exit)
+
+**처리 흐름**
+- 스왑 완료 후 매치 없을 때 데드락 체크 수행
+- 데드락 발견 시 UnityEvent(_onDeadlock) 발사 + ResetBoard
+- UI 팀은 _onDeadlock에 팝업 연결
+
+**BoardValidator 분리**
+- 데드락 판정 로직을 BoardValidator 순수 C# 클래스로 분리
+- BoardManager는 Validator 호출 + 이벤트 발사만 담당
+
+**테스트**
+- CreateDeadlockBoard: 체커보드 패턴으로 강제 데드락 보드 생성
+- 테스트 버튼에 할당하여 데드락 감지 및 리셋 동작 검증
+
+
+
 ### 진행 작업 리스트
 - 셀 하이라이트, 초기 보드 3매치 방지, 데드락 판정
+
+Inspector에서 BoardManager의 OnPuzzleComplete에 연결하거나
+    // 코드로 AddListener
