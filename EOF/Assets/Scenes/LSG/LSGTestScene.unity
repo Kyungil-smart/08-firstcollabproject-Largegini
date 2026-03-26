@@ -820,6 +820,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7487792727176071701, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9114926510483230407, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
       propertyPath: m_Name
       value: Canvas_PuzzleBoard

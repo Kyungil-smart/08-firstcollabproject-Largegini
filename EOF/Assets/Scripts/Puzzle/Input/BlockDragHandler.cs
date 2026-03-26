@@ -32,7 +32,7 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         _isDragging = false;
-        // _boardManager.CanInteract 대신 블록이 들고 있는 매니저 참조 사용
+        
         // 터치하는 순간부터 조작 가능 여부 검사 (버퍼 영역이거나 연출 중이면 무시)
         if (!_block.Board.CanInteract(_block.GridPos)) return;
         

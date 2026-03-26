@@ -59,4 +59,16 @@ public struct SGrid2D<T>
             }
         }
     }
+    
+    // 보드의 지정된 영역을 순회하며 (x, y, T)를 반환하는 반복자
+    public IEnumerable<(int2 pos, T value)> GetCellsInRange(int startY, int endY)
+    {
+        for (int y = startY; y < endY; y++)
+        {
+            for (int x = 0; x < size.x; x++)
+            {
+                yield return (new int2(x, y), this[x, y]);
+            }
+        }
+    }
 }

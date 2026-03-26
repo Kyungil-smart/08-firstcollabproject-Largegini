@@ -1,9 +1,29 @@
+using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
+
+// 인스펙터 애니메이션 설정 조절
+[System.Serializable]
+public class BoardAnimationSettings
+{
+    
+    [Header("Swap")]
+    public float swapDuration = 0.2f;
+    public Ease swapEase = Ease.OutQuad;
+
+    [Header("Drop")]
+    public float dropDurationPerCell = 0.08f;
+    public Ease dropEase = Ease.InQuad;
+
+    [Header("Match")]
+    public float clearDelay = 0.3f;
+    public float refillDelay = 0.2f;
+}
 
 // 요약 : 퍼즐 보드 전체를 관리하는 컨트롤러 스크립트
 // 작성자 : 이성규
-public class BoardManager : MonoBehaviour, IBoardInteractable
+public class BoardManager : MonoBehaviour, IBoard
 {
     [Header("Board Settings")]
     [SerializeField, Tooltip("행/높이")] private int _rows = 12;
@@ -12,18 +32,31 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
     [SerializeField, Tooltip("그리드 시작 위치")] private RectTransform _startRect;
     [SerializeField, Tooltip("그리드 한칸당 크기")] private float _cellSize;
     [SerializeField, Tooltip("그리드간 간격")] private float _spacing;
-
+    
+    [Header("Animation")]
+    [SerializeField] private BoardAnimationSettings _animSettings;
+    
     [Header("References")]
     [SerializeField] private Block _blockPrefab;        // 스폰할 블록 프리팹
     [SerializeField] private RectTransform _boardPanel; // 블록들이 생성될 부모 캔버스 패널
     [SerializeField] private BlockDataSO[] _blockDatas; // 스폰 시 랜덤으로 부여할 SO 데이터 풀
+    
+    [Header("Events")]
+    [SerializeField] private UnityEvent<PuzzleResult> _onPuzzleComplete; // 퍼즐 동작 완료시 결과를 반환해주는 유니티 이벤트
 
     private SGrid2D<Block> _blocks;
     private BoardLayout _layout;
     private BoardSwapper _swapper;
     private BoardSpawner _spawner;
+    private MatchFinder _matchFinder;
+    private BoardProcessor _processor;
+    
     private bool _isProcessing;
-
+    
+    public Block GetBlock(int2 pos) => _blocks[pos];
+    public void SetBlock(int2 pos, Block block) => _blocks[pos] = block;
+    public void SwapBlocks(int2 posA, int2 posB) => _blocks.Swap(posA, posB);
+    
     private void Awake()
     {
         // 레이아웃은 보드 초기화와 무관하게 고정값이므로 Awake에서 한 번만 생성
@@ -36,14 +69,18 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
 
         // 블록으로 그리드 구조 데이터 생성
         _blocks = new SGrid2D<Block>(new int2(_columns, _rows));
-
-        // 하위 시스템 생성
-        _spawner = new BoardSpawner(_blocks, _layout, _blockPrefab, _boardPanel, _blockDatas, this);
-        _swapper = new BoardSwapper(_blocks, _layout,
-            () => _isProcessing = true,
-            () => _isProcessing = false
-        );
-
+        // 매칭 탐색기 생성
+        _matchFinder = new MatchFinder(this, _columns, _rows, _bufferRows);
+        
+        // 블록 Spawner 생성
+        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas, _columns, _rows);
+        // 블록 Swapper 생성
+        _swapper = new BoardSwapper(this, _layout, _animSettings, 
+            () => _isProcessing = true, OnSwapComplete);
+        // 매칭 연쇄 루프 프로세서 생성
+        _processor = new BoardProcessor(this, _layout, _matchFinder, _spawner, 
+            _animSettings, _columns, _rows, _bufferRows);
+        
         // 초기 블록 스폰
         _spawner.SpawnAll(_columns, _rows);
     }
@@ -62,13 +99,11 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
         
         // 버퍼 구역이면 터치 금지
         if (pos.y < _bufferRows) return false;
-
+        
         // 해당 블록이 연출 중이거나 비활성이면 금지
         Block targetBlock = _blocks[pos];
         if (targetBlock == null || targetBlock.Status != EBlockStatus.None) return false;
-
-        // TODO (나중에 추가): 보드 전체가 낙하(Fall) 중이거나 터지는 중이면 return false;
-
+        
         return true;
     }
 
@@ -78,13 +113,13 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
     public void OnSwipeBlock(int2 pos, Vector2Int direction)
     {
         int2 targetPos = new int2(pos.x + direction.x, pos.y - direction.y); // UI Y축 반전 보정
-
+        
         // 범위 체크
         if (!IsValidPlayArea(targetPos)) return;
         if (!CanInteract(targetPos)) return;
-
+        
         // 스왑 실행
-        _swapper.Swap(pos, targetPos);
+        _swapper.SwipeSwap(pos, targetPos);
     }
 
     // ====== 드래그 앤 드롭 ======
@@ -143,6 +178,32 @@ public class BoardManager : MonoBehaviour, IBoardInteractable
         Vector2 min = _layout.GetPosition(_columns - 1, _bufferRows);
         float half = _cellSize * 0.5f;
         return new Vector2(min.x + half, min.y + half);
+    }
+    
+    // 스왑 완료 이벤트
+    private void OnSwapComplete()
+    {
+        var matches = _matchFinder.FindAllMatches();
+        if (matches.Count > 0)
+        {
+            // 제거 → 낙하 → 리필 → 연쇄 루프 실행
+            // 코루틴 완료 콜백에서 _isProcessing = false 처리
+            StartCoroutine(_processor.ProcessMatches(matches, OnPuzzleComplete));
+        }
+        else
+        {
+            // 매치 없으면 되돌리기 스왑은 기획상 배제로 필요 없음
+            // 추후 요청시 여기에 기능 개발 가능
+            _isProcessing = false;
+        }
+    }
+    
+    // 퍼즐 완료 이벤트
+    private void OnPuzzleComplete(PuzzleResult result)
+    {
+        _isProcessing = false;
+        _onPuzzleComplete?.Invoke(result);
+        Debug.Log($"콤보: {result.comboCount}, 타입별: {string.Join(", ", result.matchedCounts)}");
     }
 
     // 플레이 가능한 영역에서만 스왑이 가능하도록 설정
