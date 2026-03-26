@@ -51,8 +51,9 @@ public class DataManager : MonoBehaviour
     private void LoadDataTables()
     {
         // *** 게임에 필요한 테이블 생길 때 마다 등록 필요 (추후 어드레서블로 변경 필요)
-        LoadTable<MonsterTable>("Tables/MonsterDataTable");
-        LoadTable<PuzzleTable>("Tables/PuzzleDataTable");
+        LoadTable<MonsterTable>("Tables/MonsterDataTable"); // *** 더미, 추후 수정 필요
+        LoadTable<SkillTable>("Tables/Table_Skill");
+        LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
         LoadTable<BlockTable>("Tables/Table_Block");
 
     }
@@ -101,6 +102,18 @@ public class DataManager : MonoBehaviour
         if (loadedTables.ContainsKey(typeof(MonsterTable))) return loadedTables[typeof(MonsterTable)] as MonsterTable;  // IDataTableInfo 라서 마지막에 MonsterTable 로 형변환 필요
         return null;
     }
+
+    // 스킬 테이블
+    public SkillTable GetSkillTable()
+    {
+
+        // loadedTables 안에 SkillTable 이 있으면 리턴하고, 아니면 null 리턴하기
+        if (loadedTables.ContainsKey(typeof(SkillTable))) return loadedTables[typeof(SkillTable)] as SkillTable;  // IDataTableInfo 라서 마지막에 SkillTable 로 형변환 필요
+        return null;
+    }
+
+
+
 
     // 퍼즐 테이블
     public PuzzleTable GetPuzzleTable()
