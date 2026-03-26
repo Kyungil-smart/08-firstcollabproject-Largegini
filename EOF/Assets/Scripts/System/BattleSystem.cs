@@ -22,7 +22,7 @@ public class BattleSystem : MonoBehaviour
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        // _currentStageIndex = SceneLoader.Intance.StageIndex/2;
+        _currentStageIndex = SceneLoader.Intance.StageIndex/2;
         StartCoroutine(Battle());
     }
 
