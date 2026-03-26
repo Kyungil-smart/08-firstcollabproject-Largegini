@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
     public float _heal;
     public bool _theEnd;        // 사신 필살기용 도트대미지
+    public int _behavior;
+    public int _maxbehavior;
+    public int _maxbehavioralGauge;
     private void Awake()
     {
         Instance = this;
@@ -29,6 +32,8 @@ public class Player : MonoBehaviour
         _reverse = false;
         _theEnd = false;
         _heal = 5f;
+        _maxbehavior = 3;
+        _maxbehavioralGauge = 10;
     }
 
     public IEnumerator Attack()
