@@ -27,5 +27,7 @@ public class BattleScene:IScene
     {
         // 배틀 씬 퇴장
         SceneLoader.Intance.StageIndex += 1;
+        
+        // 플레이어 정보 넘김
     }
 }
