@@ -22,6 +22,7 @@ public class BattleSystem : MonoBehaviour
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
+        _currentStageIndex = SceneLoader.Intance.StageIndex/2;
         StartCoroutine(Battle());
     }
 
@@ -49,12 +50,7 @@ public class BattleSystem : MonoBehaviour
                     // 승리 기능
                     if (_enemy._health <= 0)
                     {
-                        Destroy(_enemy.gameObject);
-                        _currentStageIndex++;
-                        if (_currentStageIndex >= stages.Length)
-                        {
-                            _currentStageIndex = stages.Length - 1;
-                        }
+                        Victory();
                         yield break;
                     }
 
@@ -77,7 +73,15 @@ public class BattleSystem : MonoBehaviour
             yield return null;
         }
     }
+
+    private void Victory()
+    {
+        Destroy(_enemy.gameObject);
+        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
+    }
 }
+
+
 
 public enum BattleTurn
 {

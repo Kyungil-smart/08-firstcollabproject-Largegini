@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AJY/AJYStageTestScene.unity
     guid: 428425bb0ad1654448f508bfcf954d0d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 192a44041b41ca545aaf14152ac44765
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AJY/AJYBattleTestScene.unity
     guid: 7fe031efc18adf0498b38ce4412131ac
   - enabled: 0
