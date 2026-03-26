@@ -1,12 +1,13 @@
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 // 인스펙터 애니메이션 설정 조절
 [System.Serializable]
 public class BoardAnimationSettings
 {
+    
     [Header("Swap")]
     public float swapDuration = 0.2f;
     public Ease swapEase = Ease.OutQuad;
@@ -39,6 +40,9 @@ public class BoardManager : MonoBehaviour, IBoard
     [SerializeField] private Block _blockPrefab;        // 스폰할 블록 프리팹
     [SerializeField] private RectTransform _boardPanel; // 블록들이 생성될 부모 캔버스 패널
     [SerializeField] private BlockDataSO[] _blockDatas; // 스폰 시 랜덤으로 부여할 SO 데이터 풀
+    
+    [Header("Events")]
+    [SerializeField] private UnityEvent<PuzzleResult> _onPuzzleComplete; // 퍼즐 동작 완료시 결과를 반환해주는 유니티 이벤트
 
     private SGrid2D<Block> _blocks;
     private BoardLayout _layout;
@@ -184,13 +188,22 @@ public class BoardManager : MonoBehaviour, IBoard
         {
             // 제거 → 낙하 → 리필 → 연쇄 루프 실행
             // 코루틴 완료 콜백에서 _isProcessing = false 처리
-            StartCoroutine(_processor.ProcessMatches(matches, () => _isProcessing = false));
+            StartCoroutine(_processor.ProcessMatches(matches, OnPuzzleComplete));
         }
         else
         {
-            // 매치 없으면 되돌리기 스왑 필요
+            // 매치 없으면 되돌리기 스왑은 기획상 배제로 필요 없음
+            // 추후 요청시 여기에 기능 개발 가능
             _isProcessing = false;
         }
+    }
+    
+    // 퍼즐 완료 이벤트
+    private void OnPuzzleComplete(PuzzleResult result)
+    {
+        _isProcessing = false;
+        _onPuzzleComplete?.Invoke(result);
+        Debug.Log($"콤보: {result.comboCount}, 타입별: {string.Join(", ", result.matchedCounts)}");
     }
 
     // 플레이 가능한 영역에서만 스왑이 가능하도록 설정

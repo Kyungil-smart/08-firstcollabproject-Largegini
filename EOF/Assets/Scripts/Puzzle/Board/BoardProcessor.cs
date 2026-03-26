@@ -37,18 +37,19 @@ public class BoardProcessor
     }
 
     // 매치 → 제거 → 낙하 → 리필 → 연쇄 루프
-    public IEnumerator ProcessMatches(List<SMatch> matches, Action onComplete)
+    public IEnumerator ProcessMatches(List<SMatch> matches, Action<PuzzleResult> onComplete)
     {
-        int comboCount = 0;
-
+        PuzzleResult result = new PuzzleResult();
+        
         while (matches.Count > 0)
         {
-            comboCount++;
+            result.comboCount++;
+            result.AddMatches(matches);
 
             // 1. 매치된 블록 제거
             ClearMatches(matches);
-            yield return null;
-
+            yield return new WaitForSeconds(_anim.clearDelay);
+            
             // 2. 낙하 (완료 대기)
             bool dropDone = false;
             DropBlocks(() => dropDone = true);
@@ -56,15 +57,12 @@ public class BoardProcessor
             
             // 3. 리필
             RefillBuffer();
-            yield return new WaitForSeconds(0.1f); // 리필 후 안정 대기
+            yield return new WaitForSeconds(_anim.refillDelay); // 리필 후 안정 대기
             
             // 4. 연쇄 매칭 체크
             matches = _matchFinder.FindAllMatches();
         }
-
-        // TODO: comboCount + 타입별 집계로 PuzzleResult 생성
-        Debug.Log($"연쇄 완료, 콤보: {comboCount}");
-        onComplete?.Invoke();
+        onComplete?.Invoke(result);
     }
 
     /// <summary>
@@ -105,7 +103,7 @@ public class BoardProcessor
     /// 각 열을 맨 아래부터 위로 스캔하여 빈 칸과 활성 블록을 재배치
     /// 버퍼 행 블록도 포함하여 전체 열을 처리
     /// </summary>
-    private void DropBlocks(System.Action onComplete)
+    private void DropBlocks(Action onComplete)
     {
         _dropCount = 0;
         _onDropComplete = onComplete;
@@ -130,18 +128,18 @@ public class BoardProcessor
                     if (y != emptyY)
                     {
                         var newPos = new int2(x, emptyY);
-
+                        
                         // 그리드 데이터 갱신 — 새 위치에 블록 등록, 원래 위치 비움
                         _data.SetBlock(newPos, block);
                         _data.SetBlock(pos, null);
-
+                        
                         // 논리 좌표를 새 위치와 일치시킴
                         block.SetPosition(newPos);
-
+                        
                         // 낙하 거리에 비례한 duration — 멀리 떨어질수록 오래 걸림
                         int distance = emptyY - y;
                         float duration = distance * _anim.dropDurationPerCell;
-
+                        
                         // DoTween 낙하 연출 — 가속 느낌의 InQuad
                         totalDrops++;
                         block.SetStatus(EBlockStatus.Moving);

@@ -407,7 +407,25 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 - BoardProcessor는 빈 칸 탐색 + Spawner 호출만 수행
 - Init이 데이터 + 상태 + 비주얼 + SetActive(true) 전부 복원하므로 별도 활성화 처리 불필요
 
+**리필 로직 정리**
+1. 매치된 블록 Despawn → 재활용 풀에 등록
+2. DropBlocks에서 활성 블록들 아래로 당김 → 원래 위치는 null
+3. RefillBuffer에서 위에서부터 null인 칸 탐색 → 풀에서 블록 꺼내 Init으로 새 데이터 부여 + 해당 좌표에 배치
 
+### 퍼즐 결과 아웃풋
+
+연쇄 루프 완료 후 전투 시스템에 결과를 전달하는 구조.
+
+**PuzzleResult 데이터 클래스**
+- 타입별 매치된 블록 수 (Dictionary<EBlockType, int>)
+- 콤보 카운트 (연쇄 횟수)
+- AddMatches로 매 루프마다 SMatch 리스트에서 타입별 블록 수 누적
+
+**전달 방식**
+- BoardManager에 UnityEvent<PuzzleResult> 인스펙터 노출
+- 연쇄 루프 완료 시 OnPuzzleComplete 콜백에서 _isProcessing 해제 + 이벤트 발사
+- 전투 팀원은 인스펙터에서 자기 스크립트 메서드 드래그 연결하거나 코드로 AddListener
+- 콤보 계산식(결과 = 기본값 * (1 + (N-1) * 배율))은 전투 쪽 책임, 퍼즐에서는 원재료만 전달
 
 ### 진행 작업 리스트
 - 콤보 카운트 및 퍼즐 결과 아웃풋
