@@ -323,6 +323,26 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1671707711}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: stages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: _currentStageIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: 'stages.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a2473f24e9b8e943a0fbc02d42be966, type: 2}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: 'stages.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1e83b6833c3903640aa3de757116180c, type: 2}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: 'stages.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7456159e83db4914bb69cc7fcc12b75b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

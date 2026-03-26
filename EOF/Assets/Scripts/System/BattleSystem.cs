@@ -37,14 +37,17 @@ public class BattleSystem : MonoBehaviour
             
             if (_battle == BattleTurn.pTurn)
             {
-                for (int i = 3; i > 0; i--)
+                _player._behavior = _player._maxbehavior;
+                while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
-                    if (Player.Instance._freeze)
+                    if (_player._freeze)
                     {
-                        i--;
-                        Player.Instance._freeze = false;
+                        _player._behavior--;
+                        _player._freeze = false;
+                        continue;
                     }
+
                     yield return StartCoroutine(_player.Attack());
                     yield return new WaitForEndOfFrame();
                     // 승리 기능
@@ -54,15 +57,18 @@ public class BattleSystem : MonoBehaviour
                         yield break;
                     }
 
-                    if (Player.Instance._theEnd) Player.Instance.ReceiveDamage(5f);
-             
-                    if (Player.Instance._behavioralGauge >= 10)
+                    if (_player._theEnd) _player.ReceiveDamage(5f);
+                    _player._behavior--;
+                    while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
-                        i++;
-                        Player.Instance._behavioralGauge = 0;
+                        _player._behavior++;
+                        _player._behavioralGauge -= 10;
                     }
-                    Player.Instance._reverse = false;
+
+                    // 죽는 기능
+                    if (_player._health <= 0) break;
                 }
+
                 _battle = BattleTurn.eTurn;
             }
             else
