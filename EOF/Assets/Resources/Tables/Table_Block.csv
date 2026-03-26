@@ -1,0 +1,5 @@
+﻿ID,BlockType,ResourceID,Description
+11,Attack,1001,공격블럭
+12,Defense,1002,방어블럭
+13,Heal,1003,회복블럭
+14,Special,1004,특수블럭
