@@ -13,7 +13,8 @@ public class RedOak : Monster
     public bool _berserker;
     private void Awake()
     {
-        _maxhealth = 100f;
+        // _maxhealth = _tableMaxHP;
+        // InitStat();
         _minDamage = 30;
         _berserker = false;
     }
@@ -45,7 +46,8 @@ public class RedOak : Monster
         }
         yield return new WaitForSeconds(.5f);
     }
-    
+
+
     public override void FirstPattern()
     {
         Debug.Log("휘두르기");

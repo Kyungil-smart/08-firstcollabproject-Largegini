@@ -5,7 +5,7 @@ public class WearWolf : Monster
 {
     private void Awake()
     {
-        _maxhealth = 200f;
+        // _maxhealth = _tableMaxHP;
         _minDamage = 20;
     }
 
@@ -27,6 +27,7 @@ public class WearWolf : Monster
         }
         yield return new WaitForSeconds(.5f);
     }
+
 
     public override void FirstPattern()
     {

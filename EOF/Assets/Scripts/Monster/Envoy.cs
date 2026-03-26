@@ -10,7 +10,7 @@ public class Envoy : Monster
     public int _soulHarvest;
     private void Awake()
     {
-        _maxhealth = 300f;
+        // _maxhealth = _tableMaxHP;
         _minDamage = 30;
         _soulHarvest = 0;
     }
@@ -36,6 +36,7 @@ public class Envoy : Monster
         }
         yield return new WaitForSeconds(.5f);
     }
+
 
     public override void FirstPattern()
     {

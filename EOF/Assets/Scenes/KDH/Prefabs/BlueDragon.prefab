@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5082762608116221752}
   - component: {fileID: 3282513662348971481}
   - component: {fileID: 4964023920066134231}
+  - component: {fileID: 3776482499478972829}
   m_Layer: 0
   m_Name: BlueDragon
   m_TagString: Untagged
@@ -104,3 +105,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52e01904bfefe64ab4c5d42d49b25b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlueDragon
+  _maxhealth: 0
+  _health: 0
+  _tableMaxHP: 0
+  _minDamage: 0
+  _dragonScale: 0
+  _passiveCount: 0
+  _defensive: 0
+--- !u!114 &3776482499478972829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033207694988195695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af090bc2eb817ab4c8ab89fa4195366a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test.MonsterStatController
+  thisID: 101

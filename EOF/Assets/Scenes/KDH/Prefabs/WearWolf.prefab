@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2772873346270820588}
   - component: {fileID: 7227795407374241199}
   - component: {fileID: 1942660386064987518}
+  - component: {fileID: 4055097777079488798}
   m_Layer: 0
   m_Name: WearWolf
   m_TagString: Untagged
@@ -106,4 +107,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WearWolf
   _maxhealth: 0
   _health: 0
+  _tableMaxHP: 0
   _minDamage: 0
+--- !u!114 &4055097777079488798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694518902938995436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af090bc2eb817ab4c8ab89fa4195366a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test.MonsterStatController
+  thisID: 104
