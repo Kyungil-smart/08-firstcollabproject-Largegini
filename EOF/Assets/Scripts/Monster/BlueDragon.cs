@@ -14,7 +14,8 @@ public class BlueDragon : Monster
     public float _defensive;
     private void Awake()
     {
-        _maxhealth = 200f;
+        // _maxhealth = 200f;
+        // InitStat();
         _minDamage = 40;
         _dragonScale = false;
         _passiveCount = 1;
@@ -77,6 +78,7 @@ public class BlueDragon : Monster
         }
         yield return new WaitForSeconds(.5f);
     }
+
 
     public override void FirstPattern()
     {

@@ -11,17 +11,26 @@ public abstract class Monster : MonoBehaviour
     protected float _damage;
     public static Monster Instance;
     public float _health;
+    public float _tableMaxHP;
     public int _minDamage;
     private void Start()
     {
         Instance = this;
+        InitStat();
         _health = _maxhealth;
+        
     }
     
     public virtual void ReceiveDamage(float damage)
     {
         _health -= damage;
     }
+
+    public virtual void InitStat()
+    {
+        _maxhealth = _tableMaxHP;
+    }
+
 
     public abstract IEnumerator PatternProbability();
     public abstract void FirstPattern();
