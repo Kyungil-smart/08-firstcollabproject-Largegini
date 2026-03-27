@@ -21,16 +21,22 @@ public class BattleSystem : MonoBehaviour
     public BoardManager _boardManager;
     public bool _isPuzzle;
     public PuzzleResult _puzzleResult;
-    
+    public bool _isSwap;
     private void Start()
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        _currentStageIndex = SceneLoader.Intance.StageIndex/2;
+        _currentStageIndex = SceneLoader.Intance.StageIndex / 2;
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
+        _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
     }
 
+    private void SwapFinished()
+    {
+        _isSwap = true;
+    }
+    
     private void PuzzleFinished(PuzzleResult result)
     {
         Debug.Log("퍼즐데이터 수신함");
@@ -52,8 +58,9 @@ public class BattleSystem : MonoBehaviour
                 _player._behavior = _player._maxbehavior;
                 while (_player._behavior > 0)
                 {
-                    yield return new WaitUntil(() => _isPuzzle);
+                    yield return new WaitUntil(() => _isPuzzle || _isSwap);
                     _isPuzzle = false;
+                    _isSwap = false;
                     if (_player._freeze)
                     {
                         _player._behavior--;
