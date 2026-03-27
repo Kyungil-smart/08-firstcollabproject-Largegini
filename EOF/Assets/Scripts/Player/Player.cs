@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -22,33 +23,50 @@ public class Player : MonoBehaviour
     public int _behavior;
     public int _maxbehavior;
     public int _maxbehavioralGauge;
+    
     private void Awake()
     {
         Instance = this;
         _health = _maxHealth;
-        _attack = 20f;
+        _attack = 5f;
         _freeze = false;
-        _defensive = 20f;
+        _defensive = 5f;
         _reverse = false;
         _theEnd = false;
-        _heal = 5f;
+        _heal = 3f;
         _maxbehavior = 3;
         _maxbehavioralGauge = 10;
+        
     }
 
-    public IEnumerator Attack()
+    public IEnumerator PlayerStat(PuzzleResult result)
+    {
+        yield return new WaitForSeconds(0.5f);
+        int combo = result.comboCount;
+        foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
+        {
+            EBlockType type = block.Key;
+            int count = block.Value;
+            if (type == EBlockType.Attack) yield return StartCoroutine(Attack(count, combo));
+            if (type == EBlockType.Defense) yield return StartCoroutine(Defensive(count, combo));
+            if (type == EBlockType.Heal) yield return StartCoroutine(Heal(count, combo));
+            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
+        }
+    }
+    
+    public IEnumerator Attack(int count, int combo)
     {
         Debug.Log("공격");
         yield return new WaitForSeconds(0.5f); 
-        Monster.Instance.ReceiveDamage(_attack);
+        Monster.Instance.ReceiveDamage(_attack * count);
         yield return new WaitForSeconds(0.5f);
     }
 
-    public IEnumerator SpecialATK()
+    public IEnumerator SpecialATK(int count, int combo)
     {
         Debug.Log("특수 공격");
         yield return new WaitForSeconds(0.5f);
-        Monster.Instance.ReceiveDamage(_attack / 2);
+        Monster.Instance.ReceiveDamage(_attack * count / 2);
         _behavioralGauge += 5;
     }
     public void ReceiveDamage(float damage)
@@ -72,17 +90,17 @@ public class Player : MonoBehaviour
         _health -= damage;
     }
 
-    public IEnumerator Heal()
+    public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
         yield return new WaitForSeconds(0.5f);
         if (_reverse)
         {
-            ReceiveDamage(_heal);
+            ReceiveDamage(_heal *= count);
         }
         else
         {
-            _health += _heal;
+            _health += _heal *= count;
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -90,10 +108,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    public IEnumerator Defensive()
+    public IEnumerator Defensive(int count, int combo)
     {
         Debug.Log("쉴드");
+        _defensive *= count;
         yield return new WaitForSeconds(0.5f);
-        _defensive += 20;
     }
 }
