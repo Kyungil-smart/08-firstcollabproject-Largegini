@@ -38,7 +38,7 @@ public class SceneLoader : MonoBehaviour
    {
        //_sceneMachine.ChangeScene(Title);
        // 테스트 코드
-       _sceneMachine.ChangeScene(Stage);
+       //_sceneMachine.ChangeScene(Stage);
    }
 
    private void Update()

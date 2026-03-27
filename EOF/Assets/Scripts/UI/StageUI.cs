@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -5,10 +6,27 @@ using UnityEngine.UI;
 public class StageUI : MonoBehaviour
 {
     [SerializeField] private GameObject settingCanvas;
+    [SerializeField] private GameObject eventPopup;
 
     [SerializeField] public GameObject[] NodeBtns;
+    [SerializeField] private GameObject[] eventPopups;
+    [SerializeField] private TMP_Text[] eventPopupTexts;
+    
+    [SerializeField] private Button[] closeButtons;
+    [SerializeField] private Button[] nextButtons;
+    
+   
+    
 
     private ColorBlock _btnActiveColor;
+    private int _eventIndex = 0;
+
+    private string[] _eventText=
+    {
+        "이벤트 설명 1",
+        "이벤트 설명 2",
+        "마지막 설명"
+    };
 
     private void Awake()
     {
@@ -44,7 +62,43 @@ public class StageUI : MonoBehaviour
     
     public void OnClickEventNode()
     {
-        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Event);
+        _eventIndex = 0;
+        
+        foreach (var btn in closeButtons)
+            btn.gameObject.SetActive(false);
+    
+        //eventPopup.SetActive(true);
+        UpdateEventPopup();
+    }
+    
+    public void OnClickEventNext()
+    {
+        if (_eventIndex < _eventText.Length - 1)
+        {
+            _eventIndex++;
+            UpdateEventPopup();
+        }
+    }
+    public void OnClickEventClose()
+    {
+        eventPopups[_eventIndex].SetActive(false);
+        //SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Event);
+    }
+    private void UpdateEventPopup()
+    {
+        foreach (var popup in eventPopups)
+            popup.SetActive(false);
+
+        eventPopups[_eventIndex].SetActive(true);
+        eventPopupTexts[_eventIndex].text = _eventText[_eventIndex];
+
+        bool isLast = _eventIndex == _eventText.Length - 1;
+
+        for (int i = 0; i < closeButtons.Length; i++)
+        {
+            closeButtons[i].gameObject.SetActive(isLast && i == _eventIndex);
+            nextButtons[i].gameObject.SetActive(!isLast && i == _eventIndex);
+        }
     }
     
     public void OnClickSettings()
