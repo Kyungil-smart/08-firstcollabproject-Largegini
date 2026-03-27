@@ -13,11 +13,8 @@ public class RedOak : Monster
     public bool _berserker;
     private void Awake()
     {
-        // _maxhealth = _tableMaxHP;
-        // InitStat();
         _minDamage = 30;
         _berserker = false;
-        _maxhealth = 100f;
     }
 
     public override void ReceiveDamage(float damage)

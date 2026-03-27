@@ -27,16 +27,15 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        _health = _maxHealth;
+        _health = _maxHealth;   // _health = table._health;
         _attack = 5f;
-        _freeze = false;
         _defensive = 5f;
-        _reverse = false;
-        _theEnd = false;
         _heal = 3f;
         _maxbehavior = 3;
         _maxbehavioralGauge = 10;
-        
+        _freeze = false;
+        _reverse = false;
+        _theEnd = false;
     }
 
     public IEnumerator PlayerStat(PuzzleResult result)
@@ -69,6 +68,7 @@ public class Player : MonoBehaviour
         Monster.Instance.ReceiveDamage(_attack * count / 2);
         _behavioralGauge += 5;
     }
+    
     public void ReceiveDamage(float damage)
     {
         if (_defensive > 0)
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _health += _heal *= count;
+            _health += _heal * count;
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;

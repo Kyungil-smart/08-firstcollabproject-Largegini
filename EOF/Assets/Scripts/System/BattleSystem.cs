@@ -46,8 +46,8 @@ public class BattleSystem : MonoBehaviour
     
     private IEnumerator Battle()
     {
-        // StagewithMonster data = stages.FirstOrDefault(s => s.StageNumber == stageNum);
         _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
+        
         while (true)
         {
                 // 죽는 기능
@@ -59,15 +59,30 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isPuzzle || _isSwap);
+                    
+                    bool matched = _isPuzzle;
+                    bool swapped = _isSwap;
+    
                     _isPuzzle = false;
                     _isSwap = false;
+                    
+                    if (matched)
+                    {
+                        yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
+                        _puzzleResult = null; 
+                    }
+                    else if (swapped)
+                    {
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    
                     if (_player._freeze)
                     {
                         _player._behavior--;
                         _player._freeze = false;
                         continue;
                     }
-                    StartCoroutine(_player.PlayerStat(_puzzleResult));
+                    // StartCoroutine(_player.PlayerStat(_puzzleResult));
                     yield return new WaitForEndOfFrame();
                     // 승리 기능
                     if (_enemy._health <= 0)
