@@ -14,6 +14,7 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     private Vector2 _dragOffset;          // 터치 지점과 블록 중심의 오프셋
     private bool _isDragging;
     private Camera _uiCamera;
+    private Block _highlightedBlock;
     
     private void Awake()
     {
@@ -76,6 +77,8 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
         targetPos.y = Mathf.Clamp(targetPos.y, boardMin.y, boardMax.y);
         
         _block.Rect.anchoredPosition = targetPos;
+
+        UpdateHighlight();
     }
 
     // 손을 떼는 순간 (끝점 저장 및 방향 계산)
@@ -83,6 +86,9 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     {
         if(!_isDragging) return;
         _isDragging = false;
+        
+        // 하이라이트 해제
+        ClearHighlight();
         
         // 드래그 도중 상태가 변했을 수 있으니 한 번 더 검사
         if (!_block.Board.CanInteract(_block.GridPos)) return;
@@ -103,6 +109,48 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
         {
             // 유효하지 않으면 원위치 복귀
             _block.Rect.anchoredPosition = _originalAnchoredPos;
+        }
+    }
+    
+    // 하이라이트 업데이트
+    private void UpdateHighlight()
+    {
+        int2 hoverGrid = _block.Board.GetGridIndex(_block.Rect.anchoredPosition);
+    
+        // 자기 자신 위치면 하이라이트 불필요
+        if (hoverGrid.Equals(_block.GridPos))
+        {
+            ClearHighlight();
+            return;
+        }
+
+        Block hoverBlock = _block.Board.GetBlock(hoverGrid);
+    
+        // 이전 하이라이트와 같으면 스킵
+        if (hoverBlock == _highlightedBlock) return;
+    
+        // 이전 하이라이트 끄기
+        ClearHighlight();
+    
+        if (hoverBlock == null) return;
+    
+        // 인접 1칸 + 대각선 여부 판별
+        int2 diff = hoverGrid - _block.GridPos;
+        bool isDiagonal = math.abs(diff.x) + math.abs(diff.y) != 1;
+    
+        // 대각선이면 빨간색, 유효한 스왑이면 초록색
+        Color highlightColor = isDiagonal ? Color.red : Color.green;
+    
+        _highlightedBlock = hoverBlock;
+        _highlightedBlock.SetHighlight(true, highlightColor);
+    }
+    
+    private void ClearHighlight()
+    {
+        if (_highlightedBlock != null)
+        {
+            _highlightedBlock.SetHighlight(false);
+            _highlightedBlock = null;
         }
     }
 }

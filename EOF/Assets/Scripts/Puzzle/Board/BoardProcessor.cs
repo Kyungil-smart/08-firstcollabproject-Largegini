@@ -95,6 +95,10 @@ public class BoardProcessor
             var block = _data.GetBlock(pos);
             block.Despawn();
             _recyclePool.Add(block);  // 재활용 풀에 등록
+            // 터진 자리를 확실하게 null로 비워주어야 낙하 및 리필 로직이 꼬이지 않음
+            // 버퍼 최상단(y=0) 블록이 매치에 포함되는 경우는 드물지만,
+            // 연쇄 루프 중 낙하로 버퍼 블록이 플레이 영역으로 내려온 뒤 리필되고, 다시 매치되면서 결국 상단 행까지 비는 케이스
+            _data.SetBlock(pos, null);
         }
     }
     

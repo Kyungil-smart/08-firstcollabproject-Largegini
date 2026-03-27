@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-// 요약: 보드 레이아웃 정보 조회용 (인터페이스 IBoardInteractable의 분리)
+// 요약: 보드 레이아웃 정보 조회 인터페이스
 // 작성자: 이성규
 public interface IBoardQuery
 {

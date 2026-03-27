@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Image _blockImage; // 블록의 비주얼을 담당할 UI Image
+    [SerializeField] private Image _highlight;  // 셀 하이라이트 페이크 이미지
 
     [Header("Runtime Data")]
     private BlockDataSO _blockData;
@@ -86,6 +87,15 @@ public class Block : MonoBehaviour
         // 비활성화된 직후에 이 블록에 접근하지 않도록 주의 필요
         _blockData = null;
         _status = EBlockStatus.None;
-        gameObject.SetActive(false); 
+        gameObject.SetActive(false);
+        SetHighlight(false);
+    }
+    
+    public void SetHighlight(bool active, Color? color = null)
+    {
+        if (_highlight == null) return;
+        _highlight.gameObject.SetActive(active);
+        if (active && color.HasValue)
+            _highlight.color = color.Value;
     }
 }
