@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 /*
@@ -17,15 +18,26 @@ public class BattleSystem : MonoBehaviour
     private Player _player;
     private Monster _enemy;
     public int _currentStageIndex = 0;
+    public BoardManager _boardManager;
+    public bool _isPuzzle;
+    public PuzzleResult _puzzleResult;
     
     private void Start()
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
         //_currentStageIndex = SceneLoader.Intance.StageIndex/2;
+        _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         StartCoroutine(Battle());
     }
 
+    private void PuzzleFinished(PuzzleResult result)
+    {
+        Debug.Log("퍼즐데이터 수신함");
+        _puzzleResult = result;
+        _isPuzzle = true;
+    }
+    
     private IEnumerator Battle()
     {
         // StagewithMonster data = stages.FirstOrDefault(s => s.StageNumber == stageNum);
@@ -40,15 +52,15 @@ public class BattleSystem : MonoBehaviour
                 _player._behavior = _player._maxbehavior;
                 while (_player._behavior > 0)
                 {
-                    yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
+                    yield return new WaitUntil(() => _isPuzzle);
+                    _isPuzzle = false;
                     if (_player._freeze)
                     {
                         _player._behavior--;
                         _player._freeze = false;
                         continue;
                     }
-
-                    yield return StartCoroutine(_player.Attack());
+                    StartCoroutine(_player.PlayerStat(_puzzleResult));
                     yield return new WaitForEndOfFrame();
                     // 승리 기능
                     if (_enemy._health <= 0)

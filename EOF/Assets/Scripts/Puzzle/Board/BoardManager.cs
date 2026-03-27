@@ -43,6 +43,9 @@ public class BoardManager : MonoBehaviour, IBoard
     [Header("Events")]
     [SerializeField] private UnityEvent<PuzzleResult> _onPuzzleComplete;
     [SerializeField] private UnityEvent _onDeadlock;
+
+    public UnityEvent<PuzzleResult> OnPuzzleComplete => _onPuzzleComplete;
+    public UnityEvent OnDeadlock => _onDeadlock;
     
     private SGrid2D<Block> _blocks;
     private BoardLayout _layout;
@@ -176,7 +179,7 @@ public class BoardManager : MonoBehaviour, IBoard
         var matches = _matchFinder.FindAllMatches();
         if (matches.Count > 0)
         {
-            StartCoroutine(_processor.ProcessMatches(matches, OnPuzzleComplete));
+            StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete));
         }
         else
         {
@@ -187,7 +190,7 @@ public class BoardManager : MonoBehaviour, IBoard
         }
     }
 
-    private void OnPuzzleComplete(PuzzleResult result)
+    private void HandlePuzzleComplete(PuzzleResult result)
     {
         _isProcessing = false;
         _onPuzzleComplete?.Invoke(result);
