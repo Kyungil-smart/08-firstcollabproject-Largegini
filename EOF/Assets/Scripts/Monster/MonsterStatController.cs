@@ -27,7 +27,7 @@ public class MonsterStatController : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Start()
     {
         // if (DataManager._instance.GetMonsterTable() != null) table = DataManager._instance.GetMonsterTable();
         InitializeMonster(thisID);
@@ -47,8 +47,11 @@ public class MonsterStatController : MonoBehaviour
     public void InitializeMonster(int id)
     {
 
-        if (DataManager._instance == null) return;
-
+        if (DataManager._instance == null)
+        {
+            Debug.Log("DataManager._instance == null");
+            return;
+        }
 
         table = DataManager._instance.GetMonsterTable();
         thisScript = GetComponent<Monster>();   // 몬스터나 몬스터 상속받는 스크립트 찾기
@@ -71,6 +74,7 @@ public class MonsterStatController : MonoBehaviour
             // thisScript._minDamage = myData.Damage_1;
 
             thisScript.InitStat();
+            // Debug.Log("InitStat 실행");
         }
 
 

@@ -17,7 +17,7 @@ public abstract class Monster : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        //InitStat();
+        InitStat();
         _health = _maxhealth;
         
     }

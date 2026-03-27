@@ -35,6 +35,7 @@ public class DataManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // Debug.Log("DataManager _instance 완료");
 
         Init();
     }
@@ -44,6 +45,7 @@ public class DataManager : MonoBehaviour
     {
         // 데이터 테이블 로드
         LoadDataTables();
+        // Debug.Log("LoadDataTables 완료");
     }
 
 
