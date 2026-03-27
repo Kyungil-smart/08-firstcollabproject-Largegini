@@ -14,9 +14,6 @@ public class StageUI : MonoBehaviour
     
     [SerializeField] private Button[] closeButtons;
     [SerializeField] private Button[] nextButtons;
-    
-   
-    
 
     private ColorBlock _btnActiveColor;
     private int _eventIndex = 0;
@@ -82,7 +79,8 @@ public class StageUI : MonoBehaviour
     public void OnClickEventClose()
     {
         eventPopups[_eventIndex].SetActive(false);
-        //SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Event);
+        SceneLoader.Intance.StageIndex += 1;
+
     }
     private void UpdateEventPopup()
     {
