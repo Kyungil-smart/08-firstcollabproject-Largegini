@@ -28,7 +28,7 @@ public class CSVReader
         // 예외 처리
         if (rows.Length <= 1) return parserDicList;
 
-        // 헤더(0번 라인)를 SPLIT_RE 기준으로 분할
+        // 헤더(0번 라인)를 SPLIT_RE 기준으로 분할(쉼표 기준 문자열 배열 형태로 저장)
         var header = Regex.Split(rows[0], SPLIT_RE);
 
         // 1번 라인 부터 나머지 라인 분할
