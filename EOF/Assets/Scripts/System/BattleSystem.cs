@@ -107,7 +107,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                StartCoroutine(_enemy.PatternProbability());
+                yield return StartCoroutine(_enemy.PatternProbability());
                 _battle = BattleTurn.pTurn;
             }
             yield return null;

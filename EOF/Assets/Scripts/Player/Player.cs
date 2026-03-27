@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public float _maxHealth = 100f;
     public float _attack;
     public float _defensive;
+    public float _defensiveGauge;
     public int _behavioralGauge;// 행동력게이지
     public bool _freeze;        // 냉동
     public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
         Instance = this;
         _health = _maxHealth;   // _health = table._health;
         _attack = 5f;
-        _defensive = 5f;
+        _defensive = 2f;
         _heal = 3f;
         _maxbehavior = 3;
         _maxbehavioralGauge = 10;
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("공격");
         yield return new WaitForSeconds(0.5f); 
-        Monster.Instance.ReceiveDamage(_attack * count);
+        Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * 0.1f));
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -65,42 +66,20 @@ public class Player : MonoBehaviour
     {
         Debug.Log("특수 공격");
         yield return new WaitForSeconds(0.5f);
-        Monster.Instance.ReceiveDamage(_attack * count / 2);
-        _behavioralGauge += 5;
+        Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * 0.1f));
+        _behavioralGauge *= count;
     }
-    
-    public void ReceiveDamage(float damage)
-    {
-        if (_defensive > 0)
-        {
-            if (_defensive >= damage)
-            {
-                _defensive -= damage;
-                _defensive = 0;
-                return;
-            }
-            else
-            {
-                damage -= _defensive;
-                _defensive = 0;
-                _health -= damage;
-                return;
-            }
-        }
-        _health -= damage;
-    }
-
     public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
         yield return new WaitForSeconds(0.5f);
         if (_reverse)
         {
-            ReceiveDamage(_heal *= count);
+            ReceiveDamage((_heal * count) * (1 + (combo - 1 ) * 0.1f));
         }
         else
         {
-            _health += _heal * count;
+            _health += (_heal * count) * (1 + (combo - 1 ) * 0.1f);
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -111,7 +90,29 @@ public class Player : MonoBehaviour
     public IEnumerator Defensive(int count, int combo)
     {
         Debug.Log("쉴드");
-        _defensive *= count;
+        _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * 0.1f);
         yield return new WaitForSeconds(0.5f);
     }
+    
+    public void ReceiveDamage(float damage)
+    {
+        if (_defensiveGauge > 0)
+        {
+            if (_defensiveGauge >= damage)
+            {
+                _defensiveGauge -= damage;
+                _defensiveGauge = 0;
+                return;
+            }
+            else
+            {
+                damage -= _defensiveGauge;
+                _defensiveGauge = 0;
+                _health -= damage;
+                return;
+            }
+        }
+        _health -= damage;
+    }
+
 }
