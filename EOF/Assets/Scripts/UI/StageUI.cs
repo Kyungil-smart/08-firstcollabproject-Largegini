@@ -80,7 +80,9 @@ public class StageUI : MonoBehaviour
     {
         eventPopups[_eventIndex].SetActive(false);
         SceneLoader.Intance.StageIndex += 1;
-
+        
+        LockBtn(NodeBtns[SceneLoader.Intance.StageIndex-1]);
+        UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
     }
     private void UpdateEventPopup()
     {
