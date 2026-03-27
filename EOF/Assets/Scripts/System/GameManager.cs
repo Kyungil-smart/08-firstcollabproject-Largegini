@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
      */
 
     private static GameManager _instance;
+    
+    // 튜토리얼 용 변수
+    public bool IsTutorial;
 
     private void Awake()
     {
@@ -16,7 +19,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        
         _instance = this;
         DontDestroyOnLoad(gameObject);
         Init();
@@ -25,6 +28,8 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         Genarate<SceneLoader>();
+        Genarate<DataManager>();
+        IsTutorial = false;
     }
     
     // 컴포넌트 추가
