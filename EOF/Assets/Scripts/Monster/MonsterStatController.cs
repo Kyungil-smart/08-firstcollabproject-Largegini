@@ -67,7 +67,8 @@ public class MonsterStatController : MonoBehaviour
 
             // thisScript. = myData.LocalizeID;
             thisScript._tableMaxHP = myData.HP;
-            thisScript._minDamage = myData.Damage_1;
+            // Debug.Log($"b : {thisScript._tableMaxHP}");
+            // thisScript._minDamage = myData.Damage_1;
 
             thisScript.InitStat();
         }
