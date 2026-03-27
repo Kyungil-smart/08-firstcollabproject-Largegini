@@ -122,4 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af090bc2eb817ab4c8ab89fa4195366a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test.MonsterStatController
-  thisID: 102
+  thisID: 304

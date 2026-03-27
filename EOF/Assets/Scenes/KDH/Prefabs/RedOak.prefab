@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af090bc2eb817ab4c8ab89fa4195366a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test.MonsterStatController
-  thisID: 103
+  thisID: 302
 --- !u!114 &7495855138158300644
 MonoBehaviour:
   m_ObjectHideFlags: 0
