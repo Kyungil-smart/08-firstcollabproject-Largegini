@@ -43,9 +43,13 @@ public class BoardManager : MonoBehaviour, IBoard
     [Header("Events")]
     [SerializeField] private UnityEvent<PuzzleResult> _onPuzzleComplete;
     [SerializeField] private UnityEvent _onDeadlock;
+    // 스왑이 끝났을 때
+    [SerializeField] private UnityEvent _onSwapFinished;
 
     public UnityEvent<PuzzleResult> OnPuzzleComplete => _onPuzzleComplete;
     public UnityEvent OnDeadlock => _onDeadlock;
+    // 스왑이 끝났을 때
+    public UnityEvent OnSwapFinished => _onSwapFinished;
     
     private SGrid2D<Block> _blocks;
     private BoardLayout _layout;
@@ -176,6 +180,8 @@ public class BoardManager : MonoBehaviour, IBoard
     
     private void OnSwapComplete()
     {
+        _onSwapFinished?.Invoke();
+        
         var matches = _matchFinder.FindAllMatches();
         if (matches.Count > 0)
         {
