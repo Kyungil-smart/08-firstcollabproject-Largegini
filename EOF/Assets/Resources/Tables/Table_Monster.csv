@@ -1,0 +1,5 @@
+﻿MonsterID,Key,ResourceID,SkillID_Passive,SkillID_1,SkillID_2,SkillID_3,HP,Description
+301,a,0,401,402,403,404,600,웨어울프
+302,a,0,501,502,503,504,1000,오크 로드
+303,a,0,601,602,603,604,1300,블루 드래곤
+304,a,0,701,702,703,704,4444,사신
