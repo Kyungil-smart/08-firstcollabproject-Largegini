@@ -9,7 +9,7 @@ public abstract class Monster : MonoBehaviour
 {
     [SerializeField] public float _maxhealth;
     protected float _damage;
-    public static Monster Instance;
+    public static Monster Instance { get; private set; }
     public float _health;
     public float _tableMaxHP;
     public int _minDamage;
@@ -17,9 +17,14 @@ public abstract class Monster : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        StartCoroutine(SetupMonster());
+    }
+    
+    public IEnumerator SetupMonster()
+    {
         InitStat();
+        yield return new WaitForEndOfFrame();
         _health = _maxhealth;
-        
     }
     
     public virtual void ReceiveDamage(float damage)
