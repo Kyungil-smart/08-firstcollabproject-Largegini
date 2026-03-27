@@ -59,7 +59,7 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isPuzzle || _isSwap);
-                    
+                    yield return new WaitForSeconds(0.1f);
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
     
@@ -74,6 +74,7 @@ public class BattleSystem : MonoBehaviour
                     else if (swapped)
                     {
                         yield return new WaitForSeconds(0.2f);
+                        _player._behavior--;
                     }
                     
                     if (_player._freeze)
@@ -92,7 +93,8 @@ public class BattleSystem : MonoBehaviour
                     }
 
                     if (_player._theEnd) _player.ReceiveDamage(5f);
-                    _player._behavior--;
+                    if (_player._health <= 0) break;
+                    // _player._behavior--;
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
@@ -100,7 +102,7 @@ public class BattleSystem : MonoBehaviour
                     }
 
                     // 죽는 기능
-                    if (_player._health <= 0) break;
+                    yield return new WaitForEndOfFrame();
                 }
 
                 _battle = BattleTurn.eTurn;
