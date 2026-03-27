@@ -1,0 +1,14 @@
+﻿ID,Key,StageType,ResourceID,EventID,MonsterID,Description
+201,,TUTORIAL,,null,301,튜토리얼
+202,,EVENT,,501,null,이벤트_대장간
+203,,EVENT,,502,null,이벤트_성소
+204,,EVENT,,503,null,이벤트_훈련소
+202,,EVENT,,504,null,이벤트_수상한 노파
+203,,EVENT,,505,null,이벤트_점성술사
+204,,EVENT,,506,null,이벤트_신부
+202,,EVENT,,507,null,이벤트_천사
+203,,EVENT,,508,null,이벤트_악마
+204,,EVENT,,509,null,이벤트_정령
+205,,NORMAL,,null,302,stage1
+206,,NORMAL,,null,303,stage2
+207,,BOSS,,null,304,stage3
