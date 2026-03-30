@@ -92,6 +92,7 @@ public class BattleSystem : MonoBehaviour
                     // 승리 기능
                     if (_enemy._health <= 0)
                     {
+                        yield return new WaitUntil(() => _enemy.Dead());
                         Victory();
                         yield break;
                     }

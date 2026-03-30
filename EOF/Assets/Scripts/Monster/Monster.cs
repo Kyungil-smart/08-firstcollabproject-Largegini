@@ -40,6 +40,7 @@ public abstract class Monster : MonoBehaviour
     }
 
 
+    public abstract bool Dead();
     public abstract IEnumerator PatternProbability();
     public abstract void FirstPattern();
     public abstract void SecondPattern();
