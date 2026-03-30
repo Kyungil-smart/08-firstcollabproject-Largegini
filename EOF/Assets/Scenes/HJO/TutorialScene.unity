@@ -3889,6 +3889,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingManager
   settingCanvas: {fileID: 76170841}
+  eventPopup: {fileID: 0}
+  NodeBtns: []
+  eventPopups: []
+  eventPopupTexts: []
+  closeButtons: []
+  nextButtons: []
 --- !u!114 &1173709171 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 57745101419169026, guid: 39fa30ba08dde2243b67c2f65539abab, type: 3}
