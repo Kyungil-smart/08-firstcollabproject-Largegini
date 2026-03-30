@@ -15,6 +15,7 @@ public class BattleSystem : MonoBehaviour
     private BattleTurn _battle;
     public StagewithMonster[] stages;
     public MonsterSpawn spawnPoint;
+    public MonsterBackground _backSpawn;
     private Player _player;
     private Monster _enemy;
     public int _currentStageIndex = 0;
@@ -47,7 +48,7 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator Battle()
     {
         _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
-        _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Background);
+        _enemy = _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
         while (true)
         {
                 // 죽는 기능
@@ -83,7 +84,6 @@ public class BattleSystem : MonoBehaviour
                         _player._freeze = false;
                         continue;
                     }
-                    // StartCoroutine(_player.PlayerStat(_puzzleResult));
                     yield return new WaitForEndOfFrame();
                     // 승리 기능
                     if (_enemy._health <= 0)
@@ -94,7 +94,6 @@ public class BattleSystem : MonoBehaviour
 
                     if (_player._theEnd) _player.ReceiveDamage(5f);
                     if (_player._health <= 0) break;
-                    // _player._behavior--;
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
