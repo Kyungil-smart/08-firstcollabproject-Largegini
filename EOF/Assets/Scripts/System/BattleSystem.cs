@@ -26,7 +26,7 @@ public class BattleSystem : MonoBehaviour
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        _currentStageIndex = SceneLoader.Intance.StageIndex / 2;
+        _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
