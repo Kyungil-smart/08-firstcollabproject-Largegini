@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: _currentStageIndex
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: 'stages.Array.data[0]'

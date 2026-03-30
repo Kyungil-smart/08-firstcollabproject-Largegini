@@ -27,7 +27,7 @@ public class BattleSystem : MonoBehaviour
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        // _currentStageIndex = SceneLoader.Intance.StageIndex / 2;
+        _currentStageIndex = SceneLoader.Intance.StageIndex / 2;
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
@@ -48,7 +48,7 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator Battle()
     {
         _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
-        _enemy = _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+        _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
         while (true)
         {
                 // 죽는 기능
@@ -63,21 +63,25 @@ public class BattleSystem : MonoBehaviour
                     yield return new WaitForSeconds(0.1f);
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
-    
-                    _isPuzzle = false;
-                    _isSwap = false;
+
                     
-                    if (matched)
-                    {
-                        yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
-                        _puzzleResult = null; 
-                    }
-                    else if (swapped)
+                    if (swapped)
                     {
                         yield return new WaitForSeconds(0.2f);
                         _player._behavior--;
                     }
                     
+                    if (matched)
+                    {
+                        if (_puzzleResult != null)
+                        {
+                            yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
+                            _puzzleResult = null; 
+                        }
+                    }
+                    
+                    _isPuzzle = false;
+                    _isSwap = false;
                     if (_player._freeze)
                     {
                         _player._behavior--;
