@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] private GameObject settingCanvas;
+    [SerializeField] private GameObject exitConfirmUI;
     
     public void Update()
     {
@@ -40,10 +41,20 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickExit()
     {
-        #if UNITY_EDITOR
+        exitConfirmUI.SetActive(true);
+    }
+
+    public void OnClickExitConfirm()
+    {
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
         Application.Quit();
-        #endif
+#endif
+    }
+
+    public void OnclickExitCancel()
+    {
+        exitConfirmUI.SetActive(false);
     }
 }
