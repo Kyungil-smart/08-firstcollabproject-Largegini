@@ -234,6 +234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas_PuzzleBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 9114926510483230407, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -468,6 +472,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
+    - target: {fileID: 2330402205592356580, guid: e7f992a630c75f2428567656380bdaa9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -616,6 +624,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: _backSpawn
+      value: 
+      objectReference: {fileID: 3226240018604970975, guid: 5d5bcda6dd37c474885cebfa685400ce, type: 3}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1671707711}
@@ -629,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: _currentStageIndex
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: 'stages.Array.data[0]'

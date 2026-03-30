@@ -9,6 +9,7 @@ public abstract class Monster : MonoBehaviour
 {
     [SerializeField] public float _maxhealth;
     protected float _damage;
+    protected Animator _animator;
     public static Monster Instance { get; private set; }
     public float _health;
     public float _tableMaxHP;
@@ -17,6 +18,7 @@ public abstract class Monster : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        _animator = GetComponent<Animator>();
         StartCoroutine(SetupMonster());
     }
     
