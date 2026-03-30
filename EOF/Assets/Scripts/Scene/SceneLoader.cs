@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -16,9 +15,11 @@ public class SceneLoader : MonoBehaviour
    public TitleScene Title;
    public StageScene Stage;
    public BattleScene Battle;
+   public EndingScene Ending;
    
    // 스테이지 진행 정보
    public int StageIndex;
+   public int MaxStage;
    
    private void Awake()
    {
@@ -36,18 +37,12 @@ public class SceneLoader : MonoBehaviour
    private void Start()
    {
        _sceneMachine.ChangeScene(Title);
-      }
+   }
 
    private void Update()
    {
+       Debug.Log(MaxStage);
        _sceneMachine.Update();
-
-       // 디버그
-       if(Keyboard.current.pKey.isPressed)
-           ChangeScene(Stage);
-       
-       if(Keyboard.current.oKey.isPressed)
-           ChangeScene(Title);
    }
 
    public void ChangeScene(IScene scene)
@@ -62,6 +57,7 @@ public class SceneLoader : MonoBehaviour
        Title = new TitleScene();
        Stage = new StageScene();
        Battle = new BattleScene();
+       Ending = new EndingScene();
 
        StageIndex = 0;
    }

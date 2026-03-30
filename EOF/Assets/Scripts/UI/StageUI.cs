@@ -32,6 +32,7 @@ public class StageUI : MonoBehaviour
 
     private void Start()
     {
+        SceneLoader.Intance.MaxStage = NodeBtns.Length - 1;
         foreach (GameObject btn in NodeBtns)
         {
             LockBtn(btn);
