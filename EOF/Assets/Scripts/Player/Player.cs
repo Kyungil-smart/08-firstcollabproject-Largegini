@@ -39,6 +39,15 @@ public class Player : MonoBehaviour
         _theEnd = false;
     }
 
+
+    private void Start()
+    {
+        if (DataManager._instance != null)
+        {
+            DataManager._instance.OnGameLoad(this);
+        }
+    }
+
     public IEnumerator PlayerStat(PuzzleResult result)
     {
         yield return new WaitForSeconds(0.5f);

@@ -4,8 +4,22 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
+
+
+/*
+[System.Serializable]
+public class SaveSassion
+{
+    // 플레이어 스텟 저장 변수
+    public int savedPlayerCurrentHP;
+    public int savedPlayerCurrentATK;
+
+    // 추후 스테이지나 다른 변수 저장해야할 수도 있음
+}
+*/
 
 
 
@@ -14,9 +28,15 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class DataManager : MonoBehaviour
 {
-
+    // 테이블 불러오기용 변수
     private Dictionary<Type, IDataTableInfo> loadedTables = new Dictionary<Type, IDataTableInfo>();
 
+    // 게임 플레이 중 저장되어야 하는 변수 모음
+    [Header("게임 플레 중 저장 데이터")]
+    [field: SerializeField] public PlayerData savedPlayerData = new PlayerData();
+
+    // true면 저장된 데이터를 불러오고, false면 첫 스테이지로 간주
+    public bool hasSavedData = false;
 
     // 싱글톤용 인스턴스
     public static DataManager _instance = null;
@@ -57,11 +77,48 @@ public class DataManager : MonoBehaviour
         // *** 게임에 필요한 테이블 생길 때 마다 등록 필요 (추후 어드레서블로 변경 필요)
         LoadTable<MonsterTable>("Tables/Table_Monster");
         LoadTable<SkillTable>("Tables/Table_Skill");
-        LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
+        // LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
         LoadTable<BlockTable>("Tables/Table_Block");
 
     }
 
+
+    // 게임 플레이 중 저장하는 함수
+    public void OnGameSave(Player playerObj)
+    {
+        if (playerObj == null) return;
+
+        savedPlayerData.MaxHP = playerObj._maxHealth;
+        savedPlayerData.CurrentHP = playerObj._health;
+        savedPlayerData.Attack = playerObj._attack;
+
+        hasSavedData = true;
+    }
+
+
+
+    // 게임 플레이 중 로드하는 함수
+    public void OnGameLoad(Player playerObj)
+    {
+        if (playerObj == null) return;
+
+
+        if (hasSavedData)
+        {
+            playerObj._maxHealth = savedPlayerData.MaxHP;
+            playerObj._health = savedPlayerData.CurrentHP;
+            playerObj._attack = savedPlayerData.Attack;
+        }
+
+    }
+
+
+    // 게임 리셋용 함수(게임 오버 -> 다시 시작 등)
+    public void OnReset(Player playerObj)
+    {
+        hasSavedData = false;
+
+    }
 
 
     // 테이블 객체 생성 후 Load 호출하여 딕셔너리에 등록
@@ -119,7 +176,7 @@ public class DataManager : MonoBehaviour
 
 
 
-
+    /*
     // 퍼즐 테이블
     public PuzzleTable GetPuzzleTable()
     {
@@ -127,6 +184,8 @@ public class DataManager : MonoBehaviour
         if (loadedTables.ContainsKey(typeof(PuzzleTable))) return loadedTables[typeof(PuzzleTable)] as PuzzleTable;
         return null;
     }
+    */
+
 
     // 블록 테이블
     public BlockTable GetBlockTable()
