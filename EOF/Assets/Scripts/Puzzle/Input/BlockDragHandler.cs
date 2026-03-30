@@ -44,7 +44,7 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _boardPanel, eventData.position, _uiCamera, out Vector2 localPoint);
         _dragOffset = _originalAnchoredPos - localPoint;
-
+        
         // 드래그 중 다른 블록 위에 렌더링되도록 최상단으로
         _block.Rect.SetAsLastSibling();
         

@@ -371,7 +371,7 @@ Camera:
   m_GameObject: {fileID: 374357862}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -698,7 +698,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 374357864}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -909,7 +909,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -282.58, y: 0}
+  m_AnchoredPosition: {x: -282.57996, y: 0}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1392497023
@@ -979,6 +979,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2108539727}
+        m_TargetAssemblyTypeName: BoardManager, Assembly-CSharp
+        m_MethodName: SetInteractable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1392497024
 MonoBehaviour:
@@ -1449,41 +1461,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onPuzzleComplete.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
       propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1874078667}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 9114926510483230407, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
       propertyPath: m_Name
       value: Canvas_PuzzleBoard

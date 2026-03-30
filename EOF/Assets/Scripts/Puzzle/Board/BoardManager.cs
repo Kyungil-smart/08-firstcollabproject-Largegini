@@ -2,6 +2,7 @@ using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 // 인스펙터 애니메이션 설정 조절
 [System.Serializable]
@@ -45,6 +46,14 @@ public class BoardManager : MonoBehaviour, IBoard
     [SerializeField] private UnityEvent _onDeadlock;
     // 스왑이 끝났을 때
     [SerializeField] private UnityEvent _onSwapFinished;
+    
+    [SerializeField] private GraphicRaycaster _raycaster;
+    
+    // 외부에서 블럭 상호작용 가능 여부 조절용 함수
+    public void SetInteractable(bool value)
+    {
+        _raycaster.enabled = value;
+    }
 
     public UnityEvent<PuzzleResult> OnPuzzleComplete => _onPuzzleComplete;
     public UnityEvent OnDeadlock => _onDeadlock;
@@ -80,8 +89,9 @@ public class BoardManager : MonoBehaviour, IBoard
         
         _blocks = new SGrid2D<Block>(new int2(_columns, _rows));
         _matchFinder = new MatchFinder(this, _columns, _rows, _bufferRows);
-        
-        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas, _columns, _rows, _bufferRows);
+
+        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _startRect, _boardPanel, _blockDatas, _columns, _rows,
+            _bufferRows);
         _swapper = new BoardSwapper(this, _layout, _animSettings,
             () => _isProcessing = true, OnSwapComplete);
         _processor = new BoardProcessor(this, _layout, _matchFinder, _spawner,

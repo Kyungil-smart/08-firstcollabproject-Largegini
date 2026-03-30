@@ -10,7 +10,8 @@ public class Block : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Image _blockImage; // 블록의 비주얼을 담당할 UI Image
     [SerializeField] private Image _highlight;  // 셀 하이라이트 페이크 이미지
-
+    [SerializeField] private UIFrameEffect _matchEffect; // 이펙트 연출
+    
     [Header("Runtime Data")]
     private BlockDataSO _blockData;
     private int2 _gridPosition;
@@ -52,8 +53,8 @@ public class Block : MonoBehaviour
         if (_blockImage == null || _blockData == null) return;
         
         // 재사용되는 경우를 위한 상태 초기화
-        // _blockImage.sprite = _blockData.Sprite;
-        _blockImage.color = _blockData.Color;
+         _blockImage.sprite = _blockData.Sprite;
+        // _blockImage.color = _blockData.Color;
         
         // TODO (차후 구현): 상태에 따른 시각적 변화 처리
         // 예: if (_status == EBlockStatus.Freeze) { 얼음막 UI 활성화 }
@@ -83,12 +84,30 @@ public class Block : MonoBehaviour
     // 매칭되어 터질 때 호출 (파괴 대신 비활성화)
     public void Despawn()
     {
-        // 추후 이곳에 DOTween 축소 연출이나 파티클 재생 로직 추가
-        // 비활성화된 직후에 이 블록에 접근하지 않도록 주의 필요
-        _blockData = null;
-        _status = EBlockStatus.None;
-        gameObject.SetActive(false);
         SetHighlight(false);
+    
+        // 이펙트가 있으면 재생 후 비활성화
+        if (_matchEffect != null && _blockData?.MatchEffectFrames != null)
+        {
+            // 블록 이미지만 먼저 숨김
+            _blockImage.enabled = false;
+            _status = EBlockStatus.Destroying;
+        
+            _matchEffect.SetFrames(_blockData.MatchEffectFrames);
+            _matchEffect.PlayEffect(Vector2.zero, () =>
+            {
+                _blockData = null;
+                _status = EBlockStatus.None;
+                _blockImage.enabled = true;
+                gameObject.SetActive(false);
+            });
+        }
+        else
+        {
+            _blockData = null;
+            _status = EBlockStatus.None;
+            gameObject.SetActive(false);
+        }
     }
     
     public void SetHighlight(bool active, Color? color = null)

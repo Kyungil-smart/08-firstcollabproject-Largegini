@@ -489,6 +489,50 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 스크립트 19개, 인터페이스 4개, 구조체 2개.  
 보드 생성 → 드래그 스왑 → 매칭 → 제거 → 낙하 → 리필 → 연쇄 → 아웃풋 → 3매치 방지 → 데드락 판정 → 셀 하이라이트
 
-### 작업 목록
+
+## Day 6 — 2026-03-27
 
 팀원 작업물과 퍼즐 연결 서포트
+
+프로토타입 동작 확인 및 영상 녹화
+
+## Day 7 — 2026-03-30
+
+이미지 연결 작업 시작
+
+### BoardSpawner 리팩토링
+ 
+`BoardSpawner`의 중복 코드 정리.
+ 
+`SpawnBlock`과 `SpawnAll` 안에 블록 생성 로직(Instantiate → Init -> 좌표 -> sizeDelta -> DragHandler -> 그리드 등록)이 중복되어 있었음.  
+공통 로직을 `CreateBlock(int2, BlockDataSO)`로 추출.
+ 
+- `CreateBlock`: 블록 GameObject 생성 + 초기 세팅 공통 (void, 반환값 불필요)
+- `SpawnBlock`: 랜덤 데이터로 `CreateBlock` 호출 (단일 블록 추가 시)
+- `SpawnAll`: 3매치 방지 데이터 선택 후 `CreateBlock` 호출 (초기 생성)
+- `InitBlockSafe`: `ResetAll` 전용으로 유지 (Instantiate 없이 데이터만 교체)
+
+### 퍼즐 매칭 및 콤보 이펙트 추가
+
+이펙트 에셋이 SpriteRenderer 기반이라 UI Image 블록에 그대로 사용 불가.  
+애니메이션 클립 확인 결과 샘플레이트 15.  
+샘플레이트 간격으로 Image.sprite를 순차 교체하는 프레임 재생 스크립트(UIFrameEffect) 작성.  
+블록 프리팹 최하단 자식에 이펙트 재생용 Image 배치 (UI 렌더링 순서상 최상단 표시).  
+이펙트 이미지 데이터는 블록별로 스프라이트 배열로 보관
+
+**블록 자식 이펙트 방식**
+- 블록이 꺼질 때 이펙트도 같이 꺼지는 문제 → Despawn 타이밍을 이펙트 완료 후로 지연
+- 블록 이미지만 먼저 숨기고(`_blockImage.enabled = false`), 이펙트 재생 완료 콜백에서 비활성화
+- 이펙트 재생 중 `EBlockStatus.Destroying` 상태로 전환하여 매칭/낙하 로직에서 스킵
+- BlockDataSO에 매치 이펙트 프레임 배열(MatchEffectFrames) 추가, 타입별 다른 이펙트 가능
+- 이펙트 Image 오브젝트만 개별 활성/비활성 제어 (`_effectImage.gameObject.SetActive`)
+
+### 보드 상호작용 컨트롤 함수 추가
+- SetInteractable
+- BoardManger에 외부에서 블럭 상호작용 가능 여부 조절용 함수추가
+- GraphicRaycaster를 끄고 켜는 간단한 방식
+
+### 튜토리얼 퍼즐 서포트 작업 노트
+
+### 작업 목록
+

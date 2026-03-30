@@ -2574,10 +2574,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardManager
   _rows: 12
+  _bufferRows: 6
   _columns: 5
   _startRect: {fileID: 6387591891965741898}
   _cellSize: 130
   _spacing: 16
+  _animSettings:
+    swapDuration: 0.2
+    swapEase: 6
+    dropDurationPerCell: 0.08
+    dropEase: 5
+    clearDelay: 0.3
+    refillDelay: 0.2
   _blockPrefab: {fileID: 6891878649472635510, guid: e7f992a630c75f2428567656380bdaa9, type: 3}
   _boardPanel: {fileID: 7864051115157299834}
   _blockDatas:
@@ -2585,3 +2593,37 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98f6bb7385a2d91408d8157587383808, type: 2}
   - {fileID: 11400000, guid: 45a300d3e67c94a4fa3834a3544d4839, type: 2}
   - {fileID: 11400000, guid: 41e3fd25cee36444eb6b04134ffd7111, type: 2}
+  _onPuzzleComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDeadlock:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4871980214584180545}
+        m_TargetAssemblyTypeName: BoardManager, Assembly-CSharp
+        m_MethodName: SetInteractable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onSwapFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  _raycaster: {fileID: 2411229483461969198}
