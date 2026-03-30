@@ -489,6 +489,32 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 스크립트 19개, 인터페이스 4개, 구조체 2개.  
 보드 생성 → 드래그 스왑 → 매칭 → 제거 → 낙하 → 리필 → 연쇄 → 아웃풋 → 3매치 방지 → 데드락 판정 → 셀 하이라이트
 
-### 작업 목록
+
+## Day 6 — 2026-03-27
 
 팀원 작업물과 퍼즐 연결 서포트
+
+프로토타입 동작 확인 및 영상 녹화
+
+## Day 7 — 2026-03-30
+
+이미지 연결 작업 시작
+
+### BoardSpawner 리팩토링
+ 
+`BoardSpawner`의 중복 코드 정리.
+ 
+`SpawnBlock`과 `SpawnAll` 안에 블록 생성 로직(Instantiate → Init -> 좌표 -> sizeDelta -> DragHandler -> 그리드 등록)이 중복되어 있었음.  
+공통 로직을 `CreateBlock(int2, BlockDataSO)`로 추출.
+ 
+- `CreateBlock`: 블록 GameObject 생성 + 초기 세팅 공통 (void, 반환값 불필요)
+- `SpawnBlock`: 랜덤 데이터로 `CreateBlock` 호출 (단일 블록 추가 시)
+- `SpawnAll`: 3매치 방지 데이터 선택 후 `CreateBlock` 호출 (초기 생성)
+- `InitBlockSafe`: `ResetAll` 전용으로 유지 (Instantiate 없이 데이터만 교체)
+ 
+`_startRect.sizeDelta` 세팅이 `SpawnBlock`에만 있고 `SpawnAll` 경로에서 빠져있던 버그도 `CreateBlock` 통합으로 해결.
+
+### 튜토리얼 퍼즐 서포트 작업 노트
+
+### 작업 목록
+

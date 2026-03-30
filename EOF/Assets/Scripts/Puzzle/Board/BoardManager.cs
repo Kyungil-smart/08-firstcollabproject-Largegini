@@ -80,8 +80,9 @@ public class BoardManager : MonoBehaviour, IBoard
         
         _blocks = new SGrid2D<Block>(new int2(_columns, _rows));
         _matchFinder = new MatchFinder(this, _columns, _rows, _bufferRows);
-        
-        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _boardPanel, _blockDatas, _columns, _rows, _bufferRows);
+
+        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _startRect, _boardPanel, _blockDatas, _columns, _rows,
+            _bufferRows);
         _swapper = new BoardSwapper(this, _layout, _animSettings,
             () => _isProcessing = true, OnSwapComplete);
         _processor = new BoardProcessor(this, _layout, _matchFinder, _spawner,

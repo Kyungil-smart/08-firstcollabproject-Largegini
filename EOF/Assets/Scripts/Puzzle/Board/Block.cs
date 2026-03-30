@@ -52,8 +52,8 @@ public class Block : MonoBehaviour
         if (_blockImage == null || _blockData == null) return;
         
         // 재사용되는 경우를 위한 상태 초기화
-        // _blockImage.sprite = _blockData.Sprite;
-        _blockImage.color = _blockData.Color;
+         _blockImage.sprite = _blockData.Sprite;
+        // _blockImage.color = _blockData.Color;
         
         // TODO (차후 구현): 상태에 따른 시각적 변화 처리
         // 예: if (_status == EBlockStatus.Freeze) { 얼음막 UI 활성화 }

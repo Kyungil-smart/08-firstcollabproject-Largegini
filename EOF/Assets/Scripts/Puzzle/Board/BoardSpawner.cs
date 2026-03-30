@@ -10,6 +10,7 @@ public class BoardSpawner
     private readonly IBoard _board;
     private readonly BoardLayout _layout;
     private readonly Block _blockPrefab;
+    private readonly RectTransform _startRect;
     private readonly RectTransform _boardPanel;
     private readonly BlockDataSO[] _blockDatas;
     private readonly int _columns;
@@ -17,12 +18,13 @@ public class BoardSpawner
     private readonly int _bufferRows;
 
     public BoardSpawner(IBoard board, BoardLayout layout,
-        Block blockPrefab, RectTransform boardPanel, BlockDataSO[] blockDatas,
+        Block blockPrefab, RectTransform startRect, RectTransform boardPanel, BlockDataSO[] blockDatas,
         int columns, int rows, int bufferRows)
     {
         _board = board;
         _layout = layout;
         _blockPrefab = blockPrefab;
+        _startRect = startRect;
         _boardPanel = boardPanel;
         _blockDatas = blockDatas;
         _columns = columns;
@@ -30,25 +32,35 @@ public class BoardSpawner
         _bufferRows = bufferRows;
     }
 
-    // 단일 블록 생성
-    public void SpawnBlock(int2 pos)
+    // 단일 블록 설정 및 반환
+    public void CreateBlock(int2 pos, BlockDataSO data)
     {
         // 프리팹 생성 및 부모 설정
         Block newBlock = Object.Instantiate(_blockPrefab, _boardPanel);
         // 인스펙터 상에서 쉬운 디버깅을 위해 블록에 위치값으로 이름 설정
         newBlock.name = $"Block_{pos.y}_{pos.x}";
         
-        // 랜덤 데이터 할당 및 초기화
-        int randomIndex = Random.Range(0, _blockDatas.Length);
-        newBlock.Init(pos, _blockDatas[randomIndex], _board);
-
+        // 블록 데이터 할당 및 초기화
+        newBlock.Init(pos, data, _board);
+        
         // UI 좌표 설정 - Init 이후 Rect 캐싱됨
         newBlock.Rect.anchoredPosition = _layout.GetPosition(pos);
+        
+        // 블록 사이즈 설정 - 첫번째 그리드 사이즈와 동일하게
+        newBlock.Rect.sizeDelta = _startRect.sizeDelta;
+        
         // 스크린 -> 로컬 좌표 변환
         newBlock.DragHandler.SetBoardPanel(_boardPanel);
-
+        
         // IBoardData로 그리드에 등록
         _board.SetBlock(pos, newBlock);
+    }
+    
+    // 단일 블록 명시적 생성
+    public void SpawnBlock(int2 pos)
+    {
+        var data = _blockDatas[Random.Range(0, _blockDatas.Length)];
+        CreateBlock(pos, data);
     }
 
     // 전체 블록 스폰 (초기 생성)
@@ -59,12 +71,10 @@ public class BoardSpawner
             for (int x = 0; x < _columns; x++)
             {
                 var pos = new int2(x, y);
-                Block newBlock = Object.Instantiate(_blockPrefab, _boardPanel);
-                newBlock.name = $"Block_{pos.y}_{pos.x}";
-
-                InitBlockSafe(pos, newBlock);
-                newBlock.DragHandler.SetBoardPanel(_boardPanel);
-                _board.SetBlock(pos, newBlock);
+                var data = pos.y < _bufferRows
+                    ? _blockDatas[Random.Range(0, _blockDatas.Length)]
+                    : GetNonMatchingData(pos);
+                CreateBlock(pos, data);
             }
         }
     }
@@ -86,18 +96,18 @@ public class BoardSpawner
     
     /// <summary>
     /// 3매치 방지 데이터 선택 후 블록 초기화
-    /// 초기 스폰 및 리셋 시 공통으로 사용
+    /// 블록 데이터 리셋 사용
     /// </summary>
     private void InitBlockSafe(int2 pos, Block block)
     {
         BlockDataSO data;
-    
+        
         // 버퍼 영역은 3매치 방지 배치 불필요 (버퍼 내 매치 허용)
         if (pos.y < _bufferRows)
             data = _blockDatas[Random.Range(0, _blockDatas.Length)];
         else
             data = GetNonMatchingData(pos);
-    
+        
         block.Init(pos, data, _board);
         block.Rect.anchoredPosition = _layout.GetPosition(pos);
     }
