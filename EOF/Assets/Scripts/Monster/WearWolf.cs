@@ -9,6 +9,11 @@ public class WearWolf : Monster
         _minDamage = 20;
     }
 
+    public override bool Dead()
+    {
+        return true;
+    }
+
     public override IEnumerator PatternProbability()
     { 
         int _probability = Random.Range(0, 100);
@@ -32,18 +37,21 @@ public class WearWolf : Monster
     public override void FirstPattern()
     {
         Debug.Log("달려들기");
+        _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 1));
     }
 
     public override void SecondPattern()
     {
         Debug.Log("물어뜯기");
+        _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
     }
 
     public override void ThirdPattern()
     {
         Debug.Log("찢어발기기");
+        _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 21));
     }
 }

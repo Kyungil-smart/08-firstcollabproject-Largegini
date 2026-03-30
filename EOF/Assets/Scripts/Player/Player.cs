@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public int _behavior;
     public int _maxbehavior;
     public int _maxbehavioralGauge;
+    private Animator _animator;
     
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         _heal = 3f;
         _maxbehavior = 3;
         _maxbehavioralGauge = 10;
+        _animator = GetComponent<Animator>();
         _freeze = false;
         _reverse = false;
         _theEnd = false;
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("공격");
         yield return new WaitForSeconds(0.5f); 
+        _animator.SetTrigger("Attack");
         Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * 0.1f));
         yield return new WaitForSeconds(0.5f);
     }
@@ -75,6 +78,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("특수 공격");
         yield return new WaitForSeconds(0.5f);
+        _animator.SetTrigger("SpecialAttack");
         Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * 0.1f));
         _behavioralGauge *= count;
     }
@@ -88,6 +92,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            _animator.SetTrigger("Heal");
             _health += (_heal * count) * (1 + (combo - 1 ) * 0.1f);
             if (_health > _maxHealth)
             {

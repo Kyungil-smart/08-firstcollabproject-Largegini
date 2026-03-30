@@ -26,6 +26,13 @@ public class RedOak : Monster
             _berserker = true;
         }
     }
+
+    public override bool Dead()
+    {
+        _animator.SetTrigger("Dead");
+        return true;
+    }
+
     public override IEnumerator PatternProbability()
     {
         if (_berserker)
@@ -53,18 +60,21 @@ public class RedOak : Monster
     public override void FirstPattern()
     {
         Debug.Log("휘두르기");
+        _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
     }
 
     public override void SecondPattern()
     {
         Debug.Log("강타");
+        _animator.SetTrigger("SecondAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
     }
 
     public override void ThirdPattern()
     {
         Debug.Log("박살내기");
+        _animator.SetTrigger("ThirdAttack");
         _damage = Random.Range(_minDamage, _minDamage + 11);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;

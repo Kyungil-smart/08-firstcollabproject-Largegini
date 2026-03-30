@@ -54,6 +54,11 @@ public class BlueDragon : Monster
         }
     }
 
+    public override bool Dead()
+    {
+        return true;
+    }
+
     public override IEnumerator PatternProbability()
     {
         if (_dragonScale)
@@ -83,6 +88,7 @@ public class BlueDragon : Monster
     public override void FirstPattern()
     {
         Debug.Log("드래곤 클로");
+        _animator.SetTrigger("Claw");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
     }
 
@@ -99,6 +105,7 @@ public class BlueDragon : Monster
     public override void ThirdPattern()
     {
         Debug.Log("프로스트 브레스");
+        _animator.SetTrigger("Spit");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
         Player.Instance._freeze = true;
     }
