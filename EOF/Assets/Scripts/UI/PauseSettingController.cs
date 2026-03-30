@@ -1,16 +1,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-
-public class PauseController : MonoBehaviour
+// 작성자 : 홍정옥
+// 기능 : 일시정지 및 설정 버튼 제어
+public class PauseSettingController : MonoBehaviour
 {
     public static bool GameIsPaused = false;
-    [SerializeField] private GameObject pauseMenuCanvas;
+    
+    [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private GameObject settingCanvas;
+    [SerializeField] private GameObject goMainConfirmPopup;
 
     public void Start()
     {
         Resume();
+        goMainConfirmPopup.SetActive(false);
     }
     public void Update()
     {
@@ -33,8 +37,10 @@ public class PauseController : MonoBehaviour
 
     public void Resume()
     {
-        if(pauseMenuCanvas != null)
-            pauseMenuCanvas.SetActive(false);
+        if(pauseCanvas != null)
+            pauseCanvas.SetActive(false);
+        if (settingCanvas != null)
+            settingCanvas.SetActive(false);
 
         Time.timeScale = 1f;
         GameIsPaused = false;
@@ -44,8 +50,8 @@ public class PauseController : MonoBehaviour
 
     public void Pause()
     {
-        if(pauseMenuCanvas != null)
-            pauseMenuCanvas.SetActive(true);
+        if(pauseCanvas != null)
+            pauseCanvas.SetActive(true);
 
         Time.timeScale = 0f;
         GameIsPaused = true;
@@ -55,7 +61,7 @@ public class PauseController : MonoBehaviour
 
     public void OpenSettings()
     {
-        if(pauseMenuCanvas != null)
+        if(pauseCanvas != null)
             settingCanvas.SetActive(true);
         
         Time.timeScale = 0f;
@@ -66,7 +72,7 @@ public class PauseController : MonoBehaviour
 
     public void CloseSettings()
     {
-        if (pauseMenuCanvas != null)
+        if (pauseCanvas != null)
             settingCanvas.SetActive(false);
         
         Debug.Log("설정 닫기");
@@ -74,11 +80,25 @@ public class PauseController : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoMainMenu()
     {
+        Debug.Log("GoMainMenu 호출됨");
+        Debug.Log("goMainConfirmPopup: " + goMainConfirmPopup);
+        goMainConfirmPopup.SetActive(true);
+    }
+    
+    public void OnclickConfirmYes()
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Title");
+    }
+
+    public void OnClickConfirmNo()
+    {
+        goMainConfirmPopup.SetActive(false);
     }
 }

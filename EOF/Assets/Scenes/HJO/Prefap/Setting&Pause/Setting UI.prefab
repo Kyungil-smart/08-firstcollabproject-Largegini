@@ -309,7 +309,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PauseSettingController, Assembly-CSharp
         m_MethodName: CloseSettings
         m_Mode: 1
         m_Arguments:
@@ -2051,7 +2051,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_TargetDisplay: 0
 --- !u!114 &4553875120237994542
 MonoBehaviour:
