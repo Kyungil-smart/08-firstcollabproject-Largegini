@@ -527,7 +527,10 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 - BlockDataSO에 매치 이펙트 프레임 배열(MatchEffectFrames) 추가, 타입별 다른 이펙트 가능
 - 이펙트 Image 오브젝트만 개별 활성/비활성 제어 (`_effectImage.gameObject.SetActive`)
 
-
+### 보드 상호작용 컨트롤 함수 추가
+- SetInteractable
+- BoardManger에 외부에서 블럭 상호작용 가능 여부 조절용 함수추가
+- GraphicRaycaster를 끄고 켜는 간단한 방식
 
 ### 튜토리얼 퍼즐 서포트 작업 노트
 

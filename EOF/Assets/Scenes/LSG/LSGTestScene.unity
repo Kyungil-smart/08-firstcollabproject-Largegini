@@ -980,6 +980,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2108539727}
+        m_TargetAssemblyTypeName: BoardManager, Assembly-CSharp
+        m_MethodName: SetInteractable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1392497024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1058,11 +1070,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!224 &1439447081 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7864051115157299834, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-  m_PrefabInstance: {fileID: 2108539725}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1483033383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,10 +1461,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
-      propertyPath: _boardPanel
-      value: 
-      objectReference: {fileID: 1439447081}
-    - target: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
       propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1874078667}
@@ -1465,8 +1468,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas_PuzzleBoard
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9070598375232786254, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
