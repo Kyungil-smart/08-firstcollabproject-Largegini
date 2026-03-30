@@ -24,11 +24,11 @@ EditorBuildSettings:
     path: Assets/Scenes/AJY/AJYBattleTestScene.unity
     guid: 7fe031efc18adf0498b38ce4412131ac
   - enabled: 1
-    path: Assets/Scenes/Ending.unity
-    guid: 82d4a4a1f21fa694ba8778434fe24931
-  - enabled: 0
     path: Assets/Scenes/Story.unity
     guid: 70b48262e1987f44c9efc4c37d1c655e
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 82d4a4a1f21fa694ba8778434fe24931
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a2e14f18230f90e4fbae8f134f7d0e2c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

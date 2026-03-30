@@ -3409,7 +3409,7 @@ PrefabInstance:
       objectReference: {fileID: 348245892}
     - target: {fileID: 5698910756230888505, guid: dcc64bc03f6331149b83b755d0e8e7f1, type: 3}
       propertyPath: NodeBtns.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5698910756230888505, guid: dcc64bc03f6331149b83b755d0e8e7f1, type: 3}
       propertyPath: 'NodeBtns.Array.data[0]'
