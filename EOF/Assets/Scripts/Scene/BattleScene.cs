@@ -12,6 +12,16 @@ public class BattleScene:IScene
     {
         // 배틀 씬 진입
         SceneManager.LoadScene((int)ESceneType.Battle);
+
+
+        // 세이브 -> 플레이어 정보 넘김 (한성우)
+        Player player = GameObject.FindAnyObjectByType<Player>();
+        if (player != null && DataManager._instance != null)
+        {
+            DataManager._instance.OnGameLoad(player);
+
+            // Debug.Log("세이브 -> 플레이어 정보 넘김");
+        }
     }
 
     public void Update()
@@ -25,9 +35,19 @@ public class BattleScene:IScene
 
     public void Exit()
     {
+
+        // 플레이어 -> 세이브 정보 넘김 (한성우)
+        Player player = GameObject.FindAnyObjectByType<Player>();
+        if (player != null && DataManager._instance != null)
+        {
+            DataManager._instance.OnGameSave(player);
+
+            // Debug.Log("플레이어 -> 세이브 정보 넘김");
+        }
+
         // 배틀 씬 퇴장
         SceneLoader.Intance.StageIndex += 1;
         
-        // 플레이어 정보 넘김
+        
     }
 }
