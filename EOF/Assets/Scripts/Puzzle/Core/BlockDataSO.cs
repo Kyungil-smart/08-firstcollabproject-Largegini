@@ -12,14 +12,17 @@ public class BlockDataSO : ScriptableObject
     // [SerializeField] private Color _color;
     [SerializeField] private Sprite _sprite;
     [SerializeField] private float _effectValue;
+    [SerializeField] private Sprite[] _matchEffectFrames;
     
     // 외부 스크립트 접근용 읽기 전용 프로퍼티 (파스칼 케이스)
     public EBlockType Type => _type;
     // public Color Color => _color;
     public Sprite Sprite => _sprite;
+    public Sprite[] MatchEffectFrames => _matchEffectFrames;
     public float EffectValue => _effectValue;
     
-    public void SetBlockData(Dictionary<string, object> row)
+    // 설정 예시 사용안한
+    /* public void SetBlockData(Dictionary<string, object> row)
     {
         _type = (EBlockType)Enum.Parse(typeof(EBlockType), Convert.ToString(row["Type"]));
     
@@ -29,8 +32,10 @@ public class BlockDataSO : ScriptableObject
         // _color = new Color(r, g, b);
     
         string spriteName = Convert.ToString(row["Sprite"]);
-        _sprite = Resources.Load<Sprite>(spriteName); // 또는 Addressables
+        // _sprite = Resources.Load<Sprite>(spriteName); // 또는 Addressables
+        // 
+        // _matchEffectFrames = Resources.LoadAll<Sprite>(spriteName);
     
         _effectValue = Convert.ToInt32(row["EffectValue"]);
-    }
+    } */
 }

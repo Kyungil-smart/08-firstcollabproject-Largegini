@@ -2,5 +2,5 @@
 // 작성자 : 이성규
 public enum EBlockStatus
 {
-    None, Freeze, Moving
+    None, Freeze, Moving, Destroying
 }

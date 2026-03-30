@@ -511,8 +511,23 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 - `SpawnBlock`: 랜덤 데이터로 `CreateBlock` 호출 (단일 블록 추가 시)
 - `SpawnAll`: 3매치 방지 데이터 선택 후 `CreateBlock` 호출 (초기 생성)
 - `InitBlockSafe`: `ResetAll` 전용으로 유지 (Instantiate 없이 데이터만 교체)
- 
-`_startRect.sizeDelta` 세팅이 `SpawnBlock`에만 있고 `SpawnAll` 경로에서 빠져있던 버그도 `CreateBlock` 통합으로 해결.
+
+### 퍼즐 매칭 및 콤보 이펙트 추가
+
+이펙트 에셋이 SpriteRenderer 기반이라 UI Image 블록에 그대로 사용 불가.  
+애니메이션 클립 확인 결과 샘플레이트 15.  
+샘플레이트 간격으로 Image.sprite를 순차 교체하는 프레임 재생 스크립트(UIFrameEffect) 작성.  
+블록 프리팹 최하단 자식에 이펙트 재생용 Image 배치 (UI 렌더링 순서상 최상단 표시).  
+이펙트 이미지 데이터는 블록별로 스프라이트 배열로 보관
+
+**블록 자식 이펙트 방식**
+- 블록이 꺼질 때 이펙트도 같이 꺼지는 문제 → Despawn 타이밍을 이펙트 완료 후로 지연
+- 블록 이미지만 먼저 숨기고(`_blockImage.enabled = false`), 이펙트 재생 완료 콜백에서 비활성화
+- 이펙트 재생 중 `EBlockStatus.Destroying` 상태로 전환하여 매칭/낙하 로직에서 스킵
+- BlockDataSO에 매치 이펙트 프레임 배열(MatchEffectFrames) 추가, 타입별 다른 이펙트 가능
+- 이펙트 Image 오브젝트만 개별 활성/비활성 제어 (`_effectImage.gameObject.SetActive`)
+
+
 
 ### 튜토리얼 퍼즐 서포트 작업 노트
 
