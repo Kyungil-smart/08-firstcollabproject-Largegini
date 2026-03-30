@@ -26,7 +26,7 @@ public class BattleSystem : MonoBehaviour
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-        _currentStageIndex = SceneLoader.Intance.StageIndex / 2;
+        // _currentStageIndex = SceneLoader.Intance.StageIndex / 2;
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
@@ -47,7 +47,7 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator Battle()
     {
         _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
-        
+        _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Background);
         while (true)
         {
                 // 죽는 기능

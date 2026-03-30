@@ -8,8 +8,16 @@ using UnityEngine;
  */
 public class MonsterSpawn : MonoBehaviour
 {
-    public Monster SpawnMonster(GameObject _enemy)
+    private Transform backgroundParent; 
+    private GameObject _currentBackground;
+    public Monster SpawnMonster(GameObject _enemy, GameObject _backgroundPrefab = null)
     {
+        if (_currentBackground != null) Destroy(_currentBackground);
+        
+        if (_backgroundPrefab != null && backgroundParent != null)
+        {
+            _currentBackground = Instantiate(_backgroundPrefab, backgroundParent);
+        }
         GameObject go = Instantiate(_enemy, transform.position, transform.rotation);
         return go.GetComponent<Monster>();
     }

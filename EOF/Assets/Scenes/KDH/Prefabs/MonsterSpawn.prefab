@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b132e1c68803274da85972487a3d306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterSpawn
+  backgroundParent: {fileID: 9017747701700936965, guid: 5d5bcda6dd37c474885cebfa685400ce, type: 3}
 --- !u!1 &3282078318644997019
 GameObject:
   m_ObjectHideFlags: 0
