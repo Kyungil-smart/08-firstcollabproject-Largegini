@@ -48,10 +48,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a2473f24e9b8e943a0fbc02d42be966, type: 2}
   - {fileID: 11400000, guid: 1e83b6833c3903640aa3de757116180c, type: 2}
   - {fileID: 11400000, guid: 7456159e83db4914bb69cc7fcc12b75b, type: 2}
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 8810682086941662048, guid: 8f6880a57ce19d045a8a1c96927da180, type: 3}
   _backSpawn: {fileID: 3226240018604970975, guid: 5d5bcda6dd37c474885cebfa685400ce, type: 3}
-  _currentStageIndex: 0
-  _boardManager: {fileID: 0}
+  _currentStageIndex: 1
+  _boardManager: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
   _isPuzzle: 0
   _puzzleResult:
     comboCount: 0
