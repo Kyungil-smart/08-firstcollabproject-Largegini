@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1689571526216135696}
   - component: {fileID: 867287928777857943}
   - component: {fileID: -7252948827765108108}
+  - component: {fileID: -7237162349179385807}
   - component: {fileID: 2761217898408310332}
   - component: {fileID: 2851219891988935820}
   - component: {fileID: 7723964148216704964}
