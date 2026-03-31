@@ -514,13 +514,18 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 
 ### 퍼즐 매칭 및 콤보 이펙트 추가
 
-### 퍼즐 매칭 이펙트 추가
- 
-이펙트 에셋이 SpriteRenderer + Animator 기반이라 UI Image 블록에 그대로 사용 불가.
-애니메이션 클립 확인 결과 샘플레이트 15.
-샘플레이트 간격으로 Image.sprite를 순차 교체하는 프레임 재생 스크립트 작성.
-블록 프리팹 최하단 자식에 이펙트 재생용 Image 배치 (UI 렌더링 순서상 최상단 표시).
-타입별 이펙트 프레임은 BlockDataSO에 `Sprite[] _matchEffectFrames` 추가하여 관리.
+이펙트 에셋이 SpriteRenderer 기반이라 UI Image 블록에 그대로 사용 불가.  
+애니메이션 클립 확인 결과 샘플레이트 15.  
+샘플레이트 간격으로 Image.sprite를 순차 교체하는 프레임 재생 스크립트(UIFrameEffect) 작성.  
+블록 프리팹 최하단 자식에 이펙트 재생용 Image 배치 (UI 렌더링 순서상 최상단 표시).  
+이펙트 이미지 데이터는 블록별로 스프라이트 배열로 보관
+
+**블록 자식 이펙트 방식**
+- 블록이 꺼질 때 이펙트도 같이 꺼지는 문제 → Despawn 타이밍을 이펙트 완료 후로 지연
+- 블록 이미지만 먼저 숨기고(`_blockImage.enabled = false`), 이펙트 재생 완료 콜백에서 비활성화
+- 이펙트 재생 중 `EBlockStatus.Destroying` 상태로 전환하여 매칭/낙하 로직에서 스킵
+- BlockDataSO에 매치 이펙트 프레임 배열(MatchEffectFrames) 추가, 타입별 다른 이펙트 가능
+- 이펙트 Image 오브젝트만 개별 활성/비활성 제어 (`_effectImage.gameObject.SetActive`)
 
 ### 보드 상호작용 컨트롤 함수 추가
 - SetInteractable
@@ -571,6 +576,7 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 | 2단계 | 퍼즐 영역 클릭 감지, 드래그 불가 | 입력 잠금 + 탭 이벤트 |
 | 3단계 | 특정 블록 빛나는 연출 | 좌표 지정 하이라이트 |
 | 4단계 | 특정 블록만 조작 가능 | 좌표 화이트리스트 필터 |
+| 4단계 | 특정 방향으로만 스왑 가능 | 스왑 방향 필터 |
 | 4단계 | 반드시 3매치 만족 | 프리셋 보드 배치 |
 | 4단계 | 3매치 후 파괴 일시정지 | 매칭 파이프라인 인터셉터 |
 | 5단계 | 팝업 닫히면 파괴 재개 | proceed 콜백 호출 |
@@ -586,6 +592,7 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 | 2단계 클릭 감지 | `OnBoardTapped` 이벤트 | ITutorialBoardControl |
 | 3단계 블록 빛남 | `SetBlockHighlights()` | BoardTutorialHandler |
 | 4단계 특정 블록만 조작 | `SetInteractionFilter()` | BoardTutorialHandler |
+| 4단계 스왑 방향 제한 | `SetSwapFilter()` | BoardTutorialHandler |
 | 4단계 파괴 일시정지 | `SetChainInterceptor()` | BoardTutorialHandler |
 | 5단계 파괴 재개 | `proceed()` 콜백 호출 | 튜토리얼 컨트롤러 측 |
 | 전체 입력 잠금/해제 | `SetInputLocked()` | BoardTutorialHandler |
@@ -598,6 +605,18 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 BoardManager가 400줄 이상으로 비대해져서 튜토리얼 제어 로직을 별도 하위 시스템으로 분리.
 기존 Spawner/Swapper/Processor/Validator와 동일한 패턴의 순수 C# 클래스.
 BoardManager는 ITutorialBoardControl 구현을 한 줄씩 위임하는 구조.
+
+---
+
+### 잡기 필터 / 스왑 필터 분리
+
+4단계에서 (1,10) 블록을 잡아서 (2,10)으로만 드래그해야 하는 요구사항.
+기존 `IsValidSwapTarget`이 타겟에도 `CanInteract`를 호출해서
+`InteractionFilter`에 의해 스왑 타겟까지 거부되는 문제 발생.
+
+- `CanInteract` + `InteractionFilter` → "잡을 수 있는 블록" 제한 (OnPointerDown)
+- `IsValidSwapTarget` + `SwapFilter` → "스왑 방향" 제한 (OnPointerUp)
+- `IsValidSwapTarget`에서 `CanInteract(to)` 제거, 타겟 블록 기본 검증만 직접 수행
 
 ---
 
@@ -651,15 +670,30 @@ Inspector 우클릭 -> ContextMenu로 개별 기능 테스트.
 
 ---
 
+### TutorialTestRunner 작성
+
+UI 없이 튜토리얼 6단계 흐름을 에디터에서 순차 테스트하는 스크립트.
+`#if UNITY_EDITOR` 전체 래핑. 튜토리얼 담당이 참조하거나 에디터 풀어서 런타임용으로 전환 가능.
+
+- Start()에서 프리셋 로드 + 입력 잠금 (랜덤 보드 노출 방지)
+- Space키로 단계 진행, R키로 리셋
+- 4단계에서 InteractionFilter + SwapFilter + ChainInterceptor 동시 설정
+- 콘솔 로그로 각 단계 동작 확인
+
+UI 연결 작업 파이프라인 문서와 함께 튜토리얼 담당에게 전달.
+
+---
+
 ### 기존 코드 영향 범위
  
 | 파일 | 변경 종류 | 규모 |
 |------|---------|------|
-| ITutorialBoardControl.cs | 신규 | 인터페이스 1개 |
+| ITutorialBoardControl.cs | 신규 | 인터페이스 (SwapFilter 포함) |
 | BoardTutorialHandler.cs | 신규 | 순수 C# 클래스 (하이라이트 풀링 포함) |
 | BoardTestHelper.cs | 신규 | 에디터 전용 MonoBehaviour |
+| TutorialTestRunner.cs | 신규 | 에디터 전용 6단계 테스트 |
 | TutorialBoardPreset.cs | 신규 | ScriptableObject |
-| BoardManager.cs | 수정 | 튜토리얼 로직 위임, 테스트 메서드 분리 |
+| BoardManager.cs | 수정 | 튜토리얼 로직 위임, IsValidSwapTarget 검증 분리 |
 | BlockDragHandler.cs | 수정 | 필드 1개, 탭 감지 추가 |
 | BoardSpawner.cs | 수정 | CreateBlock 추출, sizeDelta 버그 수정 |
 | BlockDataSO.cs | 수정 | matchEffectFrames 필드 추가 |
@@ -667,6 +701,3 @@ Inspector 우클릭 -> ContextMenu로 개별 기능 테스트.
  
 기존 퍼즐 로직(매칭, 낙하, 리필, 연쇄, 데드락)은 변경하지 않음.
 추가된 필드가 null/false인 기본 상태에서는 기존과 완전히 동일하게 동작.
-
-
-

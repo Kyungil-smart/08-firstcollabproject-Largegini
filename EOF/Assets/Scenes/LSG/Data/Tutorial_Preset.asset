@@ -75,8 +75,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98f6bb7385a2d91408d8157587383808, type: 2}
   - {fileID: 11400000, guid: 98f6bb7385a2d91408d8157587383808, type: 2}
   - {fileID: 11400000, guid: a9d89cec09aef5e48a0059c822641b5c, type: 2}
-  _dragSource: {x: 0, y: 0}
-  _dragDirection: {x: 0, y: 0}
+  _dragSource: {x: 2, y: 10}
+  _dragDirection: {x: 1, y: 0}
   _highlightPositions:
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
+  - {x: 2, y: 10}
+  - {x: 3, y: 10}
