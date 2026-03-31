@@ -54,58 +54,57 @@ public class BlueDragon : Monster
         }
     }
     
-    public override float PatternProbability()
+    public override IEnumerator PatternProbability()
     {
-        float delay = 0;
         if (_dragonScale)
         {
             DragonScale();
-            return 0;
         }
-        
+
+        yield return null;
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            delay += FirstPattern();
+            StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            delay += SecondPattern();
+            StartCoroutine(SecondPattern());
         }
         else
         {
-            delay += ThirdPattern();
+            StartCoroutine(ThirdPattern());
         }
-        return delay;
     }
 
 
-    public override float FirstPattern()
+    public override IEnumerator FirstPattern()
     {
+
         Debug.Log("드래곤 클로");
         _animator.SetTrigger("Claw");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override float SecondPattern()
+    public override IEnumerator SecondPattern()
     {
         Debug.Log("드래곤 하트");
         _health += _health * 0.2f;
+        yield return null;
         if (_health > _maxhealth)
         {
             _health = _maxhealth;
         }
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override float ThirdPattern()
+    public override IEnumerator ThirdPattern()
     {
         Debug.Log("프로스트 브레스");
         _animator.SetTrigger("Spit");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
         Player.Instance._freeze = true;
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     public void DragonScale()

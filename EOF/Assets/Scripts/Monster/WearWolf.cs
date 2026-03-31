@@ -9,47 +9,49 @@ public class WearWolf : Monster
         _minDamage = 20;
     }
 
-    public override float PatternProbability()
-    { 
+    public override IEnumerator PatternProbability()
+    {
+        yield return null;
         int _probability = Random.Range(0, 100);
-        float delay = 0;
         if (0 <= _probability && _probability < 60)
         {
-            delay += FirstPattern();
+            StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            delay += SecondPattern();
+            StartCoroutine(SecondPattern());
         }
         else
         {
-            delay += ThirdPattern();
+            StartCoroutine(ThirdPattern());
         }
-        return delay;
     }
 
 
-    public override float FirstPattern()
+    public override IEnumerator FirstPattern()
     {
         Debug.Log("달려들기");
         _animator.SetTrigger("FirstAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 1));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
+
     }
 
-    public override float SecondPattern()
+    public override IEnumerator SecondPattern()
     {
         Debug.Log("물어뜯기");
         _animator.SetTrigger("FirstAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
+
     }
 
-    public override float ThirdPattern()
+    public override IEnumerator ThirdPattern()
     {
         Debug.Log("찢어발기기");
         _animator.SetTrigger("FirstAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 21));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
+
     }
 }
