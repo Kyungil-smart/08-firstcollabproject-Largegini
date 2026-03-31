@@ -20,7 +20,7 @@ public class PlayerData
     public float Heal { get; set; }
     public int Action { get; set; }
  
-    public float MaxGauge { get; set; }
+    public int MaxGauge { get; set; }
     public float ComboRate { get; set; }
 
 
@@ -37,7 +37,7 @@ public class PlayerData
         Heal = Convert.ToSingle(row["Heal"]);
 
         Action = Convert.ToInt32(row["Action"]);
-        MaxGauge = Convert.ToSingle(row["MaxGauge"]);
+        MaxGauge = Convert.ToInt32(row["MaxGauge"]);
         ComboRate = Convert.ToSingle(row["ComboRate"]);
 
 

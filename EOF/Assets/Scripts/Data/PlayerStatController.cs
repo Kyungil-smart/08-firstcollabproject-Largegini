@@ -24,41 +24,58 @@ public class PlayerStatController : MonoBehaviour
     private void Start()
     {
         InitializePlayer(thisID);
-        Debug.Log($"InitializePlayer {thisID} 찾아서 실행 완료");
+        // Debug.Log($"InitializePlayer {thisID} 찾아서 실행 완료");
     }
 
 
 
     public void InitializePlayer(int id)
     {
-        Debug.Log("InitializePlayer 입장");
+        // Debug.Log("InitializePlayer 입장");
 
 
         if (DataManager._instance == null)
         {
-            Debug.Log("DataManager._instance == null");
+            Debug.LogError("DataManager._instance == null");
             return;
         }
 
         table = DataManager._instance.GetPlayerTable();
         thisScript = GetComponent<Player>();   // 플레이어나 플레이어 상속받는 스크립트 찾기
-        Debug.Log("Player 찾기 실행");
+        // Debug.Log("Player 찾기 실행");
 
 
         // 테이블이 없거나 id 없으면 예외 처리
         if (table == null || !table.PlayerDic.ContainsKey(thisID)) Debug.LogError($"ID {thisID} 플레이어 확인 불가!");
         else
         {
-            Debug.Log("if 진행 후 else 실행");
+            // Debug.Log("if 진행 후 else 실행");
             PlayerData myData = table.PlayerDic[thisID];
 
-            // thisScript. = myData.LocalizeID;
+            // 각종 스텟 설정
             thisScript._maxHealth = myData.MaxHP;
-            Debug.Log($"b : {thisScript._maxHealth}");
+            thisScript._health = myData.MaxHP;
+            thisScript._attack = myData.Damage_Normal;
+            thisScript._attackSpecial = myData.Damage_Special;
+            thisScript._defensive = myData.Shield;
+            thisScript._heal = myData.Heal;
+            thisScript._maxbehavior = myData.Action;
+            thisScript._maxbehavioralGauge = myData.MaxGauge;
+            thisScript._comboRate = myData.ComboRate;
+
+
+
+            // Debug.Log($"b : {thisScript._maxHealth}");
             // thisScript._minDamage = myData.Damage_1;
 
             // thisScript.InitStat();
-            Debug.Log("InitStat 실행");
+
+
+            // 저장된 데이터가 있다면 마지막에 덮어쓰기
+            thisScript.Init();
+
+
+            // Debug.Log("InitStat 실행");
         }
 
 
