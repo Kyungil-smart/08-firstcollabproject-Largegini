@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
         _animator = GetComponent<Animator>();
         _freeze = false;
         _reverse = false;
@@ -57,7 +56,6 @@ public class Player : MonoBehaviour
 
     public IEnumerator PlayerStat(PuzzleResult result)
     {
-        yield return new WaitForSeconds(0.5f);
         int combo = result.comboCount;
         foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
         {
