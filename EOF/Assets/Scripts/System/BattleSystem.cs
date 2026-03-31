@@ -47,8 +47,10 @@ public class BattleSystem : MonoBehaviour
     
     private IEnumerator Battle()
     {
+        yield return null;
         _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
         _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+        _player._behavior = _player._maxbehavior;
         while (true)
         {
                 // 죽는 기능
@@ -63,7 +65,6 @@ public class BattleSystem : MonoBehaviour
                     yield return new WaitForSeconds(0.1f);
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
-
                     
                     if (swapped)
                     {
@@ -106,8 +107,7 @@ public class BattleSystem : MonoBehaviour
                         _player._behavior++;
                         _player._behavioralGauge -= 10;
                     }
-
-                    // 죽는 기능
+                    
                     yield return new WaitForEndOfFrame();
                 }
 
