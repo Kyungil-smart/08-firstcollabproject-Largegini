@@ -514,25 +514,159 @@ GetCellsInRange는 가로/세로를 각각 다른 축으로 순회해야 해서 
 
 ### 퍼즐 매칭 및 콤보 이펙트 추가
 
-이펙트 에셋이 SpriteRenderer 기반이라 UI Image 블록에 그대로 사용 불가.  
-애니메이션 클립 확인 결과 샘플레이트 15.  
-샘플레이트 간격으로 Image.sprite를 순차 교체하는 프레임 재생 스크립트(UIFrameEffect) 작성.  
-블록 프리팹 최하단 자식에 이펙트 재생용 Image 배치 (UI 렌더링 순서상 최상단 표시).  
-이펙트 이미지 데이터는 블록별로 스프라이트 배열로 보관
-
-**블록 자식 이펙트 방식**
-- 블록이 꺼질 때 이펙트도 같이 꺼지는 문제 → Despawn 타이밍을 이펙트 완료 후로 지연
-- 블록 이미지만 먼저 숨기고(`_blockImage.enabled = false`), 이펙트 재생 완료 콜백에서 비활성화
-- 이펙트 재생 중 `EBlockStatus.Destroying` 상태로 전환하여 매칭/낙하 로직에서 스킵
-- BlockDataSO에 매치 이펙트 프레임 배열(MatchEffectFrames) 추가, 타입별 다른 이펙트 가능
-- 이펙트 Image 오브젝트만 개별 활성/비활성 제어 (`_effectImage.gameObject.SetActive`)
+### 퍼즐 매칭 이펙트 추가
+ 
+이펙트 에셋이 SpriteRenderer + Animator 기반이라 UI Image 블록에 그대로 사용 불가.
+애니메이션 클립 확인 결과 샘플레이트 15.
+샘플레이트 간격으로 Image.sprite를 순차 교체하는 프레임 재생 스크립트 작성.
+블록 프리팹 최하단 자식에 이펙트 재생용 Image 배치 (UI 렌더링 순서상 최상단 표시).
+타입별 이펙트 프레임은 BlockDataSO에 `Sprite[] _matchEffectFrames` 추가하여 관리.
 
 ### 보드 상호작용 컨트롤 함수 추가
 - SetInteractable
 - BoardManger에 외부에서 블럭 상호작용 가능 여부 조절용 함수추가
 - GraphicRaycaster를 끄고 켜는 간단한 방식
 
-### 튜토리얼 퍼즐 서포트 작업 노트
+## Day 8 — 2026-03-31
 
-### 작업 목록
+에셋 관리 최신화 및 팀원 작업 서포트 오전 중 실행완료
+
+### 튜토리얼 퍼즐 서포트 작업
+
+**튜토리얼 흐름도**
+
+**1단계: 첫 대사 (프롤로그)**
+- 메인 로비 → 페이드 아웃 → 전투화면 로딩 → 프롤로그 팝업창 표시
+- '계속' 버튼 클릭으로 닫기
+
+**2단계: 퍼즐 UI 안내**
+- 팝업 닫힌 후 퍼즐 UI 영역만 밝게, 나머지 어둡게
+- 퍼즐 영역 1회 클릭 → 퍼즐 UI 팝업창 표시
+- '계속' 클릭으로 닫기
+
+**3단계: 기본 조작 안내**
+- 기본 조작 팝업창 표시 → '계속' 클릭으로 닫기
+- 닫힌 후에도 밝게 빛나는 퍼즐 UI 연출 유지
+- 퍼즐 영역에서 특정 블록이 빛나는 연출 출력
+
+**4단계: 행동력 시스템 안내**
+- 유저가 빛나는 특정 블록을 1회 조작
+- 행동력 1 소모
+- 3매치 조건 만족되지만 상호작용 일시정지 (파괴 안 됨)
+- 행동력 시스템 팝업창 표시
+
+**5단계: 콤보 시스템 안내**
+- '계속' 클릭 → 일시정지된 3매치 파괴 재개
+- 빛나는 퍼즐 UI 연출 종료
+- 콤보 시스템 팝업창 표시
+
+**6단계: 전투 UI 안내**
+- '계속' 클릭 → 전투 UI 팝업창 표시
+- '계속' 클릭 → 튜토리얼 종료, 자율 플레이 시작
+
+**기획서에서 퍼즐 보드에 요구하는 것**
+
+| 단계 | 기획 요구사항 | 보드 쪽 대응 |
+|------|-------------|------------|
+| 2단계 | 퍼즐 영역 클릭 감지, 드래그 불가 | 입력 잠금 + 탭 이벤트 |
+| 3단계 | 특정 블록 빛나는 연출 | 좌표 지정 하이라이트 |
+| 4단계 | 특정 블록만 조작 가능 | 좌표 화이트리스트 필터 |
+| 4단계 | 반드시 3매치 만족 | 프리셋 보드 배치 |
+| 4단계 | 3매치 후 파괴 일시정지 | 매칭 파이프라인 인터셉터 |
+| 5단계 | 팝업 닫히면 파괴 재개 | proceed 콜백 호출 |
+
+### ITutorialBoardControl 인터페이스 작성
+ 
+튜토리얼 시스템이 보드를 제어하는 전용 인터페이스.
+기존 IBoard(= IBoardInteraction + IBoardQuery + IBoardData)는 퍼즐 내부 시스템용이고,
+이 인터페이스는 퍼즐 외부(튜토리얼)가 사용하는 채널이므로 별도 분리.
+ 
+| 튜토리얼 단계 | 호출 메서드/이벤트 | 스크립트 |
+|-------------|----------------|---------|
+| 2단계 클릭 감지 | `OnBoardTapped` 이벤트 | ITutorialBoardControl |
+| 3단계 블록 빛남 | `SetBlockHighlights()` | BoardTutorialHandler |
+| 4단계 특정 블록만 조작 | `SetInteractionFilter()` | BoardTutorialHandler |
+| 4단계 파괴 일시정지 | `SetChainInterceptor()` | BoardTutorialHandler |
+| 5단계 파괴 재개 | `proceed()` 콜백 호출 | 튜토리얼 컨트롤러 측 |
+| 전체 입력 잠금/해제 | `SetInputLocked()` | BoardTutorialHandler |
+| 프리셋 보드 배치 | `LoadPresetBoard()` | BoardTutorialHandler |
+
+---
+
+### BoardTutorialHandler 분리
+ 
+BoardManager가 400줄 이상으로 비대해져서 튜토리얼 제어 로직을 별도 하위 시스템으로 분리.
+기존 Spawner/Swapper/Processor/Validator와 동일한 패턴의 순수 C# 클래스.
+BoardManager는 ITutorialBoardControl 구현을 한 줄씩 위임하는 구조.
+
+---
+
+### 튜토리얼 하이라이트 시스템 변경
+ 
+기존 드래그 하이라이트는 블록 프리팹 하위 오브젝트로 드래그 시 같이 움직임.
+튜토리얼 하이라이트를 같은 구조로 넣으면 드래그 시 같이 끌려가고, 해당 하이라이트가 호버링 상태가 아닐때 꺼주는 연출로 인해 튜토리얼 하이라이트까지 꺼지는 문제 발생.
+ 
+**해결: 두 레이어 분리**
+ 
+- 기존 `_highlight` -> 블록 프리팹 하위에 그대로 유지, 드래그 시 초록/빨강, `BlockDragHandler`가 관리
+- 튜토리얼 하이라이트 -> 보드 패널 하위에 별도 Image 오브젝트 생성, 그리드 좌표에 고정, `BoardTutorialHandler`가 풀링 관리
+ 
+블록이 드래그돼서 움직여도 튜토리얼 하이라이트는 보드 패널 자식이라 제자리에 남음.
+두 시스템이 완전히 독립이라 서로 꺼버리는 문제 없음.
+ 
+**하이라이트 프리팹 세팅**
+ 
+- Image 컴포넌트 1개짜리 프리팹
+- Raycast Target Off (터치 이벤트 차단 방지)
+- sizeDelta는 생성 시 `_startRect.sizeDelta`(블록 크기)에 자동 맞춤
+- BoardManager Inspector의 `_tutorialHighlightPrefab`에 할당
+
+---
+
+### BlockDragHandler 탭 감지 추가
+ 
+튜토리얼 2단계에서 "퍼즐 영역 1회 클릭"을 감지하기 위해
+드래그가 발생하지 않은 단순 탭을 보드에 알리는 로직 추가.
+
+---
+
+### BoardTestHelper 분리
+ 
+에디터 전용 테스트 메서드를 BoardManager에서 별도 MonoBehaviour로 분리.
+`#if UNITY_EDITOR` 전체 래핑으로 빌드에 포함되지 않음.
+Inspector 우클릭 -> ContextMenu로 개별 기능 테스트.
+
+---
+
+### TutorialBoardPreset SO 작성
+ 
+튜토리얼 스테이지용 사전 정의 보드 배치 데이터 ScriptableObject.
+기획서 4단계에서 "유저가 특정 블록을 조작하면 반드시 3매치가 만족"되어야 하므로
+보드의 초기 블록 배치를 고정하기 위한 데이터 컨테이너.
+ 
+- `BlockDataSO[] _layout`: 1D 배열, `ToGrid()`로 2D 변환하여 `LoadPresetBoard()`에 전달
+- `_dragSource` / `_dragDirection`: 4단계 조작 대상 블록 좌표
+- `_highlightPositions`: 3단계 하이라이트 대상 좌표
+- `OnValidate`에서 배열 크기 불일치 경고
+
+---
+
+### 기존 코드 영향 범위
+ 
+| 파일 | 변경 종류 | 규모 |
+|------|---------|------|
+| ITutorialBoardControl.cs | 신규 | 인터페이스 1개 |
+| BoardTutorialHandler.cs | 신규 | 순수 C# 클래스 (하이라이트 풀링 포함) |
+| BoardTestHelper.cs | 신규 | 에디터 전용 MonoBehaviour |
+| TutorialBoardPreset.cs | 신규 | ScriptableObject |
+| BoardManager.cs | 수정 | 튜토리얼 로직 위임, 테스트 메서드 분리 |
+| BlockDragHandler.cs | 수정 | 필드 1개, 탭 감지 추가 |
+| BoardSpawner.cs | 수정 | CreateBlock 추출, sizeDelta 버그 수정 |
+| BlockDataSO.cs | 수정 | matchEffectFrames 필드 추가 |
+| Block.cs | 수정 | 이펙트 재생 Image 참조 추가 |
+ 
+기존 퍼즐 로직(매칭, 낙하, 리필, 연쇄, 데드락)은 변경하지 않음.
+추가된 필드가 null/false인 기본 상태에서는 기존과 완전히 동일하게 동작.
+
+
 
