@@ -15,6 +15,7 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     private bool _isDragging;
     private Camera _uiCamera;
     private Block _highlightedBlock;
+    private bool _pointerDown; // 터치 발생 기록 (탭 감지용)
     
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         _isDragging = false;
+        _pointerDown = true;    // CanInteract 결과와 무관하게 터치 발생 기록
         
         // 터치하는 순간부터 조작 가능 여부 검사 (버퍼 영역이거나 연출 중이면 무시)
         if (!_block.Board.CanInteract(_block.GridPos)) return;
@@ -55,16 +57,16 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         if (!_isDragging) return;
-
+        
         // 마우스 좌표를 canvas내에서의 좌표로 변환
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _boardPanel, eventData.position, _uiCamera, out Vector2 localPoint);
-
+        
         Vector2 targetPos = localPoint + _dragOffset;
-
+        
         // 원래 위치에서 1칸(stride) 범위 내로 클램핑 (셀 외곽 근처까지 허용)
         // 셀 외곽 허용치를 0.3으로 제한
-        // UI 좌표 → 그리드 인덱스로 반환할때 0.5면 RoundToInt 반올림 시 근처 첫번째 칸이 아닌 두번째칸 인덱스가 반환될 수 있음
+        // UI 좌표 -> 그리드 인덱스로 반환할때 0.5면 RoundToInt 반올림 시 근처 첫번째 칸이 아닌 두번째칸 인덱스가 반환될 수 있음
         float stride = _block.Board.GetStride();
         float halfCell = _block.Board.GetCellSize() * 0.3f;
         targetPos.x = Mathf.Clamp(targetPos.x, _originalAnchoredPos.x - stride - halfCell, _originalAnchoredPos.x + stride + halfCell);
@@ -77,15 +79,28 @@ public class BlockDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
         targetPos.y = Mathf.Clamp(targetPos.y, boardMin.y, boardMax.y);
         
         _block.Rect.anchoredPosition = targetPos;
-
+        
         UpdateHighlight();
     }
 
     // 손을 떼는 순간 (끝점 저장 및 방향 계산)
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(!_isDragging) return;
+        // 탭 감지 (드래그 미발생)
+        // CanInteract 실패로 _isDragging이 false인 경우에도
+        // 터치 자체는 발생했으므로 "퍼즐 영역 탭"으로 처리
+        // as ITutorialBoardControl 캐스팅: 튜토리얼 미사용 시 null → 영향 없음
+        if (!_isDragging)
+        {
+            if (_pointerDown)
+            {
+                _pointerDown = false;
+                (_block.Board as ITutorialBoardControl)?.NotifyBoardTapped();
+            }
+            return;
+        }
         _isDragging = false;
+        _pointerDown = false;
         
         // 하이라이트 해제
         ClearHighlight();

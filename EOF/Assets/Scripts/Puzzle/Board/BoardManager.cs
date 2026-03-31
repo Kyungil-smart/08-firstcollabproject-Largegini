@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
@@ -5,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 // 인스펙터 애니메이션 설정 조절
-[System.Serializable]
+[Serializable]
 public class BoardAnimationSettings
 {
     [Header("Swap")]
@@ -23,7 +25,7 @@ public class BoardAnimationSettings
 
 // 요약 : 퍼즐 보드 전체를 관리하는 컨트롤러 스크립트
 // 작성자 : 이성규
-public class BoardManager : MonoBehaviour, IBoard
+public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
 {
     [Header("Board Settings")]
     [SerializeField, Tooltip("행/높이")] private int _rows = 12;
@@ -40,6 +42,10 @@ public class BoardManager : MonoBehaviour, IBoard
     [SerializeField] private Block _blockPrefab;
     [SerializeField] private RectTransform _boardPanel;
     [SerializeField] private BlockDataSO[] _blockDatas;
+    
+    [Header("Tutorial")]
+    [SerializeField, Tooltip("튜토리얼 하이라이트 프리팹 (Image, RaycastTarget Off)")]
+    private Image _tutorialHighlightPrefab;
     
     [Header("Events")]
     [SerializeField] private UnityEvent<PuzzleResult> _onPuzzleComplete;
@@ -60,6 +66,7 @@ public class BoardManager : MonoBehaviour, IBoard
     // 스왑이 끝났을 때
     public UnityEvent OnSwapFinished => _onSwapFinished;
     
+    // 하위 시스템
     private SGrid2D<Block> _blocks;
     private BoardLayout _layout;
     private BoardSwapper _swapper;
@@ -67,8 +74,12 @@ public class BoardManager : MonoBehaviour, IBoard
     private MatchFinder _matchFinder;
     private BoardProcessor _processor;
     private BoardValidator _validator;
+    private BoardTutorialHandler _tutorial;
     
     private bool _isProcessing;
+    
+    // BoardTestHelper에서 접근용
+    public BoardTutorialHandler TutorialHandler => _tutorial;
     
     // ====== IBoardData ======
     
@@ -90,13 +101,15 @@ public class BoardManager : MonoBehaviour, IBoard
         _blocks = new SGrid2D<Block>(new int2(_columns, _rows));
         _matchFinder = new MatchFinder(this, _columns, _rows, _bufferRows);
 
-        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _startRect, _boardPanel, _blockDatas, _columns, _rows,
-            _bufferRows);
+        _spawner = new BoardSpawner(this, _layout, _blockPrefab, _startRect, _boardPanel, _blockDatas,
+            _columns, _rows, _bufferRows);
         _swapper = new BoardSwapper(this, _layout, _animSettings,
             () => _isProcessing = true, OnSwapComplete);
         _processor = new BoardProcessor(this, _layout, _matchFinder, _spawner,
             _animSettings, _columns, _rows, _bufferRows);
         _validator = new BoardValidator(this, _matchFinder, _columns, _rows, _bufferRows);
+        _tutorial = new BoardTutorialHandler(this, _layout, this,
+            _boardPanel, _tutorialHighlightPrefab, _startRect.sizeDelta);
         
         _spawner.SpawnAll();
     }
@@ -111,10 +124,14 @@ public class BoardManager : MonoBehaviour, IBoard
     public bool CanInteract(int2 pos)
     {
         if (_isProcessing) return false;
+        if (_tutorial.InputLocked) return false;
         if (pos.y < _bufferRows) return false;
         
         Block targetBlock = _blocks[pos];
         if (targetBlock == null || targetBlock.Status != EBlockStatus.None) return false;
+        
+        // _tutorialFilter를 _bufferRows 뒤에 배치하는 이유: 버퍼 영역 블록이 필터까지 도달하지 않도록.
+        if (_tutorial.InteractionFilter != null && !_tutorial.InteractionFilter(pos)) return false;
         
         return true;
     }
@@ -146,6 +163,7 @@ public class BoardManager : MonoBehaviour, IBoard
         if (!CanInteract(targetPos)) return;
         
         _swapper.SwipeSwap(pos, targetPos);
+        _tutorial.NotifySwapped(pos, targetPos);
     }
 
     // ====== 드래그 앤 드롭 ======
@@ -158,6 +176,7 @@ public class BoardManager : MonoBehaviour, IBoard
     public void OnDragSwapBlock(int2 from, int2 to)
     {
         _swapper.SwapFromDrag(from, to);
+        _tutorial.NotifySwapped(from, to);
     }
 
     // ====== 레이아웃 조회 ======
@@ -195,14 +214,22 @@ public class BoardManager : MonoBehaviour, IBoard
         var matches = _matchFinder.FindAllMatches();
         if (matches.Count > 0)
         {
+            // _chainInterceptor가 null이면 기존 로직 그대로 진행.
+            if (_tutorial.ChainInterceptor != null)
+            {
+                // 인터셉터가 설정되면 matches와 Proceed 지역 함수를 외부에 전달하고 return.
+                // `_isProcessing`이 true인 채로 멈추므로 유저 입력은 자동 차단.
+                // 외부(튜토리얼 컨트롤러)가 `proceed()`를 호출하면 연쇄 처리 재개.
+                void Proceed() => StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete));
+                _tutorial.ChainInterceptor.Invoke(matches, Proceed);
+                return;
+            }
             StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete));
         }
         else
         {
             _isProcessing = false;
-            
-            if (CheckDeadlock())
-                OnDeadlockDetected();
+            if (CheckDeadlock()) OnDeadlockDetected();
         }
     }
 
@@ -223,7 +250,30 @@ public class BoardManager : MonoBehaviour, IBoard
     {
         _onDeadlock?.Invoke();
     }
+    
+    // ====== ITutorialBoardControl 구현 (BoardTutorialHandler에 위임) ======
+    
+    public void SetInteractionFilter(Func<int2, bool> filter) => _tutorial.InteractionFilter = filter;
+    public void SetInputLocked(bool locked) => _tutorial.InputLocked = locked;
+    public void SetChainInterceptor(Action<List<SMatch>, Action> interceptor) => _tutorial.ChainInterceptor = interceptor;
+    public void LoadPresetBoard(BlockDataSO[,] preset) => _tutorial.LoadPresetBoard(preset, _columns, _rows);
+    public void SetBlockHighlights(IEnumerable<int2> positions, Color? color = null) => _tutorial.SetBlockHighlights(positions, color);
+    public void ClearAllHighlights() => _tutorial.ClearAllHighlights();
+    public void NotifyBoardTapped() => _tutorial.NotifyTapped();
 
+    // 이벤트 위임
+    public event Action OnBoardTapped
+    {
+        add => _tutorial.OnBoardTapped += value;
+        remove => _tutorial.OnBoardTapped -= value;
+    }
+    public event Action<int2, int2> OnBlockSwapped
+    {
+        add => _tutorial.OnBlockSwapped += value;
+        remove => _tutorial.OnBlockSwapped -= value;
+    }
+    
+    // ====== 테스트용 (BoardTestHelper에서 호출) ======
 #if UNITY_EDITOR
     // 테스트용: 강제로 데드락 보드 생성 (3타입 대각선 순환 패턴)
     public void CreateDeadlockBoard()
