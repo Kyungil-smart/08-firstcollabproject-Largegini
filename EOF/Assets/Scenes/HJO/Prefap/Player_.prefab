@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1559030355467610049}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.64, y: -1.31384, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -141,7 +141,7 @@ Transform:
   m_GameObject: {fileID: 8751567846099660230}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.95, y: 11.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0547c2323db2d460e953e9378269b5b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -336,11 +336,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7045986296833588438, guid: 4be0130399e3a6d4aa86513b8a52a26b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 22.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7045986296833588438, guid: 4be0130399e3a6d4aa86513b8a52a26b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.8
+      value: -2.44
       objectReference: {fileID: 0}
     - target: {fileID: 7045986296833588438, guid: 4be0130399e3a6d4aa86513b8a52a26b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
