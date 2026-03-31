@@ -53,12 +53,7 @@ public class BlueDragon : Monster
             }
         }
     }
-
-    public override bool Dead()
-    {
-        return true;
-    }
-
+    
     public override IEnumerator PatternProbability()
     {
         if (_dragonScale)

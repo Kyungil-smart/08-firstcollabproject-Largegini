@@ -27,12 +27,6 @@ public class RedOak : Monster
         }
     }
 
-    public override bool Dead()
-    {
-        _animator.SetTrigger("Dead");
-        return true;
-    }
-
     public override IEnumerator PatternProbability()
     {
         if (_berserker)

@@ -75,6 +75,7 @@ public class BattleSystem : MonoBehaviour
                     {
                         if (_puzzleResult != null)
                         {
+                            
                             yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
                             _puzzleResult = null; 
                         }
@@ -92,7 +93,8 @@ public class BattleSystem : MonoBehaviour
                     // 승리 기능
                     if (_enemy._health <= 0)
                     {
-                        yield return new WaitUntil(() => _enemy.Dead());
+                        float delay = _enemy.Dead();
+                        yield return new WaitForSeconds(delay);
                         Victory();
                         yield break;
                     }

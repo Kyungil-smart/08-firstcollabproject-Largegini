@@ -15,11 +15,6 @@ public class Envoy : Monster
         _soulHarvest = 0;
     }
 
-    public override bool Dead()
-    {
-        return true;
-    }
-
     public override IEnumerator PatternProbability()
     {
         Debug.Log(_soulHarvest);

@@ -9,11 +9,6 @@ public class WearWolf : Monster
         _minDamage = 20;
     }
 
-    public override bool Dead()
-    {
-        return true;
-    }
-
     public override IEnumerator PatternProbability()
     { 
         int _probability = Random.Range(0, 100);
