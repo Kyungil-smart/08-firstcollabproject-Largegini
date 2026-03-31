@@ -289,7 +289,6 @@ GameObject:
   - component: {fileID: 4739259599224278504}
   - component: {fileID: 4424767280309442812}
   - component: {fileID: 7495855138158300644}
-  - component: {fileID: 4946647155121804918}
   - component: {fileID: 9138767552879541493}
   m_Layer: 0
   m_Name: RedOak
@@ -423,29 +422,6 @@ MonoBehaviour:
   _maxHP: 0
   _hpBarfill: {fileID: 9129125089738207591}
   _hpText: {fileID: 2005009947287716880}
---- !u!223 &4946647155121804918
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6125178633237200343}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: -1
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!95 &9138767552879541493
 Animator:
   serializedVersion: 7
