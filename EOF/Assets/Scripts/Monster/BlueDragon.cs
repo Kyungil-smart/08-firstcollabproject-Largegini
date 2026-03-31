@@ -54,40 +54,41 @@ public class BlueDragon : Monster
         }
     }
     
-    public override IEnumerator PatternProbability()
+    public override float PatternProbability()
     {
+        float delay = 0;
         if (_dragonScale)
         {
             DragonScale();
-            yield break;
+            return 0;
         }
         
         int _probability = Random.Range(0, 100);
-        yield return new WaitForSeconds(.5f);
         if (0 <= _probability && _probability < 60)
         {
-            FirstPattern();
+            delay += FirstPattern();
         }
         else if(60 <= _probability && _probability < 85)
         {
-            SecondPattern();
+            delay += SecondPattern();
         }
         else
         {
-            ThirdPattern();
+            delay += ThirdPattern();
         }
-        yield return new WaitForSeconds(.5f);
+        return delay;
     }
 
 
-    public override void FirstPattern()
+    public override float FirstPattern()
     {
         Debug.Log("드래곤 클로");
         _animator.SetTrigger("Claw");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void SecondPattern()
+    public override float SecondPattern()
     {
         Debug.Log("드래곤 하트");
         _health += _health * 0.2f;
@@ -95,14 +96,16 @@ public class BlueDragon : Monster
         {
             _health = _maxhealth;
         }
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void ThirdPattern()
+    public override float ThirdPattern()
     {
         Debug.Log("프로스트 브레스");
         _animator.SetTrigger("Spit");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
         Player.Instance._freeze = true;
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     public void DragonScale()

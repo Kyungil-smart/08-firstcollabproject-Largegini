@@ -15,53 +15,57 @@ public class Envoy : Monster
         _soulHarvest = 0;
     }
 
-    public override IEnumerator PatternProbability()
+    public override float PatternProbability()
     {
+        float delay = 0;
         Debug.Log(_soulHarvest);
         _minDamage += _soulHarvest * 5;
         Debug.Log(_minDamage);
-        yield return new WaitForSeconds(.5f);
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            FirstPattern();
+            delay += FirstPattern();
         }
         else if(60 <= _probability && _probability < 85)
         {
-            SecondPattern();
+            delay += SecondPattern();
         }
         else
         {
-            ThirdPattern();
+            delay += ThirdPattern();
         }
-        yield return new WaitForSeconds(.5f);
+
+        return delay;
     }
 
 
-    public override void FirstPattern()
+    public override float FirstPattern()
     {
         Debug.Log("영혼가르기");
         Player.Instance._defensive = 0;
         _animator.SetTrigger("FristAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
         _soulHarvest++;
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void SecondPattern()
+    public override float SecondPattern()
     {
         Debug.Log("생자필멸");
         _animator.SetTrigger("SecondAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage));
         Player.Instance._reverse = true;
         _soulHarvest++;
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void ThirdPattern()
+    public override float ThirdPattern()
     {
         Debug.Log("종말");
         _animator.SetTrigger("ThirdAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 20, _minDamage + 41));
         Player.Instance._theEnd = true;
         _soulHarvest++;
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 }

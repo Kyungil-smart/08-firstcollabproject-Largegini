@@ -27,45 +27,48 @@ public class RedOak : Monster
         }
     }
 
-    public override IEnumerator PatternProbability()
+    public override float PatternProbability()
     {
         if (_berserker)
         {
             _minDamage += 10;
         }
-        yield return new WaitForSeconds(.5f);
+        float delay = 0;
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            FirstPattern();
+            delay += FirstPattern();
         }
         else if(60 <= _probability && _probability < 85)
         {
-            SecondPattern();
+            delay += SecondPattern();
         }
         else
         {
-            ThirdPattern();
+            delay += ThirdPattern();
         }
-        yield return new WaitForSeconds(.5f);
+
+        return delay;
     }
 
 
-    public override void FirstPattern()
+    public override float FirstPattern()
     {
         Debug.Log("휘두르기");
         _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void SecondPattern()
+    public override float SecondPattern()
     {
         Debug.Log("강타");
         _animator.SetTrigger("SecondAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void ThirdPattern()
+    public override float ThirdPattern()
     {
         Debug.Log("박살내기");
         _animator.SetTrigger("ThirdAttack");
@@ -73,5 +76,6 @@ public class RedOak : Monster
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;
         Player.Instance.ReceiveDamage(_damage);
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 }

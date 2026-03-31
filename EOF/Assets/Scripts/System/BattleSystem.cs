@@ -115,7 +115,8 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                yield return StartCoroutine(_enemy.PatternProbability());
+                float delay = _enemy.PatternProbability();
+                yield return new WaitForSeconds(delay);
                 _battle = BattleTurn.pTurn;
             }
             yield return null;
