@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     public float _health;
     public float _maxHealth = 100f;
     public float _attack;
-    public float _defensive;
+    public float _attackSpecial;
+    public float _defensive;    // 쉴드
     public float _defensiveGauge;
     public int _behavioralGauge;// 행동력게이지
     public bool _freeze;        // 냉동
@@ -22,19 +23,15 @@ public class Player : MonoBehaviour
     public float _heal;
     public bool _theEnd;        // 사신 필살기용 도트대미지
     public int _behavior;
-    public int _maxbehavior;
+    public int _maxbehavior;    // 액션
     public int _maxbehavioralGauge;
+    public float _comboRate;
     private Animator _animator;
     
     private void Awake()
     {
         Instance = this;
-        _health = _maxHealth;   // _health = table._health;
-        _attack = 5f;
-        _defensive = 2f;
-        _heal = 3f;
-        _maxbehavior = 3;
-        _maxbehavioralGauge = 10;
+
         _animator = GetComponent<Animator>();
         _freeze = false;
         _reverse = false;
@@ -44,11 +41,19 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+
+    }
+
+
+    public void Init()
+    {
+        // 저장된 데이터로 스텟 값 덮어쓰기 (한성우)
         if (DataManager._instance != null)
         {
             DataManager._instance.OnGameLoad(this);
         }
     }
+
 
     public IEnumerator PlayerStat(PuzzleResult result)
     {
@@ -70,7 +75,7 @@ public class Player : MonoBehaviour
         Debug.Log("공격");
         yield return new WaitForSeconds(0.5f); 
         _animator.SetTrigger("Attack");
-        Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * 0.1f));
+        Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -79,7 +84,7 @@ public class Player : MonoBehaviour
         Debug.Log("특수 공격");
         yield return new WaitForSeconds(0.5f);
         _animator.SetTrigger("SpecialAttack");
-        Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * 0.1f));
+        Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * _comboRate));
         _behavioralGauge *= count;
     }
     public IEnumerator Heal(int count, int combo)
@@ -88,12 +93,12 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (_reverse)
         {
-            ReceiveDamage((_heal * count) * (1 + (combo - 1 ) * 0.1f));
+            ReceiveDamage((_heal * count) * (1 + (combo - 1 ) * _comboRate));
         }
         else
         {
             _animator.SetTrigger("Heal");
-            _health += (_heal * count) * (1 + (combo - 1 ) * 0.1f);
+            _health += (_heal * count) * (1 + (combo - 1 ) * _comboRate);
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -104,7 +109,7 @@ public class Player : MonoBehaviour
     public IEnumerator Defensive(int count, int combo)
     {
         Debug.Log("쉴드");
-        _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * 0.1f);
+        _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * _comboRate);
         yield return new WaitForSeconds(0.5f);
     }
     
