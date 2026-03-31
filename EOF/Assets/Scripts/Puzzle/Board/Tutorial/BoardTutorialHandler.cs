@@ -15,17 +15,18 @@ public class BoardTutorialHandler
     private readonly RectTransform _boardPanel;
     private readonly Image _highlightPrefab;
     private readonly Vector2 _blockSize;
-
+    
     // 하이라이트 오브젝트 풀
     private readonly List<GameObject> _highlightPool = new List<GameObject>();
-
+    
     // 입력 필터링
     public bool InputLocked;
-    public Func<int2, bool> InteractionFilter;
-
+    public Func<int2, bool> InteractionFilter;  // 블록 잡기 제한
+    public Func<int2, int2, bool> SwapFilter;   // 스왑 방향 제한
+    
     // 매칭 파이프라인 인터셉트
     public Action<List<SMatch>, Action> ChainInterceptor;
-
+    
     // 이벤트
     public event Action OnBoardTapped;
     public event Action<int2, int2> OnBlockSwapped;
@@ -74,7 +75,7 @@ public class BoardTutorialHandler
             var hlObj = GetOrCreateHighlight();
             var rt = hlObj.GetComponent<RectTransform>();
             rt.anchoredPosition = _layout.GetPosition(pos);
-            rt.sizeDelta = _blockSize; // 블록 크기에 자동 맞춤
+            rt.sizeDelta = _blockSize;
 
             if (color.HasValue)
                 hlObj.GetComponent<Image>().color = color.Value;
@@ -97,8 +98,7 @@ public class BoardTutorialHandler
             if (!hl.activeSelf)
                 return hl;
         }
-
-        // 프리팹이 없으면 빈 Image 생성
+        
         GameObject newObj;
         if (_highlightPrefab != null)
         {
@@ -109,9 +109,9 @@ public class BoardTutorialHandler
             newObj = new GameObject("TutorialHighlight", typeof(RectTransform), typeof(Image));
             newObj.transform.SetParent(_boardPanel, false);
             var img = newObj.GetComponent<Image>();
-            img.color = new Color(1f, 1f, 0f, 0.4f); // 기본 반투명 노랑
+            img.color = new Color(1f, 1f, 0f, 0.4f);
         }
-        // 터치 이벤트 차단하지 않도록
+        
         newObj.GetComponent<Image>().raycastTarget = false;
         newObj.SetActive(false);
         _highlightPool.Add(newObj);
@@ -119,6 +119,6 @@ public class BoardTutorialHandler
     }
 
     // ====== 이벤트 발사 ======
-    public void NotifyTapped() => OnBoardTapped?.Invoke();  // 퍼즐 영역 탭 감지
-    public void NotifySwapped(int2 a, int2 b) => OnBlockSwapped?.Invoke(a, b); // 블록 스왑 실행 감지
+    public void NotifyTapped() => OnBoardTapped?.Invoke();
+    public void NotifySwapped(int2 a, int2 b) => OnBlockSwapped?.Invoke(a, b);
 }

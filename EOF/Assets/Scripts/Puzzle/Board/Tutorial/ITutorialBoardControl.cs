@@ -9,6 +9,7 @@ public interface ITutorialBoardControl
 {
     // 입력 필터링
     void SetInteractionFilter(Func<int2, bool> filter);
+    void SetSwapFilter(Func<int2, int2, bool> filter);  // 스왑 방향 제한 (OnPointerUp)
     void SetInputLocked(bool locked);
     
     // 매칭 파이프라인 인터셉트 (제어를 가로챔)

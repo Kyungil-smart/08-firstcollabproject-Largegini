@@ -658,6 +658,7 @@ GameObject:
   - component: {fileID: 1076344348}
   - component: {fileID: 1076344347}
   - component: {fileID: 1076344346}
+  - component: {fileID: 1076344349}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -734,6 +735,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1076344349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076344345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca09413c7f04d24baa0f0744fcf97ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialTestRunner
+  _boardManager: {fileID: 2108539727}
+  _preset: {fileID: 11400000, guid: 3ef1de9a3e896964eaf4480f56bdb7f5, type: 2}
 --- !u!1 &1278534131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1079,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0

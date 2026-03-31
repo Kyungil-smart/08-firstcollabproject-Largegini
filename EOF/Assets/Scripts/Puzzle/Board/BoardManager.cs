@@ -121,6 +121,8 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
 
     // ====== 상호작용 검증 ======
 
+    // 블록을 "잡을 수 있는가" 검증 (OnPointerDown 시점)
+    // InteractionFilter는 여기서만 적용 — 잡기 전용
     public bool CanInteract(int2 pos)
     {
         if (_isProcessing) return false;
@@ -130,7 +132,7 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
         Block targetBlock = _blocks[pos];
         if (targetBlock == null || targetBlock.Status != EBlockStatus.None) return false;
         
-        // _tutorialFilter를 _bufferRows 뒤에 배치하는 이유: 버퍼 영역 블록이 필터까지 도달하지 않도록.
+        // InteractionFilter: 잡을 수 있는 블록 제한 (튜토리얼 4단계)
         if (_tutorial.InteractionFilter != null && !_tutorial.InteractionFilter(pos)) return false;
         
         return true;
@@ -141,6 +143,9 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
         return pos.x >= 0 && pos.x < _columns && pos.y >= _bufferRows && pos.y < _rows;
     }
 
+    // 스왑 "대상"이 유효한가 검증 (OnPointerUp 시점)
+    // InteractionFilter를 타지 않음 — 타겟 블록은 잡는 게 아니라 놓는 대상
+    // SwapFilter로 스왑 방향을 제한
     public bool IsValidSwapTarget(int2 from, int2 to)
     {
         if (!IsValidPlayArea(to)) return false;
@@ -148,9 +153,14 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
         int2 diff = to - from;
         if (math.abs(diff.x) + math.abs(diff.y) != 1) return false;
         
-        if (!CanInteract(to)) return false;
+        // 타겟 블록 기본 검증 (InteractionFilter 제외)
+        if (_isProcessing) return false;
+        if (_tutorial.InputLocked) return false;
+        Block targetBlock = _blocks[to];
+        if (targetBlock == null || targetBlock.Status != EBlockStatus.None) return false;
         
-        return true;
+        // SwapFilter: 스왑 방향 제한
+        return _tutorial.SwapFilter == null || _tutorial.SwapFilter(from, to);
     }
 
     // ====== 스와이프 ======
@@ -254,13 +264,14 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
     // ====== ITutorialBoardControl 구현 (BoardTutorialHandler에 위임) ======
     
     public void SetInteractionFilter(Func<int2, bool> filter) => _tutorial.InteractionFilter = filter;
+    public void SetSwapFilter(Func<int2, int2, bool> filter) => _tutorial.SwapFilter = filter;
     public void SetInputLocked(bool locked) => _tutorial.InputLocked = locked;
     public void SetChainInterceptor(Action<List<SMatch>, Action> interceptor) => _tutorial.ChainInterceptor = interceptor;
     public void LoadPresetBoard(BlockDataSO[,] preset) => _tutorial.LoadPresetBoard(preset, _columns, _rows);
     public void SetBlockHighlights(IEnumerable<int2> positions, Color? color = null) => _tutorial.SetBlockHighlights(positions, color);
     public void ClearAllHighlights() => _tutorial.ClearAllHighlights();
     public void NotifyBoardTapped() => _tutorial.NotifyTapped();
-
+    
     // 이벤트 위임
     public event Action OnBoardTapped
     {
