@@ -9,44 +9,47 @@ public class WearWolf : Monster
         _minDamage = 20;
     }
 
-    public override IEnumerator PatternProbability()
+    public override float PatternProbability()
     { 
         int _probability = Random.Range(0, 100);
-        yield return new WaitForSeconds(.5f);
+        float delay = 0;
         if (0 <= _probability && _probability < 60)
         {
-            FirstPattern();
+            delay += FirstPattern();
         }
         else if(60 <= _probability && _probability < 85)
         {
-            SecondPattern();
+            delay += SecondPattern();
         }
         else
         {
-            ThirdPattern();
+            delay += ThirdPattern();
         }
-        yield return new WaitForSeconds(.5f);
+        return delay;
     }
 
 
-    public override void FirstPattern()
+    public override float FirstPattern()
     {
         Debug.Log("달려들기");
         _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 1));
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void SecondPattern()
+    public override float SecondPattern()
     {
         Debug.Log("물어뜯기");
         _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override void ThirdPattern()
+    public override float ThirdPattern()
     {
         Debug.Log("찢어발기기");
         _animator.SetTrigger("FirstAttack");
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 21));
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 }

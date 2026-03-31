@@ -45,9 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
   stages:
-  - {fileID: 11400000, guid: a939b0722cee0c7488f1e83a77260ec7, type: 2}
   - {fileID: 11400000, guid: 9a2473f24e9b8e943a0fbc02d42be966, type: 2}
   - {fileID: 11400000, guid: 1e83b6833c3903640aa3de757116180c, type: 2}
   - {fileID: 11400000, guid: 7456159e83db4914bb69cc7fcc12b75b, type: 2}
   spawnPoint: {fileID: 0}
-  _currentStageIndex: 2
+  _backSpawn: {fileID: 3226240018604970975, guid: 5d5bcda6dd37c474885cebfa685400ce, type: 3}
+  _currentStageIndex: 0
+  _boardManager: {fileID: 0}
+  _isPuzzle: 0
+  _puzzleResult:
+    comboCount: 0
+  _isSwap: 0

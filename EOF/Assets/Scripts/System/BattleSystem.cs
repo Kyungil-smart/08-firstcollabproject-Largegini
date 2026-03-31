@@ -75,8 +75,8 @@ public class BattleSystem : MonoBehaviour
                     {
                         if (_puzzleResult != null)
                         {
-                            
-                            yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
+                            float delay = _player.PlayerStat(_puzzleResult);
+                            yield return new WaitForSeconds(delay);
                             _puzzleResult = null; 
                         }
                     }
@@ -115,7 +115,8 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                yield return StartCoroutine(_enemy.PatternProbability());
+                float delay = _enemy.PatternProbability();
+                yield return new WaitForSeconds(delay);
                 _battle = BattleTurn.pTurn;
             }
             yield return null;
