@@ -11,6 +11,8 @@ public class ActionBarUI : MonoBehaviour
     [SerializeField] private TMP_Text apText;
     
     [SerializeField] private float tweenDuration = 0.3f;
+    
+    [SerializeField] private InGameHUDController hudController;
 
     private void Start()
     {
@@ -21,7 +23,7 @@ public class ActionBarUI : MonoBehaviour
 
     public void SetAP(int current, int max)
     {
-        apText.text = $"{current}/{max}";
+        apText.text = $"행동력 {current}/{max}";
         
         float blueFill = Mathf.Clamp01((float)current / max);
         layerBlue.DOFillAmount(blueFill, tweenDuration).SetEase(Ease.OutCubic);
@@ -29,5 +31,7 @@ public class ActionBarUI : MonoBehaviour
         int overflow = Mathf.Max(0, current - max);
         float redFill = Mathf.Clamp01((float)overflow / max);
         layerRed.DOFillAmount(redFill, tweenDuration).SetEase(Ease.OutCubic);
+        
+        hudController.SetEndTurnBlink(current <= 0);
     }
 }
