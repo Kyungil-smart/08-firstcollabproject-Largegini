@@ -59,7 +59,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public IEnumerator PlayerStat(PuzzleResult result)
     {
         yield return null;
@@ -117,6 +116,7 @@ public class Player : MonoBehaviour
     public IEnumerator Defensive(int count, int combo)
     {
         Debug.Log("쉴드");
+        _animator.SetTrigger("Defense");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
         _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * _comboRate);
