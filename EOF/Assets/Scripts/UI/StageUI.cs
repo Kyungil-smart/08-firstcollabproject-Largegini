@@ -6,19 +6,22 @@ using UnityEngine.UI;
 public class StageUI : MonoBehaviour
 {
     [SerializeField] private GameObject settingCanvas;
-    [SerializeField] private GameObject eventPopup;
 
     [SerializeField] public GameObject[] NodeBtns;
-    [SerializeField] private GameObject[] eventPopups;
-    [SerializeField] private TMP_Text[] eventPopupTexts;
+
+    [SerializeField] private GameObject eventPopup;
+    [SerializeField] private TMP_Text eventPopupText;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button prevButton;
     
-    [SerializeField] private Button[] closeButtons;
-    [SerializeField] private Button[] nextButtons;
+    // TODO: ScriptableObject 연결 시 아래 주석 해제 후 _eventText 배열 제거
+    // [SerializeField] private EventDataSO eventData;
 
     private ColorBlock _btnActiveColor;
     private int _eventIndex = 0;
 
-    private string[] _eventText=
+    private string[] _eventText =
     {
         "이벤트 설명 1",
         "이벤트 설명 2",
@@ -37,8 +40,8 @@ public class StageUI : MonoBehaviour
         {
             LockBtn(btn);
         }
-        
-        if(SceneLoader.Intance.StageIndex < NodeBtns.Length)
+
+        if (SceneLoader.Intance.StageIndex < NodeBtns.Length)
             UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
     }
 
@@ -47,9 +50,7 @@ public class StageUI : MonoBehaviour
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (settingCanvas != null && settingCanvas.activeSelf)
-            {
                 CloseSettings();
-            }
         }
     }
 
@@ -57,16 +58,19 @@ public class StageUI : MonoBehaviour
     {
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Battle);
     }
-    
+
     public void OnClickEventNode()
     {
         _eventIndex = 0;
-        
-        foreach (var btn in closeButtons)
-            btn.gameObject.SetActive(false);
-    
-        //eventPopup.SetActive(true);
         UpdateEventPopup();
+    }
+    public void OnClickEventPrev()
+    {
+        if (_eventIndex > 0)
+        {
+            _eventIndex--;
+            UpdateEventPopup();
+        }
     }
     
     public void OnClickEventNext()
@@ -77,52 +81,51 @@ public class StageUI : MonoBehaviour
             UpdateEventPopup();
         }
     }
+
     public void OnClickEventClose()
     {
-        eventPopups[_eventIndex].SetActive(false);
+        eventPopup.SetActive(false);
         SceneLoader.Intance.StageIndex += 1;
-        
-        LockBtn(NodeBtns[SceneLoader.Intance.StageIndex-1]);
+        LockBtn(NodeBtns[SceneLoader.Intance.StageIndex - 1]);
         UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
     }
+
     private void UpdateEventPopup()
     {
-        foreach (var popup in eventPopups)
-            popup.SetActive(false);
-
-        eventPopups[_eventIndex].SetActive(true);
-        eventPopupTexts[_eventIndex].text = _eventText[_eventIndex];
+        eventPopup.SetActive(true);
+        
+        // TODO: SO 연결시 아래줄로 교체[ㅎㅏ기
+        // eventPopupText.text = eventData.texts[_eventIndex];
+        eventPopupText.text = _eventText[_eventIndex];
 
         bool isLast = _eventIndex == _eventText.Length - 1;
-
-        for (int i = 0; i < closeButtons.Length; i++)
-        {
-            closeButtons[i].gameObject.SetActive(isLast && i == _eventIndex);
-            nextButtons[i].gameObject.SetActive(!isLast && i == _eventIndex);
-        }
+        // TODO: SO 연결 시 _eventText.Length -> eventData.texts.Length로교체
+        
+        bool isFirst = _eventIndex == 0;
+        prevButton.gameObject.SetActive(!isFirst);
+        closeButton.gameObject.SetActive(isLast);
+        nextButton.gameObject.SetActive(!isLast);
     }
-    
+
     public void OnClickSettings()
     {
         settingCanvas.SetActive(true);
     }
-    
+
     public void CloseSettings()
     {
         if (settingCanvas != null)
             settingCanvas.SetActive(false);
-        
-        Debug.Log("설정 닫기");
     }
 
     private void LockBtn(GameObject btn)
     {
         btn.GetComponent<Button>().interactable = false;
         ColorBlock colorBlock = btn.GetComponent<Button>().colors;
-        colorBlock.normalColor = Color.gray2;
+        colorBlock.normalColor = Color.gray;
         btn.GetComponent<Button>().colors = colorBlock;
     }
-    
+
     private void UnLockBtn(GameObject btn)
     {
         btn.GetComponent<Button>().interactable = true;
