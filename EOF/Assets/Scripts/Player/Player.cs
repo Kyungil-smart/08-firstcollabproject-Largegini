@@ -43,6 +43,12 @@ public class Player : MonoBehaviour
 
     }
 
+    public float Dead()
+    {
+        float delay = 0;
+        _animator.SetTrigger("Dead");
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
+    }
 
     public void Init()
     {
