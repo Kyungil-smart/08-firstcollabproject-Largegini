@@ -60,54 +60,40 @@ public class Player : MonoBehaviour
     }
 
 
-    public float PlayerStat(PuzzleResult result)
+    public IEnumerator PlayerStat(PuzzleResult result)
     {
-        float delay = 0;
+        yield return null;
         int combo = result.comboCount;
         foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
         {
             EBlockType type = block.Key;
             int count = block.Value;
-            if (type == EBlockType.Attack)
-            {
-                delay += Attack(count, combo);
-            }
-
-            if (type == EBlockType.Defense)
-            {
-                delay += Defensive(count, combo);
-            }
-
-            if (type == EBlockType.Heal)
-            {
-                delay += Heal(count, combo);
-            }
-
-            if (type == EBlockType.Special)
-            {
-                delay += SpecialATK(count, combo);
-            }
+            if (type == EBlockType.Attack) StartCoroutine(Attack(count, combo));
+            if (type == EBlockType.Defense) StartCoroutine(Defensive(count, combo));
+            if (type == EBlockType.Heal) StartCoroutine(Heal(count, combo));
+            if (type == EBlockType.Special) StartCoroutine(SpecialATK(count, combo));
         }
-        return delay;
     }
     
-    public float Attack(int count, int combo)
+    public IEnumerator Attack(int count, int combo)
     {
         Debug.Log("공격");
         _animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(.5f);
         Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public float SpecialATK(int count, int combo)
+    public IEnumerator SpecialATK(int count, int combo)
     {
         Debug.Log("특수 공격");
         _animator.SetTrigger("SpecialAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(.5f);
         Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * _comboRate));
         _behavioralGauge *= count;
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
-    public float Heal(int count, int combo)
+    public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
         if (_reverse)
@@ -117,22 +103,23 @@ public class Player : MonoBehaviour
         else
         {
             _animator.SetTrigger("Heal");
+            yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds(.5f);
             _health += (_heal * count) * (1 + (combo - 1 ) * _comboRate);
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
             }
-            return _animator.GetCurrentAnimatorStateInfo(0).length;
+            
         }
-
-        return 0;
     }
 
-    public float Defensive(int count, int combo)
+    public IEnumerator Defensive(int count, int combo)
     {
         Debug.Log("쉴드");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(.5f);
         _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * _comboRate);
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
     
     public void ReceiveDamage(float damage)

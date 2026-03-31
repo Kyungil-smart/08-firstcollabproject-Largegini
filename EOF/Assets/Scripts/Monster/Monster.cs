@@ -47,8 +47,8 @@ public abstract class Monster : MonoBehaviour
         return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
     
-    public abstract float PatternProbability();
-    public abstract float FirstPattern();
-    public abstract float SecondPattern();
-    public abstract float ThirdPattern();
+    public abstract IEnumerator PatternProbability();
+    public abstract IEnumerator FirstPattern();
+    public abstract IEnumerator SecondPattern();
+    public abstract IEnumerator ThirdPattern();
 }

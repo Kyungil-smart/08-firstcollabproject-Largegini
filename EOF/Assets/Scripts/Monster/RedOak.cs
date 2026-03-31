@@ -27,55 +27,54 @@ public class RedOak : Monster
         }
     }
 
-    public override float PatternProbability()
+    public override IEnumerator PatternProbability()
     {
         if (_berserker)
         {
             _minDamage += 10;
         }
-        float delay = 0;
+
+        yield return null;
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            delay += FirstPattern();
+            StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            delay += SecondPattern();
+            StartCoroutine(SecondPattern());
         }
         else
         {
-            delay += ThirdPattern();
+            StartCoroutine(ThirdPattern());
         }
-
-        return delay;
     }
 
 
-    public override float FirstPattern()
+    public override IEnumerator FirstPattern()
     {
         Debug.Log("휘두르기");
         _animator.SetTrigger("FirstAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override float SecondPattern()
+    public override IEnumerator SecondPattern()
     {
         Debug.Log("강타");
         _animator.SetTrigger("SecondAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    public override float ThirdPattern()
+    public override IEnumerator ThirdPattern()
     {
         Debug.Log("박살내기");
         _animator.SetTrigger("ThirdAttack");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         _damage = Random.Range(_minDamage, _minDamage + 11);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;
         Player.Instance.ReceiveDamage(_damage);
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 }
