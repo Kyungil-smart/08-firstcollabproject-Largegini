@@ -50,11 +50,15 @@ public class BattleSystem : MonoBehaviour
         yield return null;
         _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
         _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
-        _player._behavior = _player._maxbehavior;
         while (true)
         {
                 // 죽는 기능
-            if (_player._health <= 0) break;
+            if (_player._health <= 0)
+            {
+                float delay = _player.Dead();
+                yield return new WaitForSeconds(delay);
+                break;
+            }
             
             if (_battle == BattleTurn.pTurn)
             {
