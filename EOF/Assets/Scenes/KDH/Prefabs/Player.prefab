@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1689571526216135696}
   - component: {fileID: 867287928777857943}
   - component: {fileID: -7252948827765108108}
+  - component: {fileID: -7237162349179385807}
   - component: {fileID: 2761217898408310332}
   - component: {fileID: 2851219891988935820}
   m_Layer: 0
@@ -115,11 +116,28 @@ MonoBehaviour:
   _maxHealth: 100
   _attack: 0
   _defensive: 0
+  _defensiveGauge: 0
   _behavioralGauge: 0
   _freeze: 0
   _reverse: 0
   _heal: 0
   _theEnd: 0
+  _behavior: 0
+  _maxbehavior: 0
+  _maxbehavioralGauge: 0
+--- !u!114 &-7237162349179385807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2556820692507486031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f288afbfde14241af8ed471b981771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatController
+  thisID: 1
 --- !u!223 &2761217898408310332
 Canvas:
   m_ObjectHideFlags: 0

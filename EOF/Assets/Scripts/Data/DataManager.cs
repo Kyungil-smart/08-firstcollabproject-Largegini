@@ -75,10 +75,12 @@ public class DataManager : MonoBehaviour
         // Debug.Log("LoadDataTables 로드 시작");
 
         // *** 게임에 필요한 테이블 생길 때 마다 등록 필요 (추후 어드레서블로 변경 필요)
+        LoadTable<BlockTable>("Tables/Table_Block");
         LoadTable<MonsterTable>("Tables/Table_Monster");
         LoadTable<SkillTable>("Tables/Table_Skill");
+        LoadTable<PlayerTable>("Tables/Table_Player");
         // LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
-        LoadTable<BlockTable>("Tables/Table_Block");
+        
 
     }
 
@@ -90,7 +92,7 @@ public class DataManager : MonoBehaviour
 
         savedPlayerData.MaxHP = playerObj._maxHealth;
         savedPlayerData.CurrentHP = playerObj._health;
-        savedPlayerData.Attack = playerObj._attack;
+        // savedPlayerData.Attack = playerObj._attack;
 
         hasSavedData = true;
     }
@@ -107,7 +109,7 @@ public class DataManager : MonoBehaviour
         {
             playerObj._maxHealth = savedPlayerData.MaxHP;
             playerObj._health = savedPlayerData.CurrentHP;
-            playerObj._attack = savedPlayerData.Attack;
+            // playerObj._attack = savedPlayerData.Attack;
         }
 
     }
@@ -156,6 +158,15 @@ public class DataManager : MonoBehaviour
 
 
     // *** 게임에 필요한 테이블 생길 때 마다 생성 필요
+    // 블록 테이블
+    public BlockTable GetBlockTable()
+    {
+
+        if (loadedTables.ContainsKey(typeof(BlockTable))) return loadedTables[typeof(BlockTable)] as BlockTable;
+        return null;
+    }
+
+
     // 몬스터 테이블
     public MonsterTable GetMonsterTable()
     {
@@ -165,6 +176,7 @@ public class DataManager : MonoBehaviour
         return null;
     }
 
+
     // 스킬 테이블
     public SkillTable GetSkillTable()
     {
@@ -173,6 +185,17 @@ public class DataManager : MonoBehaviour
         if (loadedTables.ContainsKey(typeof(SkillTable))) return loadedTables[typeof(SkillTable)] as SkillTable;  // IDataTableInfo 라서 마지막에 SkillTable 로 형변환 필요
         return null;
     }
+
+
+    // 플레이어 테이블
+    public PlayerTable GetPlayerTable()
+    {
+
+        // loadedTables 안에 MonsterTable 이 있으면 리턴하고, 아니면 null 리턴하기
+        if (loadedTables.ContainsKey(typeof(PlayerTable))) return loadedTables[typeof(PlayerTable)] as PlayerTable;  // IDataTableInfo 라서 마지막에 PlayerTable 로 형변환 필요
+        return null;
+    }
+
 
 
 
@@ -187,11 +210,5 @@ public class DataManager : MonoBehaviour
     */
 
 
-    // 블록 테이블
-    public BlockTable GetBlockTable()
-    {
 
-        if (loadedTables.ContainsKey(typeof(BlockTable))) return loadedTables[typeof(BlockTable)] as BlockTable;
-        return null;
-    }
 }
