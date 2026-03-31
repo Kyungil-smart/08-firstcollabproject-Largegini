@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 // 작성자 : 한성우
-// 잘 되는지 테스트용 단 한 마리의 몬스터 컨트롤러(추후 삭제해야함)
+// 잘 되는지 테스트용 단 한 마리의 몬스터 컨트롤러
 
 // [ExecuteInEditMode]
 public class MonsterStatController : MonoBehaviour
