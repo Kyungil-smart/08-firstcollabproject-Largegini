@@ -53,12 +53,12 @@ public class BattleSystem : MonoBehaviour
         while (true)
         {
                 // 죽는 기능
-                if (_player._health <= 0)
-                {
-                    float delay = _player.Dead();
-                    yield return new WaitForSeconds(delay);
-                    break;
-                }
+            if (_player._health <= 0)
+            {
+                float delay = _player.Dead();
+                yield return new WaitForSeconds(delay);
+                break;
+            }
             
             if (_battle == BattleTurn.pTurn)
             {
