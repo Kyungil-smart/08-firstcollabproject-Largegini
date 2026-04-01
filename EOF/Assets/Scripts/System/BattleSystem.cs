@@ -20,14 +20,15 @@ public class BattleSystem : MonoBehaviour
     private Monster _enemy;
     public int _currentStageIndex = 0;
     public BoardManager _boardManager;
-    public bool _isPuzzle;
     public PuzzleResult _puzzleResult;
+    public bool _isPuzzle;
     public bool _isSwap;
     private void Start()
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
-       _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
+        _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
+        _player.Evolve(_currentStageIndex);
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
@@ -52,74 +53,71 @@ public class BattleSystem : MonoBehaviour
         _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
         while (true)
         {
-                // 죽는 기능
-            if (_player._health <= 0)
-            {
-                float delay = _player.Dead();
-                yield return new WaitForSeconds(delay);
-                break;
-            }
-            
             if (_battle == BattleTurn.pTurn)
             {
                 _player._behavior = _player._maxbehavior;
                 while (_player._behavior > 0)
                 {
-                    yield return new WaitUntil(() => _isPuzzle || _isSwap);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitUntil(() => _isSwap || _isPuzzle);
+                    yield return new WaitUntil(() => _boardManager.IsProcessing == false);
+
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
                     
-                    if (swapped)
+                    _isPuzzle = false;
+                    _isSwap = false;
+                    if (matched)
+                    {
+                        if (_puzzleResult != null)
+                        {
+                            yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
+                                // 승리 기능
+                            if (_enemy._health <= 0)
+                            {
+                                float delay = _enemy.Dead();
+                                yield return new WaitForSeconds(delay);
+                                _player.Evolve(_currentStageIndex);
+                                Victory();
+                                yield break;
+                            }
+                            _player._behavior--;
+                            _puzzleResult = null; 
+                        }
+                    }
+                    else if (swapped)
                     {
                         yield return new WaitForSeconds(0.2f);
                         _player._behavior--;
                     }
                     
-                    if (matched)
-                    {
-                        if (_puzzleResult != null)
-                        {
-                            StartCoroutine(_player.PlayerStat(_puzzleResult));
-                            _puzzleResult = null; 
-                        }
-                    }
-                    
-                    _isPuzzle = false;
-                    _isSwap = false;
                     if (_player._freeze)
                     {
                         _player._behavior--;
                         _player._freeze = false;
                         continue;
                     }
-                    yield return new WaitForEndOfFrame();
-                    // 승리 기능
-                    if (_enemy._health <= 0)
-                    {
-                        float delay = _enemy.Dead();
-                        yield return new WaitForSeconds(delay);
-                        Victory();
-                        yield break;
-                    }
 
                     if (_player._theEnd) _player.ReceiveDamage(5f);
-                    if (_player._health <= 0) break;
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
-                        _player._behavioralGauge -= 10;
+                        _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
                     
-                    yield return new WaitForEndOfFrame();
                 }
 
                 _battle = BattleTurn.eTurn;
             }
             else
             {
-                _enemy.PatternProbability();
-                // yield return new WaitForSeconds(delay);
+                yield return StartCoroutine(_enemy.PatternProbability());
+                    // 죽는 기능
+                if (_player._health <= 0)
+                {
+                    float delay = _player.Dead();
+                    yield return new WaitForSeconds(delay);
+                    break;
+                }
                 _battle = BattleTurn.pTurn;
             }
             yield return null;

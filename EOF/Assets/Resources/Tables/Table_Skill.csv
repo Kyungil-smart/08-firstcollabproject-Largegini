@@ -1,17 +1,17 @@
-﻿SkillID,Key,ResourceID,IsPassive,Rate,Damage,DamageMax,Description
-401,0,0,TRUE,0,0,0,
-402,0,0,FALSE,60,10,20,달려들기
-403,0,0,FALSE,25,20,30,물어뜯기
-404,0,0,FALSE,15,30,40,찢어발기기
-405,0,0,TRUE,0,0,0,광전사
-406,0,0,FALSE,60,20,30,휘두르기
-407,0,0,FALSE,25,30,40,강타
-408,0,0,FALSE,15,30,40,박살내기
-409,0,0,TRUE,0,0,0,드래곤 스케일
-410,0,0,FALSE,60,40,40,드래곤 클로
-411,0,0,FALSE,25,0,0,드래곤 하트
-412,0,0,FALSE,15,40,40,프로스트 브레스
-413,0,0,TRUE,0,0,0,수확
-414,0,0,FALSE,60,30,40,영혼 가르기
-415,0,0,FALSE,25,20,30,생자필멸
-416,0,0,FALSE,15,50,70,종언
+﻿SkillID,Key,ResourceID,IsPassive,Rate,Damage,DamageMax,Animation,Description
+401,0,0,TRUE,0,0,0,None,없음
+402,0,0,FALSE,60,10,20,FirstAttack,달려들기
+403,0,0,FALSE,25,20,30,SecondAttack,물어뜯기
+404,0,0,FALSE,15,30,40,ThirdAttack,찢어발기기
+405,0,0,TRUE,0,0,0,None,광전사
+406,0,0,FALSE,60,20,30,FirstAttack,휘두르기
+407,0,0,FALSE,25,30,40,SecondAttack,강타
+408,0,0,FALSE,15,30,40,ThirdAttack,박살내기
+409,0,0,TRUE,0,0,0,None,드래곤 스케일
+410,0,0,FALSE,60,40,40,FirstAttack,드래곤 클로
+411,0,0,FALSE,25,0,0,SecondAttack,드래곤 하트
+412,0,0,FALSE,15,40,40,ThirdAttack,프로스트 브레스
+413,0,0,TRUE,0,0,0,None,수확
+414,0,0,FALSE,60,30,40,FirstAttack,영혼 가르기
+415,0,0,FALSE,25,20,30,SecondAttack,생자필멸
+416,0,0,FALSE,15,50,70,ThirdAttack,종언

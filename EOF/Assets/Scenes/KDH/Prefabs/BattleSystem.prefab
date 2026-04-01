@@ -51,8 +51,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   _backSpawn: {fileID: 3226240018604970975, guid: 5d5bcda6dd37c474885cebfa685400ce, type: 3}
   _currentStageIndex: 0
-  _boardManager: {fileID: 0}
-  _isPuzzle: 0
   _puzzleResult:
     comboCount: 0
+  _isPuzzle: 0
   _isSwap: 0
