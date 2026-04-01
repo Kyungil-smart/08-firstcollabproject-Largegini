@@ -20,8 +20,8 @@ public class BattleSystem : MonoBehaviour
     private Monster _enemy;
     public int _currentStageIndex = 0;
     public BoardManager _boardManager;
-    public bool _isPuzzle;
     public PuzzleResult _puzzleResult;
+    public bool _isPuzzle;
     public bool _isSwap;
     private void Start()
     {
@@ -66,7 +66,9 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isPuzzle || _isSwap);
+                    Debug.Log(_isSwap);
                     yield return new WaitForSeconds(0.1f);
+
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
                     

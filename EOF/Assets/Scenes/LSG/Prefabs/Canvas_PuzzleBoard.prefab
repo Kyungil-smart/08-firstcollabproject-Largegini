@@ -2593,6 +2593,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98f6bb7385a2d91408d8157587383808, type: 2}
   - {fileID: 11400000, guid: 45a300d3e67c94a4fa3834a3544d4839, type: 2}
   - {fileID: 11400000, guid: 41e3fd25cee36444eb6b04134ffd7111, type: 2}
+  _tutorialHighlightPrefab: {fileID: 0}
   _onPuzzleComplete:
     m_PersistentCalls:
       m_Calls: []
