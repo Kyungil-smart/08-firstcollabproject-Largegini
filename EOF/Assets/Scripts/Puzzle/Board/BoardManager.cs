@@ -80,7 +80,10 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
     
     // BoardTestHelper에서 접근용
     public BoardTutorialHandler TutorialHandler => _tutorial;
-    public bool IsProcessing { get; set; }
+    public bool IsProcessing { 
+        get => _isProcessing; 
+        private set => _isProcessing = value; 
+    }
 
     // ====== IBoardData ======
     
