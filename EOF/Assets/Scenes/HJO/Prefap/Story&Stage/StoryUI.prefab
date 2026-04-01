@@ -333,9 +333,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6084695150522859147}
-        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
-        m_MethodName: OnClickClose
+      - m_Target: {fileID: 5433584834813214562}
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -967,16 +967,12 @@ MonoBehaviour:
   dimPanel: {fileID: 0}
   popup: {fileID: 6687092829572792011}
   puzzleArea: {fileID: 0}
-  btnReset: {fileID: 0}
-  btnEndTurn: {fileID: 0}
   storyText: {fileID: 6489311703115323266}
   storyImage: {fileID: 423323679537009553}
   prevButton: {fileID: 1571195587743419773}
   nextButton: {fileID: 5546874412747667364}
   closeButton: {fileID: 8768175099220172997}
   popupImages: []
-  boardManager: {fileID: 0}
-  preset: {fileID: 11400000, guid: 3ef1de9a3e896964eaf4480f56bdb7f5, type: 2}
 --- !u!1 &5484759770582440553
 GameObject:
   m_ObjectHideFlags: 0
