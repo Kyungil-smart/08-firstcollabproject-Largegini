@@ -57,6 +57,9 @@ public class BattleSystem : MonoBehaviour
             {
                 float delay = _player.Dead();
                 yield return new WaitForSeconds(delay);
+                
+                // 게임오버
+                
                 break;
             }
             
@@ -128,6 +131,7 @@ public class BattleSystem : MonoBehaviour
 
     private void Victory()
     {
+        //  유물 보상 팝업
         Destroy(_enemy.gameObject);
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
     }
