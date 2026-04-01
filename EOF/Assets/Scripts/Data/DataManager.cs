@@ -90,8 +90,11 @@ public class DataManager : MonoBehaviour
     {
         if (playerObj == null) return;
 
+        // 스테이지 넘어갈 때 생명력 회복용
         savedPlayerData.MaxHP = playerObj._maxHealth;
         savedPlayerData.CurrentHP = playerObj._health;
+
+        // 이벤트 등에서 사용
         savedPlayerData.Damage_Normal = playerObj._attack;
         savedPlayerData.Damage_Special = playerObj._attackSpecial;
         savedPlayerData.Shield = playerObj._defensive;
@@ -111,8 +114,11 @@ public class DataManager : MonoBehaviour
 
         if (hasSavedData)
         {
+            // 스테이지 넘어갈 때 생명력 회복용
             playerObj._maxHealth = savedPlayerData.MaxHP;
             playerObj._health = savedPlayerData.CurrentHP;
+
+            // 이벤트 등에서 사용
             playerObj._attack = savedPlayerData.Damage_Normal;
             playerObj._attackSpecial = savedPlayerData.Damage_Special;
             playerObj._defensive = savedPlayerData.Shield;

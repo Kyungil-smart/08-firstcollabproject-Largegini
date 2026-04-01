@@ -33,7 +33,7 @@ public class PuzzleTable : IDataTableInfo
             PuzzleData newPuzzle = new PuzzleData();
             newPuzzle.SetPuzzleData(row);
 
-            // 중복 ID가 아니라면 MonsterDic 에 추가 (중복이면 가장 먼저 온 ID가 읽어짐)
+            // 중복 ID가 아니라면 PuzzleDic 에 추가 (중복이면 가장 먼저 온 ID가 읽어짐)
             if (!PuzzleDic.ContainsKey(newPuzzle.ID)) PuzzleDic.Add(newPuzzle.ID, newPuzzle);
 
             // ID 중복이면 에러 뱉기
