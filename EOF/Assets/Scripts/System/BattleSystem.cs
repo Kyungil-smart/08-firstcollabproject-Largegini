@@ -58,13 +58,14 @@ public class BattleSystem : MonoBehaviour
                 _player._behavior = _player._maxbehavior;
                 while (_player._behavior > 0)
                 {
-                    yield return new WaitUntil(() => _isPuzzle || _isSwap);
-                    Debug.Log(_isSwap);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitUntil(() => _isSwap || _isPuzzle);
+                    yield return new WaitUntil(() => _boardManager.IsProcessing == false);
 
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
                     
+                    _isPuzzle = false;
+                    _isSwap = false;
                     if (matched)
                     {
                         if (_puzzleResult != null)
@@ -89,8 +90,6 @@ public class BattleSystem : MonoBehaviour
                         _player._behavior--;
                     }
                     
-                    _isPuzzle = false;
-                    _isSwap = false;
                     if (_player._freeze)
                     {
                         _player._behavior--;
