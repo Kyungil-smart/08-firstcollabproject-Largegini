@@ -729,6 +729,7 @@ GameObject:
   - component: {fileID: 4131657717380608899}
   - component: {fileID: 8960765261152329135}
   - component: {fileID: 8014280632545506121}
+  - component: {fileID: 8468376939746819725}
   m_Layer: 5
   m_Name: DimPanel
   m_TagString: Untagged
@@ -793,6 +794,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!223 &8468376939746819725
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8356362279691100873}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 2
+  m_TargetDisplay: 0
 --- !u!1 &8518868437066038059
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +1017,18 @@ PrefabInstance:
     - target: {fileID: 3247639993081431259, guid: 379a14daf9552074585157a5da8d305d, type: 3}
       propertyPath: m_Name
       value: PuzzleBoard_111
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488388279573438189, guid: 379a14daf9552074585157a5da8d305d, type: 3}
+      propertyPath: _tutorialHighlightPrefab
+      value: 
+      objectReference: {fileID: 4677711084163557405, guid: 89b91561732c4a447a66487a81834470, type: 3}
+    - target: {fileID: 7887415275440452942, guid: 379a14daf9552074585157a5da8d305d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7887415275440452942, guid: 379a14daf9552074585157a5da8d305d, type: 3}
+      propertyPath: m_OverrideSorting
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
