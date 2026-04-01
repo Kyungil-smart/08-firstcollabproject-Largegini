@@ -92,7 +92,11 @@ public class DataManager : MonoBehaviour
 
         savedPlayerData.MaxHP = playerObj._maxHealth;
         savedPlayerData.CurrentHP = playerObj._health;
-        // savedPlayerData.Attack = playerObj._attack;
+        savedPlayerData.Damage_Normal = playerObj._attack;
+        savedPlayerData.Damage_Special = playerObj._attackSpecial;
+        savedPlayerData.Shield = playerObj._defensive;
+        savedPlayerData.Heal = playerObj._heal;
+
 
         hasSavedData = true;
     }
@@ -109,7 +113,12 @@ public class DataManager : MonoBehaviour
         {
             playerObj._maxHealth = savedPlayerData.MaxHP;
             playerObj._health = savedPlayerData.CurrentHP;
-            // playerObj._attack = savedPlayerData.Attack;
+            playerObj._attack = savedPlayerData.Damage_Normal;
+            playerObj._attackSpecial = savedPlayerData.Damage_Special;
+            playerObj._defensive = savedPlayerData.Shield;
+            playerObj._heal = savedPlayerData.Heal;
+
+
         }
 
     }
