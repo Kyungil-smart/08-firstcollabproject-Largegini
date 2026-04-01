@@ -64,6 +64,10 @@ MonoBehaviour:
   _maxbehavior: 0
   _maxbehavioralGauge: 0
   _comboRate: 0
+  _evolutionAnimators:
+  - {fileID: 22100000, guid: 0052db5b488df7841b7e0105de7257e4, type: 2}
+  - {fileID: 22100000, guid: 3e5c695fe6bfea945acc9ed9ef74de29, type: 2}
+  - {fileID: 22100000, guid: 2f24c1fc75ec0b549a0cad5f930f1951, type: 2}
 --- !u!114 &980372382931516363
 MonoBehaviour:
   m_ObjectHideFlags: 0

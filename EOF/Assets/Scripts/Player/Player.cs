@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public int _maxbehavioralGauge;
     public float _comboRate;
     private Animator _animator;
+    public List<RuntimeAnimatorController> _evolutionAnimators; 
     
     private void Awake()
     {
@@ -43,11 +44,10 @@ public class Player : MonoBehaviour
 
     }
 
-    public float Dead()
+    public IEnumerator Dead()
     {
-        float delay = 0;
         _animator.SetTrigger("Dead");
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
     }
 
     public void Init()
@@ -142,5 +142,15 @@ public class Player : MonoBehaviour
         }
         _health -= damage;
     }
-
+    
+    public void Evolve(int stageIndex)
+    {
+        // 1. 애니메이터 컨트롤러 교체
+        if (stageIndex < _evolutionAnimators.Count && _evolutionAnimators[stageIndex] != null)
+        {
+            _animator.runtimeAnimatorController = _evolutionAnimators[stageIndex];
+            Debug.Log($"{stageIndex + 1}단계 애니메이터로 교체 완료");
+        }
+        
+    }
 }
