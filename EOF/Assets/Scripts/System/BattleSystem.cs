@@ -23,6 +23,7 @@ public class BattleSystem : MonoBehaviour
     public PuzzleResult _puzzleResult;
     public bool _isPuzzle;
     public bool _isSwap;
+    
     private void Start()
     {
         _battle = BattleTurn.pTurn;
@@ -66,7 +67,6 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isPuzzle || _isSwap);
-                    Debug.Log(_isSwap);
                     yield return new WaitForSeconds(0.1f);
 
                     bool matched = _isPuzzle;
@@ -120,8 +120,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                _enemy.PatternProbability();
-                // yield return new WaitForSeconds(delay);
+                StartCoroutine(_enemy.PatternProbability());
                 _battle = BattleTurn.pTurn;
             }
             yield return null;

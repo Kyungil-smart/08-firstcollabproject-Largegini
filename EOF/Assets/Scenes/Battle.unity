@@ -1606,7 +1606,7 @@ PrefabInstance:
     - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
       propertyPath: _boardManager
       value: 
-      objectReference: {fileID: 4871980214584180545, guid: c25d1d159038e19479b75d3422fb6d43, type: 3}
+      objectReference: {fileID: 804132704}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1808,6 +1808,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
+--- !u!114 &804132704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2535593898743402353, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
+  m_PrefabInstance: {fileID: 804132703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a22349e91b0564486b0e9c90cdb076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoardManager
 --- !u!1 &932990681
 GameObject:
   m_ObjectHideFlags: 0
