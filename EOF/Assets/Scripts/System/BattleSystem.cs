@@ -78,12 +78,13 @@ public class BattleSystem : MonoBehaviour
                     
                     _isPuzzle = false;
                     _isSwap = false;
-                    if (matched)
+                    if (matched || swapped)
                     {
-                        if (_puzzleResult != null)
+                        if (matched && _puzzleResult != null)
                         {
                             yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
-                                // 승리 기능
+
+                            // 승리 기능
                             if (_enemy._health <= 0)
                             {
                                 float delay = _enemy.Dead();
@@ -92,13 +93,12 @@ public class BattleSystem : MonoBehaviour
                                 Victory();
                                 yield break;
                             }
-                            _player._behavior--;
-                            _puzzleResult = null; 
+                            _puzzleResult = null;
                         }
-                    }
-                    else if (swapped)
-                    {
-                        yield return new WaitForSeconds(0.2f);
+                        else if (swapped)
+                        {
+                            yield return new WaitForSeconds(0.2f);
+                        }
                         _player._behavior--;
                     }
                     
