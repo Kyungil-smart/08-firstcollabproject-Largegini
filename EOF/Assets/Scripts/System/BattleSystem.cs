@@ -59,8 +59,20 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
-                    yield return new WaitUntil(() => _boardManager.IsProcessing == false);
+                    yield return new WaitForSeconds(0.1f);
 
+                    float timeout = 0f;
+                    while (!_boardManager.IsProcessing && !_isPuzzle && timeout < 0.5f)
+                    {
+                        timeout += Time.deltaTime;
+                        yield return null;
+                    }
+                    
+                    while (_boardManager.IsProcessing)
+                    {
+                        yield return null;
+                    }
+                    
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
                     
