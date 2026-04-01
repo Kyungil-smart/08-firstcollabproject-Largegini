@@ -1022,6 +1022,10 @@ PrefabInstance:
       propertyPath: _tutorialHighlightPrefab
       value: 
       objectReference: {fileID: 4677711084163557405, guid: 89b91561732c4a447a66487a81834470, type: 3}
+    - target: {fileID: 4488388279573438189, guid: 379a14daf9552074585157a5da8d305d, type: 3}
+      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7887415275440452942, guid: 379a14daf9552074585157a5da8d305d, type: 3}
       propertyPath: m_SortingOrder
       value: 3

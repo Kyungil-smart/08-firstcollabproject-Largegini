@@ -301,9 +301,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2535593898743402353, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
-      propertyPath: _tutorialHighlightPrefab
-      value: 
-      objectReference: {fileID: 4677711084163557405, guid: 89b91561732c4a447a66487a81834470, type: 3}
+      propertyPath: _onDeadlock.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2688753628940382417, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
       propertyPath: hudController
       value: 
@@ -744,10 +744,6 @@ PrefabInstance:
     - target: {fileID: 5433584834813214562, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
       propertyPath: m_Name
       value: StoryUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 5433584834813214562, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6084695150522859147, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
       propertyPath: btnReset
