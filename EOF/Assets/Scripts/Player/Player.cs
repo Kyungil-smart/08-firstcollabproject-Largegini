@@ -44,10 +44,11 @@ public class Player : MonoBehaviour
 
     }
 
-    public IEnumerator Dead()
+    public float Dead()
     {
+        float delay = 0;
         _animator.SetTrigger("Dead");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     public void Init()
@@ -149,7 +150,8 @@ public class Player : MonoBehaviour
         if (stageIndex < _evolutionAnimators.Count && _evolutionAnimators[stageIndex] != null)
         {
             _animator.runtimeAnimatorController = _evolutionAnimators[stageIndex];
-            Debug.Log($"{stageIndex + 1}단계 애니메이터로 교체 완료");
+            _animator.Play("Player_Idle", 0, 0f); 
+            _animator.Update(0f);
         }
         
     }

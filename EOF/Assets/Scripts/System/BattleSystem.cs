@@ -23,32 +23,15 @@ public class BattleSystem : MonoBehaviour
     public PuzzleResult _puzzleResult;
     public bool _isPuzzle;
     public bool _isSwap;
-    
     private void Start()
     {
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
         _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
+        _player.Evolve(_currentStageIndex);
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
-    }
-
-    private void LateUpdate()
-    {
-            // 죽는 기능
-        if (_player._health <= 0)
-        {
-            StartCoroutine(_player.Dead());
-        }
-        
-            // 승리 기능
-        if (_enemy._health <= 0)
-        {
-            StartCoroutine(_enemy.Dead());
-            _player.Evolve(_currentStageIndex);
-            Victory();
-        }
     }
 
     private void SwapFinished()
@@ -76,6 +59,7 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isPuzzle || _isSwap);
+                    Debug.Log(_isSwap);
                     yield return new WaitForSeconds(0.1f);
 
                     bool matched = _isPuzzle;
@@ -92,6 +76,15 @@ public class BattleSystem : MonoBehaviour
                         if (_puzzleResult != null)
                         {
                             StartCoroutine(_player.PlayerStat(_puzzleResult));
+                                // 승리 기능
+                            if (_enemy._health <= 0)
+                            {
+                                float delay = _enemy.Dead();
+                                yield return new WaitForSeconds(delay);
+                                _player.Evolve(_currentStageIndex);
+                                Victory();
+                                yield break;
+                            }
                             _puzzleResult = null; 
                         }
                     }
@@ -106,13 +99,12 @@ public class BattleSystem : MonoBehaviour
                     }
 
                     if (_player._theEnd) _player.ReceiveDamage(5f);
-                    if (_player._health <= 0) break;
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
                         _player._behavioralGauge -= 10;
                     }
-                    yield return new WaitForEndOfFrame();
+                    
                 }
 
                 _battle = BattleTurn.eTurn;
@@ -120,6 +112,13 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 StartCoroutine(_enemy.PatternProbability());
+                    // 죽는 기능
+                if (_player._health <= 0)
+                {
+                    float delay = _player.Dead();
+                    yield return new WaitForSeconds(delay);
+                    break;
+                }
                 _battle = BattleTurn.pTurn;
             }
             yield return null;
