@@ -59,13 +59,12 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
-                    yield return new WaitForSeconds(0.1f);
-
-                    float timeout = 0f;
-                    while (!_boardManager.IsProcessing && !_isPuzzle && timeout < 0.5f)
+                    
+                    float timeout = 0.5f;
+                    while (!_boardManager.IsProcessing && timeout > 0)
                     {
-                        timeout += Time.deltaTime;
-                        yield return null;
+                        timeout -= Time.deltaTime;
+                        yield return null; 
                     }
                     
                     while (_boardManager.IsProcessing)
@@ -73,16 +72,15 @@ public class BattleSystem : MonoBehaviour
                         yield return null;
                     }
                     
-                    bool matched = _isPuzzle;
+                    bool matched = (_puzzleResult != null || _isPuzzle);
                     bool swapped = _isSwap;
                     
-                    _isPuzzle = false;
-                    _isSwap = false;
-                    if (matched)
+                    if (matched) 
                     {
                         if (_puzzleResult != null)
                         {
                             yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
+
                                 // 승리 기능
                             if (_enemy._health <= 0)
                             {
@@ -93,7 +91,7 @@ public class BattleSystem : MonoBehaviour
                                 yield break;
                             }
                             _player._behavior--;
-                            _puzzleResult = null; 
+                            _puzzleResult = null;
                         }
                     }
                     else if (swapped)
@@ -101,7 +99,8 @@ public class BattleSystem : MonoBehaviour
                         yield return new WaitForSeconds(0.2f);
                         _player._behavior--;
                     }
-                    
+                    _isPuzzle = false;
+                    _isSwap = false;
                     if (_player._freeze)
                     {
                         _player._behavior--;
@@ -117,7 +116,6 @@ public class BattleSystem : MonoBehaviour
                     }
                     
                 }
-
                 _battle = BattleTurn.eTurn;
             }
             else
