@@ -65,17 +65,11 @@ public class BattleSystem : MonoBehaviour
                     bool matched = _isPuzzle;
                     bool swapped = _isSwap;
                     
-                    if (swapped)
-                    {
-                        yield return new WaitForSeconds(0.2f);
-                        _player._behavior--;
-                    }
-                    
                     if (matched)
                     {
                         if (_puzzleResult != null)
                         {
-                            StartCoroutine(_player.PlayerStat(_puzzleResult));
+                            yield return StartCoroutine(_player.PlayerStat(_puzzleResult));
                                 // 승리 기능
                             if (_enemy._health <= 0)
                             {
@@ -85,8 +79,14 @@ public class BattleSystem : MonoBehaviour
                                 Victory();
                                 yield break;
                             }
+                            _player._behavior--;
                             _puzzleResult = null; 
                         }
+                    }
+                    else if (swapped)
+                    {
+                        yield return new WaitForSeconds(0.2f);
+                        _player._behavior--;
                     }
                     
                     _isPuzzle = false;
@@ -102,7 +102,7 @@ public class BattleSystem : MonoBehaviour
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
-                        _player._behavioralGauge -= 10;
+                        _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
                     
                 }
@@ -111,7 +111,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                StartCoroutine(_enemy.PatternProbability());
+                yield return StartCoroutine(_enemy.PatternProbability());
                     // 죽는 기능
                 if (_player._health <= 0)
                 {

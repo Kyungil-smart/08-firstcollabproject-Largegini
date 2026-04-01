@@ -62,16 +62,15 @@ public class Player : MonoBehaviour
 
     public IEnumerator PlayerStat(PuzzleResult result)
     {
-        yield return null;
         int combo = result.comboCount;
         foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
         {
             EBlockType type = block.Key;
             int count = block.Value;
-            if (type == EBlockType.Attack) StartCoroutine(Attack(count, combo));
-            if (type == EBlockType.Defense) StartCoroutine(Defensive(count, combo));
-            if (type == EBlockType.Heal) StartCoroutine(Heal(count, combo));
-            if (type == EBlockType.Special) StartCoroutine(SpecialATK(count, combo));
+            if (type == EBlockType.Attack) yield return StartCoroutine(Attack(count, combo));
+            if (type == EBlockType.Defense) yield return StartCoroutine(Defensive(count, combo));
+            if (type == EBlockType.Heal) yield return StartCoroutine(Heal(count, combo));
+            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
         }
     }
     
