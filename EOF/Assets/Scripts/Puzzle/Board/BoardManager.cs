@@ -50,12 +50,18 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
     [Header("Events")]
     [SerializeField] private UnityEvent<PuzzleResult> _onPuzzleComplete;
     [SerializeField] private UnityEvent _onDeadlock;
-    // 스왑이 끝났을 때
-    [SerializeField] private UnityEvent _onSwapFinished;
+    [SerializeField] private UnityEvent _onSwapFinished; // 스왑이 끝났을 때
+    [SerializeField] private UnityEvent<int> _onComboUpdated; // 콤보가 업데이트 될때 (연쇄 작업 완료시)
+    
+    // 외부 호출용 콤보 업데이트 이벤트
+    public UnityEvent<int> OnComboUpdated => _onComboUpdated;
     
     [SerializeField] private GraphicRaycaster _raycaster;
     
-    // 외부에서 블럭 상호작용 가능 여부 조절용 함수
+    /// <summary>
+    /// 퍼즐 보드 내 연쇄 작용(매칭, 파괴, 낙하 애니메이션 등)이 진행 중인지 여부.
+    /// 전투 시스템 등 외부에서 턴 대기 타이밍을 잡을 때 참조.
+    /// </summary>
     public void SetInteractable(bool value)
     {
         _raycaster.enabled = value;
@@ -76,11 +82,12 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
     private BoardValidator _validator;
     private BoardTutorialHandler _tutorial;
     
+    // 퍼즐 보드 작업 진행 상태 여부 체크
     private bool _isProcessing;
+    public bool IsProcessing => _isProcessing;
     
     // BoardTestHelper에서 접근용
     public BoardTutorialHandler TutorialHandler => _tutorial;
-    public bool IsProcessing { get; set; }
 
     // ====== IBoardData ======
     
@@ -231,11 +238,13 @@ public class BoardManager : MonoBehaviour, IBoard, ITutorialBoardControl
                 // 인터셉터가 설정되면 matches와 Proceed 지역 함수를 외부에 전달하고 return.
                 // `_isProcessing`이 true인 채로 멈추므로 유저 입력은 자동 차단.
                 // 외부(튜토리얼 컨트롤러)가 `proceed()`를 호출하면 연쇄 처리 재개.
-                void Proceed() => StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete));
+                void Proceed() => StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete,
+                    combo => _onComboUpdated?.Invoke(combo)));
                 _tutorial.ChainInterceptor.Invoke(matches, Proceed);
                 return;
             }
-            StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete));
+            StartCoroutine(_processor.ProcessMatches(matches, HandlePuzzleComplete,
+                combo => _onComboUpdated?.Invoke(combo)));
         }
         else
         {
