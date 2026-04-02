@@ -761,3 +761,7 @@ while 루프 안에서 `result.comboCount >= 2`일 때 콜백 호출.
 - 자식에 TextMeshPro 텍스트 추가 → `_comboText`에 할당
 - `ComboDisplayBinder`의 `_boardManager`에 씬 상의 BoardManager 할당
 - 텍스트 위치는 퍼즐판 중앙 배치, 앵커 Center
+
+## Day 10 - 2026-04-02
+
+퍼즐 보드 배경 및 블록 에셋 적용

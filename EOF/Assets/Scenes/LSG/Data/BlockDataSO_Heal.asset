@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockDataSO_Heal
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataSO
   _type: 3
-  _sprite: {fileID: 21300000, guid: 7749c9af80374474d81a825109302130, type: 3}
+  _sprite: {fileID: 21300000, guid: 6ec6d34053a0dcd4296740f3a6017576, type: 3}
   _effectValue: 3
   _matchEffectFrames:
   - {fileID: 21300000, guid: be21d7792a71cc649b4eecf72e5ff212, type: 3}
