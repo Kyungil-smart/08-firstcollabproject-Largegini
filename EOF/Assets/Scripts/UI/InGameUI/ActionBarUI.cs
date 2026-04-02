@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Collections;
 
 public class ActionBarUI : MonoBehaviour
 {
@@ -13,11 +14,36 @@ public class ActionBarUI : MonoBehaviour
     [SerializeField] private float tweenDuration = 0.3f;
     
     [SerializeField] private InGameHUDController hudController;
+    
+    private int _lastBehavior = -1;
 
     private void Start()
     {
         layerBlue.fillAmount = 0f;
         layerRed.fillAmount = 0f;
+        StartCoroutine(InitAfterFrame());
+    }
+    
+    private void Update()
+    {
+        if (Player.Instance == null) return;
+    
+        int current = Player.Instance._behavior;
+        if (current != _lastBehavior)
+        {
+            _lastBehavior = current;
+            SetAP(current, Player.Instance._maxbehavior);
+        }
+    }
+    private IEnumerator InitAfterFrame()
+    {
+        yield return null;
+        
+        while (Player.Instance._maxbehavior <= 0)
+        {
+            yield return null;
+        }
+    
         SetAP(Player.Instance._behavior, Player.Instance._maxbehavior);
     }
 
