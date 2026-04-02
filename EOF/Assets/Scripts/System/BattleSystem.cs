@@ -60,6 +60,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (_battle == BattleTurn.pTurn)
             {
+                _boardManager.SetInteractable(true);
                 _player._behavior = _player._maxbehavior;
                 while (_player._behavior > 0)
                 {
@@ -76,7 +77,7 @@ public class BattleSystem : MonoBehaviour
                     {
                         yield return null;
                     }
-                    
+                    _boardManager.SetInteractable(false);
                     bool matched = (_puzzleResult != null || _isPuzzle);
                     bool swapped = _isSwap;
                     
@@ -118,12 +119,13 @@ public class BattleSystem : MonoBehaviour
                         _player._behavior++;
                         _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
-                    
+                    _boardManager.SetInteractable(true);
                 }
                 _battle = BattleTurn.eTurn;
             }
             else
             {
+                _boardManager.SetInteractable(false);
                 yield return StartCoroutine(_enemy.PatternProbability());
                     // 죽는 기능
                 if (_player._health <= 0)
