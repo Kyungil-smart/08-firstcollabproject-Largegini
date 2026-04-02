@@ -16,6 +16,7 @@ public class SceneLoader : MonoBehaviour
    public StageScene Stage;
    public BattleScene Battle;
    public EndingScene Ending;
+   public GameOverScene GameOver;
    
    // 스테이지 진행 정보
    public int StageIndex;
@@ -58,6 +59,7 @@ public class SceneLoader : MonoBehaviour
        Stage = new StageScene();
        Battle = new BattleScene();
        Ending = new EndingScene();
+       GameOver = new GameOverScene();
 
        StageIndex = 0;
    }

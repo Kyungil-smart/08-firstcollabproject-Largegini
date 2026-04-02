@@ -18,7 +18,6 @@ public class StageScene: IScene
         
         // 스테이지 씬 진입
         SceneManager.LoadScene((int)ESceneType.Stage);
-        Debug.Log(SceneLoader.Intance.StageIndex);
     }
 
     public void Update()
