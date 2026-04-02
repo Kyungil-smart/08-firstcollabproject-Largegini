@@ -27,7 +27,7 @@ public class BattleSystem : MonoBehaviour
     public bool IsVictory;
     private void Start()
     {
-        
+        SceneLoader.Intance.Battle._system = this;
         IsVictory = false;
         
         _battle = BattleTurn.pTurn;
@@ -141,7 +141,7 @@ public class BattleSystem : MonoBehaviour
 
     private void Victory()
     {
-        //  유물 보상 팝업
+        IsVictory = true;
         Destroy(_enemy.gameObject);
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
     }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
@@ -34,6 +35,12 @@ public class DataManager : MonoBehaviour
     // 게임 플레이 중 저장되어야 하는 변수 모음
     [Header("게임 플레 중 저장 데이터")]
     [field: SerializeField] public PlayerData savedPlayerData = new PlayerData();
+
+    // 임시로 사용할 기능들
+    PlayerTable table;
+    public PlayerData originalPlayerData = new PlayerData();
+    public int playerID = 1;
+
 
     // true면 저장된 데이터를 불러오고, false면 첫 스테이지로 간주
     public bool hasSavedData = false;
@@ -66,6 +73,7 @@ public class DataManager : MonoBehaviour
         // 데이터 테이블 로드
         LoadDataTables();
         // Debug.Log("LoadDataTables 완료");
+        firstInitSave();
     }
 
 
@@ -81,10 +89,47 @@ public class DataManager : MonoBehaviour
         LoadTable<EventTable>("Tables/Table_Event");
         LoadTable<RewardTable>("Tables/Table_Reward");
         LoadTable<PlayerTable>("Tables/Table_Player");
-        
-        // LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
-        
 
+        // LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
+
+
+    }
+
+
+
+    public void firstInitSave()
+    {
+        table = DataManager._instance.GetPlayerTable();
+
+
+        // 테이블이 없거나 id 없으면 예외 처리
+        if (table == null || !table.PlayerDic.ContainsKey(playerID)) Debug.LogError($"ID {playerID} 플레이어 확인 불가!");
+        else
+        {
+            originalPlayerData = table.PlayerDic[playerID];
+
+            // Debug.Log("if 진행 후 else 실행");
+            PlayerData myData = table.PlayerDic[playerID];
+
+            savedPlayerData.MaxHP = originalPlayerData.MaxHP;
+
+            Debug.Log($"firstInitSave_01 : {savedPlayerData.Damage_Normal} + {originalPlayerData.Damage_Normal}");
+
+            savedPlayerData.Damage_Normal = originalPlayerData.Damage_Normal;
+            Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
+
+            savedPlayerData.Damage_Special = originalPlayerData.Damage_Special;
+            savedPlayerData.Shield = originalPlayerData.Shield;
+            savedPlayerData.Heal = originalPlayerData.Heal;
+            savedPlayerData.Action = originalPlayerData.Action;
+            savedPlayerData.MaxGauge = originalPlayerData.MaxGauge;
+            savedPlayerData.ComboRate = originalPlayerData.ComboRate;
+            savedPlayerData.GaugeIncreaseRate = originalPlayerData.GaugeIncreaseRate;
+            savedPlayerData.HPAbsorbRate = originalPlayerData.HPAbsorbRate;
+
+
+            hasSavedData = true;    // 임시로 true로 넣어놓음
+        }
     }
 
 
@@ -93,17 +138,23 @@ public class DataManager : MonoBehaviour
     {
         if (playerObj == null) return;
 
+        Debug.Log(savedPlayerData.Damage_Normal);
+
         // 스테이지 넘어갈 때 생명력 회복용
         savedPlayerData.MaxHP = playerObj._maxHealth;
         savedPlayerData.CurrentHP = playerObj._health;
 
-        /*
+
         // 이벤트 등에서 사용
         savedPlayerData.Damage_Normal = playerObj._attack;
-        savedPlayerData.Damage_Special = playerObj._attackSpecial;
+
+        Debug.Log(savedPlayerData.Damage_Normal);
+
         savedPlayerData.Shield = playerObj._defensive;
         savedPlayerData.Heal = playerObj._heal;
-        */
+        savedPlayerData.Damage_Special = playerObj._attackSpecial;
+        savedPlayerData.GaugeIncreaseRate = playerObj._gaugeIncreaseRate;
+        savedPlayerData.HPAbsorbRate = playerObj._healthAbsorbRate;
 
         hasSavedData = true;
     }
@@ -118,6 +169,8 @@ public class DataManager : MonoBehaviour
 
         if (hasSavedData)
         {
+            Debug.Log(savedPlayerData.Damage_Normal);
+
             // 스테이지 넘어갈 때 생명력 회복용
             playerObj._maxHealth = savedPlayerData.MaxHP;
             playerObj._health = savedPlayerData.CurrentHP;

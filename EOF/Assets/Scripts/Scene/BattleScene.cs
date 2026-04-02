@@ -9,22 +9,15 @@ public class BattleScene:IScene
      * 작성자 : 안정연
      */
     
-    private BattleSystem _system;
+    public BattleSystem _system;
     
     public void Enter()
     {
-        _system = GameObject.FindFirstObjectByType<BattleSystem>();
+        //_system = GameObject.FindAnyObjectByType<BattleSystem>();
+        Debug.Log(_system);
         // 배틀 씬 진입
         SceneManager.LoadScene((int)ESceneType.Battle);
 
-        // 세이브 -> 플레이어 정보 넘김 (한성우)
-        Player player = GameObject.FindAnyObjectByType<Player>();
-        if (player != null && DataManager._instance != null)
-        {
-            DataManager._instance.OnGameLoad(player);
-
-            // Debug.Log("세이브 -> 플레이어 정보 넘김");
-        }
     }
 
     public void Update()
