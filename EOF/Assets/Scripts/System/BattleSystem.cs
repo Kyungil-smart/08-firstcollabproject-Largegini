@@ -127,17 +127,15 @@ public class BattleSystem : MonoBehaviour
             {
                 _boardManager.SetInteractable(false);
                 yield return StartCoroutine(_enemy.PatternProbability());
-                Debug.Log($"보스 공격 종료 직후 플레이어 피: {_player._health}");
+                
                     // 죽는 기능
                 if (_player._health <= 0)
                 {
-                    Debug.Log("플레이어 사망 조건 진입");
                     yield return StartCoroutine(_player.Dead());
                      // 게임오버
                     SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
                     yield break;
                 }
-                Debug.Log("사망하지 않음. 플레이어 턴으로 전환.");
                 _battle = BattleTurn.pTurn;
             }
             yield return null;
