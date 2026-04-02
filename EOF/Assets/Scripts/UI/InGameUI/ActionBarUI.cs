@@ -18,7 +18,7 @@ public class ActionBarUI : MonoBehaviour
     {
         layerBlue.fillAmount = 0f;
         layerRed.fillAmount = 0f;
-        SetAP(3, 3);
+        SetAP(Player.Instance._behavior, Player.Instance._maxbehavior);
     }
 
     public void SetAP(int current, int max)
