@@ -21,11 +21,13 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image storyImage;
     [SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
+   
     
 
     [SerializeField] private Sprite[] popupImages;
-    [SerializeField] private Sprite iconNext;
     [SerializeField] private Sprite iconClose;
+    [SerializeField] private Image iconNext;
+    [SerializeField] private Sprite iconContinue;
 
     [SerializeField] private BoardManager boardManager;
     [SerializeField] private TutorialBoardPreset preset;
@@ -68,7 +70,7 @@ public class TutorialManager : MonoBehaviour
         prevButton.gameObject.SetActive(currentIndex > 0);
         
         bool isLast = (currentIndex == testTexts.Length - 1);
-        nextButton.image.sprite = isLast ? iconClose : iconNext;
+        iconNext.sprite = isLast ? iconClose : iconContinue;
     }
 
     public void OnClickNext()
