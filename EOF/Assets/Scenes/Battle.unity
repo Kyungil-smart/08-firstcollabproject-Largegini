@@ -2466,7 +2466,7 @@ PrefabInstance:
     - target: {fileID: 2688753628940382417, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
       propertyPath: hudController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 619545715}
     - target: {fileID: 4398752620556450478, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
       propertyPath: m_Color.a
       value: 0
