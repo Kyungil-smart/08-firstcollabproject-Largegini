@@ -94,6 +94,7 @@ public class PauseSettingController : MonoBehaviour
     public void OnclickConfirmYes()
     {
         Time.timeScale = 1f;
+        GameIsPaused = false;
         SceneManager.LoadScene("Title");
     }
 
