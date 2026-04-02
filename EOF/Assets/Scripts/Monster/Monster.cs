@@ -41,10 +41,11 @@ public abstract class Monster : MonoBehaviour
         _maxhealth = _tableMaxHP;
     }
     
-    public float Dead()
+    public IEnumerator Dead()
     {
         _animator.SetTrigger("Dead");
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(0.5f);
     }
     
     public abstract IEnumerator PatternProbability();
