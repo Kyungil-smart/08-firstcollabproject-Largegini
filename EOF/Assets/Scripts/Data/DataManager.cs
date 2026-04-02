@@ -112,6 +112,9 @@ public class DataManager : MonoBehaviour
             PlayerData myData = table.PlayerDic[playerID];
 
             savedPlayerData.MaxHP = originalPlayerData.MaxHP;
+            savedPlayerData.CurrentHP = originalPlayerData.MaxHP;
+
+            
 
             Debug.Log($"firstInitSave_01 : {savedPlayerData.Damage_Normal} + {originalPlayerData.Damage_Normal}");
 
@@ -142,8 +145,12 @@ public class DataManager : MonoBehaviour
 
         // 스테이지 넘어갈 때 생명력 회복용
         savedPlayerData.MaxHP = playerObj._maxHealth;
+
+        Debug.Log($"OnGameSave 플레이어 생명력01 : {playerObj._health}");
+
         savedPlayerData.CurrentHP = playerObj._health;
 
+        Debug.Log($"OnGameSave 플레이어 생명력02 : {playerObj._health}");
 
         // 이벤트 등에서 사용
         savedPlayerData.Damage_Normal = playerObj._attack;
@@ -173,7 +180,12 @@ public class DataManager : MonoBehaviour
 
             // 스테이지 넘어갈 때 생명력 회복용
             playerObj._maxHealth = savedPlayerData.MaxHP;
+
+            Debug.Log($"OnGameSave 플레이어 생명력03 : {playerObj._health}");
+
             playerObj._health = savedPlayerData.CurrentHP;
+
+            Debug.Log($"OnGameSave 플레이어 생명력04 : {playerObj._health}");
 
             // 이벤트 에서 플레이어 기능 변환 한 것 (RewardController) 넘겨주기
             playerObj._attack = savedPlayerData.Damage_Normal;
