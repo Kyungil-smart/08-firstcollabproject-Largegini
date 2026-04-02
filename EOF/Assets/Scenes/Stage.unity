@@ -2403,7 +2403,7 @@ PrefabInstance:
     - target: {fileID: 4519807924755850416, guid: dcc64bc03f6331149b83b755d0e8e7f1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 5886250902583259031, guid: 6a2eaad662487e946bdccfd2f5b0da6e, type: 3}
+      objectReference: {fileID: 21300000, guid: 6a2eaad662487e946bdccfd2f5b0da6e, type: 3}
     - target: {fileID: 4740256007002857158, guid: dcc64bc03f6331149b83b755d0e8e7f1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2598,7 +2598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561323539609301954, guid: dcc64bc03f6331149b83b755d0e8e7f1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6567069097801795473, guid: dcc64bc03f6331149b83b755d0e8e7f1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
