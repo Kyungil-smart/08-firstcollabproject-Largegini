@@ -10,21 +10,32 @@ using UnityEngine.InputSystem;
 
 public class PlayerData
 {
+    // 식별자
     public int PlayerID { get; set; }
-    public float MaxHP { get; set; }
-    public float CurrentHP { get; set; }
 
+    // Table_Player 스텟
+    public float MaxHP { get; set; }
+    public float CurrentHP { get; set; }    // 테이블에는 없지만 초기화에선 필요해서 추가
     public float Damage_Normal { get; set; }
     public float Damage_Special { get; set; }
     public float Shield { get; set; }
     public float Heal { get; set; }
     public int Action { get; set; }
- 
     public int MaxGauge { get; set; }
     public float ComboRate { get; set; }
-
     public float GaugeIncreaseRate { get; set; }
     public float HPAbsorbRate { get; set; }
+
+    // 이벤트용 스킬(테이블에는 없음)
+    public bool SkillChain01 { get; set; }
+    public bool SkillChain02 { get; set; }
+    public bool Rejuvenate { get; set; }
+    public bool Bulwark { get; set; }
+    public bool Onslaught01 { get; set; }
+    public bool Onslaught02 { get; set; }
+    public bool Resurrection { get; set; }
+
+
 
 
     public void SetPlayerData(Dictionary<string, object> row)
@@ -44,6 +55,17 @@ public class PlayerData
 
         GaugeIncreaseRate = Convert.ToInt32(row["GaugeIncreaseRate"]); ;
         HPAbsorbRate = Convert.ToInt32(row["HPAbsorbRate"]); ;
+
+
+        // 스킬
+        SkillChain01 = false;
+        SkillChain02 = false;
+        Rejuvenate = false;
+        Bulwark = false;
+        Onslaught01 = false;
+        Onslaught02 = false;
+        Resurrection = false;
+
 
         // Debug.Log($"a : {HP}");
 
