@@ -42,9 +42,8 @@ public class PlayerData
         MaxGauge = Convert.ToInt32(row["MaxGauge"]);
         ComboRate = Convert.ToSingle(row["ComboRate"]);
 
-        // 아래는 테이블에는 없음
-        GaugeIncreaseRate = 1;
-        HPAbsorbRate = 0;
+        GaugeIncreaseRate = Convert.ToInt32(row["GaugeIncreaseRate"]); ;
+        HPAbsorbRate = Convert.ToInt32(row["HPAbsorbRate"]); ;
 
         // Debug.Log($"a : {HP}");
 
