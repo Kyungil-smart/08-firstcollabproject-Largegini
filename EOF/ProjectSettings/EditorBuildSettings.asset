@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Battle.unity
     guid: 192a44041b41ca545aaf14152ac44765
   - enabled: 1
-    path: Assets/Scenes/Story.unity
-    guid: 70b48262e1987f44c9efc4c37d1c655e
+    path: Assets/Scenes/TutorialScene.unity
+    guid: e081bb3810673f94885cfb2bef18d82f
   - enabled: 1
     path: Assets/Scenes/Ending.unity
     guid: 82d4a4a1f21fa694ba8778434fe24931

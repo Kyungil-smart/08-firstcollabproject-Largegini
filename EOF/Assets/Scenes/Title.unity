@@ -938,6 +938,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8ed296723b36fe0478e92842e9b0a16b, type: 3}
+    - target: {fileID: 5647067744513592785, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647067744513592785, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647067744513592785, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647067744513592785, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6343881630455019346, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
       propertyPath: m_Type
       value: 0
@@ -1136,6 +1152,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4e88c3438da2fcc4f8ae7e3ddc089ec9, type: 3}
+    - target: {fileID: 7809849517542600553, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809849517542600553, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809849517542600553, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809849517542600553, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 7894592183066390395, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
       propertyPath: m_Name
       value: TitleUI
@@ -1195,6 +1227,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3233724130931594997, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
