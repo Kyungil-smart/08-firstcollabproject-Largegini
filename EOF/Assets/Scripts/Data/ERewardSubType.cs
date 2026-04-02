@@ -17,22 +17,32 @@ public enum ERewardSubType
     Gauge_Value = 5,
     Drain_Value = 6,
 
+
+    // 아래는 아직 미구현
+
     // Player_Stat_2 에 사용
+    Inverse_Value,  // 공격력 상승, 쉴드량 하락
+    Counterpoise_Value, // 생명력 % 하락, 특수 게이지 상승력 증가
+    Interchange_Value,
 
 
     // Player_Skill 에 사용
-
-
-    // 아직 미분류
-    Inverse_Value,
-    Counterpoise_Value,
     Chain_Value01,
     Chain_Value02,
-    Interchange_Value,
     Rejuvenate_Value,
     Bulwark_Value,
     Onslaught_Value01,
-    Onslaught_Value02,    
+    Onslaught_Value02,
     Resurrection_Value,
+
+
+    // 아직 미분류
+
+
+
+
+
+
+
 
 }
