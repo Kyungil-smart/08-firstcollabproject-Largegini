@@ -8,11 +8,14 @@ public class BattleScene:IScene
      * 내용 요약 : 배틀씬 스테이트
      * 작성자 : 안정연
      */
+    
+    private BattleSystem _system;
+    
     public void Enter()
     {
+        _system = GameObject.FindFirstObjectByType<BattleSystem>();
         // 배틀 씬 진입
         SceneManager.LoadScene((int)ESceneType.Battle);
-
 
         // 세이브 -> 플레이어 정보 넘김 (한성우)
         Player player = GameObject.FindAnyObjectByType<Player>();
@@ -35,19 +38,19 @@ public class BattleScene:IScene
 
     public void Exit()
     {
-
-        // 플레이어 -> 세이브 정보 넘김 (한성우)
-        Player player = GameObject.FindAnyObjectByType<Player>();
-        if (player != null && DataManager._instance != null)
-        {
-            DataManager._instance.OnGameSave(player);
-
-            // Debug.Log("플레이어 -> 세이브 정보 넘김");
-        }
-
         // 배틀 씬 퇴장
-        SceneLoader.Intance.StageIndex += 1;
+        _system.BattleFinished();
         
-        
+        if (_system.IsVictory)
+        {
+            // 플레이어 -> 세이브 정보 넘김 (한성우)
+
+            Player player = GameObject.FindAnyObjectByType<Player>();
+            if (player != null && DataManager._instance != null)
+            {
+                DataManager._instance.OnGameSave(player);
+            }
+            SceneLoader.Intance.StageIndex += 1;
+        }
     }
 }

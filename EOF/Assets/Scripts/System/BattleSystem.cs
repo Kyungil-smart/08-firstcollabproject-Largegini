@@ -23,8 +23,13 @@ public class BattleSystem : MonoBehaviour
     public bool _isPuzzle;
     public PuzzleResult _puzzleResult;
     public bool _isSwap;
+
+    public bool IsVictory;
     private void Start()
     {
+        
+        IsVictory = false;
+        
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
        _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
@@ -59,6 +64,7 @@ public class BattleSystem : MonoBehaviour
                 yield return new WaitForSeconds(delay);
                 
                 // 게임오버
+                SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
                 
                 break;
             }
@@ -134,6 +140,12 @@ public class BattleSystem : MonoBehaviour
         //  유물 보상 팝업
         Destroy(_enemy.gameObject);
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
+    }
+
+    public void BattleFinished()
+    {
+        Destroy(_player);
+        Destroy(_enemy);
     }
 }
 

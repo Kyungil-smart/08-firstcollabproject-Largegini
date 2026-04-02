@@ -1,6 +1,19 @@
 using UnityEngine;
 
-public class GameOverScene
+public class GameOverScene : IScene
 {
-    
+    public void Enter()
+    {
+        
+    }
+
+    public void Update()
+    {
+        
+    }
+
+    public void Exit()
+    {
+        
+    }
 }
