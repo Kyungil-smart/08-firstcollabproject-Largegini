@@ -1,0 +1,14 @@
+﻿ID,Key,StageType,ResourceID,EventID,MonsterID,Description
+201,0,TUTORIAL,0,null,301,튜토리얼
+202,0,EVENT,0,501,null,이벤트_대장간
+203,0,EVENT,0,502,null,이벤트_성소
+204,0,EVENT,0,503,null,이벤트_훈련소
+202,0,EVENT,0,504,null,이벤트_수상한 노파
+203,0,EVENT,0,505,null,이벤트_점성술사
+204,0,EVENT,0,506,null,이벤트_신부
+202,0,EVENT,0,507,null,이벤트_천사
+203,0,EVENT,0,508,null,이벤트_악마
+204,0,EVENT,0,509,null,이벤트_정령
+205,0,NORMAL,0,null,302,stage1
+206,0,NORMAL,0,null,303,stage2
+207,0,BOSS,0,null,304,stage3

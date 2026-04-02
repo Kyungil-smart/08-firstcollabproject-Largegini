@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddd5d380d86941499f108357eb0e768, type: 3}
+  m_Name: BlockDataSO_Special
+  m_EditorClassIdentifier: Assembly-CSharp::BlockDataSO
+  _type: 4
+  _sprite: {fileID: 21300000, guid: 2c3f355a66cb5de4eafea1fc1c43258e, type: 3}
+  _effectValue: 2
+  _matchEffectFrames:
+  - {fileID: 21300000, guid: de75fd17a72c8424682db0c2814cc290, type: 3}
+  - {fileID: 21300000, guid: 2bc3d98ca5ca5a64d9209e123bb9cc0e, type: 3}
+  - {fileID: 21300000, guid: 4c2a3ad0fa5ddc74aab3773566fd4207, type: 3}
+  - {fileID: 21300000, guid: f6a01425abd983c42b168ed45d294cba, type: 3}
+  - {fileID: 21300000, guid: b685385de98afb04a9cf0a678bf4e7ab, type: 3}

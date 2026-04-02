@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b416cf396cb1b4d468a058061fa323ff, type: 3}
+  m_Name: BlueDragon
+  m_EditorClassIdentifier: Assembly-CSharp::StagewithMonster
+  Enemy: {fileID: 1033207694988195695, guid: 953d608fbac54384d83c5fb1115bf102, type: 3}
+  StageNumber: 2
+  Background: {fileID: 1618502850791060828, guid: 19d7431e03525c24da692742211cd2dc, type: 3}

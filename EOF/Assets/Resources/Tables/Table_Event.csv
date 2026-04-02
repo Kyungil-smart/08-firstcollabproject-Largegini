@@ -1,0 +1,10 @@
+﻿ID,Key,ResourceID,EventType,RewardID_1,RewardID_2,Description
+501,0,0,EventFirst,601,602,대장간
+502,0,0,EventFirst,603,604,성소
+503,0,0,EventFirst,605,606,훈련소
+504,0,0,EventSecond,607,608,수상한 노파
+505,0,0,EventSecond,609,610,점성술사
+506,0,0,EventSecond,611,612,신부
+507,0,0,EventThired,613,614,천사
+508,0,0,EventThired,615,616,악마
+509,0,0,EventThired,617,618,정령
