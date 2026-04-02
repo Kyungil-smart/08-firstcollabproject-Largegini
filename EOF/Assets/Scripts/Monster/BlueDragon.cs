@@ -12,7 +12,7 @@ public class BlueDragon : Monster
     public bool _dragonScale;
     public int _passiveCount;
     public float _defensive;
-    public bool _invincibility;
+    
     private void Awake()
     {
         // _maxhealth = 200f;
@@ -25,6 +25,16 @@ public class BlueDragon : Monster
 
     public override void ReceiveDamage(float damage)
     {
+        if (_invincibility)
+        {
+            if (_defensive > 0)
+            {
+                _defensive -= damage;
+                if (_defensive < 0) _defensive = 0;
+            }
+            return; 
+        }
+        
         if (_defensive > 0)
         {
             if (_defensive > damage)
@@ -37,7 +47,6 @@ public class BlueDragon : Monster
                 _defensive = 0;
                 _health -= damage;
                 _dragonScale = false;
-                
             }
         }
         else
@@ -50,6 +59,7 @@ public class BlueDragon : Monster
                 _dragonScale = true;
                 _defensive = 200f;
                 _passiveCount--;
+                _invincibility = true;
                 if (_passiveCount <= 0) _passiveCount = 0;
             }
         }

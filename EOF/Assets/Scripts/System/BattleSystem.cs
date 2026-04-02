@@ -120,6 +120,7 @@ public class BattleSystem : MonoBehaviour
                         _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
                     _boardManager.SetInteractable(true);
+                    _enemy._invincibility = false;
                 }
                 _battle = BattleTurn.eTurn;
             }
