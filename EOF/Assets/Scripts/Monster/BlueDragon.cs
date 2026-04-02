@@ -12,6 +12,7 @@ public class BlueDragon : Monster
     public bool _dragonScale;
     public int _passiveCount;
     public float _defensive;
+    public bool _invincibility;
     private void Awake()
     {
         // _maxhealth = 200f;
@@ -66,15 +67,15 @@ public class BlueDragon : Monster
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            StartCoroutine(FirstPattern());
+            yield return StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            StartCoroutine(SecondPattern());
+            yield return StartCoroutine(SecondPattern());
         }
         else
         {
-            StartCoroutine(ThirdPattern());
+            yield return StartCoroutine(ThirdPattern());
         }
     }
 
