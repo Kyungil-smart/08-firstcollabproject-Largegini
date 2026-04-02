@@ -42,7 +42,6 @@ public class SceneLoader : MonoBehaviour
 
    private void Update()
    {
-       Debug.Log(MaxStage);
        _sceneMachine.Update();
    }
 
