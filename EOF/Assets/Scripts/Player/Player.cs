@@ -26,6 +26,15 @@ public class Player : MonoBehaviour
     public int _maxbehavior;    // 액션
     public int _maxbehavioralGauge;
     public float _comboRate;
+    public float _gaugeIncreaseRate;
+    public float _healthAbsorbRate;
+    public bool _skillChain01;
+    public bool _skillChain02;
+    public bool _rejuvenate;
+    public bool _bulwark;
+    public bool _onslaught01;
+    public bool _onslaught02;
+    public bool _resurrection;
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
     
@@ -36,6 +45,8 @@ public class Player : MonoBehaviour
         _freeze = false;
         _reverse = false;
         _theEnd = false;
+
+        // 스텟 Init은 PlayerStatController 스크립트에서 수정
     }
 
 
@@ -81,6 +92,13 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
         Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
+
+        // 흡혈 기능을 위해 추가 (한성우)
+        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
     }
 
     public IEnumerator SpecialATK(int count, int combo)
@@ -90,7 +108,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
         Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * _comboRate));
-        _behavioralGauge *= count;
+        _behavioralGauge *= (int)(count * _gaugeIncreaseRate);
+
+        // 흡혈 기능을 위해 추가 (한성우)
+        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
     }
     public IEnumerator Heal(int count, int combo)
     {

@@ -783,8 +783,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2056317702}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1797576264
@@ -1265,7 +1264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1687135620}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2056317703
 MonoBehaviour:
@@ -1280,8 +1279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventController
   <CurrentEventType>k__BackingField: 3
-  <EventID>k__BackingField: 0
-  <LoadedEventType>k__BackingField: 0
   randomNumber: 0
 --- !u!1 &2067328503
 GameObject:
@@ -1579,3 +1576,4 @@ SceneRoots:
   - {fileID: 1687135620}
   - {fileID: 2077201488}
   - {fileID: 1329611208}
+  - {fileID: 2056317702}

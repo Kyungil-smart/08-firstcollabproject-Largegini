@@ -1,19 +1,19 @@
 ﻿ID,Key,ResourceID,BuffType_1,BuffType_2,Value_1,Value_2,Description
-601,0,1001,None,None,1,1,공격 블록의 공격력이 상승합니다.
-602,0,1001,None,None,1,1,방어 블록의 쉴드량이 상승합니다.
-603,0,1001,None,None,1,1,망국의 왕의 체력이 회복됩니다.
-604,0,1001,None,None,1,1,체력 블록의 체력 회복량이 상승합니다.
-605,0,1001,None,None,1,1,특수 블록의 공격력이 상승합니다.
-606,0,1001,None,None,1,1,특수 블록의 행동력 게이지 상승률이 오릅니다.
-607,0,1001,None,None,1,1,공격 블록의 공격력이 상승하는 대신 쉴드량을 감소합니다.
-608,0,1001,None,None,50,1,현재 체력의 50%를 깎는 대신 특수 블록의 행동력 게이지 상승률이 오릅니다.
-609,0,1001,None,None,30,50,30% 확률로 공격시 50% 추가데미지를 준다.
-610,0,1001,None,None,100,10,100% 확률로 공격시 10% 추가데미지를 준다.
-611,0,1001,None,None,1,1,회복 블록의 회복량이 감소하는 대신 최대 체력을 증가시킵니다.
-612,0,1001,None,None,1,1,회복 블록의 회복량이 증가하는 대신 최대 체력을 감소시킵니다.
-613,0,1001,None,None,50,1,체력이 50% 이하로 떨어졌을때 체력 블록의 체력 회복량이 상승합니다.
-614,0,1001,None,None,50,1,체력이 50% 이상일때 방어 블록의 쉴드량이 상승합니다.
-615,0,1001,None,None,30,1,체력이 30% 이하로 떨어졌을때 공격 블록의 공격력이 상승합니다.
-616,0,1001,None,None,40,1,체력이 40% 이하로 떨어졌을때 특수 블록의 행동력 게이지 상승률이 오릅니다.
-617,0,1001,None,None,1,1,공격시 체력을 흡수한다.
-618,0,1001,None,None,1,1,"사망시, 게임 오버가 아닌 일정 HP 회복하며 1회 부활합니다."
+601,Buff_Blacksmith01,1001,Player_Stat,Attack_Value,1,1,공격 블록의 공격력이 상승합니다.
+602,Buff_Blacksmith02,1001,Player_Stat,Defence_Value,1,1,방어 블록의 쉴드량이 상승합니다.
+603,Heal_Sanctum,1001,Player_HPRecovery,None,1,50,망국의 왕의 체력이 회복됩니다.
+604,Buff_Sanctum,1001,Player_Stat,Recovery_Value,1,1,체력 블록의 체력 회복량이 상승합니다.
+605,Buff_Barrack01,1001,Player_Stat,Special_Value,1,1,특수 블록의 공격력이 상승합니다.
+606,Buff_Barrack02,1001,Player_Stat,Gauge_Value,1,1,특수 블록의 행동력 게이지 상승률이 오릅니다.
+607,Buff_Hag01,1001,Player_Stat_2,Inverse_Value,1,1,공격 블록의 공격력이 상승하는 대신 쉴드량을 감소합니다.
+608,Buff_Hag02,1001,Player_Stat_2,Counterpoise_Value,50,1,현재 체력의 50%를 깎는 대신 특수 블록의 행동력 게이지 상승률이 오릅니다.
+609,Buff_Oracle01,1001,Player_Skill,Chain_Value01,30,50,30% 확률로 공격시 50% 추가데미지를 준다.
+610,Buff_Oracle02,1001,Player_Skill,Chain_Value02,100,10,100% 확률로 공격시 10% 추가데미지를 준다.
+611,Buff_Father01,1001,Player_Stat_2,Interchange_Value,-1,1,회복 블록의 회복량이 감소하는 대신 최대 체력을 증가시킵니다.
+612,Buff_Father02,1001,Player_Stat_2,Interchange_Value,1,-1,회복 블록의 회복량이 증가하는 대신 최대 체력을 감소시킵니다.
+613,Buff_Angel01,1001,Player_Skill,Rejuvenate_Value,50,1,체력이 50% 이하로 떨어졌을때 체력 블록의 체력 회복량이 상승합니다.
+614,Buff_Angel02,1001,Player_Skill,Bulwark_Value,50,1,체력이 50% 이상일때 방어 블록의 쉴드량이 상승합니다.
+615,Buff_Devil01,1001,Player_Skill,Onslaught_Value01,30,1,체력이 30% 이하로 떨어졌을때 공격 블록의 공격력이 상승합니다.
+616,Buff_Devil02,1001,Player_Skill,Onslaught_Value02,40,1,체력이 40% 이하로 떨어졌을때 특수 블록의 행동력 게이지 상승률이 오릅니다.
+617,Buff_Sprit01,1001,Player_Stat,Drain_Value,1,1,공격시 체력을 흡수한다.
+618,Buff_Sprit02,1001,Player_Skill,Resurrection_Value,1,1,"사망시, 게임 오버가 아닌 일정 HP 회복하며 1회 부활합니다."

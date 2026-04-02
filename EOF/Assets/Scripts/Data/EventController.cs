@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 // 작성자 : 한성우
-// 이벤트를 구분하여 관리하는 스크립트
+// 이벤트 를 구분하여 관리하는 스크립트
 
 
 
@@ -23,7 +23,8 @@ public class EventController : MonoBehaviour
     
 
     EventTable table;   // 불러올 이벤트 테이블
-    private List<EventData> targetEvent = new List<EventData>();  // 조건에 맞는 이벤트를 잠시 저장할 테이블
+    private List<EventData> targetEvent = new List<EventData>();  // 조건에 맞는 이벤트를 잠시 저장할 데이터 리스트
+    private RewardController rewardController = new RewardController(); // 보상 테이블 불러오기
 
 
     private void Start()
@@ -33,6 +34,7 @@ public class EventController : MonoBehaviour
         PickRandomEvent();
     }
 
+    // 초기화하기
     public void Init()
     {
         
@@ -45,8 +47,11 @@ public class EventController : MonoBehaviour
 
         table = DataManager._instance.GetEventTable();
 
+
         // 이전에 저장된 리스트가 있다면 모두 클리어하기
-        targetEvent.Clear();
+        if(targetEvent != null) targetEvent.Clear();
+
+
     }
 
 
@@ -87,6 +92,8 @@ public class EventController : MonoBehaviour
     {
         Debug.Log($"{target.EventID} 1번 선택지 대사 : {target.RewardAID}");
         Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
+
+        // UI에 타겟 보내기
     }
 
 
@@ -94,12 +101,8 @@ public class EventController : MonoBehaviour
     // 유저가 고른 선택지 저장하기
     public void SaveSelectedEvent(int selectedRewardID)
     {
-        // 유저가 고른 선택지 
-
-
-
-        // 고른 선택지를 데이터에 저장하기
-
+        // 유저가 고른 선택지 보상 컨트롤러로 보내기
+        rewardController.RewardProcess(selectedRewardID);
 
 
     }
