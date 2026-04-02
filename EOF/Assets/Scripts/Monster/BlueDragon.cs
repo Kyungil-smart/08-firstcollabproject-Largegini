@@ -27,11 +27,6 @@ public class BlueDragon : Monster
     {
         if (_invincibility)
         {
-            if (_defensive > 0)
-            {
-                _defensive -= damage;
-                if (_defensive < 0) _defensive = 0;
-            }
             return; 
         }
         
