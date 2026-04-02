@@ -27,6 +27,7 @@ public class EndingScene : IScene
 
     public void Exit()
     {
-        
+        // DataManger에서 데이터 초기화 불러오기 (한성우)
+        DataManager._instance.firstInitSave();
     }
 }

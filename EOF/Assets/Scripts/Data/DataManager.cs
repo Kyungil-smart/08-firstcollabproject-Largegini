@@ -96,7 +96,7 @@ public class DataManager : MonoBehaviour
     }
 
 
-
+    // 데이터 초기화(첫 시작, 리셋 시 사용)
     public void firstInitSave()
     {
         table = DataManager._instance.GetPlayerTable();
@@ -116,7 +116,7 @@ public class DataManager : MonoBehaviour
 
             
 
-            Debug.Log($"firstInitSave_01 : {savedPlayerData.Damage_Normal} + {originalPlayerData.Damage_Normal}");
+            Debug.Log($"firstInitSave_01 : {originalPlayerData.Damage_Normal}");
 
             savedPlayerData.Damage_Normal = originalPlayerData.Damage_Normal;
             Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
@@ -203,7 +203,7 @@ public class DataManager : MonoBehaviour
 
 
     // 게임 리셋용 함수(게임 오버 -> 다시 시작 등)
-    public void OnReset(Player playerObj)
+    public void OnReset()
     {
         hasSavedData = false;
 
