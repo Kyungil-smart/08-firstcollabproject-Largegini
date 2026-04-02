@@ -11,6 +11,6 @@ public class MonsterSpawn : MonoBehaviour
     public Monster SpawnMonster(GameObject _enemy)
     {
         GameObject go = Instantiate(_enemy, transform.position, transform.rotation);
-        return go.GetComponent<Monster>();
+        return go.GetComponentInChildren<Monster>();
     }
 }
