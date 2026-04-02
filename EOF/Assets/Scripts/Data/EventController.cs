@@ -13,13 +13,17 @@ public class EventController : MonoBehaviour
 {
     // 셋팅해줘야하는 변수
     [Header("셋팅하는 값")]
-    [field: SerializeField] public EventType CurrentEventType { get; private set; }
+    public int testIndex = 0;  // 테스트용으로 임시로 사용하는 값
+    private int selectedRewardIndex = 0;
+    [field: SerializeField] public EventType CurrentEventType { get; set; }
+
 
     // 불러올 변수 (테스트 용으로 SerializeField)
     [Header("불러오는 값")]
     // [field: SerializeField] public int EventID { get; private set; }
     // [field: SerializeField] public EventType LoadedEventType { get; private set; }
     public int randomNumber = 0;
+    
     
 
     EventTable table;   // 불러올 이벤트 테이블
@@ -51,7 +55,7 @@ public class EventController : MonoBehaviour
         // 이전에 저장된 리스트가 있다면 모두 클리어하기
         if(targetEvent != null) targetEvent.Clear();
 
-
+        testIndex = 0;
     }
 
 
@@ -94,6 +98,14 @@ public class EventController : MonoBehaviour
         Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
 
         // UI에 타겟 보내기
+
+
+        // 임시로 타겟 자동 불러오기
+        testIndex = selectedRewardIndex;    // 테스트 용으로 임시로 넣어놓은 ID
+        if (selectedRewardIndex == 0) rewardController.RewardProcess(target.RewardAID);
+        else if (selectedRewardIndex == 1) rewardController.RewardProcess(target.RewardBID);
+
+
     }
 
 
@@ -101,8 +113,13 @@ public class EventController : MonoBehaviour
     // 유저가 고른 선택지 저장하기
     public void SaveSelectedEvent(int selectedRewardID)
     {
+        
+
+
+
+
         // 유저가 고른 선택지 보상 컨트롤러로 보내기
-        rewardController.RewardProcess(selectedRewardID);
+        // rewardController.RewardProcess(selectedRewardID);
 
 
     }

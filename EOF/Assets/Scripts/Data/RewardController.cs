@@ -24,7 +24,7 @@ public class RewardController
 
         OperateByRewardType();
 
-        SaveReward();
+        // SaveReward();
     }
 
 
@@ -100,12 +100,13 @@ public class RewardController
     }
 
 
-    // 선택지 저장
+    // 선택지 저장 -> 현재 사용 안함
+    /*
     private void SaveReward()
     {
 
     }
-
+    */
 
 
 
@@ -116,8 +117,9 @@ public class RewardController
         switch (selectedReward.ERewardSubType)
         {
             case ERewardSubType.Attack_Value:
-                Debug.Log($"공격력 증가");
+                Debug.Log($"기존 스텟 : {DataManager._instance.savedPlayerData.Damage_Normal} / 공격력 증가 : {selectedReward.ValueB}");
                 DataManager._instance.savedPlayerData.Damage_Normal += selectedReward.ValueB;
+                Debug.Log($"SetPlayerStat() : {DataManager._instance.savedPlayerData.Damage_Normal}");
                 break;
             case ERewardSubType.Defence_Value:
                 Debug.Log($"방어막 생산량 증가");
