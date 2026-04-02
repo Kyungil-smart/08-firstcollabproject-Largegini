@@ -89,8 +89,7 @@ public class BattleSystem : MonoBehaviour
                                 // 승리 기능
                             if (_enemy._health <= 0)
                             {
-                                float delay = _enemy.Dead();
-                                yield return new WaitForSeconds(delay);
+                                yield return StartCoroutine(_enemy.Dead());
                                 _player.Evolve(_currentStageIndex);
                                 Victory();
                                 yield break;
@@ -129,8 +128,7 @@ public class BattleSystem : MonoBehaviour
                     // 죽는 기능
                 if (_player._health <= 0)
                 {
-                    float delay = _player.Dead();
-                    yield return new WaitForSeconds(delay);
+                    yield return StartCoroutine(_player.Dead());
                      // 게임오버
                     SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
                     break;

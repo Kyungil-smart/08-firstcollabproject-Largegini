@@ -55,11 +55,11 @@ public class Player : MonoBehaviour
 
     }
 
-    public float Dead()
+    public IEnumerator Dead()
     {
-        float delay = 0;
         _animator.SetTrigger("Dead");
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void Init()
