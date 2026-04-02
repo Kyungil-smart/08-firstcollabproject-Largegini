@@ -16,6 +16,7 @@ public abstract class Monster : MonoBehaviour
     public float _health;
     public float _tableMaxHP;
     public int _minDamage;
+    public bool _invincibility = false;
     
     private void Start()
     {

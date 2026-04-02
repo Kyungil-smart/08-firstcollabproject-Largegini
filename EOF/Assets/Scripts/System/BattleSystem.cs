@@ -120,6 +120,7 @@ public class BattleSystem : MonoBehaviour
                         _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
                     _boardManager.SetInteractable(true);
+                    _enemy._invincibility = false;
                 }
                 _battle = BattleTurn.eTurn;
             }
@@ -127,13 +128,14 @@ public class BattleSystem : MonoBehaviour
             {
                 _boardManager.SetInteractable(false);
                 yield return StartCoroutine(_enemy.PatternProbability());
+                
                     // 죽는 기능
                 if (_player._health <= 0)
                 {
                     yield return StartCoroutine(_player.Dead());
                      // 게임오버
                     SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
-                    break;
+                    yield break;
                 }
                 _battle = BattleTurn.pTurn;
             }
