@@ -10,6 +10,8 @@ using System;
 [CustomEditor(typeof(BlockDataSO))]
 public class BlockDataSOEditor : Editor
 {
+    [SerializeField] private string csvPath = "Tables/Table_Block";
+
     public override void OnInspectorGUI()
     {
         serializedObject.Update();  // serializedObject.Update : 실제 객체의 최신 데이터 값을 가져오는 기능
@@ -44,7 +46,6 @@ public class BlockDataSOEditor : Editor
     private void InitDatafronCSV(EBlockType targetType)
     {
         // CSVReader를 활용해 테이블 로드
-        string csvPath = "Tables/Table_Block";
         List<Dictionary<string, object>> blockDataList = CSVReader.Parser(csvPath);
 
 

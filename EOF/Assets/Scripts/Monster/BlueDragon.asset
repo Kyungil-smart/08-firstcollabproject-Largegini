@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StagewithMonster
   Enemy: {fileID: 1033207694988195695, guid: 953d608fbac54384d83c5fb1115bf102, type: 3}
   StageNumber: 2
+  Background: {fileID: 1618502850791060828, guid: 19d7431e03525c24da692742211cd2dc, type: 3}

@@ -59,6 +59,7 @@ public class BlueDragon : Monster
         if (_dragonScale)
         {
             DragonScale();
+            yield break;
         }
 
         yield return null;

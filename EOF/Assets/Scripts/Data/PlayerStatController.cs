@@ -52,7 +52,7 @@ public class PlayerStatController : MonoBehaviour
             // Debug.Log("if 진행 후 else 실행");
             PlayerData myData = table.PlayerDic[thisID];
 
-            // 각종 스텟 설정
+            // 각종 스텟 초기 설정
             thisScript._maxHealth = myData.MaxHP;
             thisScript._health = myData.MaxHP;
             thisScript._attack = myData.Damage_Normal;
@@ -62,7 +62,15 @@ public class PlayerStatController : MonoBehaviour
             thisScript._maxbehavior = myData.Action;
             thisScript._maxbehavioralGauge = myData.MaxGauge;
             thisScript._comboRate = myData.ComboRate;
-
+            thisScript._gaugeIncreaseRate = myData.GaugeIncreaseRate;
+            thisScript._healthAbsorbRate = myData.HPAbsorbRate;
+            thisScript._skillChain01 = false;
+            thisScript._skillChain02 = false;
+            thisScript._rejuvenate = false;
+            thisScript._bulwark = false;
+            thisScript._onslaught01 = false;
+            thisScript._onslaught02 = false;
+            thisScript._resurrection = false;
 
 
             // Debug.Log($"b : {thisScript._maxHealth}");

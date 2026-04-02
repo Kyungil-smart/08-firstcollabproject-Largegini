@@ -78,7 +78,10 @@ public class DataManager : MonoBehaviour
         LoadTable<BlockTable>("Tables/Table_Block");
         LoadTable<MonsterTable>("Tables/Table_Monster");
         LoadTable<SkillTable>("Tables/Table_Skill");
+        LoadTable<EventTable>("Tables/Table_Event");
+        LoadTable<RewardTable>("Tables/Table_Reward");
         LoadTable<PlayerTable>("Tables/Table_Player");
+        
         // LoadTable<PuzzleTable>("Tables/PuzzleDataTable");   // *** 더미, 추후 수정 필요
         
 
@@ -90,9 +93,17 @@ public class DataManager : MonoBehaviour
     {
         if (playerObj == null) return;
 
+        // 스테이지 넘어갈 때 생명력 회복용
         savedPlayerData.MaxHP = playerObj._maxHealth;
         savedPlayerData.CurrentHP = playerObj._health;
-        // savedPlayerData.Attack = playerObj._attack;
+
+        /*
+        // 이벤트 등에서 사용
+        savedPlayerData.Damage_Normal = playerObj._attack;
+        savedPlayerData.Damage_Special = playerObj._attackSpecial;
+        savedPlayerData.Shield = playerObj._defensive;
+        savedPlayerData.Heal = playerObj._heal;
+        */
 
         hasSavedData = true;
     }
@@ -107,9 +118,20 @@ public class DataManager : MonoBehaviour
 
         if (hasSavedData)
         {
+            // 스테이지 넘어갈 때 생명력 회복용
             playerObj._maxHealth = savedPlayerData.MaxHP;
             playerObj._health = savedPlayerData.CurrentHP;
-            // playerObj._attack = savedPlayerData.Attack;
+
+            // 이벤트 에서 플레이어 기능 변환 한 것 (RewardController) 넘겨주기
+            playerObj._attack = savedPlayerData.Damage_Normal;
+            playerObj._defensive = savedPlayerData.Shield;
+            playerObj._heal = savedPlayerData.Heal;
+            playerObj._attackSpecial = savedPlayerData.Damage_Special;
+            playerObj._gaugeIncreaseRate = savedPlayerData.GaugeIncreaseRate;
+            playerObj._healthAbsorbRate = savedPlayerData.HPAbsorbRate;
+
+
+
         }
 
     }
@@ -183,6 +205,26 @@ public class DataManager : MonoBehaviour
 
         // loadedTables 안에 SkillTable 이 있으면 리턴하고, 아니면 null 리턴하기
         if (loadedTables.ContainsKey(typeof(SkillTable))) return loadedTables[typeof(SkillTable)] as SkillTable;  // IDataTableInfo 라서 마지막에 SkillTable 로 형변환 필요
+        return null;
+    }
+
+
+    // 이벤트 테이블
+    public EventTable GetEventTable()
+    {
+
+        // loadedTables 안에 EventTable 이 있으면 리턴하고, 아니면 null 리턴하기
+        if (loadedTables.ContainsKey(typeof(EventTable))) return loadedTables[typeof(EventTable)] as EventTable;  // IDataTableInfo 라서 마지막에 EventTable 로 형변환 필요
+        return null;
+    }
+
+
+    // 보상 테이블
+    public RewardTable GetRewardTable()
+    {
+
+        // loadedTables 안에 RewardTable 이 있으면 리턴하고, 아니면 null 리턴하기
+        if (loadedTables.ContainsKey(typeof(RewardTable))) return loadedTables[typeof(RewardTable)] as RewardTable;  // IDataTableInfo 라서 마지막에 RewardTable 로 형변환 필요
         return null;
     }
 

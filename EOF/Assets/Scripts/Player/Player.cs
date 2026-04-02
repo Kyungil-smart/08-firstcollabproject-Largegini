@@ -26,7 +26,17 @@ public class Player : MonoBehaviour
     public int _maxbehavior;    // 액션
     public int _maxbehavioralGauge;
     public float _comboRate;
+    public float _gaugeIncreaseRate;
+    public float _healthAbsorbRate;
+    public bool _skillChain01;
+    public bool _skillChain02;
+    public bool _rejuvenate;
+    public bool _bulwark;
+    public bool _onslaught01;
+    public bool _onslaught02;
+    public bool _resurrection;
     private Animator _animator;
+    public List<RuntimeAnimatorController> _evolutionAnimators; 
     
     private void Awake()
     {
@@ -35,6 +45,8 @@ public class Player : MonoBehaviour
         _freeze = false;
         _reverse = false;
         _theEnd = false;
+
+        // 스텟 Init은 PlayerStatController 스크립트에서 수정
     }
 
 
@@ -61,16 +73,15 @@ public class Player : MonoBehaviour
 
     public IEnumerator PlayerStat(PuzzleResult result)
     {
-        yield return null;
         int combo = result.comboCount;
         foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
         {
             EBlockType type = block.Key;
             int count = block.Value;
-            if (type == EBlockType.Attack) StartCoroutine(Attack(count, combo));
-            if (type == EBlockType.Defense) StartCoroutine(Defensive(count, combo));
-            if (type == EBlockType.Heal) StartCoroutine(Heal(count, combo));
-            if (type == EBlockType.Special) StartCoroutine(SpecialATK(count, combo));
+            if (type == EBlockType.Attack) yield return StartCoroutine(Attack(count, combo));
+            if (type == EBlockType.Defense) yield return StartCoroutine(Defensive(count, combo));
+            if (type == EBlockType.Heal) yield return StartCoroutine(Heal(count, combo));
+            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
         }
     }
     
@@ -81,6 +92,13 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
         Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
+
+        // 흡혈 기능을 위해 추가 (한성우)
+        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
     }
 
     public IEnumerator SpecialATK(int count, int combo)
@@ -90,7 +108,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
         Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * _comboRate));
-        _behavioralGauge *= count;
+        _behavioralGauge *= (int)(count * _gaugeIncreaseRate);
+
+        // 흡혈 기능을 위해 추가 (한성우)
+        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
     }
     public IEnumerator Heal(int count, int combo)
     {
@@ -142,5 +167,16 @@ public class Player : MonoBehaviour
         }
         _health -= damage;
     }
-
+    
+    public void Evolve(int stageIndex)
+    {
+        // 1. 애니메이터 컨트롤러 교체
+        if (stageIndex < _evolutionAnimators.Count && _evolutionAnimators[stageIndex] != null)
+        {
+            _animator.runtimeAnimatorController = _evolutionAnimators[stageIndex];
+            _animator.Play("Player_Idle", 0, 0f); 
+            _animator.Update(0f);
+        }
+        
+    }
 }

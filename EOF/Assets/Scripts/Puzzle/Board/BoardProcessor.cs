@@ -37,7 +37,8 @@ public class BoardProcessor
     }
 
     // 매치 → 제거 → 낙하 → 리필 → 연쇄 루프
-    public IEnumerator ProcessMatches(List<SMatch> matches, Action<PuzzleResult> onComplete)
+    public IEnumerator ProcessMatches(List<SMatch> matches, Action<PuzzleResult> onComplete,
+        Action<int> onComboUpdated)
     {
         PuzzleResult result = new PuzzleResult();
         
@@ -45,6 +46,10 @@ public class BoardProcessor
         {
             result.comboCount++;
             result.AddMatches(matches);
+            
+            // 2콤보부터 UI에 알림
+            if (result.comboCount >= 2)
+                onComboUpdated?.Invoke(result.comboCount);
 
             // 1. 매치된 블록 제거
             ClearMatches(matches);

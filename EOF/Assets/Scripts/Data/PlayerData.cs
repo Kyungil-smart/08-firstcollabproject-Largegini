@@ -23,6 +23,8 @@ public class PlayerData
     public int MaxGauge { get; set; }
     public float ComboRate { get; set; }
 
+    public float GaugeIncreaseRate { get; set; }
+    public float HPAbsorbRate { get; set; }
 
 
     public void SetPlayerData(Dictionary<string, object> row)
@@ -40,6 +42,9 @@ public class PlayerData
         MaxGauge = Convert.ToInt32(row["MaxGauge"]);
         ComboRate = Convert.ToSingle(row["ComboRate"]);
 
+        // 아래는 테이블에는 없음
+        GaugeIncreaseRate = 1;
+        HPAbsorbRate = 0;
 
         // Debug.Log($"a : {HP}");
 
