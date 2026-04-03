@@ -27,6 +27,10 @@ public class EndingScene : IScene
 
     public void Exit()
     {
-        
+
+
+
+
+        SceneLoader.Intance.StageIndex = 0;
     }
 }
