@@ -943,6 +943,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5647067744513592785, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5647067744513592785, guid: 9b71f06d8e7313541acf493d217bd505, type: 3}
       propertyPath: m_ReferenceResolution.x
       value: 1920
       objectReference: {fileID: 0}
@@ -1157,6 +1161,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7809849517542600553, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809849517542600553, guid: c9349e266e8f99944b761ed8eab1cf6d, type: 3}
       propertyPath: m_ReferenceResolution.x
       value: 1920
       objectReference: {fileID: 0}
@@ -1229,6 +1237,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
       propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
+      propertyPath: m_MatchWidthOrHeight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2432893403805698970, guid: 56038369f3061ce4086eb39765dda1e3, type: 3}
