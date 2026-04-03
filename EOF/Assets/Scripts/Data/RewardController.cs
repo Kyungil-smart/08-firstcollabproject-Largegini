@@ -71,7 +71,7 @@ public class RewardController
     private void OperateByRewardType()
     {
         // 선택지에 따른 행동
-        switch(selectedReward.ERewardType)
+        switch (selectedReward.ERewardType)
         {
             case ERewardType.Player_Stat:
                 Debug.Log($"벨류 2번 사용 스텟");
@@ -96,7 +96,7 @@ public class RewardController
 
 
 
-        
+
     }
 
 
@@ -117,30 +117,37 @@ public class RewardController
         switch (selectedReward.ERewardSubType)
         {
             case ERewardSubType.Attack_Value:
-                Debug.Log($"기존 스텟 : {DataManager._instance.savedPlayerData.Damage_Normal} / 공격력 증가 : {selectedReward.ValueB}");
+                // Debug.Log($"기존 스텟 : {DataManager._instance.savedPlayerData.Damage_Normal} / 공격력 증가 : {selectedReward.ValueB}");
+                Debug.Log($"일반 공격력 증가");
                 DataManager._instance.savedPlayerData.Damage_Normal += selectedReward.ValueB;
-                Debug.Log($"SetPlayerStat() : {DataManager._instance.savedPlayerData.Damage_Normal}");
+                // Debug.Log($"SetPlayerStat() : {DataManager._instance.savedPlayerData.Damage_Normal}");
                 break;
+
             case ERewardSubType.Defence_Value:
                 Debug.Log($"방어막 생산량 증가");
                 DataManager._instance.savedPlayerData.Shield += selectedReward.ValueB;
                 break;
+
             case ERewardSubType.Recovery_Value:
                 Debug.Log($"체력 회복량 증가");
                 DataManager._instance.savedPlayerData.Heal += selectedReward.ValueB;
                 break;
+
             case ERewardSubType.Special_Value:
                 Debug.Log($"특수 공격력 증가");
                 DataManager._instance.savedPlayerData.Damage_Special += selectedReward.ValueB;
                 break;
+
             case ERewardSubType.Gauge_Value:
                 Debug.Log($"행동력 게이지 상승량 증가");
                 DataManager._instance.savedPlayerData.GaugeIncreaseRate += selectedReward.ValueB;
                 break;
+
             case ERewardSubType.Drain_Value:
                 Debug.Log($"흡혈량 증가");
                 DataManager._instance.savedPlayerData.HPAbsorbRate += selectedReward.ValueB;
                 break;
+
             default:
                 Debug.Log($"잘못된 값, Table_Reward 의 {_targetID} 의 BuffType_2 확인 필요");
                 break;
@@ -149,17 +156,96 @@ public class RewardController
 
     private void SetPlayerStatTwo()
     {
+        switch (selectedReward.ERewardSubType)
+        {
+            case ERewardSubType.Inverse_Value:
+                Debug.Log($"현재 체력 % 감소 / 방어막 생산량 감소"); 
+                DataManager._instance.savedPlayerData.Damage_Normal += selectedReward.ValueA;
+                DataManager._instance.savedPlayerData.Shield -= selectedReward.ValueB;
+                break;
 
+            case ERewardSubType.Counterpoise_Value:
+                Debug.Log($"공격력 증가 / 행동력 게이지 상승량 증가");
+                DataManager._instance.savedPlayerData.CurrentHP *= 0.5f;
+                DataManager._instance.savedPlayerData.GaugeIncreaseRate += selectedReward.ValueB;
+                break;
+
+            case ERewardSubType.Interchange_Value:
+                Debug.Log($"체력 회복량 증감 / 최대 체력 증감");
+                DataManager._instance.savedPlayerData.Heal += selectedReward.ValueA;
+                DataManager._instance.savedPlayerData.MaxHP += selectedReward.ValueB;
+                if (DataManager._instance.savedPlayerData.CurrentHP >= DataManager._instance.savedPlayerData.MaxHP)
+                    DataManager._instance.savedPlayerData.CurrentHP = DataManager._instance.savedPlayerData.MaxHP;
+                break;
+
+            default:
+                Debug.Log($"잘못된 값, Table_Reward 의 {_targetID} 의 BuffType_2 확인 필요");
+                break;
+        }
     }
+
 
     private void SetPlayerSkill()
     {
+        switch (selectedReward.ERewardSubType)
+        {
+            case ERewardSubType.Chain_Value01:
+                Debug.Log($"확률로 추가 피해 01");
+                DataManager._instance.savedPlayerData.SkillChain01 = true;
+                break;
 
+            case ERewardSubType.Chain_Value02:
+                Debug.Log($"확률로 추가 피해 02");
+                DataManager._instance.savedPlayerData.SkillChain02 = true;
+                break;
+
+            case ERewardSubType.Rejuvenate_Value:
+                Debug.Log($"특정 체력 이하 시, 체력 회복량 증가");
+                DataManager._instance.savedPlayerData.Rejuvenate = true;
+                break;
+
+            case ERewardSubType.Bulwark_Value:
+                Debug.Log($"특정 체력 이하 시, 방어막 생산량 증가");
+                DataManager._instance.savedPlayerData.Bulwark = true;
+                break;
+
+            case ERewardSubType.Onslaught_Value01:
+                Debug.Log($"특정 체력 이하 시, 일반 공격력 증가");
+                DataManager._instance.savedPlayerData.Onslaught01 = true;
+                break;
+
+            case ERewardSubType.Onslaught_Value02:
+                Debug.Log($"특정 체력 이하 시, 행동력 게이지 상승량 증가");
+                DataManager._instance.savedPlayerData.Onslaught02 = true;
+                break;
+
+            case ERewardSubType.Resurrection_Value:
+                Debug.Log($"사망 시 특정 체력 %로 부활");
+                DataManager._instance.savedPlayerData.Resurrection = true;
+                break;
+
+            default:
+                Debug.Log($"잘못된 값, Table_Reward 의 {_targetID} 의 BuffType_2 확인 필요");
+                break;
+        }
     }
+
 
     private void SetHPRecovery()
     {
-        
+        switch (selectedReward.ERewardSubType)
+        {
+            case ERewardSubType.None:
+                DataManager._instance.savedPlayerData.CurrentHP += selectedReward.ValueB;
+                // 최대 생명력 초과시 예외 처리
+                if (DataManager._instance.savedPlayerData.CurrentHP >= DataManager._instance.savedPlayerData.MaxHP)
+                    DataManager._instance.savedPlayerData.CurrentHP = DataManager._instance.savedPlayerData.MaxHP;
+                break;
+
+            default:
+                Debug.Log($"잘못된 값, Table_Reward 의 {_targetID} 의 BuffType_2 확인 필요");
+                break;
+        }
     }
 
 

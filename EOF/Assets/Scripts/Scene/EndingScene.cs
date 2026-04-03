@@ -27,10 +27,8 @@ public class EndingScene : IScene
 
     public void Exit()
     {
-
-
-
-
         SceneLoader.Intance.StageIndex = 0;
+        // DataManger에서 데이터 초기화 불러오기 (한성우)
+        DataManager._instance.firstInitSave();
     }
 }
