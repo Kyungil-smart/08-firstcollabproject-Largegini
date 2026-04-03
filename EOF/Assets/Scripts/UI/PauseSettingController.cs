@@ -61,7 +61,7 @@ public class PauseSettingController : MonoBehaviour
 
     public void OpenSettings()
     {
-        if(pauseCanvas != null)
+        if(settingCanvas != null)
             settingCanvas.SetActive(true);
         
         Time.timeScale = 0f;
@@ -72,9 +72,11 @@ public class PauseSettingController : MonoBehaviour
 
     public void CloseSettings()
     {
-        if (pauseCanvas != null)
+        if (settingCanvas != null)
             settingCanvas.SetActive(false);
         
+        Time.timeScale = 1f;
+        GameIsPaused = false;
         Debug.Log("설정 닫기");
     }
 
@@ -86,8 +88,6 @@ public class PauseSettingController : MonoBehaviour
 
     public void GoMainMenu()
     {
-        Debug.Log("GoMainMenu 호출됨");
-        Debug.Log("goMainConfirmPopup: " + goMainConfirmPopup);
         goMainConfirmPopup.SetActive(true);
     }
     
