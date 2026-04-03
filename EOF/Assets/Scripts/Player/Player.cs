@@ -79,9 +79,9 @@ public class Player : MonoBehaviour
             EBlockType type = block.Key;
             int count = block.Value;
             if (type == EBlockType.Attack) yield return StartCoroutine(Attack(count, combo));
+            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
             if (type == EBlockType.Defense) yield return StartCoroutine(Defensive(count, combo));
             if (type == EBlockType.Heal) yield return StartCoroutine(Heal(count, combo));
-            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
         }
     }
     
