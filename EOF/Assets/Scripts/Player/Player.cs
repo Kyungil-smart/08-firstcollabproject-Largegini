@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 /*
  * 작성자 : 김동현
@@ -11,6 +12,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+
+    // 플레이어 스텟
+    [Header("플레이어 스텟")]
     public float _health;
     public float _maxHealth = 100f;
     public float _attack;
@@ -28,13 +32,19 @@ public class Player : MonoBehaviour
     public float _comboRate;
     public float _gaugeIncreaseRate;
     public float _healthAbsorbRate;
-    public bool _skillChain01;
-    public bool _skillChain02;
-    public bool _rejuvenate;
-    public bool _bulwark;
-    public bool _onslaught01;
-    public bool _onslaught02;
-    public bool _resurrection;
+    public bool _isFirstDeath;   // 전투 당 1회 부활 스킬용 변수
+
+    // 이벤트용 스킬해금 스텟
+    [Header("스킬 해금 여부")]
+    [field: SerializeField] public bool SkillChain01 { get; set; }
+    [field: SerializeField] public bool SkillChain02 { get; set; }
+    [field: SerializeField] public bool Rejuvenate { get; set; }
+    [field: SerializeField] public bool Bulwark { get; set; }
+    [field: SerializeField] public bool Onslaught01 { get; set; }
+    [field: SerializeField] public bool Onslaught02 { get; set; }
+    [field:SerializeField] public bool Resurrection { get; set; }
+
+
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
     
@@ -45,6 +55,7 @@ public class Player : MonoBehaviour
         _freeze = false;
         _reverse = false;
         _theEnd = false;
+        _isFirstDeath = true;
 
         // 스텟 Init은 PlayerStatController 스크립트에서 수정
     }
@@ -61,6 +72,16 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(0.5f);
     }
+
+
+    public IEnumerator IResurrection()
+    {
+        _animator.SetTrigger("Heal");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(.5f);
+    }
+
+
 
     public void Init()
     {
@@ -94,7 +115,7 @@ public class Player : MonoBehaviour
         Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
 
         // 흡혈 기능을 위해 추가 (한성우)
-        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
+        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * (_healthAbsorbRate / 100f);
         if (_health > _maxHealth)
         {
             _health = _maxHealth;
@@ -107,11 +128,11 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("SpecialAttack");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * _comboRate));
-        _behavioralGauge *= (int)(count * _gaugeIncreaseRate);
+        Monster.Instance.ReceiveDamage((_attackSpecial * count) * (1 + (combo - 1 ) * _comboRate));
+        _behavioralGauge += (int)(count * _gaugeIncreaseRate);
 
         // 흡혈 기능을 위해 추가 (한성우)
-        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
+        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * (_healthAbsorbRate / 100f);
         if (_health > _maxHealth)
         {
             _health = _maxHealth;
@@ -123,6 +144,7 @@ public class Player : MonoBehaviour
         if (_reverse)
         {
             ReceiveDamage((_heal * count) * (1 + (combo - 1 ) * _comboRate));
+            // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
         }
         else
         {
@@ -130,6 +152,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             yield return new WaitForSeconds(.5f);
             _health += (_heal * count) * (1 + (combo - 1 ) * _comboRate);
+            // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -155,6 +178,7 @@ public class Player : MonoBehaviour
             {
                 _defensiveGauge -= damage;
                 _defensiveGauge = 0;
+                // 기능 확인 필요
                 return;
             }
             else
@@ -162,12 +186,14 @@ public class Player : MonoBehaviour
                 damage -= _defensiveGauge;
                 _defensiveGauge = 0;
                 _health -= damage;
+                // 보상 스텟 스킬 기능과 연결 필요
                 return;
             }
         }
         _health -= damage;
+        // 보상 스텟 스킬 기능과 연결 필요
     }
-    
+
     public void Evolve(int stageIndex)
     {
         // 1. 애니메이터 컨트롤러 교체

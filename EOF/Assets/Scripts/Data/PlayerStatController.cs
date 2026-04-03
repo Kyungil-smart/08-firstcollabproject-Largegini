@@ -69,13 +69,13 @@ public class PlayerStatController : MonoBehaviour
             thisScript._healthAbsorbRate = myData.HPAbsorbRate;
 
             // 스킬
-            thisScript._skillChain01 = false;
-            thisScript._skillChain02 = false;
-            thisScript._rejuvenate = false;
-            thisScript._bulwark = false;
-            thisScript._onslaught01 = false;
-            thisScript._onslaught02 = false;
-            thisScript._resurrection = false;
+            thisScript.SkillChain01 = false;
+            thisScript.SkillChain02 = false;
+            thisScript.Rejuvenate = false;
+            thisScript.Bulwark = false;
+            thisScript.Onslaught01 = false;
+            thisScript.Onslaught02 = false;
+            thisScript.Resurrection = false;
 
 
             // Debug.Log($"b : {thisScript._maxHealth}");

@@ -3,7 +3,8 @@ using UnityEngine;
 
 
 // 작성자 : 한성우
-// BlockDataSO 에서 원하는 값을 쉽게 찾도록 딕셔너리 형태로 관리하는 스크립트
+// BlockData 에서 원하는 값을 쉽게 찾도록 딕셔너리 형태로 관리하는 스크립트 (사용 안함)
+// BlockDataSO는 데이터 매니저를 사용하지 않아서 현재는 사용 안하지만 백업용으로 놔둠
 
 public class BlockTable : IDataTableInfo
 {

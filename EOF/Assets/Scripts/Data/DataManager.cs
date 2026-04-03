@@ -169,13 +169,13 @@ public class DataManager : MonoBehaviour
         savedPlayerData.HPAbsorbRate = playerObj._healthAbsorbRate;
 
         // 스킬
-        savedPlayerData.SkillChain01 = playerObj._skillChain01;
-        savedPlayerData.SkillChain02 = playerObj._skillChain02;
-        savedPlayerData.Rejuvenate = playerObj._rejuvenate;
-        savedPlayerData.Bulwark = playerObj._bulwark;
-        savedPlayerData.Onslaught01 = playerObj._onslaught01;
-        savedPlayerData.Onslaught02 = playerObj._onslaught02;
-        savedPlayerData.Resurrection = playerObj._resurrection;
+        savedPlayerData.SkillChain01 = playerObj.SkillChain01;
+        savedPlayerData.SkillChain02 = playerObj.SkillChain02;
+        savedPlayerData.Rejuvenate = playerObj.Rejuvenate;
+        savedPlayerData.Bulwark = playerObj.Bulwark;
+        savedPlayerData.Onslaught01 = playerObj.Onslaught01;
+        savedPlayerData.Onslaught02 = playerObj.Onslaught02;
+        savedPlayerData.Resurrection = playerObj.Resurrection;
 
 
 
@@ -212,13 +212,13 @@ public class DataManager : MonoBehaviour
             playerObj._healthAbsorbRate = savedPlayerData.HPAbsorbRate;
 
             // 스킬
-            playerObj._skillChain01 = savedPlayerData.SkillChain01;
-            playerObj._skillChain02 = savedPlayerData.SkillChain02;
-            playerObj._rejuvenate = savedPlayerData.Rejuvenate;
-            playerObj._bulwark = savedPlayerData.Bulwark;
-            playerObj._onslaught01 = savedPlayerData.Onslaught01;
-            playerObj._onslaught02 = savedPlayerData.Onslaught02;
-            playerObj._resurrection = savedPlayerData.Resurrection;
+            playerObj.SkillChain01 = savedPlayerData.SkillChain01;
+            playerObj.SkillChain02 = savedPlayerData.SkillChain02;
+            playerObj.Rejuvenate = savedPlayerData.Rejuvenate;
+            playerObj.Bulwark = savedPlayerData.Bulwark;
+            playerObj.Onslaught01 = savedPlayerData.Onslaught01;
+            playerObj.Onslaught02 = savedPlayerData.Onslaught02;
+            playerObj.Resurrection = savedPlayerData.Resurrection;
 
         }
 
