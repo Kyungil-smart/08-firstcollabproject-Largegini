@@ -22,6 +22,7 @@ public class SceneLoader : MonoBehaviour
    // 스테이지 진행 정보
    public int StageIndex;
    public int MaxStage;
+   // 튜토리얼 여부
    public bool HasTutorial;
    
    private void Awake()
