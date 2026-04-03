@@ -614,7 +614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2348,9 +2348,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ComboDisplayUI
   _comboText: {fileID: 3636737169637188890}
   _canvasGroup: {fileID: 8199638983951110286}
-  _displayDuration: 1.5
-  _fadeInDuration: 0.15
-  _fadeOutDuration: 0.3
+  _displayDuration: 0.25
+  _fadeInDuration: 0.05
+  _fadeOutDuration: 0.2
+  _floatDistance: 60
 --- !u!114 &6406487826396215431
 MonoBehaviour:
   m_ObjectHideFlags: 0
