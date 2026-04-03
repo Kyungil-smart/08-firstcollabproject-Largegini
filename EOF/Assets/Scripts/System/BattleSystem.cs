@@ -182,6 +182,11 @@ public class BattleSystem : MonoBehaviour
         Destroy(_player);
         Destroy(_enemy);
     }
+    public void EndPlayerTurn()
+    {
+        _player._behavior = 0;
+        _isSwap = true;
+    }
 }
 
 
