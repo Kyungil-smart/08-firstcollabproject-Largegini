@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIFrameEffect
   _effectImage: {fileID: 2592579713165909254}
   _frameSprites: []
-  _fps: 60
+  _fps: 15
   _onFinish:
     m_PersistentCalls:
       m_Calls: []
