@@ -186,9 +186,9 @@ public class BattleSystem : MonoBehaviour
     {
         _player._behavior = 0;
         _isSwap = true;
+        _puzzleResult = null;
     }
 }
-
 
 
 public enum BattleTurn
