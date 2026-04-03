@@ -186,11 +186,11 @@ PrefabInstance:
       objectReference: {fileID: 1559030355467610049, guid: b9b984cef73da6848a759dad5605883a, type: 3}
     - target: {fileID: 5579446908085817928, guid: 77b93d654ba9e5242922d950f86dd122, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: -6.19
       objectReference: {fileID: 0}
     - target: {fileID: 5579446908085817928, guid: 77b93d654ba9e5242922d950f86dd122, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -2.28
       objectReference: {fileID: 0}
     - target: {fileID: 5579446908085817928, guid: 77b93d654ba9e5242922d950f86dd122, type: 3}
       propertyPath: m_LocalPosition.z
@@ -969,11 +969,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7839080695816016659, guid: 8f6880a57ce19d045a8a1c96927da180, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5
+      value: -1.23
       objectReference: {fileID: 0}
     - target: {fileID: 7839080695816016659, guid: 8f6880a57ce19d045a8a1c96927da180, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5
+      value: -1.36
       objectReference: {fileID: 0}
     - target: {fileID: 7839080695816016659, guid: 8f6880a57ce19d045a8a1c96927da180, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResetConfirmUI
   btnResetConfirm: {fileID: 375577341}
   btnNo: {fileID: 1583479524}
-  actionBarUI: {fileID: 0}
+  actionBarUI: {fileID: 1882599494}
   onResetConfirmed:
     m_PersistentCalls:
       m_Calls: []
@@ -2158,6 +2158,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!114 &1882599494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2688753628940382417, guid: 8d65db52c084ac74d889c460594a5f91, type: 3}
+  m_PrefabInstance: {fileID: 1867981451}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c015f0032bf377341919a0fb029e14de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActionBarUI
 --- !u!1 &1933438157
 GameObject:
   m_ObjectHideFlags: 0
