@@ -51,9 +51,18 @@ public class BoardProcessor
             if (result.comboCount >= 2)
                 onComboUpdated?.Invoke(result.comboCount);
 
-            // 1. 매치된 블록 제거
-            ClearMatches(matches);
+            // 1. 매치된 블록 제거 (이펙트 완료 + 최소 딜레이 모두 충족 시 진행)
+            bool clearDone = false;
+            bool delayDone = false;
+            ClearMatches(matches, () => clearDone = true);
+            
+            // 최소 연출 대기 (이펙트 없어도 바로 터지지 않도록)
             yield return new WaitForSeconds(_anim.clearDelay);
+            delayDone = true;
+            
+            // 이펙트가 clearDelay보다 길면 이펙트 완료까지 추가 대기
+            if (!clearDone)
+                yield return new WaitUntil(() => clearDone);
             
             // 2. 낙하 (완료 대기)
             bool dropDone = false;
@@ -74,8 +83,9 @@ public class BoardProcessor
     /// SMatch 리스트에서 실제 블록 좌표를 추출하여 제거
     /// 가로/세로 매치의 시작 좌표 + 길이 + 방향으로 개별 좌표를 펼침
     /// HashSet으로 중복 제거 — L자, T자 매치에서 교차점 블록이 가로/세로 양쪽에 잡히므로
+    /// onAllCleared: 모든 블록의 Despawn(이펙트 포함)이 완료된 뒤 호출
     /// </summary>
-    private void ClearMatches(List<SMatch> matches)
+    private void ClearMatches(List<SMatch> matches, Action onAllCleared)
     {
         // 매치 좌표 수집 (L자 등 중복 제거)
         // HashSet으로 중복되지 않는 매치 좌표들을 관리
@@ -91,19 +101,38 @@ public class BoardProcessor
                 matched.Add(pos);
             }
         }
-
+        
+        // 매치된 블록이 0개인 경우 (안전장치 - 정상 흐름에서는 도달하지 않음)
+        if (matched.Count == 0)
+        {
+            onAllCleared?.Invoke();
+            return;
+        }
+        
+        // 모든 블록의 Despawn 완료를 카운트다운으로 추적
+        int remaining = matched.Count;
+        
         // HashSet으로 수집된 좌표의 블록 비활성화
         // Despawn은 블록 데이터 초기화 + gameObject.SetActive(false)
         // 파괴하지 않고 비활성화하여 나중에 리필 시 재활용
         foreach (var pos in matched)
         {
             var block = _data.GetBlock(pos);
-            block.Despawn();
             _recyclePool.Add(block);  // 재활용 풀에 등록
             // 터진 자리를 확실하게 null로 비워주어야 낙하 및 리필 로직이 꼬이지 않음
             // 버퍼 최상단(y=0) 블록이 매치에 포함되는 경우는 드물지만,
             // 연쇄 루프 중 낙하로 버퍼 블록이 플레이 영역으로 내려온 뒤 리필되고, 다시 매치되면서 결국 상단 행까지 비는 케이스
+            
+            // 그리드 데이터는 즉시 비우고 연출은 비동기
             _data.SetBlock(pos, null);
+            
+            // 모든 블록의 Despawn(이펙트 포함)이 완료된 뒤 이벤트 호출
+            block.Despawn(() =>
+            {
+                remaining--;
+                if (remaining <= 0)
+                    onAllCleared?.Invoke();
+            });
         }
     }
     
@@ -131,7 +160,9 @@ public class BoardProcessor
                 var block = _data.GetBlock(pos);
                 
                 // 활성 블록이면 빈 칸 위치로 이동
-                if (block != null && block.gameObject.activeSelf)
+                // Status 체크: Destroying 상태(이펙트 재생 중)인 블록은 활성이라도 낙하 대상에서 제외
+                // 콜백 기반 ClearMatches로 타이밍 문제는 해결되지만, 방어적 코딩으로 이중 안전장치 유지
+                if (block != null && block.gameObject.activeSelf && block.Status == EBlockStatus.None)
                 {
                     // 현재 위치와 목표 위치가 다르면 이동 필요
                     if (y != emptyY)
