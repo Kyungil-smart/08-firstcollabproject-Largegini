@@ -34,12 +34,17 @@ public class BattleSystem : MonoBehaviour
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
         _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
-        _player.Evolve(_currentStageIndex);
+        PlayerEvolved();
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
     }
 
+    private void PlayerEvolved()
+    {
+        if (SceneLoader.Intance.StageIndex >= 1) _player.Evolve(_currentStageIndex); 
+    }
+    
     private void SwapFinished()
     {
         _isSwap = true;
@@ -77,6 +82,7 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
+                    _boardManager.SetInteractable(false);
                     
                     float timeout = 0.5f;
                     while (!_boardManager.IsProcessing && timeout > 0)
@@ -89,7 +95,6 @@ public class BattleSystem : MonoBehaviour
                     {
                         yield return null;
                     }
-                    _boardManager.SetInteractable(false);
                     bool matched = (_puzzleResult != null || _isPuzzle);
                     bool swapped = _isSwap;
                     
@@ -103,7 +108,6 @@ public class BattleSystem : MonoBehaviour
                             if (_enemy._health <= 0)
                             {
                                 yield return StartCoroutine(_enemy.Dead());
-                                _player.Evolve(_currentStageIndex);
                                 Victory();
                                 yield break;
                             }
