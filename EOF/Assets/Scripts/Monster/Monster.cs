@@ -7,6 +7,7 @@ using UnityEngine;
  */
 public abstract class Monster : MonoBehaviour
 {
+    [Header("최대체력")]
     [SerializeField] public float _maxhealth;
     protected float _damage;
     protected Animator _animator;

@@ -7,6 +7,7 @@ using UnityEngine;
  */
 public class Envoy : Monster
 {
+    [Header("영혼 수확")]
     public int _soulHarvest;
     private void Awake()
     {

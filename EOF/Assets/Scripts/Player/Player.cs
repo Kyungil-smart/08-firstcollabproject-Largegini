@@ -26,15 +26,20 @@ public class Player : MonoBehaviour
             _rewardSkillController.ActivateStatSkillProcess();
         }
     }
-    public float _maxHealth = 100f;
-    public float _attack;
-    public float _attackSpecial;
-    public float _defensive;    // 쉴드
-    public float _defensiveGauge;
-    public int _behavioralGauge;// 행동력게이지
-    public bool _freeze;        // 냉동
+    public float _maxHealth;
+    [Header("구슬매칭 갯수당 올라가는 공격력")]
+    public float _attack;       // 구슬매칭 갯수당 올라가는 공격력
+    [Header("구슬 매칭 갯수당 올라가는 특수 공격력")]
+    public float _attackSpecial;// 구슬 매칭 갯수당 올라가는 특수 공격력
+    [Header("구슬 매칭 갯수당 올라가는 실드")]
+    public float _defensive;    // 구슬 매칭 갯수당 올라가는 실드
+    [Header("구슬 매칭 갯수당 올라가는 힐량")]
+    public float _heal;         // 구슬 매칭 갯수당 올라가는 힐량
+    [Header("상태이상 및 행동력")]
+    public float _defensiveGauge; // 매칭이 완료되었을 때 차오르는 실드량 
+    public int _behavioralGauge;// 행동력게이지 (최대치)넘어가면 행동력이 늘어남
+    public bool _freeze;        // 냉동(드래곤 브레스) 피격 시 생기는 상태이상
     public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
-    public float _heal;
     public bool _theEnd;        // 사신 필살기용 도트대미지
     public int _behavior;
     public int _maxbehavior;    // 액션
