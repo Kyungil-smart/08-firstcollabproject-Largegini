@@ -31,10 +31,21 @@ public class RewardSkillController : MonoBehaviour
     }
 
     //  부활 기능
-    public void ActivateResurrection(float currentHPpercent)    // 기능 받는거 player 로 변경 필요
+    // BattleSystem 에 기능이 있어서 부활은 해당 스크립트에서 수정
+    /*
+    public void ActivateResurrection()
     {
+        // 전투 당 첫 번째 죽음이라면 부활 발동
+        if(player._isFirstDeath == true)
+        {
+            // 캐릭터 애니메이션을 추가해야할 수도 있음
 
+            player._health = player._maxHealth * 0.5f;
+        }
+
+        
     }
+    */
 
 
 
