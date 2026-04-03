@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +38,17 @@ public class Block : MonoBehaviour
             _blockImage = GetComponent<Image>();
         if (DragHandler == null)
             DragHandler = GetComponent<BlockDragHandler>();
+        
+        // 재활용 시 잔여 Tween 정리 (낙하/스왑 중 재활용될 경우 이전 Tween의 OnComplete가 상태 오염하는 것 방지)
+        DOTween.Kill(Rect);
+        
+        // 재활용 시 이펙트 코루틴 강제 정리 (고아 코루틴 방지)
+        if (_matchEffect != null)
+            _matchEffect.ForceStopEffect();
+        
+        // 이펙트 재생 중 숨겨진 이미지 복원
+        if (_blockImage != null)
+            _blockImage.enabled = true;
         
         Board = board;
         _gridPosition = pos;
@@ -82,8 +94,12 @@ public class Block : MonoBehaviour
     }
     
     // 매칭되어 터질 때 호출 (파괴 대신 비활성화)
-    public void Despawn()
+    // onComplete: 이펙트 포함 모든 연출이 끝난 뒤 호출되는 콜백
+    // BoardProcessor가 모든 블록의 클리어 완료를 대기하는 데 사용
+    public void Despawn(System.Action onComplete = null)
     {
+        // 진행 중인 낙하/스왑 Tween 정리
+        DOTween.Kill(Rect);
         SetHighlight(false);
     
         // 이펙트가 있으면 재생 후 비활성화
@@ -100,6 +116,7 @@ public class Block : MonoBehaviour
                 _status = EBlockStatus.None;
                 _blockImage.enabled = true;
                 gameObject.SetActive(false);
+                onComplete?.Invoke();
             });
         }
         else
@@ -107,6 +124,7 @@ public class Block : MonoBehaviour
             _blockData = null;
             _status = EBlockStatus.None;
             gameObject.SetActive(false);
+            onComplete?.Invoke();
         }
     }
     
