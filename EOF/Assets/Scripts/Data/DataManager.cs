@@ -96,7 +96,7 @@ public class DataManager : MonoBehaviour
     }
 
 
-
+    // 데이터 초기화(첫 시작, 리셋 시 사용)
     public void firstInitSave()
     {
         table = DataManager._instance.GetPlayerTable();
@@ -116,7 +116,7 @@ public class DataManager : MonoBehaviour
 
             
 
-            Debug.Log($"firstInitSave_01 : {savedPlayerData.Damage_Normal} + {originalPlayerData.Damage_Normal}");
+            Debug.Log($"firstInitSave_01 : {originalPlayerData.Damage_Normal}");
 
             savedPlayerData.Damage_Normal = originalPlayerData.Damage_Normal;
             Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
@@ -130,6 +130,16 @@ public class DataManager : MonoBehaviour
             savedPlayerData.GaugeIncreaseRate = originalPlayerData.GaugeIncreaseRate;
             savedPlayerData.HPAbsorbRate = originalPlayerData.HPAbsorbRate;
 
+            // 스킬
+            savedPlayerData.SkillChain01 = false;
+            savedPlayerData.SkillChain02 = false;
+            savedPlayerData.Rejuvenate = false;
+            savedPlayerData.Bulwark = false;
+            savedPlayerData.Onslaught01 = false;
+            savedPlayerData.Onslaught02 = false;
+            savedPlayerData.Resurrection = false;
+
+
 
             hasSavedData = true;    // 임시로 true로 넣어놓음
         }
@@ -141,27 +151,33 @@ public class DataManager : MonoBehaviour
     {
         if (playerObj == null) return;
 
-        Debug.Log(savedPlayerData.Damage_Normal);
+        // Debug.Log(savedPlayerData.Damage_Normal);
 
         // 스테이지 넘어갈 때 생명력 회복용
         savedPlayerData.MaxHP = playerObj._maxHealth;
-
-        Debug.Log($"OnGameSave 플레이어 생명력01 : {playerObj._health}");
-
+        // Debug.Log($"OnGameSave 플레이어 생명력01 : {playerObj._health}");
         savedPlayerData.CurrentHP = playerObj._health;
-
-        Debug.Log($"OnGameSave 플레이어 생명력02 : {playerObj._health}");
+        // Debug.Log($"OnGameSave 플레이어 생명력02 : {playerObj._health}");
 
         // 이벤트 등에서 사용
         savedPlayerData.Damage_Normal = playerObj._attack;
-
-        Debug.Log(savedPlayerData.Damage_Normal);
-
+        // Debug.Log(savedPlayerData.Damage_Normal);
         savedPlayerData.Shield = playerObj._defensive;
         savedPlayerData.Heal = playerObj._heal;
         savedPlayerData.Damage_Special = playerObj._attackSpecial;
         savedPlayerData.GaugeIncreaseRate = playerObj._gaugeIncreaseRate;
         savedPlayerData.HPAbsorbRate = playerObj._healthAbsorbRate;
+
+        // 스킬
+        savedPlayerData.SkillChain01 = playerObj.SkillChain01;
+        savedPlayerData.SkillChain02 = playerObj.SkillChain02;
+        savedPlayerData.Rejuvenate = playerObj.Rejuvenate;
+        savedPlayerData.Bulwark = playerObj.Bulwark;
+        savedPlayerData.Onslaught01 = playerObj.Onslaught01;
+        savedPlayerData.Onslaught02 = playerObj.Onslaught02;
+        savedPlayerData.Resurrection = playerObj.Resurrection;
+
+
 
         hasSavedData = true;
     }
@@ -195,7 +211,14 @@ public class DataManager : MonoBehaviour
             playerObj._gaugeIncreaseRate = savedPlayerData.GaugeIncreaseRate;
             playerObj._healthAbsorbRate = savedPlayerData.HPAbsorbRate;
 
-
+            // 스킬
+            playerObj.SkillChain01 = savedPlayerData.SkillChain01;
+            playerObj.SkillChain02 = savedPlayerData.SkillChain02;
+            playerObj.Rejuvenate = savedPlayerData.Rejuvenate;
+            playerObj.Bulwark = savedPlayerData.Bulwark;
+            playerObj.Onslaught01 = savedPlayerData.Onslaught01;
+            playerObj.Onslaught02 = savedPlayerData.Onslaught02;
+            playerObj.Resurrection = savedPlayerData.Resurrection;
 
         }
 
@@ -203,7 +226,7 @@ public class DataManager : MonoBehaviour
 
 
     // 게임 리셋용 함수(게임 오버 -> 다시 시작 등)
-    public void OnReset(Player playerObj)
+    public void OnReset()
     {
         hasSavedData = false;
 

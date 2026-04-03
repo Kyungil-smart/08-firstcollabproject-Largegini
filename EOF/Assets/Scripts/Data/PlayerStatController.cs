@@ -5,6 +5,7 @@ using UnityEngine;
 // 잘 되는지 테스트용 플레이어 컨트롤러
 
 
+[RequireComponent(typeof(RewardSkillController))]   // 보상 스킬을 위해 추가
 public class PlayerStatController : MonoBehaviour
 {
     [Header("입력이 필요한 값")]
@@ -66,13 +67,15 @@ public class PlayerStatController : MonoBehaviour
             thisScript._comboRate = myData.ComboRate;
             thisScript._gaugeIncreaseRate = myData.GaugeIncreaseRate;
             thisScript._healthAbsorbRate = myData.HPAbsorbRate;
-            thisScript._skillChain01 = false;
-            thisScript._skillChain02 = false;
-            thisScript._rejuvenate = false;
-            thisScript._bulwark = false;
-            thisScript._onslaught01 = false;
-            thisScript._onslaught02 = false;
-            thisScript._resurrection = false;
+
+            // 스킬
+            thisScript.SkillChain01 = false;
+            thisScript.SkillChain02 = false;
+            thisScript.Rejuvenate = false;
+            thisScript.Bulwark = false;
+            thisScript.Onslaught01 = false;
+            thisScript.Onslaught02 = false;
+            thisScript.Resurrection = false;
 
 
             // Debug.Log($"b : {thisScript._maxHealth}");

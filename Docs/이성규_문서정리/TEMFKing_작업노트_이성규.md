@@ -781,3 +781,79 @@ while 루프 안에서 `result.comboCount >= 2`일 때 콜백 호출.
 - **블록 겹침 방지**: 그리드 셀 이미지 변경 후 블록이 그리드셀 경계에 맞닿아 보이는 시각적 답답함 해소.
 - **사이즈 축소 및 여백 추가**: 블록 이미지 상하좌우에 각각 **5씩 여백**을 주어 실질적인 출력 사이즈 축소.
 - **결과**: 블록 간 경계가 명확해지고 그리드 내부에 안정적으로 안착된 비주얼 구현.
+
+## Day 11 - 2026-04-03
+
+---
+
+### 퍼즐 리필 버그 수정
+
+3매치 후 빈 슬롯에 블록이 채워지지 않고 영구적인 빈칸(유령 블록)이 남는 현상 수정.
+
+**원인**
+
+블록 파괴 이펙트 재생 시간이 `clearDelay`보다 길 때 발생하는 타이밍 문제.
+
+1. 매치된 블록이 `Despawn` → 이펙트 재생 시작 (`activeSelf = true`, `Status = Destroying`)
+2. 이펙트가 끝나기 전에 `clearDelay` 만료 → 낙하 로직 실행
+3. 낙하 로직이 `activeSelf`만 체크해서 이펙트 재생 중인 블록을 정상 블록으로 오인, 낙하 대상에 포함
+4. 이펙트 종료 콜백이 뒤늦게 `SetActive(false)` 호출 → 이미 낙하/리필된 블록이 증발, 영구 빈칸 발생
+
+**수정 내역**
+
+| 파일 | 수정 | 목적 |
+|------|------|------|
+| **UIFrameEffect** | `_runningCoroutine` 참조 추적 + `ForceStopEffect()` 추가 | 코루틴 중복 재생 방지 + 강제 중단 시 콜백 보장 |
+| **Block** | `Despawn(Action onComplete)` 콜백 파라미터 추가 | 이펙트 완료 시점을 외부에 알림 |
+| **Block** | `Init`/`Despawn`에 `DOTween.Kill(Rect)` 추가 | 재활용 시 잔여 Tween의 상태 오염 방지 |
+| **Block** | `Init`에서 `ForceStopEffect()` + `_blockImage.enabled = true` | 이펙트 고아 코루틴 방지 + 숨겨진 이미지 복원 |
+| **BoardProcessor** | `ClearMatches` → `remaining` 카운트다운 콜백 패턴 | 모든 Despawn 실제 완료 후 다음 단계 진행 |
+| **BoardProcessor** | `clearDelay` + `WaitUntil(clearDone)` 이중 대기 | 최소 연출 대기 보장 + 이펙트가 더 길면 완료까지 추가 대기 |
+| **BoardProcessor** | `DropBlocks`에 `Status == EBlockStatus.None` 조건 추가 | Destroying 상태 블록 낙하 제외 (방어적 이중 안전장치) |
+
+**극한 테스트 (전체 통과)**
+
+1. **달팽이 이펙트**: 이펙트 FPS 1~2 (3~5초), clearDelay 0 → 이펙트 완료까지 대기, 유령 블록 없음
+2. **긴 딜레이**: 이펙트 FPS 60 (0.1초), clearDelay 3초 → 이펙트 종료 후 3초 정적 대기 후 낙하
+3. **머신건 콤보**: clearDelay 0.05, dropDuration 0.01, refillDelay 0 → 고속 연쇄 중 상태 오염 없이 정상 완료
+
+---
+
+### 콤보 UI 애니메이션
+
+기획 명세: 퍼즐판 중앙에 콤보 텍스트 출력, 커졌다가 작아지면서 위로 떠오르는 Floating 연출, 지속시간 1초.
+
+**수정 전 상태**
+ 
+- 콤보 중복 출력 방지 (`_currentSequence?.Kill()` 후 덮어쓰기) → OK
+- 첫 매치 미표기, X2부터 출력 → BoardManager 쪽 책임 → OK
+- `OnChainComplete`로 연쇄 종료 시 즉시 숨김 → OK
+- Floating 연출 → **미구현**. `_originalPosition` 캐싱만 해놓고 Y 이동 Tween 없음
+- 지속시간 → `_displayDuration` 1.5f + fadeIn/Out 합치면 약 2초. 명세 1초 초과
+ 
+**Binder 람다 리스너 해제 버그**
+ 
+`OnPuzzleComplete`에 람다 `_ => _display.OnChainComplete()`로 AddListener, OnDisable에서 새 람다로 RemoveListener → 다른 인스턴스라 해제 안 됨.
+Awake에서 `UnityAction<PuzzleResult>` 래퍼 캐싱, 동일 참조로 Add/Remove하도록 수정.
+ 
+**연출 시간 조정**
+ 
+매칭 클리어 간격이 약 0.3초로 빠른 편이라, 기획서 1초 기준으로는 다음 콤보 갱신 전에 이전 텍스트가 채 사라지지 않음.
+실제 게임 템포에 맞춰 총 0.5초(페이드인 0.05 / 유지 0.25 / 페이드아웃 0.2)로 조정.
+다음 매치 진입 시 기존 연출 즉시 Kill → 갱신하므로 겹침 없음.
+ 
+**최종 연출 흐름 (DOTween Sequence)**
+ 
+```
+1. 페이드인 (0.05s): alpha 0→1 + 스케일 0→1 (OutBack 오버슈트)
+2. 대기 (0.25s): 선명한 상태 유지
+3. 상승 + 페이드아웃: floatDistance만큼 Y 이동 (OutCubic, 0.2s)
+   페이드아웃은 Insert로 등장+대기 이후 시점에 끼워넣어 상승 중 서서히 사라짐
+```
+
+---
+
+### 콤보 TMP Raycast Target 수정
+ 
+콤보 텍스트 TMP에 Raycast Target이 켜져 있어서 퍼즐판 위의 블록 드래그 입력을 가로채는 문제.
+→ `_comboText`의 Raycast Target OFF 처리.

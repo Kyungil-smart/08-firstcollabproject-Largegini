@@ -15,12 +15,15 @@ public class SceneLoader : MonoBehaviour
    public TitleScene Title;
    public StageScene Stage;
    public BattleScene Battle;
+   public TutorialScene Tutorial;
    public EndingScene Ending;
    public GameOverScene GameOver;
    
    // 스테이지 진행 정보
    public int StageIndex;
    public int MaxStage;
+   // 튜토리얼 여부
+   public bool HasTutorial;
    
    private void Awake()
    {
@@ -57,9 +60,11 @@ public class SceneLoader : MonoBehaviour
        Title = new TitleScene();
        Stage = new StageScene();
        Battle = new BattleScene();
+       Tutorial = new TutorialScene();
        Ending = new EndingScene();
        GameOver = new GameOverScene();
 
        StageIndex = 0;
+       HasTutorial = false;
    }
 }

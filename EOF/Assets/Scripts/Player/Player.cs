@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 /*
  * 작성자 : 김동현
@@ -11,7 +12,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    public float _health;
+
+    // 플레이어 스텟
+    [Header("플레이어 스텟")]
+    [SerializeField] private float health;
+    public float _health
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+            // 값이 바뀔 때 보상 스킬 발동 기능과 연결
+            _rewardSkillController.ActivateStatSkillProcess();
+        }
+    }
     public float _maxHealth = 100f;
     public float _attack;
     public float _attackSpecial;
@@ -28,13 +42,28 @@ public class Player : MonoBehaviour
     public float _comboRate;
     public float _gaugeIncreaseRate;
     public float _healthAbsorbRate;
-    public bool _skillChain01;
-    public bool _skillChain02;
-    public bool _rejuvenate;
-    public bool _bulwark;
-    public bool _onslaught01;
-    public bool _onslaught02;
-    public bool _resurrection;
+    public bool _isFirstDeath;   // 전투 당 1회 부활 스킬용 변수
+
+    
+    // 이벤트용 스킬해금 스텟
+    [Header("스킬 해금 여부")]
+    [field: SerializeField] public bool SkillChain01 { get; set; }
+    [field: SerializeField] public bool SkillChain02 { get; set; }
+    [field: SerializeField] public bool Rejuvenate { get; set; }
+    [field: SerializeField] public bool Bulwark { get; set; }
+    [field: SerializeField] public bool Onslaught01 { get; set; }
+    [field: SerializeField] public bool Onslaught02 { get; set; }
+    [field:SerializeField] public bool Resurrection { get; set; }
+
+    [Header("버프로 더해지는 스텟")]
+    [field: SerializeField] public float AddAttack { get; set; }
+    [field: SerializeField] public float AddDefensive { get; set; }
+    [field: SerializeField] public float AddHeal { get; set; }
+    [field: SerializeField] public float AddGaugeIncreaseRate { get; set; }
+    [field: SerializeField] private float _finalDamage;
+
+
+    private RewardSkillController _rewardSkillController;
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
     
@@ -45,6 +74,20 @@ public class Player : MonoBehaviour
         _freeze = false;
         _reverse = false;
         _theEnd = false;
+        _isFirstDeath = true;
+
+        // 보상 스킬 발동 기능을 위해 추가, Retry 시 Awake 에서 서순 이슈가 발생하는 것 같아서 Start에 넣어둠 (한성우)
+        _rewardSkillController = GetComponent<RewardSkillController>();
+        // Debug.Log(_rewardSkillController);
+
+        // 버프 스텟 초기화 (한성우)
+        AddAttack = 0;
+        AddDefensive = 0;
+        AddHeal = 0;
+        AddGaugeIncreaseRate = 0;
+
+        // 최종 데미지 초기화
+        _finalDamage = 0;
 
         // 스텟 Init은 PlayerStatController 스크립트에서 수정
     }
@@ -62,6 +105,16 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
+
+    public IEnumerator IResurrection()
+    {
+        _animator.SetTrigger("Heal");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(.5f);
+    }
+
+
+
     public void Init()
     {
         // 저장된 데이터로 스텟 값 덮어쓰기 (한성우)
@@ -69,36 +122,59 @@ public class Player : MonoBehaviour
         {
             DataManager._instance.OnGameLoad(this);
         }
+
+
+        // 최초 스폰 시 생명력 특정 % 이상일 때 발동하는 스킬을 위해 추가
+        // Debug.Log($"Init에서 플레이어 생명력 : {_health} / {_maxHealth}");
+        _rewardSkillController.ActivateStatSkillProcess();
     }
 
     public IEnumerator PlayerStat(PuzzleResult result)
     {
         int combo = result.comboCount;
+        bool _attackType = false;
+        bool _specialType = false;
         foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
         {
             EBlockType type = block.Key;
             int count = block.Value;
-            if (type == EBlockType.Attack) yield return StartCoroutine(Attack(count, combo));
+            if (type == EBlockType.Attack)
+            {
+                _finalDamage += GiveDamageCalculator((_attack + AddAttack), count, combo);
+                _attackType = true;
+            }
+            if (type == EBlockType.Special)
+            {
+                _finalDamage += GiveDamageCalculator(_attackSpecial, count, combo);
+                _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
+                _specialType = true;
+            }
             if (type == EBlockType.Defense) yield return StartCoroutine(Defensive(count, combo));
             if (type == EBlockType.Heal) yield return StartCoroutine(Heal(count, combo));
-            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
+        }
+        if (_attackType || _specialType)
+        {
+            string _animTag = _specialType ? "SpecialAttack" : "Attack";
+            yield return StartCoroutine(Attack(_animTag));
         }
     }
     
-    public IEnumerator Attack(int count, int combo)
+    public IEnumerator Attack(string _anim)
     {
         Debug.Log("공격");
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger(_anim);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
 
-        // 흡혈 기능을 위해 추가 (한성우)
-        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
-        if (_health > _maxHealth)
-        {
-            _health = _maxHealth;
-        }
+        // 이벤트 보상용 추가 데미지 계산 기능을 위해 추가 (한성우)
+        _finalDamage = _rewardSkillController.GiveExtraDamage(_finalDamage);
+
+        Monster.Instance.ReceiveDamage(_finalDamage);
+        // 이벤트 보상용 흡혈 기능을 위해 추가 (한성우)
+        if(_healthAbsorbRate > 0) GetHPAbsorb(_finalDamage);
+
+        // 최종 데미지 초기화
+        _finalDamage = 0;
     }
 
     public IEnumerator SpecialATK(int count, int combo)
@@ -107,29 +183,32 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("SpecialAttack");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage((_attack / 2 * count) * (1 + (combo - 1 ) * _comboRate));
-        _behavioralGauge *= (int)(count * _gaugeIncreaseRate);
-
+        Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
+        _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
+    
         // 흡혈 기능을 위해 추가 (한성우)
-        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * _healthAbsorbRate;
-        if (_health > _maxHealth)
+        if (_healthAbsorbRate > 0)
         {
-            _health = _maxHealth;
+            GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
         }
+    
     }
+    
     public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
         if (_reverse)
         {
-            ReceiveDamage((_heal * count) * (1 + (combo - 1 ) * _comboRate));
+            ReceiveDamage(GiveDamageCalculator((_heal + AddHeal), count, combo));
+            // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
         }
         else
         {
             _animator.SetTrigger("Heal");
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             yield return new WaitForSeconds(.5f);
-            _health += (_heal * count) * (1 + (combo - 1 ) * _comboRate);
+            _health += (GiveDamageCalculator((_heal + AddHeal), count, combo));
+            // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -144,9 +223,30 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("Defense");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * _comboRate);
+        _defensiveGauge = (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
     }
     
+
+    // 플레이어가 주는 대미지 계산 기능
+    public float GiveDamageCalculator(float damage, int count, int combo)
+    {
+        float totalDamage = (damage * count) * (1 + (combo - 1) * _comboRate);
+
+        return totalDamage;
+    }
+
+
+    public void GetHPAbsorb(float totalDmg)
+    {
+        _health += (totalDmg * (_healthAbsorbRate / 100f));
+
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+    }
+    
+    // 플레이어가 받는 대미지 계산 기능
     public void ReceiveDamage(float damage)
     {
         if (_defensiveGauge > 0)
@@ -154,7 +254,7 @@ public class Player : MonoBehaviour
             if (_defensiveGauge >= damage)
             {
                 _defensiveGauge -= damage;
-                _defensiveGauge = 0;
+                _defensiveGauge *= 0.5f;
                 return;
             }
             else
@@ -167,7 +267,7 @@ public class Player : MonoBehaviour
         }
         _health -= damage;
     }
-    
+
     public void Evolve(int stageIndex)
     {
         // 1. 애니메이터 컨트롤러 교체

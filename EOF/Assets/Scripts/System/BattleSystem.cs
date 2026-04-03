@@ -23,6 +23,7 @@ public class BattleSystem : MonoBehaviour
     public PuzzleResult _puzzleResult;
     public bool _isPuzzle;
     public bool _isSwap;
+    [SerializeField] private StagewithMonster _tutorialMonster;
 
     public bool IsVictory;
     private void Start()
@@ -33,12 +34,17 @@ public class BattleSystem : MonoBehaviour
         _battle = BattleTurn.pTurn;
         _player = Player.Instance;
         _currentStageIndex = (SceneLoader.Intance.StageIndex - 1) / 2;
-        _player.Evolve(_currentStageIndex);
+        PlayerEvolved();
         _boardManager.OnPuzzleComplete.AddListener(PuzzleFinished);
         _boardManager.OnSwapFinished.AddListener(SwapFinished);
         StartCoroutine(Battle());
     }
 
+    private void PlayerEvolved()
+    {
+        if (SceneLoader.Intance.StageIndex >= 1) _player.Evolve(_currentStageIndex); 
+    }
+    
     private void SwapFinished()
     {
         _isSwap = true;
@@ -54,8 +60,19 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator Battle()
     {
         yield return null;
-        _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
-        _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+        if (SceneLoader.Intance.StageIndex == 0)
+        {
+            if (_tutorialMonster != null)
+            {
+                _enemy = spawnPoint.SpawnMonster(_tutorialMonster.Enemy);
+                _backSpawn.SpawnMonster(_tutorialMonster.Background);
+            }
+        }
+        else
+        {
+            _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
+            _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+        }
         while (true)
         {
             if (_battle == BattleTurn.pTurn)
@@ -65,6 +82,7 @@ public class BattleSystem : MonoBehaviour
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
+                    _boardManager.SetInteractable(false);
                     
                     float timeout = 0.5f;
                     while (!_boardManager.IsProcessing && timeout > 0)
@@ -77,7 +95,6 @@ public class BattleSystem : MonoBehaviour
                     {
                         yield return null;
                     }
-                    _boardManager.SetInteractable(false);
                     bool matched = (_puzzleResult != null || _isPuzzle);
                     bool swapped = _isSwap;
                     
@@ -91,7 +108,6 @@ public class BattleSystem : MonoBehaviour
                             if (_enemy._health <= 0)
                             {
                                 yield return StartCoroutine(_enemy.Dead());
-                                _player.Evolve(_currentStageIndex);
                                 Victory();
                                 yield break;
                             }
@@ -120,6 +136,7 @@ public class BattleSystem : MonoBehaviour
                         _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
                     _boardManager.SetInteractable(true);
+                    _enemy._invincibility = false;
                 }
                 _battle = BattleTurn.eTurn;
             }
@@ -127,13 +144,29 @@ public class BattleSystem : MonoBehaviour
             {
                 _boardManager.SetInteractable(false);
                 yield return StartCoroutine(_enemy.PatternProbability());
+                
                     // 죽는 기능
                 if (_player._health <= 0)
                 {
-                    yield return StartCoroutine(_player.Dead());
-                     // 게임오버
-                    SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
-                    break;
+                    // 조건 맞으면 부활 스킬 거쳐가기 (한성우)
+                    if (_player.Resurrection == true && _player._isFirstDeath == true)
+                    {
+                        // 부활 기능
+                        _player._health = _player._maxHealth * 0.5f;
+                        _player._isFirstDeath = false;
+
+                        // 부활 연출
+                        yield return StartCoroutine(_player.IResurrection());
+                    }
+                    else 
+                    {
+                        yield return StartCoroutine(_player.Dead());
+
+                        // 게임오버
+                        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
+                        yield break;
+                    }
+
                 }
                 _battle = BattleTurn.pTurn;
             }
@@ -153,8 +186,13 @@ public class BattleSystem : MonoBehaviour
         Destroy(_player);
         Destroy(_enemy);
     }
+    public void EndPlayerTurn()
+    {
+        _player._behavior = 0;
+        _isSwap = true;
+        _puzzleResult = null;
+    }
 }
-
 
 
 public enum BattleTurn

@@ -38,15 +38,15 @@ public class RedOak : Monster
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            StartCoroutine(FirstPattern());
+            yield return StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            StartCoroutine(SecondPattern());
+            yield return StartCoroutine(SecondPattern());
         }
         else
         {
-            StartCoroutine(ThirdPattern());
+            yield return StartCoroutine(ThirdPattern());
         }
     }
 
@@ -55,7 +55,8 @@ public class RedOak : Monster
     {
         Debug.Log("휘두르기");
         _animator.SetTrigger("FirstAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
     }
 
@@ -63,7 +64,8 @@ public class RedOak : Monster
     {
         Debug.Log("강타");
         _animator.SetTrigger("SecondAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
     }
 
@@ -71,7 +73,8 @@ public class RedOak : Monster
     {
         Debug.Log("박살내기");
         _animator.SetTrigger("ThirdAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
         _damage = Random.Range(_minDamage, _minDamage + 11);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;

@@ -24,15 +24,15 @@ public class Envoy : Monster
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            StartCoroutine(FirstPattern());
+            yield return StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            StartCoroutine(SecondPattern());
+            yield return StartCoroutine(SecondPattern());
         }
         else
         {
-            StartCoroutine(ThirdPattern());
+            yield return StartCoroutine(ThirdPattern());
         }
         
     }
@@ -43,7 +43,8 @@ public class Envoy : Monster
         Debug.Log("영혼가르기");
         Player.Instance._defensive = 0;
         _animator.SetTrigger("FristAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
         _soulHarvest++;
     }
@@ -52,7 +53,8 @@ public class Envoy : Monster
     {
         Debug.Log("생자필멸");
         _animator.SetTrigger("SecondAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage));
         Player.Instance._reverse = true;
         _soulHarvest++;
@@ -63,7 +65,8 @@ public class Envoy : Monster
     {
         Debug.Log("종말");
         _animator.SetTrigger("ThirdAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 20, _minDamage + 41));
         Player.Instance._theEnd = true;
         _soulHarvest++;

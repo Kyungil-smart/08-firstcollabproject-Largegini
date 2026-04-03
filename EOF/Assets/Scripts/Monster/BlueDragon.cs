@@ -12,6 +12,7 @@ public class BlueDragon : Monster
     public bool _dragonScale;
     public int _passiveCount;
     public float _defensive;
+    
     private void Awake()
     {
         // _maxhealth = 200f;
@@ -24,6 +25,11 @@ public class BlueDragon : Monster
 
     public override void ReceiveDamage(float damage)
     {
+        if (_invincibility)
+        {
+            return; 
+        }
+        
         if (_defensive > 0)
         {
             if (_defensive > damage)
@@ -36,7 +42,6 @@ public class BlueDragon : Monster
                 _defensive = 0;
                 _health -= damage;
                 _dragonScale = false;
-                
             }
         }
         else
@@ -49,6 +54,7 @@ public class BlueDragon : Monster
                 _dragonScale = true;
                 _defensive = 200f;
                 _passiveCount--;
+                _invincibility = true;
                 if (_passiveCount <= 0) _passiveCount = 0;
             }
         }
@@ -66,25 +72,25 @@ public class BlueDragon : Monster
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
-            StartCoroutine(FirstPattern());
+            yield return StartCoroutine(FirstPattern());
         }
         else if(60 <= _probability && _probability < 85)
         {
-            StartCoroutine(SecondPattern());
+            yield return StartCoroutine(SecondPattern());
         }
         else
         {
-            StartCoroutine(ThirdPattern());
+            yield return StartCoroutine(ThirdPattern());
         }
     }
 
 
     public override IEnumerator FirstPattern()
     {
-
         Debug.Log("드래곤 클로");
         _animator.SetTrigger("Claw");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
     }
 
@@ -103,7 +109,8 @@ public class BlueDragon : Monster
     {
         Debug.Log("프로스트 브레스");
         _animator.SetTrigger("Spit");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
         Player.Instance._freeze = true;
     }

@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 // 작성자 : 홍정옥
@@ -23,7 +21,10 @@ public class TitleManager : MonoBehaviour
     }
     public void OnClickStart()
     {
-        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
+        if(SceneLoader.Intance.HasTutorial)
+            SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
+        
+        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Tutorial);
     }
     
     public void OnClickSettings()
@@ -35,8 +36,6 @@ public class TitleManager : MonoBehaviour
     {
         if (settingCanvas != null)
             settingCanvas.SetActive(false);
-        
-        Debug.Log("설정 닫기");
     }
 
     public void OnClickExit()
