@@ -178,6 +178,8 @@ public class TutorialManager : MonoBehaviour
         storyUI.SetActive(false);
         inGameUI.SetActive(true);
         dimPanel.SetActive(false);
+        btnReset.SetActive(true);
+        btnEndTurn.SetActive(true);
         PlayerPrefs.SetInt("TutorialDone", 1);
     }
 
@@ -200,8 +202,12 @@ public class TutorialManager : MonoBehaviour
         _board.ClearAllHighlights();
         _savedProceed?.Invoke();
 
+        storyUI.SetActive(false);
+        inGameUI.SetActive(true);
+        dimPanel.SetActive(false);
+        btnReset.SetActive(true);
+        btnEndTurn.SetActive(true);
         PlayerPrefs.SetInt("TutorialDone", 1);
-        SceneManager.LoadScene("Stage");
     }
 
     // Todo: 데이터 연동 후 교체
