@@ -699,6 +699,10 @@ PrefabInstance:
       propertyPath: _boardManager
       value: 
       objectReference: {fileID: 826976559}
+    - target: {fileID: 7430114982803253875, guid: 0000f42342ffc774b8e63b070d8ca52a, type: 3}
+      propertyPath: _tutorialMonster
+      value: 
+      objectReference: {fileID: 11400000, guid: a939b0722cee0c7488f1e83a77260ec7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

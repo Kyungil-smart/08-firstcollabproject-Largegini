@@ -40,8 +40,11 @@ public class WearWolf : Monster
     public override IEnumerator SecondPattern()
     {
         Debug.Log("물어뜯기");
-        _animator.SetTrigger("FirstAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        _animator.SetTrigger("SecondAttack");
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("WereWolf_Idle"))
+        {
+            yield return null; 
+        }
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
 
     }
@@ -49,9 +52,11 @@ public class WearWolf : Monster
     public override IEnumerator ThirdPattern()
     {
         Debug.Log("찢어발기기");
-        _animator.SetTrigger("FirstAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        _animator.SetTrigger("ThirdAttack");
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("WereWolf_Idle"))
+        {
+            yield return null; 
+        }
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 21));
-
     }
 }

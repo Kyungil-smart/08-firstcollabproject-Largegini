@@ -23,6 +23,7 @@ public class BattleSystem : MonoBehaviour
     public PuzzleResult _puzzleResult;
     public bool _isPuzzle;
     public bool _isSwap;
+    [SerializeField] private StagewithMonster _tutorialMonster;
 
     public bool IsVictory;
     private void Start()
@@ -54,8 +55,19 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator Battle()
     {
         yield return null;
-        _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
-        _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+        if (SceneLoader.Intance.StageIndex == 0)
+        {
+            if (_tutorialMonster != null)
+            {
+                _enemy = spawnPoint.SpawnMonster(_tutorialMonster.Enemy);
+                _backSpawn.SpawnMonster(_tutorialMonster.Background);
+            }
+        }
+        else
+        {
+            _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
+            _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+        }
         while (true)
         {
             if (_battle == BattleTurn.pTurn)
