@@ -15,7 +15,17 @@ public class Player : MonoBehaviour
 
     // 플레이어 스텟
     [Header("플레이어 스텟")]
-    public float _health;
+    [SerializeField] private float health;
+    public float _health
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+            // 값이 바뀔 때 보상 스킬 발동 기능과 연결
+            _rewardSkillController.ActivateStatSkillProcess();
+        }
+    }
     public float _maxHealth = 100f;
     public float _attack;
     public float _attackSpecial;
@@ -53,6 +63,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] private float _finalDamage;
 
 
+    private RewardSkillController _rewardSkillController;
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
     
@@ -65,11 +76,18 @@ public class Player : MonoBehaviour
         _theEnd = false;
         _isFirstDeath = true;
 
+        // 보상 스킬 발동 기능을 위해 추가, Retry 시 Awake 에서 서순 이슈가 발생하는 것 같아서 Start에 넣어둠 (한성우)
+        _rewardSkillController = GetComponent<RewardSkillController>();
+        // Debug.Log(_rewardSkillController);
+
         // 버프 스텟 초기화 (한성우)
         AddAttack = 0;
         AddDefensive = 0;
         AddHeal = 0;
         AddGaugeIncreaseRate = 0;
+
+        // 최종 데미지 초기화
+        _finalDamage = 0;
 
         // 스텟 Init은 PlayerStatController 스크립트에서 수정
     }
@@ -104,6 +122,11 @@ public class Player : MonoBehaviour
         {
             DataManager._instance.OnGameLoad(this);
         }
+
+
+        // 최초 스폰 시 생명력 특정 % 이상일 때 발동하는 스킬을 위해 추가
+        // Debug.Log($"Init에서 플레이어 생명력 : {_health} / {_maxHealth}");
+        _rewardSkillController.ActivateStatSkillProcess();
     }
 
     public IEnumerator PlayerStat(PuzzleResult result)
@@ -142,11 +165,17 @@ public class Player : MonoBehaviour
         _animator.SetTrigger(_anim);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
+
+        // 이벤트 보상용 추가 데미지 계산 기능을 위해 추가 (한성우)
+        _finalDamage = _rewardSkillController.GiveExtraDamage(_finalDamage);
+
         Monster.Instance.ReceiveDamage(_finalDamage);
 
-        // 흡혈 기능을 위해 추가 (한성우)
+        // 이벤트 보상용 흡혈 기능을 위해 추가 (한성우)
         if(_healthAbsorbRate > 0) GetHPAbsorb(_finalDamage);
-        
+
+        // 최종 데미지 초기화
+        _finalDamage = 0;
     }
 
     // public IEnumerator SpecialATK(int count, int combo)
@@ -226,8 +255,7 @@ public class Player : MonoBehaviour
             if (_defensiveGauge >= damage)
             {
                 _defensiveGauge -= damage;
-                _defensiveGauge = 0;
-                // 기능 확인 필요
+                _defensiveGauge *= 0.5f;
                 return;
             }
             else
@@ -235,12 +263,10 @@ public class Player : MonoBehaviour
                 damage -= _defensiveGauge;
                 _defensiveGauge = 0;
                 _health -= damage;
-                // 보상 스텟 스킬 기능과 연결 필요
                 return;
             }
         }
         _health -= damage;
-        // 보상 스텟 스킬 기능과 연결 필요
     }
 
     public void Evolve(int stageIndex)
