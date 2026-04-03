@@ -9,9 +9,6 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance;
     
-    // 튜토리얼 용 변수
-    public bool IsTutorial;
-
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -29,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         Genarate<SceneLoader>();
         Genarate<DataManager>();
-        IsTutorial = false;
+        Genarate<SoundManager>();
     }
     
     // 컴포넌트 추가
