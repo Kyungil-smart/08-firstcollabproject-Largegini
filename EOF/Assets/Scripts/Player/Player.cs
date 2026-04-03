@@ -36,13 +36,13 @@ public class Player : MonoBehaviour
 
     // 이벤트용 스킬해금 스텟
     [Header("스킬 해금 여부")]
-    public bool _skillChain01;
-    public bool _skillChain02;
-    public bool _rejuvenate;
-    public bool _bulwark;
-    public bool _onslaught01;
-    public bool _onslaught02;
-    public bool _resurrection;
+    [field: SerializeField] public bool SkillChain01 { get; set; }
+    [field: SerializeField] public bool SkillChain02 { get; set; }
+    [field: SerializeField] public bool Rejuvenate { get; set; }
+    [field: SerializeField] public bool Bulwark { get; set; }
+    [field: SerializeField] public bool Onslaught01 { get; set; }
+    [field: SerializeField] public bool Onslaught02 { get; set; }
+    [field:SerializeField] public bool Resurrection { get; set; }
 
 
     private Animator _animator;
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     }
 
 
-    public IEnumerator Resurrection()
+    public IEnumerator IResurrection()
     {
         _animator.SetTrigger("Heal");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
