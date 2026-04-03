@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7227795407374241199}
   - component: {fileID: 1942660386064987518}
   - component: {fileID: 4055097777079488798}
+  - component: {fileID: -1399865331663587735}
   m_Layer: 0
   m_Name: WearWolf
   m_TagString: Untagged
@@ -109,6 +110,7 @@ MonoBehaviour:
   _health: 0
   _tableMaxHP: 0
   _minDamage: 0
+  _invincibility: 0
 --- !u!114 &4055097777079488798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +124,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test.MonsterStatController
   thisID: 301
+--- !u!95 &-1399865331663587735
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694518902938995436}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf529d38bb3e0cd48986bdc64aa9d9b2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

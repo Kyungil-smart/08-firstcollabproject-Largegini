@@ -217,9 +217,7 @@ public class Player : MonoBehaviour
             _health = _maxHealth;
         }
     }
-
-
-
+    
     // 플레이어가 받는 대미지 계산 기능
     public void ReceiveDamage(float damage)
     {
