@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public float _healthAbsorbRate;
     public bool _isFirstDeath;   // 전투 당 1회 부활 스킬용 변수
 
+    
     // 이벤트용 스킬해금 스텟
     [Header("스킬 해금 여부")]
     [field: SerializeField] public bool SkillChain01 { get; set; }
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public float AddDefensive { get; set; }
     [field: SerializeField] public float AddHeal { get; set; }
     [field: SerializeField] public float AddGaugeIncreaseRate { get; set; }
-
+    [field: SerializeField] private float _finalDamage;
 
 
     private Animator _animator;
@@ -108,50 +109,63 @@ public class Player : MonoBehaviour
     public IEnumerator PlayerStat(PuzzleResult result)
     {
         int combo = result.comboCount;
+        bool _attackType = false;
+        bool _specialType = false;
         foreach (KeyValuePair<EBlockType, int> block in result.matchedCounts)
         {
             EBlockType type = block.Key;
+            
             int count = block.Value;
-            if (type == EBlockType.Attack) yield return StartCoroutine(Attack(count, combo));
-            if (type == EBlockType.Special) yield return StartCoroutine(SpecialATK(count, combo));
+            if (type == EBlockType.Attack)
+            {
+                _finalDamage += GiveDamageCalculator((_attack + AddAttack), count, combo);
+                _attackType = true;
+            }
+            if (type == EBlockType.Special)
+            {
+                _finalDamage += GiveDamageCalculator(_attackSpecial, count, combo);
+                _specialType = true;
+            }
             if (type == EBlockType.Defense) yield return StartCoroutine(Defensive(count, combo));
             if (type == EBlockType.Heal) yield return StartCoroutine(Heal(count, combo));
         }
+        if (_attackType || _specialType)
+        {
+            string _animTag = _specialType ? "SpecialAttack" : "Attack";
+            yield return StartCoroutine(Attack(_animTag));
+        }
     }
     
-    public IEnumerator Attack(int count, int combo)
+    public IEnumerator Attack(string _anim)
     {
         Debug.Log("공격");
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger(_anim);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage(GiveDamageCalculator((_attack + AddAttack), count, combo));
+        Monster.Instance.ReceiveDamage(_finalDamage);
 
         // 흡혈 기능을 위해 추가 (한성우)
-        if(_healthAbsorbRate > 0)
-        {
-            GetHPAbsorb(GiveDamageCalculator((_attack + AddAttack), count, combo));
-        }
-
-
+        if(_healthAbsorbRate > 0) GetHPAbsorb(_finalDamage);
+        
     }
 
-    public IEnumerator SpecialATK(int count, int combo)
-    {
-        Debug.Log("특수 공격");
-        _animator.SetTrigger("SpecialAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-        yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
-        _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
-
-        // 흡혈 기능을 위해 추가 (한성우)
-        if (_healthAbsorbRate > 0)
-        {
-            GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
-        }
-
-    }
+    // public IEnumerator SpecialATK(int count, int combo)
+    // {
+    //     Debug.Log("특수 공격");
+    //     _animator.SetTrigger("SpecialAttack");
+    //     yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+    //     yield return new WaitForSeconds(.5f);
+    //     Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
+    //     _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
+    //
+    //     // 흡혈 기능을 위해 추가 (한성우)
+    //     if (_healthAbsorbRate > 0)
+    //     {
+    //         GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
+    //     }
+    //
+    // }
+    
     public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
