@@ -15,7 +15,7 @@ public class InGameHUDController : MonoBehaviour
     {
         resetConfirmUI.Open();
     }
-
+    
     public void OnClickEndTurn()
     {
         endTurnConfirmUI.Open();
