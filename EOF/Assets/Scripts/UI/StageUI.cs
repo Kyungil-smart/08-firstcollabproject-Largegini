@@ -108,20 +108,25 @@ public class StageUI : MonoBehaviour
 
 
         // 기능 확인을 위해 임시로 추가 (한성우)
-        eventPopup.AddComponent<EventController>(); 
+        if (eventPopup.GetComponent<EventController>() == null)
+        {
+            eventPopup.AddComponent<EventController>();
 
-        if(SceneLoader.Intance.StageIndex == 0)
-        {
-            eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventFirst;
+            if (SceneLoader.Intance.StageIndex == 0)
+            {
+                eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventFirst;
+            }
+            else if (SceneLoader.Intance.StageIndex == 2)
+            {
+                eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventSecond;
+            }
+            else if (SceneLoader.Intance.StageIndex == 4)
+            {
+                eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventThired;
+            }
+
         }
-        else if (SceneLoader.Intance.StageIndex == 2)
-        {
-            eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventSecond;
-        }
-        else if (SceneLoader.Intance.StageIndex == 4)
-        {
-            eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventThired;
-        }
+
     }
 
     public void OnClickSettings()
