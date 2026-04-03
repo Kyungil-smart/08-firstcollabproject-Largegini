@@ -44,6 +44,13 @@ public class Player : MonoBehaviour
     [field: SerializeField] public bool Onslaught02 { get; set; }
     [field:SerializeField] public bool Resurrection { get; set; }
 
+    [Header("버프로 더해지는 스텟")]
+    [field: SerializeField] public float AddAttack { get; set; }
+    [field: SerializeField] public float AddDefensive { get; set; }
+    [field: SerializeField] public float AddHeal { get; set; }
+    [field: SerializeField] public float AddGaugeIncreaseRate { get; set; }
+
+
 
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
@@ -56,6 +63,12 @@ public class Player : MonoBehaviour
         _reverse = false;
         _theEnd = false;
         _isFirstDeath = true;
+
+        // 버프 스텟 초기화 (한성우)
+        AddAttack = 0;
+        AddDefensive = 0;
+        AddHeal = 0;
+        AddGaugeIncreaseRate = 0;
 
         // 스텟 Init은 PlayerStatController 스크립트에서 수정
     }
@@ -112,14 +125,15 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("Attack");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage((_attack * count) * (1 + (combo - 1 ) * _comboRate));
+        Monster.Instance.ReceiveDamage(GiveDamageCalculator((_attack + AddAttack), count, combo));
 
         // 흡혈 기능을 위해 추가 (한성우)
-        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * (_healthAbsorbRate / 100f);
-        if (_health > _maxHealth)
+        if(_healthAbsorbRate > 0)
         {
-            _health = _maxHealth;
+            GetHPAbsorb(GiveDamageCalculator((_attack + AddAttack), count, combo));
         }
+
+
     }
 
     public IEnumerator SpecialATK(int count, int combo)
@@ -128,22 +142,22 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("SpecialAttack");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage((_attackSpecial * count) * (1 + (combo - 1 ) * _comboRate));
-        _behavioralGauge += (int)(count * _gaugeIncreaseRate);
+        Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
+        _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
 
         // 흡혈 기능을 위해 추가 (한성우)
-        _health += (_heal * count) * (1 + (combo - 1) * _comboRate) * (_healthAbsorbRate / 100f);
-        if (_health > _maxHealth)
+        if (_healthAbsorbRate > 0)
         {
-            _health = _maxHealth;
+            GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
         }
+
     }
     public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
         if (_reverse)
         {
-            ReceiveDamage((_heal * count) * (1 + (combo - 1 ) * _comboRate));
+            ReceiveDamage(GiveDamageCalculator((_heal + AddHeal), count, combo));
             // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
         }
         else
@@ -151,7 +165,7 @@ public class Player : MonoBehaviour
             _animator.SetTrigger("Heal");
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             yield return new WaitForSeconds(.5f);
-            _health += (_heal * count) * (1 + (combo - 1 ) * _comboRate);
+            _health += (GiveDamageCalculator((_heal + AddHeal), count, combo));
             // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
             if (_health > _maxHealth)
             {
@@ -167,9 +181,32 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("Defense");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        _defensiveGauge = (_defensive * count) * (1 + (combo - 1 ) * _comboRate);
+        _defensiveGauge = (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
     }
     
+
+    // 플레이어가 주는 대미지 계산 기능
+    public float GiveDamageCalculator(float damage, int count, int combo)
+    {
+        float totalDamage = (damage * count) * (1 + (combo - 1) * _comboRate);
+
+        return totalDamage;
+    }
+
+
+    public void GetHPAbsorb(float totalDmg)
+    {
+        _health += (totalDmg * (_healthAbsorbRate / 100f));
+
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+    }
+
+
+
+    // 플레이어가 받는 대미지 계산 기능
     public void ReceiveDamage(float damage)
     {
         if (_defensiveGauge > 0)
