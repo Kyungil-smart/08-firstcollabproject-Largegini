@@ -87,10 +87,10 @@ public class BlueDragon : Monster
 
     public override IEnumerator FirstPattern()
     {
-
         Debug.Log("드래곤 클로");
         _animator.SetTrigger("Claw");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
     }
 
@@ -109,7 +109,8 @@ public class BlueDragon : Monster
     {
         Debug.Log("프로스트 브레스");
         _animator.SetTrigger("Spit");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
+        while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
         Player.Instance._freeze = true;
     }
