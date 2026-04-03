@@ -132,10 +132,25 @@ public class BattleSystem : MonoBehaviour
                     // 죽는 기능
                 if (_player._health <= 0)
                 {
-                    yield return StartCoroutine(_player.Dead());
-                     // 게임오버
-                    SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
-                    yield break;
+                    // 조건 맞으면 부활 스킬 거쳐가기 (한성우)
+                    if (_player._resurrection == true && _player._isFirstDeath == true)
+                    {
+                        // 부활 기능
+                        _player._health = _player._maxHealth * 0.5f;
+                        _player._isFirstDeath = false;
+
+                        // 부활 연출
+                        yield return StartCoroutine(_player.Resurrection());
+                    }
+                    else 
+                    {
+                        yield return StartCoroutine(_player.Dead());
+
+                        // 게임오버
+                        SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
+                        yield break;
+                    }
+
                 }
                 _battle = BattleTurn.pTurn;
             }
