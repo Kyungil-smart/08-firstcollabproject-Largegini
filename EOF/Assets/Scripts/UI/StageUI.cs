@@ -21,6 +21,9 @@ public class StageUI : MonoBehaviour
     private ColorBlock _btnActiveColor;
     private int _eventIndex = 0;
 
+    // 이벤트 팝업용으로 추가 (한성우)
+    EventController eventController;
+
     private string[] _eventText =
     {
         "이벤트 설명 1",
@@ -31,6 +34,9 @@ public class StageUI : MonoBehaviour
     private void Awake()
     {
         _btnActiveColor = NodeBtns[0].GetComponent<Button>().colors;
+
+        // 이벤트 팝업용 이벤트 컨트롤러 초기화 (한성우)
+        if (eventController == null) eventController = new EventController();
     }
 
     private void Start()
@@ -107,11 +113,14 @@ public class StageUI : MonoBehaviour
         nextButton.gameObject.SetActive(!isLast);
 
 
-        // 기능 확인을 위해 임시로 추가 (한성우)
+        // 이벤트 팝업을 위해 추가 (한성우)
+        eventController.ActivateEventPopUp();
+
+        /*
         if (eventPopup.GetComponent<EventController>() == null)
         {
             eventPopup.AddComponent<EventController>();
-
+            
             if (SceneLoader.Intance.StageIndex == 0)
             {
                 eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventFirst;
@@ -124,8 +133,10 @@ public class StageUI : MonoBehaviour
             {
                 eventPopup.GetComponent<EventController>().CurrentEventType = EventType.EventThired;
             }
+            
 
-        }
+        }*/
+
 
     }
 
