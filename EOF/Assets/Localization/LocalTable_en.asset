@@ -18,20 +18,698 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 21038051328
-    m_Localized: HP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 62708461568
-    m_Localized: Shield
-    m_Metadata:
-      m_Items: []
   - m_Id: 10001
-    m_Localized: script1
+    m_Localized: As the cold, damp scent of earth fills my senses, it seems that
+      even death is denied to me.
     m_Metadata:
       m_Items: []
   - m_Id: 10002
-    m_Localized: script2
+    m_Localized: Not a shred of flesh remains, leaving only these crumbling shards
+      of bone to sustain my existence.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10003
+    m_Localized: How dare you, contemptible beast, desecrate the hallowed grounds
+      where my kin find their eternal rest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10004
+    m_Localized: "I will not allow your foul fangs to profane the sanctity of my
+      kin\u2019s remains."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10005
+    m_Localized: "I\u2019ll end you where you stand!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10006
+    m_Localized: It feels as though the touch of those tiny hands, which brushed
+      against mine in the flames, still lingers on my fingertips.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10007
+    m_Localized: You dare defile this ground.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10008
+    m_Localized: Silence, you foul creature. I shall flay your wretched hide to appease
+      the souls of my kin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10009
+    m_Localized: No warmth persists. All that remains of my child is this cold fragment...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10010
+    m_Localized: The guilt of failing to protect my child weighs heavily on my bones.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10011
+    m_Localized: Do not weep, my child. I will pass judgment and offer up a blood
+      sacrifice for your sorrow.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10012
+    m_Localized: It is the only reason I awoke from the dead.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20001
+    m_Localized: Grrr... The Grim Reaper has confirmed that your life has ended...
+      The screams you let out as that intense hatred is crushed must be all the sweeter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20002
+    m_Localized: No more screams. Only the sound of your end.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20003
+    m_Localized: Grrr... A rattling skull! The screams from that day continue to
+      echo in my ears. How could you possibly pursue revenge alone?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20004
+    m_Localized: Tell the Grim Reaper. "Now, I rise to crush your wretched world."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20005
+    m_Localized: First, I shall stain this barren land with your crimson blood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20006
+    m_Localized: "Arrogant worm! I\u2019ll grind your spite to dust. No rest for
+      you. Ever!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20007
+    m_Localized: Grrr... I'll trample that rusty crown and turn this place into a
+      proper slaughterhouse!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20008
+    m_Localized: Abominable malice stains the silence of my frost. A king whose soul
+      was torn by Death itself... why do you still haunt the living with your cold
+      breath?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20009
+    m_Localized: The tears of my people still soak the ground. Until those tears
+      freeze into icicles and pierce right through you, I cannot hold my breath.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20010
+    m_Localized: Foolish creature. You dare defy the sanctity of death for a mere
+      grudge? This time, I shall freeze your very spite until it shatters into a
+      thousand shards.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20011
+    m_Localized: Speak not of providence. Here, only my vengeance and your end remain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20012
+    m_Localized: "Crowned phantom! I shall begin by freezing those arrogant eyes
+      of yours. This is my domain\u2014where neither the living nor the dead are
+      permitted to linger!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20013
+    m_Localized: (Black mist splits. and there, Death emerges, trailing a colossal
+      scythe behind.)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20014
+    m_Localized: "At last, You\u2019ve crossed the line, King of a fallen realm."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20015
+    m_Localized: Defier of eternal rest... tell me, is such a wretched grudge all
+      that fuels your hollow stride?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20016
+    m_Localized: Rest? Did you grant them rest while your scythe reaped their souls?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20017
+    m_Localized: I refused to die just so I could rip out your hollow eyes and drown
+      them in the hell I survived.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20018
+    m_Localized: "What a truly futile obsession! The fall of the kingdom and the
+      decline of its people\u2026 It is the natural order of things, no different
+      from water flowing to the depths. You, too, were nothing more than a single
+      ripple in that current."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20019
+    m_Localized: I returned to shatter that providence. On the day my crown was shattered
+      and my heart was broken, I was no longer human.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20020
+    m_Localized: Now, only your head to fall, and your world to crumble.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20021
+    m_Localized: Pitiable soul. I shall teach thee the brevity of thy wrath. Time
+      will swallow up your grandiose desire for revenge and your name, leaving them
+      forever lost in the silence of nothingness.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20022
+    m_Localized: Before time runs out, I will hear your screams. This place will
+      not be the grave of the souls you have taken, but your own grave.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20023
+    m_Localized: The moment the Grim Reaper falls, the darkness shatters into a thousand
+      shards.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20024
+    m_Localized: As the burning thirst for vengeance fades, the phantom world sustained
+      by the King's obsession dissolves... returning at last to the stillness of
+      its original grave.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20025
+    m_Localized: "From within the King\u2019s breast, the shards of the Princess\u2019s
+      soul spill forth, weaving a form of pure radiance. Amidst the glow, she appears\u2014folding
+      her father's skeletal frame into a tender embrace."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20026
+    m_Localized: No more, my Lord. Yield your heavy steel, and find your solace in
+      peace.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20027
+    m_Localized: "At the touch of the Princess\u2019s voice, the bitter malice and
+      obsession that held the King captive are washed away."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20028
+    m_Localized: No longer consumed by blind vengeance, he returns to himself. not
+      as a wraith of war, but as the King of Serilda, preparing for his peaceful
+      rest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20029
+    m_Localized: Yes... It was a very long dream...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20030
+    m_Localized: At last, I can rest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20031
+    m_Localized: The obsession has lifted, and the dawn has broken at last. May you
+      find a place where your hands need never touch a blade again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20032
+    m_Localized: At last... even the flame of this life flickers out, leaving its
+      great purpose to the ashes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20033
+    m_Localized: Even the searing malice of your vengeance scatters now as frozen
+      ash. this moment, as it returns, pierces my heart with a chilling sorrow.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30001
+    m_Localized: The forge still burns. To reach the end of my vengeance, I must
+      be armed in cruelty.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30002
+    m_Localized: '[Sharpen the blade keenly.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30003
+    m_Localized: A finer edge. One strike, one silence.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30004
+    m_Localized: '[enhance the rusted armor.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30005
+    m_Localized: Shed this rusted plate. I must refit it to my very bones. Hard enough
+      to deny a counterattack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30006
+    m_Localized: You have come, my Lord... Even in this freezing darkness, we waited
+      only for the sound of your footsteps.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30007
+    m_Localized: The failure was ours, My Lord. Do not let guilt stay your hand.
+      Please keep moving forward.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30008
+    m_Localized: '[Heal the wounds with the breath of the people.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30009
+    m_Localized: Cease your sorrow. Let our fading lives mend your broken spirit.
+      Stand tall once more, and lead us forward.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30010
+    m_Localized: '[Consecrate the life force of the people to the heart.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30011
+    m_Localized: My Lord... take our final breath of life. Though our souls scatter
+      to the wind, let us become your heart and fill the vessel. Do not let your
+      spirit break.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30012
+    m_Localized: Dusty treaties remain. Though the flesh is gone, the tactical gambits
+      that shook the battlefield must be reawakened.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30013
+    m_Localized: 'Tactics: Swift Move.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30014
+    m_Localized: "A swift strike. A masterpiece of war\u2014leaving no room for reaction."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30015
+    m_Localized: 'Tactics: Rapid Volley.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30016
+    m_Localized: "The flow of the fray. One strike to feed the next\u2014a relentless
+      chain of slaughter."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30017
+    m_Localized: "A long, weary road you\u2019ve walked... Hehehe... You look so
+      tired, my poor, broken King."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30018
+    m_Localized: I see it clinging to your straight back... a bitter loneliness and
+      a thirst for vengeance. Won't you stay a while and ask this old crone for the
+      way?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30019
+    m_Localized: '[Seek the old woman''s advice.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30020
+    m_Localized: "My poor, pitied King... Listen to this old crone's whispers. Your
+      guard may grow frail and your armor thin, but in exchange, I shall teach you
+      a ruinous gambit\u2014one that will drive your blade deep into the very heart
+      of your foe."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30021
+    m_Localized: '[Embrace the old woman.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30022
+    m_Localized: "Hehehe... Yes, my pitied King. Sink deeper into these withered
+      arms. I shall take half the life that sustains you, but in return, I will make
+      those dry bones strike with a speed you\u2019ve never known."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30023
+    m_Localized: Even under a shattered sky, you seek a path. Your light has fallen,
+      yet a single chance lingers in the warped orbit. Shall I unveil it?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30024
+    m_Localized: '[Overlap the threads of fate.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30025
+    m_Localized: The stars have crossed. Fate flows through your steel, and soon,
+      a moment of unpredictable power shall unfurl. Will you place your faith in
+      the luck of the high heavens?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30026
+    m_Localized: '[Glimpse the twisted timeline.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30027
+    m_Localized: A fractured future... Your steps grow heavy, but your blade now
+      bears a second destiny. Every strike carries a shard of cruel fate. The price
+      is yours to bear.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30028
+    m_Localized: "To step into this ruin... my broken Lord, if my prayer can bring
+      even a moment\u2019s rest to your shattered frame, I shall gladly bless the
+      path you tread"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30029
+    m_Localized: '[Receive the Martyr''s prayer.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30030
+    m_Localized: May this prayer be a flicker of light upon your path. Though the
+      power to heal your wounds may wane, the weight of your soul that you can now
+      bear will be deeper and broader than ever before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30031
+    m_Localized: '[Take the remaining divine power.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032
+    m_Localized: Nothing but hollow screams here. Your maximum life will wither,
+      yet the holy grace mending your wounds shall blaze with unrivaled intensity.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30033
+    m_Localized: 'Spiteful phantom, wandering the dark... I grant the strength you
+      crave. Yet remember: what the hand takes, the soul must repay.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30034
+    m_Localized: '[Accept the angel''s merciful touch.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30035
+    m_Localized: Your yearning shall be the light. when your HP drops below half,
+      the Sacred Touch will reach deeper into your wounds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30036
+    m_Localized: '[Don the angel''s holy protection.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30037
+    m_Localized: Full of energy is your steadfast shield. While your form is whole,
+      a Heavenly Aegis shall bolster you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30038
+    m_Localized: "Keke... Your searing heart led me here. Your soul\u2019s ruin is
+      nothing to me. You want the power for revenge? Then pay the price. A life for
+      a life, a soul for a soul."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30039
+    m_Localized: '[Contract with the demon.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30040
+    m_Localized: Very well. When you dance with death, your blade shall unleash a
+      cataclysm. Enjoy your ruinous power. The deal is done.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30041
+    m_Localized: '[Offer vitality to the demon.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30042
+    m_Localized: I take your life as my tribute. In exchange, I shall grant you a
+      fearsome speed. That fleeting moment will be your final, dying flame.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30043
+    m_Localized: The wind has shifted... To think a pulsing heart still beats in
+      this barren land. The children of the forest are curious about your wounded
+      soul. Will you accept their playful blessing?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30044
+    m_Localized: '[Absorb the spirit''s vital flow.]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30045
+    m_Localized: Heed the river of life. Breathe in the grace that nature yields.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30046
+    m_Localized: Be promised the forest's last protection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30047
+    m_Localized: The forest promises protection. As your light fades, the spirits
+      will ignite their souls to bring you back. A miracle granted but once.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40001
+    m_Localized: My Lord... even death could not hold your grievance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40002
+    m_Localized: Can you feel it, My Lord? The unseen hand that guides you... an
+      inescapable pull within this wretched wheel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40003
+    m_Localized: My Lord... let this be your final journey. To the rest you so rightly
+      earned.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40004
+    m_Localized: Remember, my Lord. Though your flesh is gone, the royal power carved
+      into your soul still breathes within this grid.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40005
+    m_Localized: Seize a shard of thought and slide it aside. That fleeting shift
+      shall decide your destiny.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40006
+    m_Localized: Be wary. A false judgment will only gnaw at his remaining breath.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40007
+    m_Localized: With every shard you shift, the shattered soul will slowly fade.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40008
+    m_Localized: Match three or more shards of the same hue to shatter them. That
+      fleeting union shall ignite a flame of destruction to consume your foes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40009
+    m_Localized: "The clock ticks with every move. As you finish your strike with
+      the shards, the enemy\u2019s blade draws near. Do not be reckless."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40010
+    m_Localized: The red shards are your piercing steel. Align them to strike a mortal
+      blow.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40011
+    m_Localized: Blue shards are your shield. Align them to block their malice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40012
+    m_Localized: Pink shards are your broken heart. Align them to mend your fading
+      life.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40013
+    m_Localized: Green shards are your royal arts. Align them to prepare a surging
+      tide.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50001
+    m_Localized: Game Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50002
+    m_Localized: Exit Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50003
+    m_Localized: End your journey here?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50004
+    m_Localized: YES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50005
+    m_Localized: NO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50006
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50007
+    m_Localized: BGM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50008
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50009
+    m_Localized: "\uD55C\uAD6D\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50010
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50011
+    m_Localized: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50012
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50013
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50014
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50015
+    m_Localized: Game Paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50016
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50017
+    m_Localized: Return to Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50018
+    m_Localized: Current data will be lost. Return to Title?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50019
+    m_Localized: AC / Action Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50020
+    m_Localized: End Turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50021
+    m_Localized: Expend 1 Stamina to reshuffle the board?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50022
+    m_Localized: Are you sure you want to end your turn?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50023
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60001
+    m_Localized: Sharpen the blade keenly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60002
+    m_Localized: enhance the rusted armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60003
+    m_Localized: Heal the wounds with the breath of the people
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60004
+    m_Localized: Consecrate the life force of the people to the heart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60005
+    m_Localized: 'Tactics: Swift Move'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60006
+    m_Localized: 'Tactics: Rapid Volley'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60007
+    m_Localized: Seek the old woman's advice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60008
+    m_Localized: Embrace the old woman
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60009
+    m_Localized: Overlap the threads of fate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60010
+    m_Localized: Glimpse the twisted timeline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60011
+    m_Localized: Receive the Martyr's prayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60012
+    m_Localized: Take the remaining divine power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60013
+    m_Localized: Accept the angel's merciful touch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60014
+    m_Localized: Don the angel's holy protection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60015
+    m_Localized: Contract with the demon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60016
+    m_Localized: Offer vitality to the demon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60017
+    m_Localized: Absorb the spirit's vital flow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60018
+    m_Localized: Be promised the forest's last protection.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60019
+    m_Localized: Berserker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60020
+    m_Localized: Dragon Scale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60021
+    m_Localized: Harvest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60022
+    m_Localized: Frost Breath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60023
+    m_Localized: All that lives must die
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60024
+    m_Localized: curse
     m_Metadata:
       m_Items: []
   references:

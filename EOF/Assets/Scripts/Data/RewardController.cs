@@ -159,13 +159,13 @@ public class RewardController
         switch (selectedReward.ERewardSubType)
         {
             case ERewardSubType.Inverse_Value:
-                Debug.Log($"현재 체력 % 감소 / 방어막 생산량 감소"); 
+                Debug.Log($"공격력 증가 / 방어막 생산량 감소"); 
                 DataManager._instance.savedPlayerData.Damage_Normal += selectedReward.ValueA;
                 DataManager._instance.savedPlayerData.Shield -= selectedReward.ValueB;
                 break;
 
             case ERewardSubType.Counterpoise_Value:
-                Debug.Log($"공격력 증가 / 행동력 게이지 상승량 증가");
+                Debug.Log($"현재 체력 % 감소 / 행동력 게이지 상승량 증가");
                 DataManager._instance.savedPlayerData.CurrentHP *= 0.5f;
                 DataManager._instance.savedPlayerData.GaugeIncreaseRate += selectedReward.ValueB;
                 break;

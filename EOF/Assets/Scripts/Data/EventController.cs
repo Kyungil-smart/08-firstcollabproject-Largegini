@@ -22,8 +22,8 @@ public class EventController : MonoBehaviour
     [Header("불러오는 값")]
     // [field: SerializeField] public int EventID { get; private set; }
     // [field: SerializeField] public EventType LoadedEventType { get; private set; }
-    public int randomNumber = 0;
-    
+    public int randomNumber = 0;    // 랜덤으로 선택된 이벤트 번호(현재는 3개 중 1개)
+    public int stageNumber = 0; // 스테이지 번호
     
 
     EventTable table;   // 불러올 이벤트 테이블
@@ -31,15 +31,17 @@ public class EventController : MonoBehaviour
     private RewardController rewardController = new RewardController(); // 보상 테이블 불러오기
 
 
-    private void Start()
+    public void ActivateEventPopUp()
     {
         Init();
+
+        SetIndexToCurrentEventType();
 
         PickRandomEvent();
     }
 
     // 초기화하기
-    public void Init()
+    private void Init()
     {
         
 
@@ -49,6 +51,7 @@ public class EventController : MonoBehaviour
             return;
         }
 
+        stageNumber = 0;
         table = DataManager._instance.GetEventTable();
 
 
@@ -56,12 +59,36 @@ public class EventController : MonoBehaviour
         if(targetEvent != null) targetEvent.Clear();
 
         testIndex = 0;
+
+        stageNumber = SceneLoader.Intance.StageIndex;   // 스테이지 번호 불러오기
     }
 
 
+    // 이벤트 타입에 맞는 인덱스 설정 (1번 / 2번 / 3번)
+    private void SetIndexToCurrentEventType()
+    {
+        switch(stageNumber)
+        {
+            case 0:
+                CurrentEventType = EventType.EventFirst;
+                break;
+            case 2:
+                CurrentEventType = EventType.EventSecond;
+                break;
+            case 4:
+                CurrentEventType = EventType.EventThired;
+                break;
+            default:
+                Debug.LogError("EventController 이벤트 타입 설정 확인 필요");
+                break;
+        }
+        Debug.Log($"현재 이벤트 타입 : {CurrentEventType}");
+
+    }
+
 
     // 노드 구분에 따라 불러올 랜덤 이벤트 선택
-    public void PickRandomEvent()
+    private void PickRandomEvent()
     {
         
 
@@ -74,9 +101,6 @@ public class EventController : MonoBehaviour
                 Debug.Log($"{element.Value.EventID} 저장");
             }
         }
-        // Debug.Log($"저장됨 : {targetEvent[0].EventID}");
-        // Debug.Log($"저장됨 : {targetEvent[1].EventID}");
-        // Debug.Log($"저장됨 : {targetEvent[2].EventID}");
 
 
         // 랜덤 이벤트 중 선택하기
@@ -92,7 +116,7 @@ public class EventController : MonoBehaviour
 
 
     // 이벤트에 따른 선택지 불러오기
-    public void LoadEventChoice(EventData target)
+    private void LoadEventChoice(EventData target)
     {
         Debug.Log($"{target.EventID} 1번 선택지 대사 : {target.RewardAID}");
         Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
