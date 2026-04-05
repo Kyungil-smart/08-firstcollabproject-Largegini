@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
+using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class StageUI : MonoBehaviour
 {
@@ -68,7 +70,7 @@ public class StageUI : MonoBehaviour
                     OnClickChoice(page, capturedIndex));
             }
         }
-        skipButton.interactable = !isChoice;
+        skipButton.gameObject.SetActive(!isChoice);
         
         bool isLast = index == pages.Length - 1;
         bool isFirst = index == 0;
@@ -97,6 +99,7 @@ public class StageUI : MonoBehaviour
     private void Awake()
     {
         _btnActiveColor = NodeBtns[0].GetComponent<Button>().colors;
+        if (eventController == null) eventController = new EventController();
 
         // 이벤트 팝업용 이벤트 컨트롤러 초기화 (한성우)
         if (eventController == null) eventController = new EventController();
@@ -115,6 +118,23 @@ public class StageUI : MonoBehaviour
             },
             new StoryPage { text = "마지막 설명", hasChoice = false },
         };
+        // 선택지 버튼 호버 애니메이션
+        for (int i = 0; i < choiceButtons.Length; i++)
+        {
+            var btn = choiceButtons[i];
+        
+            var trigger = btn.GetComponent<EventTrigger>() 
+                          ?? btn.gameObject.AddComponent<EventTrigger>();
+
+            var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+            enterEntry.callback.AddListener(_ => btn.transform.DOScale(1.05f, 0.1f));
+
+            var exitEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
+            exitEntry.callback.AddListener(_ => btn.transform.DOScale(1f, 0.1f));
+
+            trigger.triggers.Add(enterEntry);
+            trigger.triggers.Add(exitEntry);
+        }
     }
 
     private void Start()
