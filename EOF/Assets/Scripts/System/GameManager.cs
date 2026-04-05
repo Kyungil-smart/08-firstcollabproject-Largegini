@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         Genarate<SceneLoader>();
         Genarate<DataManager>();
         Genarate<SoundManager>();
+        Genarate<LocaleManager>();
     }
     
     // 컴포넌트 추가
