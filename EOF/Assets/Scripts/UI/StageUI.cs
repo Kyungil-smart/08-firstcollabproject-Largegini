@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Collections;
 
 public class StageUI : MonoBehaviour
 {
@@ -14,6 +15,18 @@ public class StageUI : MonoBehaviour
     [SerializeField] private Button closeButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button prevButton;
+    
+    [Header("선택지")]
+    [SerializeField] private GameObject choicePanel;
+    [SerializeField] private Button[] choiceButtons;
+    [SerializeField] private TMP_Text[] choiceTexts;
+    
+    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private Image image;
+    [SerializeField] private Button skipButton;
+    
+    private int currentIndex;
+    private StoryPage[] pages;
     
     // TODO: ScriptableObject 연결 시 아래 주석 해제 후 _eventText 배열 제거
     // [SerializeField] private EventDataSO eventData;
@@ -30,6 +43,56 @@ public class StageUI : MonoBehaviour
         "이벤트 설명 2",
         "마지막 설명"
     };
+    private void ShowPage(int index)
+    {
+        var page = pages[index];
+    
+        descriptionText.text = page.text;
+        image.sprite = page.image;
+
+        bool isChoice = page.hasChoice;
+        
+        descriptionText.gameObject.SetActive(!isChoice);
+        choicePanel.SetActive(isChoice);
+
+        if (isChoice)
+        {
+            for (int i = 0; i < choiceButtons.Length; i++)
+            {
+                int capturedIndex = i;
+                choiceTexts[i].text = page.choiceTexts[i];
+                choiceButtons[i].interactable = true;
+            
+                choiceButtons[i].onClick.RemoveAllListeners();
+                choiceButtons[i].onClick.AddListener(() =>
+                    OnClickChoice(page, capturedIndex));
+            }
+        }
+        skipButton.interactable = !isChoice;
+        
+        bool isLast = index == pages.Length - 1;
+        bool isFirst = index == 0;
+        prevButton.gameObject.SetActive(!isFirst);
+        closeButton.gameObject.SetActive(isLast);
+        nextButton.gameObject.SetActive(!isLast);
+    }
+    private void OnClickChoice(StoryPage page, int choiceIndex)
+    {
+        for (int i = 0; i < choiceButtons.Length; i++)
+        {
+            choiceButtons[i].interactable = (i == choiceIndex);
+        }
+        
+        int nextPage = page.choiceNextIndex[choiceIndex];
+        
+        StartCoroutine(MoveToPageAfterDelay(nextPage));
+    }
+    private IEnumerator MoveToPageAfterDelay(int nextIndex)
+    {
+        yield return new WaitForSeconds(0.5f);
+        currentIndex = nextIndex;
+        ShowPage(currentIndex);
+    }
 
     private void Awake()
     {
@@ -37,6 +100,21 @@ public class StageUI : MonoBehaviour
 
         // 이벤트 팝업용 이벤트 컨트롤러 초기화 (한성우)
         if (eventController == null) eventController = new EventController();
+        
+        // Todo: 데이터연결 예정, 임시 테스트 데이터
+        pages = new StoryPage[]
+        {
+            new StoryPage { text = "이벤트 설명 1", hasChoice = false },
+            new StoryPage { text = "이벤트 설명 2", hasChoice = false },
+            new StoryPage
+            {
+                text = "",
+                hasChoice = true,
+                choiceTexts = new string[] { "1. 칼을 날카롭게 벼린다.", "2. 녹슨 갑주를 개조한다." },
+                choiceNextIndex = new int[] { 3, 3 }
+            },
+            new StoryPage { text = "마지막 설명", hasChoice = false },
+        };
     }
 
     private void Start()
@@ -67,24 +145,25 @@ public class StageUI : MonoBehaviour
 
     public void OnClickEventNode()
     {
+        eventPopup.SetActive(true);
         _eventIndex = 0;
-        UpdateEventPopup();
+        ShowPage(currentIndex);
     }
     public void OnClickEventPrev()
     {
-        if (_eventIndex > 0)
+        if (currentIndex > 0)
         {
-            _eventIndex--;
-            UpdateEventPopup();
+            currentIndex--;
+            ShowPage(currentIndex);
         }
     }
     
     public void OnClickEventNext()
     {
-        if (_eventIndex < _eventText.Length - 1)
+        if (currentIndex < pages.Length - 1)
         {
-            _eventIndex++;
-            UpdateEventPopup();
+            currentIndex++;
+            ShowPage(currentIndex);
         }
     }
 
@@ -164,4 +243,14 @@ public class StageUI : MonoBehaviour
         btn.GetComponent<Button>().interactable = true;
         btn.GetComponent<Button>().colors = _btnActiveColor;
     }
+}
+[System.Serializable]
+public class StoryPage
+{
+    public Sprite image;
+    public string text;
+    
+    public bool hasChoice;
+    public string[] choiceTexts;
+    public int[] choiceNextIndex;
 }

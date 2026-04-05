@@ -442,11 +442,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5017975840380963753, guid: ded4525d930f9ba41a72c8bb8cce94b8, type: 3}
   m_PrefabInstance: {fileID: 1173650380}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &502362700 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 313210824601771692, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
-  m_PrefabInstance: {fileID: 6898728026288224889}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &529524931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,81 +1797,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596147605}
-  m_CullTransparentMesh: 1
---- !u!1 &1669309931
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1669309932}
-  - component: {fileID: 1669309934}
-  - component: {fileID: 1669309933}
-  m_Layer: 5
-  m_Name: Icon_prev
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1669309932
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669309931}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 502362700}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000016212, y: -0.0000035763}
-  m_SizeDelta: {x: 85, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1669309933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669309931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9f6b9973803574049a3efea9dd506e8f, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1669309934
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669309931}
   m_CullTransparentMesh: 1
 --- !u!1 &1672637730
 GameObject:
@@ -3587,6 +3507,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7775919702462357736, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7994323734010922715, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3615,13 +3539,11 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3250845894767255947, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
     - {fileID: 3550382495946246168, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
+    - {fileID: 7775919702462357736, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3591175730746785501, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2016581376}
-    - targetCorrespondingSourceObject: {fileID: 313210824601771692, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1669309932}
     - targetCorrespondingSourceObject: {fileID: 2330056813436801412, guid: 71174dd733a19ed42948584bf20e6b90, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1596147606}
