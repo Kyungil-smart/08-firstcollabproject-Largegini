@@ -49,9 +49,11 @@ public class ActionBarUI : MonoBehaviour
 
     public void SetAP(int current, int max)
     {
-        apText.text = $"행동력 {current}/{max}";
+        int displayCurrent = Mathf.Max(0, current);
         
-        float blueFill = Mathf.Clamp01((float)current / max);
+        apText.text = $"행동력 {displayCurrent}/{max}";
+        
+        float blueFill = Mathf.Clamp01((float)displayCurrent / max);
         layerBlue.DOFillAmount(blueFill, tweenDuration).SetEase(Ease.OutCubic);
         
         int overflow = Mathf.Max(0, current - max);
