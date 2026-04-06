@@ -38,7 +38,8 @@ public class EventController : MonoBehaviour
     [field: SerializeField] public GameObject EventImageSprite { get; set; }
 
 
-    EventTable table;   // 불러올 이벤트 테이블
+    private EventTable table;   // 불러올 이벤트 테이블
+    private EventData _target;
     private List<EventData> targetEvent = new List<EventData>();  // 조건에 맞는 이벤트를 잠시 저장할 데이터 리스트
     private RewardController rewardController = new RewardController(); // 보상 테이블 불러오기
     private string localeTableName = "LocalTable";// 로컬라이즈 테이블 불러오기
@@ -131,23 +132,25 @@ public class EventController : MonoBehaviour
     // 이벤트에 따른 선택지 불러오기
     private void LoadEventChoice(EventData target)
     {
-        Debug.Log($"{target.EventID} 1번 선택지 대사 : {target.RewardAID}");
-        Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
+        _target = target;
+        // Debug.Log($"{target.EventID} 1번 선택지 대사 : {target.RewardAID}");
+        // Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
 
 
         // UI에 대사 보내기용 수정
-        EventText0101 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, target.EventName);
-        EventText0201 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, target.EventName + "_Select01");
-        EventText0202 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, target.EventName + "_Select02");
+        EventText0101 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName);
+        EventText0201 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select01");
+        EventText0202 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02");
 
-        Debug.Log($"이벤트 대사 0 : {target.EventName}");
+        Debug.Log($"이벤트 대사 0 : {_target.EventName}");
         Debug.Log($"이벤트 대사 1 : {EventText0101}");
         Debug.Log($"이벤트 대사 2 : {EventText0201}");
         Debug.Log($"이벤트 대사 3 : {EventText0202}");
 
 
+        /*
         // 아래는 if 문 따라 수정 필요
-        EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, target.EventName + "_Select02" + "_Text");
+        EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02" + "_Text");
 
         Debug.Log($"이벤트 대사 4 : {EventText0301}");
 
@@ -156,9 +159,9 @@ public class EventController : MonoBehaviour
 
         // 임시로 타겟 자동 불러오기
         testIndex = selectedRewardIndex;    // 테스트 용으로 임시로 넣어놓은 ID
-        if (selectedRewardIndex == 0) rewardController.RewardProcess(target.RewardAID);
-        else if (selectedRewardIndex == 1) rewardController.RewardProcess(target.RewardBID);
-
+        if (selectedRewardIndex == 0) rewardController.RewardProcess(_target.RewardAID);
+        else if (selectedRewardIndex == 1) rewardController.RewardProcess(_target.RewardBID);
+        */
 
     }
 
@@ -169,7 +172,25 @@ public class EventController : MonoBehaviour
     // 유저가 고른 선택지 저장하기
     public void SaveSelectedEvent(int selectedRewardID)
     {
-        
+        switch(selectedRewardID)
+        {
+            case 0:
+                Debug.LogError("0번 인덱스, 잘못된 선택지");
+                break;
+            case 1:
+                Debug.Log("1번 선택지");
+                EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select01" + "_Text");
+                rewardController.RewardProcess(_target.RewardAID);
+                break;
+            case 2:
+                Debug.Log("2번 선택지");
+                EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02" + "_Text");
+                rewardController.RewardProcess(_target.RewardBID);
+                break;
+            default:
+                Debug.LogError("인덱스 초과, 잘못된 선택지");
+                break;
+        }
 
 
 

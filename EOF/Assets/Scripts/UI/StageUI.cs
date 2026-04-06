@@ -1,10 +1,11 @@
+using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using System.Collections;
-using DG.Tweening;
-using UnityEngine.EventSystems;
+
 
 public class StageUI : MonoBehaviour
 {
@@ -37,7 +38,11 @@ public class StageUI : MonoBehaviour
     private int _eventIndex = 0;
 
     // 이벤트 팝업용으로 추가 (한성우)
-    EventController eventController;
+    private EventController eventController;
+    [field: SerializeField] public int SelectedIndex { get; set; }  // 인덱스 선택용
+
+
+
 
     private string[] _eventText =
     {
@@ -45,6 +50,9 @@ public class StageUI : MonoBehaviour
         "이벤트 설명 2",
         "마지막 설명"
     };
+
+
+
     private void ShowPage(int index)
     {
         var page = pages[index];
@@ -102,6 +110,7 @@ public class StageUI : MonoBehaviour
 
         // 이벤트 팝업용 이벤트 컨트롤러 초기화 (한성우)
         if (eventController == null) eventController = new EventController();
+        SelectedIndex = 0;
 
         // 이벤트 팝업을 위해 추가 (한성우)
         eventController.ActivateEventPopUp();
@@ -116,9 +125,10 @@ public class StageUI : MonoBehaviour
                 text = "",
                 hasChoice = true,
                 choiceTexts = new string[] { eventController.EventText0201, eventController.EventText0202 },
-                choiceNextIndex = new int[] { 3, 3 }
+                choiceNextIndex = new int[] { 2, 2 }
             },
-            new StoryPage { text = eventController.EventText0301, hasChoice = false },
+            // new StoryPage { text = eventController.EventText0301, hasChoice = false },
+            new StoryPage { text = "", hasChoice = false },
         };
         // 선택지 버튼 호버 애니메이션
         for (int i = 0; i < choiceButtons.Length; i++)
@@ -159,6 +169,16 @@ public class StageUI : MonoBehaviour
                 CloseSettings();
         }
     }
+
+    public void OnClickEventRewardSelect(int index)
+    {
+        eventController.SaveSelectedEvent(index);
+        
+        pages[2].text = eventController.EventText0301;
+        pages[2].hasChoice = false;
+
+    }
+
 
     public void OnClickBattleNode()
     {
