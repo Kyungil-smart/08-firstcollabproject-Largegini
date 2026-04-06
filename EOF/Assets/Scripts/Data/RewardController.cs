@@ -74,19 +74,19 @@ public class RewardController
         switch (selectedReward.ERewardType)
         {
             case ERewardType.Player_Stat:
-                Debug.Log($"벨류 2번 사용 스텟");
+                // Debug.Log($"벨류 2번 사용 스텟");
                 SetPlayerStat();
                 break;
             case ERewardType.Player_Stat_2:
-                Debug.Log($"벨류 1, 2번 모두 사용 스텟");
+                // Debug.Log($"벨류 1, 2번 모두 사용 스텟");
                 SetPlayerStatTwo();
                 break;
             case ERewardType.Player_Skill:
-                Debug.Log($"스킬 추가");
+                // Debug.Log($"스킬 추가");
                 SetPlayerSkill();
                 break;
             case ERewardType.Player_HPRecovery:
-                Debug.Log($"일회성 회복");
+                // Debug.Log($"일회성 회복");
                 SetHPRecovery();
                 break;
             default:

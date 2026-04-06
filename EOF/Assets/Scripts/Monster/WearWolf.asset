@@ -15,3 +15,8 @@ MonoBehaviour:
   Enemy: {fileID: 3694518902938995436, guid: c6a0282e202bc434883b595035dac9db, type: 3}
   StageNumber: 0
   Background: {fileID: 4994390506886490709, guid: 647142a075a33d543ba532889355eb6f, type: 3}
+  monsterBGM: {fileID: 8300000, guid: fc35efd295b60d64384a875f3372c603, type: 3}
+  attackSFX:
+  - {fileID: 8300000, guid: 9212826c901e30c4e9749153ba424bc3, type: 3}
+  - {fileID: 8300000, guid: f5389d3e6d17eef419fee07f0488db20, type: 3}
+  - {fileID: 8300000, guid: 6a7240221c3a94f4f89d407d5b31c906, type: 3}

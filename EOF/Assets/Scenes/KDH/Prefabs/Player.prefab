@@ -80,6 +80,13 @@ MonoBehaviour:
   <AddHeal>k__BackingField: 0
   <AddGaugeIncreaseRate>k__BackingField: 0
   _finalDamage: 0
+  _sfx:
+  - {fileID: 8300000, guid: b1f500d400ee2f147bb62cf0cd68132b, type: 3}
+  - {fileID: 8300000, guid: 704d508f8cba52b4ca4a919109d71b72, type: 3}
+  - {fileID: 8300000, guid: ddf19e4e085805842b5afd6d70e61451, type: 3}
+  - {fileID: 8300000, guid: aa723d062753f7a4a88ddd27518d39dc, type: 3}
+  - {fileID: 8300000, guid: 3f9b9cfcd50e3674ab42105c118960ac, type: 3}
+  - {fileID: 8300000, guid: 22696b889af459543ac9b29452abba8f, type: 3}
   _evolutionAnimators:
   - {fileID: 22100000, guid: 0052db5b488df7841b7e0105de7257e4, type: 2}
   - {fileID: 22100000, guid: 3e5c695fe6bfea945acc9ed9ef74de29, type: 2}

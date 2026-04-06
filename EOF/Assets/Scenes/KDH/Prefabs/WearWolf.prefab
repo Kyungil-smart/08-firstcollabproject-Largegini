@@ -113,6 +113,7 @@ MonoBehaviour:
   _tableMaxHP: 0
   _minDamage: 0
   _invincibility: 0
+  _wolfSound: {fileID: 11400000, guid: a939b0722cee0c7488f1e83a77260ec7, type: 2}
 --- !u!114 &4055097777079488798
 MonoBehaviour:
   m_ObjectHideFlags: 0

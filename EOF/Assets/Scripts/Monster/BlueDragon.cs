@@ -12,6 +12,7 @@ public class BlueDragon : Monster
     public bool _dragonScale;
     public int _passiveCount;
     public float _defensive;
+    public StagewithMonster _blueDragonSound;
     
     private void Awake()
     {
@@ -84,11 +85,11 @@ public class BlueDragon : Monster
         }
     }
 
-
     public override IEnumerator FirstPattern()
     {
         Debug.Log("드래곤 클로");
         _animator.SetTrigger("Claw");
+        SoundManager.Instance.PlaySFX(_blueDragonSound.attackSFX[0]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));
@@ -109,6 +110,7 @@ public class BlueDragon : Monster
     {
         Debug.Log("프로스트 브레스");
         _animator.SetTrigger("Spit");
+        SoundManager.Instance.PlaySFX(_blueDragonSound.attackSFX[1]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("BlueDragon_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage));

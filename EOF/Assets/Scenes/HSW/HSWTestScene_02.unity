@@ -1378,7 +1378,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventController
   testIndex: 0
   <CurrentEventType>k__BackingField: 3
-  randomNumber: 0
+  <EventText0101>k__BackingField: 
+  <EventText0201>k__BackingField: 
+  <EventText0202>k__BackingField: 
+  <EventText0301>k__BackingField: 
+  <EventImageAddress>k__BackingField: 
+  <EventImageSprite>k__BackingField: {fileID: 0}
 --- !u!1 &2067328503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1619,7 @@ RectTransform:
   - {fileID: 1632674819}
   - {fileID: 1947104848}
   - {fileID: 163729227}
+  - {fileID: 6900418645620689445}
   m_Father: {fileID: 1295285451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1665,6 +1671,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e77ce4458ef66a4d9c2c5053b4959eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocaleManager
+--- !u!1001 &3445066054688000419
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2068717994}
+    m_Modifications:
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328232741596998545, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+      propertyPath: m_Name
+      value: BaseSkillImageObject
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+--- !u!4 &6900418645620689445 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4598745156143510098, guid: 6c6e56f1e34f1e94d9f3536919f67026, type: 3}
+  m_PrefabInstance: {fileID: 3445066054688000419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
