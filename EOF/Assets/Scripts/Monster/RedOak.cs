@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 public class RedOak : Monster
 {
     public bool _berserker;
-    public StagewithMonster _sound;
+    public StagewithMonster _oakSound;
     private void Awake()
     {
         _minDamage = 30;
@@ -83,6 +83,6 @@ public class RedOak : Monster
 
     public void AttackSound(int clipNum)
     {
-        SoundManager.Instance.PlaySFX(_sound.attackSFX[clipNum]);
+        SoundManager.Instance.PlaySFX(_oakSound.attackSFX[clipNum]);
     }
 }
