@@ -79,6 +79,11 @@ public class BattleSystem : MonoBehaviour
             {
                 _boardManager.SetInteractable(true);
                 _player._behavior = _player._maxbehavior;
+                if (_player._freeze)
+                {
+                    _player._behavior--;
+                    _player._freeze = false;
+                }
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
@@ -90,7 +95,6 @@ public class BattleSystem : MonoBehaviour
                         timeout -= Time.deltaTime;
                         yield return null; 
                     }
-                    
                     while (_boardManager.IsProcessing)
                     {
                         yield return null;
@@ -122,12 +126,6 @@ public class BattleSystem : MonoBehaviour
                     }
                     _isPuzzle = false;
                     _isSwap = false;
-                    if (_player._freeze)
-                    {
-                        _player._behavior--;
-                        _player._freeze = false;
-                        continue;
-                    }
 
                     if (_player._theEnd) _player.ReceiveDamage(5f);
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
