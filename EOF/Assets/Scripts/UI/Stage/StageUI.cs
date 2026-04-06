@@ -70,6 +70,7 @@ public class StageUI : MonoBehaviour
         bool isChoice = page.hasChoice;
 
         descriptionText.gameObject.SetActive(!isChoice);
+        
         choicePanel.SetActive(isChoice);
 
         if (isChoice)
@@ -89,9 +90,22 @@ public class StageUI : MonoBehaviour
 
         bool isLast = index == pages.Length - 1;
         bool isFirst = index == 0;
-        prevButton.gameObject.SetActive(!isFirst);
-        closeButton.gameObject.SetActive(isLast);
-        nextButton.gameObject.SetActive(!isLast);
+        skipButton.gameObject.SetActive(!isChoice && !isLast);
+        prevButton.gameObject.SetActive(!isFirst && !isChoice && !isLast);
+        closeButton.gameObject.SetActive(isLast && !isChoice);
+        nextButton.gameObject.SetActive(!isLast && !isChoice);
+    }
+    public void OnClickSkip()
+    {
+        for (int i = 0; i < pages.Length; i++)
+        {
+            if (pages[i].hasChoice)
+            {
+                currentIndex = i;
+                ShowPage(currentIndex);
+                return;
+            }
+        }
     }
     private void OnClickChoice(StoryPage page, int choiceIndex)
     {

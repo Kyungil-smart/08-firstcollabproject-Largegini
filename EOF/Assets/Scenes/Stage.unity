@@ -4025,7 +4025,7 @@ PrefabInstance:
       objectReference: {fileID: 5602306219605725913}
     - target: {fileID: 4093804842382585489, guid: 39fa30ba08dde2243b67c2f65539abab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickEventClose
+      value: OnClickSkip
       objectReference: {fileID: 0}
     - target: {fileID: 4093804842382585489, guid: 39fa30ba08dde2243b67c2f65539abab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
