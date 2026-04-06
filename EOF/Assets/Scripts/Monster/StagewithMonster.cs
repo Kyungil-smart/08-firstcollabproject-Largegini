@@ -11,5 +11,5 @@ public class StagewithMonster : ScriptableObject
     public int StageNumber;
     public GameObject Background;
     public AudioClip monsterBGM;
-    public AudioClip attackSFX;
+    public AudioClip[] attackSFX;
 }

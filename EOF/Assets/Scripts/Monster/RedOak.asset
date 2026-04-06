@@ -16,4 +16,6 @@ MonoBehaviour:
   StageNumber: 1
   Background: {fileID: 8976357143874219841, guid: 98eee41f746439040b15df5205195c8f, type: 3}
   monsterBGM: {fileID: 8300000, guid: 81d635b9d05387a4d98d1fc577c81710, type: 3}
-  attackSFX: {fileID: 0}
+  attackSFX:
+  - {fileID: 8300000, guid: ce82d28d9df6cfa479fc83aa7b76281b, type: 3}
+  - {fileID: 8300000, guid: e7934d1518b222245b32d97462369c58, type: 3}
