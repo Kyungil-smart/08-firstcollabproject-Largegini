@@ -43,6 +43,13 @@ public class TutorialManager : MonoBehaviour
     // 로컬라이즈 테이블 불러오기(한성우)
     private string localeTableName = "LocalTable";
 
+    private void Awake()
+    {
+        // 로컬라이즈 텍스트 초기화 (한성우)
+        InitText();
+    }
+
+
     void Start()
     {
         _board = boardManager as ITutorialBoardControl;
@@ -81,7 +88,15 @@ public class TutorialManager : MonoBehaviour
 
     public void OnClickNext()
     {
-        if (currentIndex == 0)
+        // 로컬라이즈 번호 메모 (한성우)
+        //   인덱스 0~11 첫 대사
+        //   12~14 두번째 대사
+        //   15~16 첫 퍼즐 대사
+        //   17~18 행동력 소모 안내 대사
+        //   19 콤보 대사
+        //   20~24 전투 UI 안내 대사
+
+        if (currentIndex == 0)  
         {
             _board.SetInputLocked(false);
             _board.SetInteractionFilter(_ => false);
@@ -92,7 +107,7 @@ public class TutorialManager : MonoBehaviour
             btnReset.SetActive(true);
             btnEndTurn.SetActive(true);
             puzzleTrigger.enabled = true;
-            currentIndex = 1;
+            currentIndex += 1;
         }
         else if (currentIndex == 2)
         {
@@ -217,6 +232,23 @@ public class TutorialManager : MonoBehaviour
     }
 
     // Todo: 데이터 연동 후 교체
+    // 로컬라이즈 테이블 기반 튜토리얼 텍스트 교체 (한성우)
+    private string[] testTexts = new string[25];
+    private void InitText()
+    {
+        Debug.Log("InitText");
+        // 로컬라이즈 테이블에서 텍스트 불러오기
+        for (int i = 0; i < 12; i++)
+        {
+            testTexts[i] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_King_{i + 1}");
+        }
+        for (int j = 12; j < 25; j++)
+        {
+            testTexts[j] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_King_{j + 1 - 12}");
+        }
+    }
+
+    /*
     private string[] testTexts =
     {
         "첫 대사",
@@ -225,10 +257,10 @@ public class TutorialManager : MonoBehaviour
         "행동력 안내",
         "콤보 안내",
         "전투 UI 안내",
-        "튜토리얼 종료"
-            //LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName)
+        "튜토리얼 종료",
+        
     };
-
+    */
 
     
     
