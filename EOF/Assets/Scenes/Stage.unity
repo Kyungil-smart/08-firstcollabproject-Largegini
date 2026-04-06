@@ -2629,6 +2629,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663719778}
   m_CullTransparentMesh: 1
+--- !u!1 &1691852499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1691852501}
+  - component: {fileID: 1691852500}
+  m_Layer: 5
+  m_Name: DottedLineRenderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1691852500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691852499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490a0afd98128104b8706a74d4d5feb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  dotPrefab: {fileID: 2453170003685306987, guid: 3427ba87a90db8c43922c962ec7de00b, type: 3}
+  dotCount: 10
+  dotSpacing: 0.1
+--- !u!224 &1691852501
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691852499}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 960, y: 540}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1750492022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5510,6 +5561,7 @@ GameObject:
   - component: {fileID: 3237483872994342793}
   - component: {fileID: 7933482406808254349}
   - component: {fileID: 5602306219605725913}
+  - component: {fileID: 8740318240011368724}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -5540,6 +5592,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &8740318240011368724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648666663822612680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50678e274b6c7c046ae14a7253cf3c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapNodeMover
+  dottedLine: {fileID: 1691852500}
+  moveDelay: 0.5
+  moveDuration: 1
 --- !u!222 &8772938176695054467
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5946,3 +6013,4 @@ SceneRoots:
   - {fileID: 3149921350756210938}
   - {fileID: 502015000}
   - {fileID: 1792470883}
+  - {fileID: 1691852501}
