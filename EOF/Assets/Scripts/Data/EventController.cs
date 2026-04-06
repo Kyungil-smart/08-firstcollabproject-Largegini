@@ -148,13 +148,14 @@ public class EventController : MonoBehaviour
         Debug.Log($"이벤트 대사 3 : {EventText0202}");
 
 
+        // 이미지 보내기
+        EventImageAddress = _target.ResourceID.ToString();
+
         /*
         // 아래는 if 문 따라 수정 필요
         EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02" + "_Text");
 
         Debug.Log($"이벤트 대사 4 : {EventText0301}");
-
-
 
 
         // 임시로 타겟 자동 불러오기

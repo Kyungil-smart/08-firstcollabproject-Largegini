@@ -12,7 +12,7 @@ public class EventData
 {
     public int EventID { get; set; }
     public string EventName { get; set; }
-    public int ResourceID { get; set; }
+    public string ResourceID { get; set; }
     public EventType EventType { get; set; }
     public int RewardAID { get; set; }
     public int RewardBID { get; set; }
@@ -22,7 +22,7 @@ public class EventData
     {
         EventID = Convert.ToInt32(row["ID"]);
         EventName = Convert.ToString(row["Key"]);
-        ResourceID = Convert.ToInt32(row["ResourceID"]);
+        ResourceID = Convert.ToString(row["ResourceID"]);
         EventType = (EventType)Enum.Parse(typeof(EventType), Convert.ToString(row["EventType"]));
         RewardAID = Convert.ToInt32(row["RewardID_1"]);
         RewardBID = Convert.ToInt32(row["RewardID_2"]);

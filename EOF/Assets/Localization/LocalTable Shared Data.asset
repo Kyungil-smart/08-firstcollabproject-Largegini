@@ -220,7 +220,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009693
   - m_Id: 30004
-    m_Key: Blacksmith_Select02
+    m_Key: Blacksmith_Select02_
     m_Metadata:
       m_Items: []
   - m_Id: 30005
@@ -229,197 +229,189 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009694
   - m_Id: 30006
-    m_Key: Sanctum_Enter01
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30007
-    m_Key: Sanctum_Enter02
+    m_Key: Sanctum
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009695
-  - m_Id: 30008
+      - rid: 3634112565313536082
+  - m_Id: 30007
     m_Key: Sanctum_Select01
     m_Metadata:
       m_Items: []
-  - m_Id: 30009
+  - m_Id: 30008
     m_Key: Sanctum_Select01_Text
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009696
-  - m_Id: 30010
+      - rid: 3634112565313536083
+  - m_Id: 30009
     m_Key: Sanctum_Select02
     m_Metadata:
       m_Items: []
-  - m_Id: 30011
+  - m_Id: 30010
     m_Key: Sanctum_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112565313536084
+  - m_Id: 30011
+    m_Key: Barrack
     m_Metadata:
       m_Items:
       - rid: 3634112514202009697
   - m_Id: 30012
-    m_Key: Barrack
-    m_Metadata:
-      m_Items:
-      - rid: 3634112514202009698
-  - m_Id: 30013
     m_Key: Barrack_Select01
     m_Metadata:
       m_Items: []
-  - m_Id: 30014
+  - m_Id: 30013
     m_Key: Barrack_Select01_Text
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009699
-  - m_Id: 30015
+      - rid: 3634112565313536085
+  - m_Id: 30014
     m_Key: Barrack_Select02
     m_Metadata:
       m_Items: []
-  - m_Id: 30016
+  - m_Id: 30015
     m_Key: Barrack_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112565313536086
+  - m_Id: 30016
+    m_Key: Wasteland_Hag
     m_Metadata:
       m_Items:
       - rid: 3634112514202009700
   - m_Id: 30017
-    m_Key: Wasteland_Hag_Enter01
+    m_Key: Wasteland_Hag_Select01
     m_Metadata:
       m_Items: []
   - m_Id: 30018
-    m_Key: Wasteland_Hag_Enter02
+    m_Key: Wasteland_Hag_Select01_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009701
   - m_Id: 30019
-    m_Key: Wasteland_Hag_Select01
+    m_Key: Wasteland_Hag_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30020
-    m_Key: Wasteland_Hag_Select01_Text
+    m_Key: Wasteland_Hag_Select02_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009702
   - m_Id: 30021
-    m_Key: Wasteland_Hag_Select02
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30022
-    m_Key: Wasteland_Hag_Select02_Text
+    m_Key: Wasteland_Oracle
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009703
+      - rid: 3634112565313536087
+  - m_Id: 30022
+    m_Key: Wasteland_Oracle_Select01
+    m_Metadata:
+      m_Items: []
   - m_Id: 30023
-    m_Key: Wasteland_Oracle_Enter
+    m_Key: Wasteland_Oracle_Select01_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009704
   - m_Id: 30024
-    m_Key: Wasteland_Oracle_Select01
+    m_Key: Wasteland_Oracle_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30025
-    m_Key: Wasteland_Oracle_Select01_Text
+    m_Key: Wasteland_Oracle_Select02_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009705
   - m_Id: 30026
-    m_Key: Wasteland_Oracle_Select02
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30027
-    m_Key: Wasteland_Oracle_Select02_Text
+    m_Key: Wasteland_Father
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009706
+      - rid: 3634112565313536088
+  - m_Id: 30027
+    m_Key: Wasteland_Father_Select01
+    m_Metadata:
+      m_Items: []
   - m_Id: 30028
-    m_Key: Wasteland_Father
+    m_Key: Wasteland_Father_Select01_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009707
   - m_Id: 30029
-    m_Key: Wasteland_Father_Select01
+    m_Key: Wasteland_Father_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30030
-    m_Key: Wasteland_Father_Select01_Text
+    m_Key: Wasteland_Father_Select02_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009708
   - m_Id: 30031
-    m_Key: Wasteland_Father_Select02
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30032
-    m_Key: Wasteland_Father_Select02_Text
+    m_Key: Glacier_Angel
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009709
+      - rid: 3634112565313536089
+  - m_Id: 30032
+    m_Key: Glacier_Angel_Select01
+    m_Metadata:
+      m_Items: []
   - m_Id: 30033
-    m_Key: Glacier_Angel
+    m_Key: Glacier_Angel_Select01_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009710
   - m_Id: 30034
-    m_Key: Glacier_Angel_Select01
+    m_Key: Glacier_Angel_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30035
-    m_Key: Glacier_Angel_Select01_Text
+    m_Key: Glacier_Angel_Select02_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009711
   - m_Id: 30036
-    m_Key: Glacier_Angel_Select02
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30037
-    m_Key: Glacier_Angel_Select02_Text
+    m_Key: Glacier_Devil
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009712
+      - rid: 3634112565313536090
+  - m_Id: 30037
+    m_Key: Glacier_Devil_Select01
+    m_Metadata:
+      m_Items: []
   - m_Id: 30038
-    m_Key: Glacier_Devil_Enter
+    m_Key: Glacier_Devil_Select01_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009713
   - m_Id: 30039
-    m_Key: Glacier_Devil_Select01
+    m_Key: Glacier_Devil_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30040
-    m_Key: Glacier_Devil_Select01_Text
+    m_Key: Glacier_Devil_Select02_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009714
   - m_Id: 30041
-    m_Key: Glacier_Devil_Select02
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30042
-    m_Key: Glacier_Devil_Select02_Text
+    m_Key: Glacier_Sprit
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009715
+      - rid: 3634112565313536091
+  - m_Id: 30042
+    m_Key: Glacier_Sprit_Select01
+    m_Metadata:
+      m_Items: []
   - m_Id: 30043
-    m_Key: Glacier_Sprit_Enter
+    m_Key: Glacier_Sprit_Select01_Text
     m_Metadata:
       m_Items:
       - rid: 3634112514202009716
   - m_Id: 30044
-    m_Key: Glacier_Sprit_Select01
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30045
-    m_Key: Glacier_Sprit_Select01_Text
-    m_Metadata:
-      m_Items:
-      - rid: 3634112514202009717
-  - m_Id: 30046
     m_Key: Glacier_Sprit_Select02
     m_Metadata:
       m_Items: []
-  - m_Id: 30047
+  - m_Id: 30045
     m_Key: Glacier_Sprit_Select02_Text
     m_Metadata:
       m_Items:
-      - rid: 3634112514202009718
+      - rid: 3634112514202009717
   - m_Id: 40001
     m_Key: Grave_Princess_01
     m_Metadata:
@@ -485,11 +477,13 @@ MonoBehaviour:
   - m_Id: 50001
     m_Key: Start
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 3634112565313536092
   - m_Id: 50002
     m_Key: Exit
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 3634112565313536093
   - m_Id: 50003
     m_Key: Exit_Confirm
     m_Metadata:
@@ -704,6 +698,22 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009762
+  - m_Id: 4738121786142720
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4738121849057280
+    m_Key: New Entry 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4738121849057281
+    m_Key: New Entry 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4738121849057282
+    m_Key: New Entry 3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -763,99 +773,59 @@ MonoBehaviour:
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uB300\uC7A5\uAC04 \uC120\uD0DD\uC9C0 2"
-    - rid: 3634112514202009695
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC131\uC18C \uC785\uC7A5"
-    - rid: 3634112514202009696
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC131\uC18C \uC120\uCC45\uC9C0 1"
     - rid: 3634112514202009697
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uC131\uC18C \uC120\uD0DD\uC9C0 2"
-    - rid: 3634112514202009698
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uD6C8\uD604\uC18C \uC785\uC7A5"
-    - rid: 3634112514202009699
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uD6C8\uB828\uC18C \uC120\uD0DD\uC9C0 1"
     - rid: 3634112514202009700
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uD6C8\uB828\uC18C \uC120\uD0DD\uC9C0 2"
+        m_CommentText: "\uC218\uC0C1\uD55C \uB178\uD30C \uC785\uC7A5"
     - rid: 3634112514202009701
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uC218\uC0C1\uD55C \uB178\uD30C \uC785\uC7A5"
-    - rid: 3634112514202009702
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uB178\uD30C \uC120\uD0DD\uC9C0 1"
-    - rid: 3634112514202009703
+    - rid: 3634112514202009702
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uB178\uD30C \uC120\uD0DD\uC9C0 2"
     - rid: 3634112514202009704
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC785\uC7A5"
-    - rid: 3634112514202009705
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uC810\uC131\uC220\uC0AC \uC120\uD0DD\uC9C0 1"
-    - rid: 3634112514202009706
+    - rid: 3634112514202009705
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC810\uC131\uC220\uC0AC \uC120\uD0DD\uC9C0 2"
     - rid: 3634112514202009707
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uC2E0\uBD80 \uC785\uC7A5"
-    - rid: 3634112514202009708
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uC2E0\uBD80 \uC120\uD0DD\uC9C0 1"
-    - rid: 3634112514202009709
+    - rid: 3634112514202009708
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC2E0\uBD80 \uC120\uD0DD\uC9C0 2"
     - rid: 3634112514202009710
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uCC9C\uC0AC \uC785\uC7A5"
-    - rid: 3634112514202009711
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uCC9C\uC0AC \uC120\uD0DD\uC9C0 1"
-    - rid: 3634112514202009712
+    - rid: 3634112514202009711
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uCC9C\uC0AC \uC120\uD0DD\uC9C0 2"
     - rid: 3634112514202009713
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uC545\uB9C8 \uC785\uC7A5"
-    - rid: 3634112514202009714
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uC545\uB9C8 \uC120\uD0DD\uC9C0 1"
-    - rid: 3634112514202009715
+    - rid: 3634112514202009714
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC545\uB9C8 \uC120\uD0DD\uC9C0 2"
     - rid: 3634112514202009716
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_CommentText: "\uC815\uB839 \uC785\uC7A5"
-    - rid: 3634112514202009717
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
         m_CommentText: "\uC815\uB839 \uC120\uD0DD\uC9C0 1"
-    - rid: 3634112514202009718
+    - rid: 3634112514202009717
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC815\uB839 \uC120\uD0DD\uC9C0 2"
@@ -1060,6 +1030,56 @@ MonoBehaviour:
       data:
         m_CommentText: "\uC0AC\uC2E0 \uB514\uBC84\uD504 \uD6A8\uACFC \uC124\uBA85
           (\uD234\uD301)"
+    - rid: 3634112565313536082
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC785\uC7A5"
+    - rid: 3634112565313536083
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC120\uCC45\uC9C0 1"
+    - rid: 3634112565313536084
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112565313536085
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uB828\uC18C \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112565313536086
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uB828\uC18C \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112565313536087
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC785\uC7A5"
+    - rid: 3634112565313536088
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2E0\uBD80 \uC785\uC7A5"
+    - rid: 3634112565313536089
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCC9C\uC0AC \uC785\uC7A5"
+    - rid: 3634112565313536090
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC545\uB9C8 \uC785\uC7A5"
+    - rid: 3634112565313536091
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC815\uB839 \uC785\uC7A5"
+    - rid: 3634112565313536092
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC774 \uBC84\uD2BC\uC740 \uC774\uBBF8\uC9C0\uB77C\uC11C
+          \uB85C\uCEEC\uB77C\uC774\uC9D5 \uC81C\uC678"
+    - rid: 3634112565313536093
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC774 \uBC84\uD2BC\uC740 \uC774\uBBF8\uC9C0\uB77C\uC11C
+          \uB85C\uCEEC\uB77C\uC774\uC9D5 \uC81C\uC678"
     - rid: 5564929059473850746
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:

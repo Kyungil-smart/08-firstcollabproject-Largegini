@@ -1,8 +1,9 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
-using UnityEngine.UI;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Localization.Settings;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // 작성자 : 홍정옥
 // 기능 : 튜토리얼 씬 텍스트 및 버튼 제어
@@ -38,6 +39,9 @@ public class TutorialManager : MonoBehaviour
 
     private int currentIndex = 0;
     private UnityEngine.EventSystems.EventTrigger puzzleTrigger;
+
+    // 로컬라이즈 테이블 불러오기(한성우)
+    private string localeTableName = "LocalTable";
 
     void Start()
     {
@@ -222,5 +226,10 @@ public class TutorialManager : MonoBehaviour
         "콤보 안내",
         "전투 UI 안내",
         "튜토리얼 종료"
+            //LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName)
     };
+
+
+    
+    
 }
