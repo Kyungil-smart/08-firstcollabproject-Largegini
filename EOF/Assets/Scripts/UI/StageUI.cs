@@ -17,19 +17,19 @@ public class StageUI : MonoBehaviour
     [SerializeField] private Button closeButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button prevButton;
-    
+
     [Header("선택지")]
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private Button[] choiceButtons;
     [SerializeField] private TMP_Text[] choiceTexts;
-    
+
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private Image image;
     [SerializeField] private Button skipButton;
-    
+
     private int currentIndex;
     private StoryPage[] pages;
-    
+
     // TODO: ScriptableObject 연결 시 아래 주석 해제 후 _eventText 배열 제거
     // [SerializeField] private EventDataSO eventData;
 
@@ -48,12 +48,12 @@ public class StageUI : MonoBehaviour
     private void ShowPage(int index)
     {
         var page = pages[index];
-    
+
         descriptionText.text = page.text;
         image.sprite = page.image;
 
         bool isChoice = page.hasChoice;
-        
+
         descriptionText.gameObject.SetActive(!isChoice);
         choicePanel.SetActive(isChoice);
 
@@ -64,14 +64,14 @@ public class StageUI : MonoBehaviour
                 int capturedIndex = i;
                 choiceTexts[i].text = page.choiceTexts[i];
                 choiceButtons[i].interactable = true;
-            
+
                 choiceButtons[i].onClick.RemoveAllListeners();
                 choiceButtons[i].onClick.AddListener(() =>
                     OnClickChoice(page, capturedIndex));
             }
         }
         skipButton.gameObject.SetActive(!isChoice);
-        
+
         bool isLast = index == pages.Length - 1;
         bool isFirst = index == 0;
         prevButton.gameObject.SetActive(!isFirst);
@@ -84,9 +84,9 @@ public class StageUI : MonoBehaviour
         {
             choiceButtons[i].interactable = (i == choiceIndex);
         }
-        
+
         int nextPage = page.choiceNextIndex[choiceIndex];
-        
+
         StartCoroutine(MoveToPageAfterDelay(nextPage));
     }
     private IEnumerator MoveToPageAfterDelay(int nextIndex)
@@ -99,31 +99,33 @@ public class StageUI : MonoBehaviour
     private void Awake()
     {
         _btnActiveColor = NodeBtns[0].GetComponent<Button>().colors;
-        if (eventController == null) eventController = new EventController();
 
         // 이벤트 팝업용 이벤트 컨트롤러 초기화 (한성우)
         if (eventController == null) eventController = new EventController();
-        
+
+        // 이벤트 팝업을 위해 추가 (한성우)
+        eventController.ActivateEventPopUp();
+
         // Todo: 데이터연결 예정, 임시 테스트 데이터
         pages = new StoryPage[]
         {
-            new StoryPage { text = "이벤트 설명 1", hasChoice = false },
-            new StoryPage { text = "이벤트 설명 2", hasChoice = false },
+            new StoryPage { text = eventController.EventText0101, hasChoice = false },
+            // new StoryPage { text = "이벤트 설명 2", hasChoice = false },
             new StoryPage
             {
                 text = "",
                 hasChoice = true,
-                choiceTexts = new string[] { "1. 칼을 날카롭게 벼린다.", "2. 녹슨 갑주를 개조한다." },
+                choiceTexts = new string[] { eventController.EventText0201, eventController.EventText0202 },
                 choiceNextIndex = new int[] { 3, 3 }
             },
-            new StoryPage { text = "마지막 설명", hasChoice = false },
+            new StoryPage { text = eventController.EventText0301, hasChoice = false },
         };
         // 선택지 버튼 호버 애니메이션
         for (int i = 0; i < choiceButtons.Length; i++)
         {
             var btn = choiceButtons[i];
-        
-            var trigger = btn.GetComponent<EventTrigger>() 
+
+            var trigger = btn.GetComponent<EventTrigger>()
                           ?? btn.gameObject.AddComponent<EventTrigger>();
 
             var enterEntry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
@@ -168,6 +170,9 @@ public class StageUI : MonoBehaviour
         eventPopup.SetActive(true);
         _eventIndex = 0;
         ShowPage(currentIndex);
+
+        // 이벤트 팝업을 위해 추가 (한성우)
+        // eventController.ActivateEventPopUp();
     }
     public void OnClickEventPrev()
     {
@@ -177,7 +182,7 @@ public class StageUI : MonoBehaviour
             ShowPage(currentIndex);
         }
     }
-    
+
     public void OnClickEventNext()
     {
         if (currentIndex < pages.Length - 1)
@@ -197,15 +202,17 @@ public class StageUI : MonoBehaviour
 
     private void UpdateEventPopup()
     {
+        Debug.Log("UpdateEventPopup");
+
         eventPopup.SetActive(true);
-        
+
         // TODO: SO 연결시 아래줄로 교체[ㅎㅏ기
         // eventPopupText.text = eventData.texts[_eventIndex];
         eventPopupText.text = _eventText[_eventIndex];
 
         bool isLast = _eventIndex == _eventText.Length - 1;
         // TODO: SO 연결 시 _eventText.Length -> eventData.texts.Length로교체
-        
+
         bool isFirst = _eventIndex == 0;
         prevButton.gameObject.SetActive(!isFirst);
         closeButton.gameObject.SetActive(isLast);
@@ -269,7 +276,7 @@ public class StoryPage
 {
     public Sprite image;
     public string text;
-    
+
     public bool hasChoice;
     public string[] choiceTexts;
     public int[] choiceNextIndex;
