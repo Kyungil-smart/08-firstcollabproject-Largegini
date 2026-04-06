@@ -21,7 +21,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image storyImage;
     //[SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
+   
     
+
     [SerializeField] private Sprite[] popupImages;
     [SerializeField] private Sprite iconClose;
     [SerializeField] private Image iconNext;
@@ -32,9 +34,6 @@ public class TutorialManager : MonoBehaviour
 
     private ITutorialBoardControl _board;
     private Action _savedProceed;
-    
-    [SerializeField] private DialogueTyper dialogueTyper;
-    
 
     private int currentIndex = 0;
     private UnityEngine.EventSystems.EventTrigger puzzleTrigger;
@@ -63,8 +62,7 @@ public class TutorialManager : MonoBehaviour
         btnEndTurn.SetActive(false);
 
         // Todo: 데이터 연동 후 교체
-        //storyText.text = testTexts[currentIndex];
-        dialogueTyper.ShowText(testTexts[currentIndex]);
+        storyText.text = testTexts[currentIndex];
 
         if (popupImages != null && currentIndex < popupImages.Length)
             storyImage.sprite = popupImages[currentIndex];
