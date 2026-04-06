@@ -16,43 +16,43 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: aac8ceb655d3e9940afa077145e80ad1
   m_Entries:
   - m_Id: 10001
-    m_Key: Grave_King_01
+    m_Key: Grave_King_1
     m_Metadata:
       m_Items: []
   - m_Id: 10002
-    m_Key: Grave_King_02
+    m_Key: Grave_King_2
     m_Metadata:
       m_Items:
       - rid: 3634112514202009682
   - m_Id: 10003
-    m_Key: Grave_King_03
+    m_Key: Grave_King_3
     m_Metadata:
       m_Items: []
   - m_Id: 10004
-    m_Key: Grave_King_04
+    m_Key: Grave_King_4
     m_Metadata:
       m_Items: []
   - m_Id: 10005
-    m_Key: Grave_King_05
+    m_Key: Grave_King_5
     m_Metadata:
       m_Items:
       - rid: 3634112514202009683
   - m_Id: 10006
-    m_Key: Grave_King_06
+    m_Key: Grave_King_6
     m_Metadata:
       m_Items: []
   - m_Id: 10007
-    m_Key: Grave_King_07
+    m_Key: Grave_King_7
     m_Metadata:
       m_Items:
       - rid: 3634112514202009684
   - m_Id: 10008
-    m_Key: Grave_King_08
+    m_Key: Grave_King_8
     m_Metadata:
       m_Items:
       - rid: 3634112514202009685
   - m_Id: 10009
-    m_Key: Grave_King_09
+    m_Key: Grave_King_9
     m_Metadata:
       m_Items: []
   - m_Id: 10010
@@ -413,44 +413,44 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009717
   - m_Id: 40001
-    m_Key: Grave_Princess_01
+    m_Key: Grave_Princess_1
     m_Metadata:
       m_Items: []
   - m_Id: 40002
-    m_Key: Grave_Princess_02
+    m_Key: Grave_Princess_2
     m_Metadata:
       m_Items: []
   - m_Id: 40003
-    m_Key: Grave_Princess_03
+    m_Key: Grave_Princess_3
     m_Metadata:
       m_Items:
       - rid: 3634112514202009719
   - m_Id: 40004
-    m_Key: Grave_Princess_04
+    m_Key: Grave_Princess_4
     m_Metadata:
       m_Items:
       - rid: 3634112514202009720
   - m_Id: 40005
-    m_Key: Grave_Princess_05
+    m_Key: Grave_Princess_5
     m_Metadata:
       m_Items:
       - rid: 3634112514202009721
   - m_Id: 40006
-    m_Key: Grave_Princess_06
+    m_Key: Grave_Princess_6
     m_Metadata:
       m_Items: []
   - m_Id: 40007
-    m_Key: Grave_Princess_07
+    m_Key: Grave_Princess_7
     m_Metadata:
       m_Items:
       - rid: 3634112514202009722
   - m_Id: 40008
-    m_Key: Grave_Princess_08
+    m_Key: Grave_Princess_8
     m_Metadata:
       m_Items:
       - rid: 3634112514202009723
   - m_Id: 40009
-    m_Key: Grave_Princess_09
+    m_Key: Grave_Princess_9
     m_Metadata:
       m_Items:
       - rid: 3634112514202009724
@@ -698,20 +698,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009762
-  - m_Id: 4738121786142720
-    m_Key: New Entry
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4738121849057280
-    m_Key: New Entry 1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4738121849057281
-    m_Key: New Entry 2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4738121849057282
-    m_Key: New Entry 3
+  - m_Id: 4774566940848128
+    m_Key: New Entry 4
     m_Metadata:
       m_Items: []
   m_Metadata:
