@@ -74,19 +74,19 @@ public class RewardController
         switch (selectedReward.ERewardType)
         {
             case ERewardType.Player_Stat:
-                Debug.Log($"벨류 2번 사용 스텟");
+                // Debug.Log($"벨류 2번 사용 스텟");
                 SetPlayerStat();
                 break;
             case ERewardType.Player_Stat_2:
-                Debug.Log($"벨류 1, 2번 모두 사용 스텟");
+                // Debug.Log($"벨류 1, 2번 모두 사용 스텟");
                 SetPlayerStatTwo();
                 break;
             case ERewardType.Player_Skill:
-                Debug.Log($"스킬 추가");
+                // Debug.Log($"스킬 추가");
                 SetPlayerSkill();
                 break;
             case ERewardType.Player_HPRecovery:
-                Debug.Log($"일회성 회복");
+                // Debug.Log($"일회성 회복");
                 SetHPRecovery();
                 break;
             default:
@@ -159,13 +159,13 @@ public class RewardController
         switch (selectedReward.ERewardSubType)
         {
             case ERewardSubType.Inverse_Value:
-                Debug.Log($"현재 체력 % 감소 / 방어막 생산량 감소"); 
+                Debug.Log($"공격력 증가 / 방어막 생산량 감소"); 
                 DataManager._instance.savedPlayerData.Damage_Normal += selectedReward.ValueA;
                 DataManager._instance.savedPlayerData.Shield -= selectedReward.ValueB;
                 break;
 
             case ERewardSubType.Counterpoise_Value:
-                Debug.Log($"공격력 증가 / 행동력 게이지 상승량 증가");
+                Debug.Log($"현재 체력 % 감소 / 행동력 게이지 상승량 증가");
                 DataManager._instance.savedPlayerData.CurrentHP *= 0.5f;
                 DataManager._instance.savedPlayerData.GaugeIncreaseRate += selectedReward.ValueB;
                 break;

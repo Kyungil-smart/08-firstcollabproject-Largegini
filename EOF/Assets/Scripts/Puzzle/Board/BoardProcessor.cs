@@ -47,10 +47,9 @@ public class BoardProcessor
             result.comboCount++;
             result.AddMatches(matches);
             
-            // 2콤보부터 UI에 알림
-            if (result.comboCount >= 2)
-                onComboUpdated?.Invoke(result.comboCount);
-
+            // 2콤보부터 UI에 알림은 ComboDisplayUI에서 결정
+            onComboUpdated?.Invoke(result.comboCount);
+            
             // 1. 매치된 블록 제거 (이펙트 완료 + 최소 딜레이 모두 충족 시 진행)
             bool clearDone = false;
             bool delayDone = false;

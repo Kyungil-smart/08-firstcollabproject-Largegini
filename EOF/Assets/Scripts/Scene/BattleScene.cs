@@ -13,11 +13,8 @@ public class BattleScene:IScene
     
     public void Enter()
     {
-        //_system = GameObject.FindAnyObjectByType<BattleSystem>();
-        Debug.Log(_system);
         // 배틀 씬 진입
-        SceneManager.LoadScene((int)ESceneType.Battle);
-
+        SceneLoader.Intance.Fade.ChangeScene(ESceneType.Battle);
     }
 
     public void Update()

@@ -9,7 +9,7 @@ public class TutorialScene : IScene
     public void Enter()
     {
         SceneLoader.Intance.HasTutorial = true;
-        SceneManager.LoadScene((int)ESceneType.Tutorial);
+        SceneLoader.Intance.Fade.ChangeScene(ESceneType.Tutorial);
     }
 
     public void Update()

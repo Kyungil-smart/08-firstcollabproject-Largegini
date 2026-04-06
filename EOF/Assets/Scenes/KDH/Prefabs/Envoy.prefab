@@ -135,6 +135,7 @@ MonoBehaviour:
   _minDamage: 0
   _invincibility: 0
   _soulHarvest: 0
+  _envoySound: {fileID: 11400000, guid: 7456159e83db4914bb69cc7fcc12b75b, type: 2}
 --- !u!114 &3442974596008391300
 MonoBehaviour:
   m_ObjectHideFlags: 0

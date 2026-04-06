@@ -16,21 +16,694 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: aac8ceb655d3e9940afa077145e80ad1
   m_Entries:
   - m_Id: 10001
-    m_Key: Dummy_01
+    m_Key: Grave_King_01
     m_Metadata:
       m_Items: []
   - m_Id: 10002
-    m_Key: Dummy_02
+    m_Key: Grave_King_02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009682
+  - m_Id: 10003
+    m_Key: Grave_King_03
     m_Metadata:
       m_Items: []
-  - m_Id: 21038051328
-    m_Key: Stat_HP
+  - m_Id: 10004
+    m_Key: Grave_King_04
     m_Metadata:
       m_Items: []
-  - m_Id: 62708461568
-    m_Key: Stat_Shield
+  - m_Id: 10005
+    m_Key: Grave_King_05
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009683
+  - m_Id: 10006
+    m_Key: Grave_King_06
     m_Metadata:
       m_Items: []
+  - m_Id: 10007
+    m_Key: Grave_King_07
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009684
+  - m_Id: 10008
+    m_Key: Grave_King_08
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009685
+  - m_Id: 10009
+    m_Key: Grave_King_09
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10010
+    m_Key: Grave_King_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10011
+    m_Key: Grave_King_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10012
+    m_Key: Grave_King_12
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009686
+  - m_Id: 20001
+    m_Key: Wasteland_Orc_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20002
+    m_Key: Wasteland_King_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20003
+    m_Key: Wasteland_Orc_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20004
+    m_Key: Wasteland_King_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20005
+    m_Key: Wasteland_King_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20006
+    m_Key: Wasteland_Orc_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20007
+    m_Key: Wasteland_Orc_04
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009687
+  - m_Id: 20008
+    m_Key: Glacier_Dragon_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20009
+    m_Key: Glacier_King_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20010
+    m_Key: Glacier_Dragon_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20011
+    m_Key: Glacier_King_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20012
+    m_Key: Glacier_Dragon_03
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009688
+  - m_Id: 20013
+    m_Key: Unknown_Narration01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20014
+    m_Key: Unknown_Death_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20015
+    m_Key: Unknown_Death_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20016
+    m_Key: Unknown_King_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20017
+    m_Key: Unknown_King_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20018
+    m_Key: Unknown_Death_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20019
+    m_Key: Unknown_King_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20020
+    m_Key: Unknown_King_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20021
+    m_Key: Unknown_Death_04
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20022
+    m_Key: Unknown_King_05
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009689
+  - m_Id: 20023
+    m_Key: Unknown_End_Narration_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20024
+    m_Key: Unknown_End_Narration_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20025
+    m_Key: Unknown_End_Narration_03
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20026
+    m_Key: Unknown_End_Princess_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20027
+    m_Key: Unknown_End_Narration_05
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20028
+    m_Key: Unknown_End_Narration_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20029
+    m_Key: Unknown_End_King_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20030
+    m_Key: Unknown_End_King_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20031
+    m_Key: Unknown_Good_End_Queen_01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009690
+  - m_Id: 20032
+    m_Key: Unknown_Good_End_Queen_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20033
+    m_Key: Unknown_Bad_End_Narration_01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009691
+  - m_Id: 30001
+    m_Key: Blacksmith
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009692
+  - m_Id: 30002
+    m_Key: Blacksmith_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30003
+    m_Key: Blacksmith_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009693
+  - m_Id: 30004
+    m_Key: Blacksmith_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30005
+    m_Key: Blacksmith_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009694
+  - m_Id: 30006
+    m_Key: Sanctum_Enter01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30007
+    m_Key: Sanctum_Enter02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009695
+  - m_Id: 30008
+    m_Key: Sanctum_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30009
+    m_Key: Sanctum_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009696
+  - m_Id: 30010
+    m_Key: Sanctum_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30011
+    m_Key: Sanctum_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009697
+  - m_Id: 30012
+    m_Key: Barrack
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009698
+  - m_Id: 30013
+    m_Key: Barrack_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30014
+    m_Key: Barrack_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009699
+  - m_Id: 30015
+    m_Key: Barrack_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30016
+    m_Key: Barrack_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009700
+  - m_Id: 30017
+    m_Key: Wasteland_Hag_Enter01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30018
+    m_Key: Wasteland_Hag_Enter02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009701
+  - m_Id: 30019
+    m_Key: Wasteland_Hag_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30020
+    m_Key: Wasteland_Hag_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009702
+  - m_Id: 30021
+    m_Key: Wasteland_Hag_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30022
+    m_Key: Wasteland_Hag_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009703
+  - m_Id: 30023
+    m_Key: Wasteland_Oracle_Enter
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009704
+  - m_Id: 30024
+    m_Key: Wasteland_Oracle_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30025
+    m_Key: Wasteland_Oracle_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009705
+  - m_Id: 30026
+    m_Key: Wasteland_Oracle_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30027
+    m_Key: Wasteland_Oracle_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009706
+  - m_Id: 30028
+    m_Key: Wasteland_Father
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009707
+  - m_Id: 30029
+    m_Key: Wasteland_Father_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30030
+    m_Key: Wasteland_Father_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009708
+  - m_Id: 30031
+    m_Key: Wasteland_Father_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30032
+    m_Key: Wasteland_Father_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009709
+  - m_Id: 30033
+    m_Key: Glacier_Angel
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009710
+  - m_Id: 30034
+    m_Key: Glacier_Angel_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30035
+    m_Key: Glacier_Angel_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009711
+  - m_Id: 30036
+    m_Key: Glacier_Angel_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30037
+    m_Key: Glacier_Angel_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009712
+  - m_Id: 30038
+    m_Key: Glacier_Devil_Enter
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009713
+  - m_Id: 30039
+    m_Key: Glacier_Devil_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30040
+    m_Key: Glacier_Devil_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009714
+  - m_Id: 30041
+    m_Key: Glacier_Devil_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30042
+    m_Key: Glacier_Devil_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009715
+  - m_Id: 30043
+    m_Key: Glacier_Sprit_Enter
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009716
+  - m_Id: 30044
+    m_Key: Glacier_Sprit_Select01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30045
+    m_Key: Glacier_Sprit_Select01_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009717
+  - m_Id: 30046
+    m_Key: Glacier_Sprit_Select02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30047
+    m_Key: Glacier_Sprit_Select02_Text
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009718
+  - m_Id: 40001
+    m_Key: Grave_Princess_01
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40002
+    m_Key: Grave_Princess_02
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40003
+    m_Key: Grave_Princess_03
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009719
+  - m_Id: 40004
+    m_Key: Grave_Princess_04
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009720
+  - m_Id: 40005
+    m_Key: Grave_Princess_05
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009721
+  - m_Id: 40006
+    m_Key: Grave_Princess_06
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40007
+    m_Key: Grave_Princess_07
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009722
+  - m_Id: 40008
+    m_Key: Grave_Princess_08
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009723
+  - m_Id: 40009
+    m_Key: Grave_Princess_09
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009724
+  - m_Id: 40010
+    m_Key: Grave_Princess_10
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009725
+  - m_Id: 40011
+    m_Key: Grave_Princess_11
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009726
+  - m_Id: 40012
+    m_Key: Grave_Princess_12
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009727
+  - m_Id: 40013
+    m_Key: Grave_Princess_13
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009728
+  - m_Id: 50001
+    m_Key: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50002
+    m_Key: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50003
+    m_Key: Exit_Confirm
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009729
+  - m_Id: 50004
+    m_Key: PopUP_Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50005
+    m_Key: PopUP_No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50006
+    m_Key: Settings
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009730
+  - m_Id: 50007
+    m_Key: BGM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50008
+    m_Key: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50009
+    m_Key: Language_Kor
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009731
+  - m_Id: 50010
+    m_Key: Language_Eng
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009732
+  - m_Id: 50011
+    m_Key: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50012
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50013
+    m_Key: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50014
+    m_Key: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50015
+    m_Key: Paused
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009733
+  - m_Id: 50016
+    m_Key: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50017
+    m_Key: Return_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50018
+    m_Key: Warning_Main
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009734
+  - m_Id: 50019
+    m_Key: Action_Point
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50020
+    m_Key: Turn_End
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009735
+  - m_Id: 50021
+    m_Key: Warning_Puzzle
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009736
+  - m_Id: 50022
+    m_Key: Warning_Turn
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009737
+  - m_Id: 50023
+    m_Key: Warning_Close
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009738
+  - m_Id: 60001
+    m_Key: Buff_Blacksmith01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009739
+  - m_Id: 60002
+    m_Key: Buff_Blacksmith02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009740
+  - m_Id: 60003
+    m_Key: Heal_Sanctum
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009741
+  - m_Id: 60004
+    m_Key: Buff_Sanctum
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009742
+  - m_Id: 60005
+    m_Key: Buff_Barrack01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009743
+  - m_Id: 60006
+    m_Key: Buff_Barrack02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009744
+  - m_Id: 60007
+    m_Key: Buff_Hag01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009745
+  - m_Id: 60008
+    m_Key: Buff_Hag02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009746
+  - m_Id: 60009
+    m_Key: Buff_Oracle01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009747
+  - m_Id: 60010
+    m_Key: Buff_Oracle02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009748
+  - m_Id: 60011
+    m_Key: Buff_Father01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009749
+  - m_Id: 60012
+    m_Key: Buff_Father02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009750
+  - m_Id: 60013
+    m_Key: Buff_Angel01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009751
+  - m_Id: 60014
+    m_Key: Buff_Angel02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009752
+  - m_Id: 60015
+    m_Key: Buff_Devil01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009753
+  - m_Id: 60016
+    m_Key: Buff_Devil02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009754
+  - m_Id: 60017
+    m_Key: Buff_Sprit01
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009755
+  - m_Id: 60018
+    m_Key: Buff_Sprit02
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009756
+  - m_Id: 60019
+    m_Key: Buff_Orc
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009757
+  - m_Id: 60020
+    m_Key: Buff_Blue_Dragon
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009758
+  - m_Id: 60021
+    m_Key: Buff_Death
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009759
+  - m_Id: 60022
+    m_Key: Debuff_Blue_Dragon
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009760
+  - m_Id: 60023
+    m_Key: Debuff_Death_block
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009761
+  - m_Id: 60024
+    m_Key: Debuff_Death_Action
+    m_Metadata:
+      m_Items:
+      - rid: 3634112514202009762
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -38,6 +711,355 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3634112514202009682
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC724\uD68C"
+    - rid: 3634112514202009683
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uBE44\uADF9 \uBAA9\uACA9"
+    - rid: 3634112514202009684
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0DD\uC804 \uAE30\uC5B5"
+    - rid: 3634112514202009685
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC804\uD22C \uB3CC\uC785"
+    - rid: 3634112514202009686
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC801 \uCC98\uCE58 \uBC0F \uBCF4\uC0C1"
+    - rid: 3634112514202009687
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2A4\uD14C\uC774\uC9C0 1"
+    - rid: 3634112514202009688
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2A4\uD14C\uC774\uC9C0 2"
+    - rid: 3634112514202009689
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2A4\uD14C\uC774\uC9C0 3"
+    - rid: 3634112514202009690
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC5D4\uB529v1"
+    - rid: 3634112514202009691
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC5D4\uB529v2"
+    - rid: 3634112514202009692
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB300\uC7A5\uAC04 \uC785\uC7A5"
+    - rid: 3634112514202009693
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB300\uC7A5\uAC04 \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009694
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB300\uC7A5\uAC04 \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009695
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC785\uC7A5"
+    - rid: 3634112514202009696
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC120\uCC45\uC9C0 1"
+    - rid: 3634112514202009697
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009698
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uD604\uC18C \uC785\uC7A5"
+    - rid: 3634112514202009699
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uB828\uC18C \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009700
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uB828\uC18C \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009701
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC218\uC0C1\uD55C \uB178\uD30C \uC785\uC7A5"
+    - rid: 3634112514202009702
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB178\uD30C \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009703
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB178\uD30C \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009704
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC785\uC7A5"
+    - rid: 3634112514202009705
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009706
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009707
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2E0\uBD80 \uC785\uC7A5"
+    - rid: 3634112514202009708
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2E0\uBD80 \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009709
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2E0\uBD80 \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009710
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCC9C\uC0AC \uC785\uC7A5"
+    - rid: 3634112514202009711
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCC9C\uC0AC \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009712
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCC9C\uC0AC \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009713
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC545\uB9C8 \uC785\uC7A5"
+    - rid: 3634112514202009714
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC545\uB9C8 \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009715
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC545\uB9C8 \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009716
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC815\uB839 \uC785\uC7A5"
+    - rid: 3634112514202009717
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC815\uB839 \uC120\uD0DD\uC9C0 1"
+    - rid: 3634112514202009718
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC815\uB839 \uC120\uD0DD\uC9C0 2"
+    - rid: 3634112514202009719
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCCAB \uB300\uC0AC(\uC724\uD68C \uC554\uC2DC)"
+    - rid: 3634112514202009720
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uAC8C\uC784 \uD654\uBA74 \uC18D \uD37C\uC990 UI \uC548\uB0B4"
+    - rid: 3634112514202009721
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uAE30\uBCF8 \uC870\uC791 \uC548\uB0B4"
+    - rid: 3634112514202009722
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD589\uB3D9\uB825 \uC18C\uBAA8 \uC548\uB0B4"
+    - rid: 3634112514202009723
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCF64\uBCF4 \uC2DC\uC2A4\uD15C \uC548\uB0B4"
+    - rid: 3634112514202009724
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uAC8C\uC784 \uD654\uBA74 \uC18D \uC804\uD22C UI \uC548\uB0B4"
+    - rid: 3634112514202009725
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uACF5\uACA9 \uD0C0\uC77C"
+    - rid: 3634112514202009726
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uBC29\uC5B4 \uD0C0\uC77C"
+    - rid: 3634112514202009727
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD68C\uBCF5 \uD0C0\uC77C"
+    - rid: 3634112514202009728
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD2B9\uC218\uAE30 \uD0C0\uC77C"
+    - rid: 3634112514202009729
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uBA54\uC778\uD654\uBA74 \uAC8C\uC784 \uC885\uB8CC \uD31D\uC5C5
+          \uC0C1\uB2E8 \uD14D\uC2A4\uD2B8"
+    - rid: 3634112514202009730
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC124\uC815 \uD31D\uC5C5 \uC0C1\uB2E8 \uD14D\uC2A4\uD2B8"
+    - rid: 3634112514202009731
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD55C\uAD6D\uC5B4 \uC120\uD0DD \uBC84\uD2BC"
+    - rid: 3634112514202009732
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC601\uC5B4 \uC120\uD0DD \uBC84\uD2BC"
+    - rid: 3634112514202009733
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC77C\uC2DC\uC815\uC9C0 \uD31D\uC5C5 \uC0C1\uB2E8 \uD14D\uC2A4\uD2B8"
+    - rid: 3634112514202009734
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uACBD\uACE0 \uD31D\uC5C5 \uC0C1\uB2E8 \uD14D\uC2A4\uD2B8"
+    - rid: 3634112514202009735
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD134 \uC885\uB8CC \uBC84\uD2BC"
+    - rid: 3634112514202009736
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCD08\uAE30\uD654 \uD31D\uC5C5 \uC0C1\uB2E8 \uD14D\uC2A4\uD2B8"
+    - rid: 3634112514202009737
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD134 \uC885\uB8CC \uD31D\uC5C5 \uC0C1\uB2E8 \uD14D\uC2A4\uD2B8"
+    - rid: 3634112514202009738
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD134 \uC885\uB8CC \uCDE8\uC18C \uBC84\uD2BC"
+    - rid: 3634112514202009739
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB300\uC7A5\uAC04 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009740
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uB300\uC7A5\uAC04 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009741
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009742
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC131\uC18C \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009743
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uB828\uC18C \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009744
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uD6C8\uB828\uC18C \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009745
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC218\uC0C1\uD55C \uB178\uD30C \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009746
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC218\uC0C1\uD55C \uB178\uD30C \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009747
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009748
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC810\uC131\uC220\uC0AC \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C
+          \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009749
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2E0\uBD80 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009750
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2E0\uBD80 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009751
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCC9C\uC0AC \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009752
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uCC9C\uC0AC \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009753
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC545\uB9C8 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009754
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC545\uB9C8 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009755
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC815\uB839 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009756
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC815\uB839 \uC774\uBCA4\uD2B8 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009757
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uBD89\uC740 \uC624\uD06C\uC871 \uD589\uB3D9\uB300\uC7A5
+          \uD328\uC2DC\uBE0C \uD6A8\uACFC \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009758
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uBE14\uB8E8\uB4DC\uB798\uACE4 \uD328\uC2DC\uBE0C \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009759
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0AC\uC2E0 \uD328\uC2DC\uBE0C \uD6A8\uACFC \uC124\uBA85
+          (\uD234\uD301)"
+    - rid: 3634112514202009760
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uBE14\uB8E8\uB4DC\uB798\uACE4 \uB514\uBC84\uD504 \uD6A8\uACFC
+          \uC124\uBA85 (\uD234\uD301)"
+    - rid: 3634112514202009761
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0AC\uC2E0 \uB514\uBC84\uD504 \uD6A8\uACFC \uC124\uBA85
+          (\uD234\uD301)"
+    - rid: 3634112514202009762
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC0AC\uC2E0 \uB514\uBC84\uD504 \uD6A8\uACFC \uC124\uBA85
+          (\uD234\uD301)"
     - rid: 5564929059473850746
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:

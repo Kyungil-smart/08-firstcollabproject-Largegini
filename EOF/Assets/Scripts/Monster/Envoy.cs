@@ -7,7 +7,9 @@ using UnityEngine;
  */
 public class Envoy : Monster
 {
+    [Header("영혼 수확")]
     public int _soulHarvest;
+    public StagewithMonster _envoySound;
     private void Awake()
     {
         // _maxhealth = _tableMaxHP;
@@ -42,7 +44,8 @@ public class Envoy : Monster
     {
         Debug.Log("영혼가르기");
         Player.Instance._defensive = 0;
-        _animator.SetTrigger("FristAttack");
+        _animator.SetTrigger("FirstAttack");
+        SoundManager.Instance.PlaySFX(_envoySound.attackSFX[0]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
@@ -53,18 +56,19 @@ public class Envoy : Monster
     {
         Debug.Log("생자필멸");
         _animator.SetTrigger("SecondAttack");
+        SoundManager.Instance.PlaySFX(_envoySound.attackSFX[1]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage));
         Player.Instance._reverse = true;
         _soulHarvest++;
-
     }
 
     public override IEnumerator ThirdPattern()
     {
         Debug.Log("종말");
         _animator.SetTrigger("ThirdAttack");
+        SoundManager.Instance.PlaySFX(_envoySound.attackSFX[2]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage + 20, _minDamage + 41));

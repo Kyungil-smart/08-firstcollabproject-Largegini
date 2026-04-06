@@ -116,6 +116,7 @@ MonoBehaviour:
   _dragonScale: 0
   _passiveCount: 0
   _defensive: 0
+  _blueDragonSound: {fileID: 11400000, guid: 1e83b6833c3903640aa3de757116180c, type: 2}
 --- !u!114 &3776482499478972829
 MonoBehaviour:
   m_ObjectHideFlags: 0

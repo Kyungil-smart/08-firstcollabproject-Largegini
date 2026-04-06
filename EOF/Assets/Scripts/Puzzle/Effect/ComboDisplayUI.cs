@@ -45,6 +45,9 @@ public class ComboDisplayUI : MonoBehaviour
 
     public void OnComboUpdated(int comboCount)
     {
+        // 1콤보 텍스트 연출 생략
+        if (comboCount < 2) return;
+        
         // 기존 연출 중이면 즉시 종료
         _currentSequence?.Kill();
         

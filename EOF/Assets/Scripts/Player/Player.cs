@@ -24,15 +24,20 @@ public class Player : MonoBehaviour
             _rewardSkillController.ActivateStatSkillProcess();
         }
     }
-    public float _maxHealth = 100f;
-    public float _attack;
-    public float _attackSpecial;
-    public float _defensive;    // 쉴드
-    public float _defensiveGauge;
-    public int _behavioralGauge;// 행동력게이지
-    public bool _freeze;        // 냉동
+    public float _maxHealth;
+    [Header("구슬매칭 갯수당 올라가는 공격력")]
+    public float _attack;       // 구슬매칭 갯수당 올라가는 공격력
+    [Header("구슬 매칭 갯수당 올라가는 특수 공격력")]
+    public float _attackSpecial;// 구슬 매칭 갯수당 올라가는 특수 공격력
+    [Header("구슬 매칭 갯수당 올라가는 실드")]
+    public float _defensive;    // 구슬 매칭 갯수당 올라가는 실드
+    [Header("구슬 매칭 갯수당 올라가는 힐량")]
+    public float _heal;         // 구슬 매칭 갯수당 올라가는 힐량
+    [Header("상태이상 및 행동력")]
+    public float _defensiveGauge; // 매칭이 완료되었을 때 차오르는 실드량 
+    public int _behavioralGauge;// 행동력게이지 (최대치)넘어가면 행동력이 늘어남
+    public bool _freeze;        // 냉동(드래곤 브레스) 피격 시 생기는 상태이상
     public bool _reverse;       // 사신2번째 기믹용 회복타일이 대미지를 받는 기믹
-    public float _heal;
     public bool _theEnd;        // 사신 필살기용 도트대미지
     public int _behavior;
     public int _maxbehavior;    // 액션
@@ -60,7 +65,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public float AddGaugeIncreaseRate { get; set; }
     [field: SerializeField] private float _finalDamage;
 
-
+    [SerializeField] private AudioClip[] _sfx;
     private RewardSkillController _rewardSkillController;
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
@@ -99,6 +104,7 @@ public class Player : MonoBehaviour
     public IEnumerator Dead()
     {
         _animator.SetTrigger("Dead");
+        SoundManager.Instance.PlaySFX(_sfx[5]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(0.5f);
     }
@@ -107,6 +113,7 @@ public class Player : MonoBehaviour
     public IEnumerator IResurrection()
     {
         _animator.SetTrigger("Heal");
+        SoundManager.Instance.PlaySFX(_sfx[3]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
     }
@@ -161,6 +168,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("공격");
         _animator.SetTrigger(_anim);
+        if (_anim.Equals("SpecialAttack")) SoundManager.Instance.PlaySFX(_sfx[1]);
+        else SoundManager.Instance.PlaySFX(_sfx[0]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
 
@@ -175,22 +184,22 @@ public class Player : MonoBehaviour
         _finalDamage = 0;
     }
 
-    public IEnumerator SpecialATK(int count, int combo)
-    {
-        Debug.Log("특수 공격");
-        _animator.SetTrigger("SpecialAttack");
-        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-        yield return new WaitForSeconds(.5f);
-        Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
-        _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
-    
-        // 흡혈 기능을 위해 추가 (한성우)
-        if (_healthAbsorbRate > 0)
-        {
-            GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
-        }
-    
-    }
+    // public IEnumerator SpecialATK(int count, int combo)
+    // {
+    //     Debug.Log("특수 공격");
+    //     _animator.SetTrigger("SpecialAttack");
+    //     yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+    //     yield return new WaitForSeconds(.5f);
+    //     Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
+    //     _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
+    //
+    //     // 흡혈 기능을 위해 추가 (한성우)
+    //     if (_healthAbsorbRate > 0)
+    //     {
+    //         GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
+    //     }
+    //
+    // }
     
     public IEnumerator Heal(int count, int combo)
     {
@@ -199,10 +208,12 @@ public class Player : MonoBehaviour
         {
             ReceiveDamage(GiveDamageCalculator((_heal + AddHeal), count, combo));
             // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
+            _reverse = false;
         }
         else
         {
             _animator.SetTrigger("Heal");
+            SoundManager.Instance.PlaySFX(_sfx[3]);
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             yield return new WaitForSeconds(.5f);
             _health += (GiveDamageCalculator((_heal + AddHeal), count, combo));
@@ -219,6 +230,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("쉴드");
         _animator.SetTrigger("Defense");
+        SoundManager.Instance.PlaySFX(_sfx[2]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
         _defensiveGauge = (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
@@ -252,7 +264,7 @@ public class Player : MonoBehaviour
             if (_defensiveGauge >= damage)
             {
                 _defensiveGauge -= damage;
-                _defensiveGauge *= 0.5f;
+                SoundManager.Instance.PlaySFX(_sfx[4]);
                 return;
             }
             else
@@ -260,10 +272,12 @@ public class Player : MonoBehaviour
                 damage -= _defensiveGauge;
                 _defensiveGauge = 0;
                 _health -= damage;
+                SoundManager.Instance.PlaySFX(_sfx[4]);
                 return;
             }
         }
         _health -= damage;
+        SoundManager.Instance.PlaySFX(_sfx[4]);
     }
 
     public void Evolve(int stageIndex)

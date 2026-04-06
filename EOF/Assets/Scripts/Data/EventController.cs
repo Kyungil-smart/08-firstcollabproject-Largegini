@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 
 
 // 작성자 : 한성우
@@ -22,33 +24,48 @@ public class EventController : MonoBehaviour
     [Header("불러오는 값")]
     // [field: SerializeField] public int EventID { get; private set; }
     // [field: SerializeField] public EventType LoadedEventType { get; private set; }
-    public int randomNumber = 0;
-    
-    
+    private int randomNumber = 0;    // 랜덤으로 선택된 이벤트 번호(현재는 3개 중 1개)
+    private int stageNumber = 0; // 스테이지 번호
 
-    EventTable table;   // 불러올 이벤트 테이블
+    // 번역 텍스트
+    [field: SerializeField] public string EventText0101 {  get; set; }
+    [field: SerializeField] public string EventText0201 {  get; set; }
+    [field: SerializeField] public string EventText0202 {  get; set; }
+    [field: SerializeField] public string EventText0301 {  get; set; }
+
+    // 이미지 정보
+    [field: SerializeField] public string EventImageAddress { get; set; }
+    [field: SerializeField] public GameObject EventImageSprite { get; set; }
+
+
+    private EventTable table;   // 불러올 이벤트 테이블
+    private EventData _target;
     private List<EventData> targetEvent = new List<EventData>();  // 조건에 맞는 이벤트를 잠시 저장할 데이터 리스트
     private RewardController rewardController = new RewardController(); // 보상 테이블 불러오기
+    private string localeTableName = "LocalTable";// 로컬라이즈 테이블 불러오기
 
 
-    private void Start()
+    public void ActivateEventPopUp()
     {
         Init();
+
+        SetIndexToCurrentEventType();
 
         PickRandomEvent();
     }
 
     // 초기화하기
-    public void Init()
+    private void Init()
     {
         
 
         if (DataManager._instance == null)
         {
-            Debug.Log("DataManager._instance == null");
+            Debug.LogError("DataManager._instance == null");
             return;
         }
 
+        stageNumber = 0;
         table = DataManager._instance.GetEventTable();
 
 
@@ -56,12 +73,36 @@ public class EventController : MonoBehaviour
         if(targetEvent != null) targetEvent.Clear();
 
         testIndex = 0;
+
+        stageNumber = SceneLoader.Intance.StageIndex;   // 스테이지 번호 불러오기
     }
 
 
+    // 이벤트 타입에 맞는 인덱스 설정 (1번 / 2번 / 3번)
+    private void SetIndexToCurrentEventType()
+    {
+        switch(stageNumber)
+        {
+            case 0:
+                CurrentEventType = EventType.EventFirst;
+                break;
+            case 2:
+                CurrentEventType = EventType.EventSecond;
+                break;
+            case 4:
+                CurrentEventType = EventType.EventThired;
+                break;
+            default:
+                Debug.LogError("EventController 이벤트 타입 설정 확인 필요");
+                break;
+        }
+        Debug.Log($"현재 이벤트 타입 : {CurrentEventType}");
+
+    }
+
 
     // 노드 구분에 따라 불러올 랜덤 이벤트 선택
-    public void PickRandomEvent()
+    private void PickRandomEvent()
     {
         
 
@@ -74,9 +115,6 @@ public class EventController : MonoBehaviour
                 Debug.Log($"{element.Value.EventID} 저장");
             }
         }
-        // Debug.Log($"저장됨 : {targetEvent[0].EventID}");
-        // Debug.Log($"저장됨 : {targetEvent[1].EventID}");
-        // Debug.Log($"저장됨 : {targetEvent[2].EventID}");
 
 
         // 랜덤 이벤트 중 선택하기
@@ -92,28 +130,67 @@ public class EventController : MonoBehaviour
 
 
     // 이벤트에 따른 선택지 불러오기
-    public void LoadEventChoice(EventData target)
+    private void LoadEventChoice(EventData target)
     {
-        Debug.Log($"{target.EventID} 1번 선택지 대사 : {target.RewardAID}");
-        Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
+        _target = target;
+        // Debug.Log($"{target.EventID} 1번 선택지 대사 : {target.RewardAID}");
+        // Debug.Log($"{target.EventID} 2번 선택지 대사 : {target.RewardBID}");
 
-        // UI에 타겟 보내기
+
+        // UI에 대사 보내기용 수정
+        EventText0101 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName);
+        EventText0201 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select01");
+        EventText0202 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02");
+
+        Debug.Log($"이벤트 대사 0 : {_target.EventName}");
+        Debug.Log($"이벤트 대사 1 : {EventText0101}");
+        Debug.Log($"이벤트 대사 2 : {EventText0201}");
+        Debug.Log($"이벤트 대사 3 : {EventText0202}");
+
+
+        /*
+        // 아래는 if 문 따라 수정 필요
+        EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02" + "_Text");
+
+        Debug.Log($"이벤트 대사 4 : {EventText0301}");
+
+
 
 
         // 임시로 타겟 자동 불러오기
         testIndex = selectedRewardIndex;    // 테스트 용으로 임시로 넣어놓은 ID
-        if (selectedRewardIndex == 0) rewardController.RewardProcess(target.RewardAID);
-        else if (selectedRewardIndex == 1) rewardController.RewardProcess(target.RewardBID);
-
+        if (selectedRewardIndex == 0) rewardController.RewardProcess(_target.RewardAID);
+        else if (selectedRewardIndex == 1) rewardController.RewardProcess(_target.RewardBID);
+        */
 
     }
 
+
+    
 
 
     // 유저가 고른 선택지 저장하기
     public void SaveSelectedEvent(int selectedRewardID)
     {
-        
+        switch(selectedRewardID)
+        {
+            case 0:
+                Debug.LogError("0번 인덱스, 잘못된 선택지");
+                break;
+            case 1:
+                Debug.Log("1번 선택지");
+                EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select01" + "_Text");
+                rewardController.RewardProcess(_target.RewardAID);
+                break;
+            case 2:
+                Debug.Log("2번 선택지");
+                EventText0301 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02" + "_Text");
+                rewardController.RewardProcess(_target.RewardBID);
+                break;
+            default:
+                Debug.LogError("인덱스 초과, 잘못된 선택지");
+                break;
+        }
 
 
 
