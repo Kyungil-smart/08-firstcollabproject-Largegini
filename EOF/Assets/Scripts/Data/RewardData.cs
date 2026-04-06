@@ -14,7 +14,9 @@ public class RewardData
     public int RewardID { get; set; }
 
     public string RewardName { get; set; }
-    public int ResourceID { get; set; }
+    public string ResourceID { get; set; }
+
+    public int SkillIndex { get; set; } // 스킬 아이콘 배열
 
     public ERewardType ERewardType { get; set; }
     public ERewardSubType ERewardSubType { get; set; }
@@ -29,7 +31,8 @@ public class RewardData
         RewardID = Convert.ToInt32(row["ID"]);
 
         RewardName = Convert.ToString(row["Key"]);
-        ResourceID = Convert.ToInt32(row["ResourceID"]);
+        ResourceID = Convert.ToString(row["ResourceID"]);
+        SkillIndex = Convert.ToInt32(row["SkillIndex"]);
 
         ERewardType = (ERewardType)Enum.Parse(typeof(ERewardType), Convert.ToString(row["BuffType_1"]));
         ERewardSubType = (ERewardSubType)Enum.Parse(typeof(ERewardSubType), Convert.ToString(row["BuffType_2"]));
