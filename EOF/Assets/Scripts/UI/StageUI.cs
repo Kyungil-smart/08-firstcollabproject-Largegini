@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets; // 어드레서블 사용 시 추가 필요
 
 
 public class StageUI : MonoBehaviour
@@ -25,7 +26,8 @@ public class StageUI : MonoBehaviour
     [SerializeField] private TMP_Text[] choiceTexts;
 
     [SerializeField] private TMP_Text descriptionText;
-    [SerializeField] private Image image;
+    [SerializeField] private GameObject imageBG;
+    [SerializeField] private GameObject imageEvent;
     [SerializeField] private Button skipButton;
 
     private int currentIndex;
@@ -58,7 +60,8 @@ public class StageUI : MonoBehaviour
         var page = pages[index];
 
         descriptionText.text = page.text;
-        image.sprite = page.image;
+        // image.sprite = page.image;
+        
 
         bool isChoice = page.hasChoice;
 
@@ -114,6 +117,47 @@ public class StageUI : MonoBehaviour
 
         // 이벤트 팝업을 위해 추가 (한성우)
         eventController.ActivateEventPopUp();
+
+        // 주소로 아이콘 게임 오브젝트 불러오기 (한성우) 
+        // https://wolstar.tistory.com/14 기반
+        Addressables.LoadAssetAsync<GameObject>(eventController.EventImageAddress).Completed += (op) =>
+        {
+            // 로드가 완료 시 실행
+            imageEvent = op.Result;
+
+            if (imageEvent != null)
+            {
+                GameObject instanceImg = Instantiate(imageEvent, imageBG.transform);
+            }
+
+            // 예외 처리
+            else
+            {
+                Debug.LogError($"에셋 로드 실패: {eventController.EventImageAddress}");
+            }
+        };
+
+
+
+        /*
+        imageEvent = Resources.Load<GameObject>($"EventImagePrefabs/{eventController.EventImageAddress}");
+        // Debug.Log($"이벤트 프리펩 주소 : EventImagePrefabs/{eventController.EventImageAddress}");
+        
+        if (imageEvent != null)
+        {
+            GameObject instanceImg = Instantiate(imageEvent, imageBG.transform);
+            
+            RectTransform rect = instanceImg.GetComponent<RectTransform>();
+            // 크기 및 위치 초기화
+            
+            if (rect != null)
+            {
+                rect.localPosition = Vector3.zero;
+                rect.localScale = Vector3.one;
+            }
+            
+        }
+        */
 
         // Todo: 데이터연결 예정, 임시 테스트 데이터
         pages = new StoryPage[]
