@@ -139,7 +139,7 @@ public class DataManager : MonoBehaviour
             savedPlayerData.Onslaught02 = false;
             savedPlayerData.Resurrection = false;
 
-
+            savedPlayerData.GetSkillIDs.Clear();    // 얻은 스킬 초기화
 
             hasSavedData = true;    // 임시로 true로 넣어놓음
         }
@@ -177,7 +177,13 @@ public class DataManager : MonoBehaviour
         savedPlayerData.Onslaught02 = playerObj.Onslaught02;
         savedPlayerData.Resurrection = playerObj.Resurrection;
 
-
+        // 획득한 스킬 ID 저장
+        savedPlayerData.GetSkillIDs.Clear();
+        savedPlayerData.GetSkillIDs.AddRange(playerObj.GetSkillIDs);
+        for (int i = 0; i < savedPlayerData.GetSkillIDs.Count; i++)
+        {
+            Debug.Log($"저장된 스킬 ID {i} : {savedPlayerData.GetSkillIDs[i]}");
+        }
 
         hasSavedData = true;
     }
@@ -219,6 +225,15 @@ public class DataManager : MonoBehaviour
             playerObj.Onslaught01 = savedPlayerData.Onslaught01;
             playerObj.Onslaught02 = savedPlayerData.Onslaught02;
             playerObj.Resurrection = savedPlayerData.Resurrection;
+
+
+            // 획득한 스킬 ID 저장
+            playerObj.GetSkillIDs.Clear();
+            playerObj.GetSkillIDs.AddRange(savedPlayerData.GetSkillIDs);
+            for (int i = 0; i < savedPlayerData.GetSkillIDs.Count; i++)
+            {
+                Debug.Log($"저장된 스킬 ID {i} : {savedPlayerData.GetSkillIDs[i]}");
+            }
 
         }
 
