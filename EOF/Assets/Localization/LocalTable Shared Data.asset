@@ -220,7 +220,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009693
   - m_Id: 30004
-    m_Key: Blacksmith_Select02_
+    m_Key: Blacksmith_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30005
@@ -698,10 +698,6 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009762
-  - m_Id: 4774566940848128
-    m_Key: New Entry 4
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
