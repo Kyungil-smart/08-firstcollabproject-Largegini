@@ -116,10 +116,10 @@ public class DataManager : MonoBehaviour
 
             
 
-            Debug.Log($"firstInitSave_01 : {originalPlayerData.Damage_Normal}");
+            // Debug.Log($"firstInitSave_01 : {originalPlayerData.Damage_Normal}");
 
             savedPlayerData.Damage_Normal = originalPlayerData.Damage_Normal;
-            Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
+            // Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
 
             savedPlayerData.Damage_Special = originalPlayerData.Damage_Special;
             savedPlayerData.Shield = originalPlayerData.Shield;
@@ -198,16 +198,16 @@ public class DataManager : MonoBehaviour
 
         if (hasSavedData)
         {
-            Debug.Log(savedPlayerData.Damage_Normal);
+            // Debug.Log(savedPlayerData.Damage_Normal);
 
             // 스테이지 넘어갈 때 생명력 회복용
             playerObj._maxHealth = savedPlayerData.MaxHP;
 
-            Debug.Log($"OnGameSave 플레이어 생명력03 : {playerObj._health}");
+            // Debug.Log($"OnGameSave 플레이어 생명력03 : {playerObj._health}");
 
             playerObj._health = savedPlayerData.CurrentHP;
 
-            Debug.Log($"OnGameSave 플레이어 생명력04 : {playerObj._health}");
+            // Debug.Log($"OnGameSave 플레이어 생명력04 : {playerObj._health}");
 
             // 이벤트 에서 플레이어 기능 변환 한 것 (RewardController) 넘겨주기
             playerObj._attack = savedPlayerData.Damage_Normal;

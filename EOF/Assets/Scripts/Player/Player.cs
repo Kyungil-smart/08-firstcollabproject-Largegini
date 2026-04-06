@@ -314,7 +314,7 @@ public class Player : MonoBehaviour
     // 추후 스킬 아이콘 컨트롤러 스크립트에서 기능을 호출할 수 있도록 수정 필요
     public void ActivateSkillIcon()
     {
-        Debug.Log("ActivateSkillIcon 실행");
+        // Debug.Log("ActivateSkillIcon 실행");
         int uiIndex = 0;    // UI 슬롯을 가리키는 인덱스
 
         
