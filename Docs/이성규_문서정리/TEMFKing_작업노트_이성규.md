@@ -857,3 +857,48 @@ Awake에서 `UnityAction<PuzzleResult>` 래퍼 캐싱, 동일 참조로 Add/Remo
  
 콤보 텍스트 TMP에 Raycast Target이 켜져 있어서 퍼즐판 위의 블록 드래그 입력을 가로채는 문제.
 → `_comboText`의 Raycast Target OFF 처리.
+
+## Day 12 - 2026-04-06
+
+### 퍼즐 SFX 개발
+
+- 중첩 재생: PlayOneShot 사용으로 짧은 간격의 연쇄 폭발 시에도 사운드 잔향이 잘리지 않고 자연스럽게 레이어 재생됨.
+
+- 오디오 소스 분리: _swapSource와 _comboSource를 분리하여 스왑 피드백과 콤보 연출음이 겹칠 때의 간섭 가능성 배제 및 개별 볼륨/피치 제어 기반 마련.
+
+- 리소스 매칭:
+  - 블록 스왑: switch puzzle.wav (0.2s)
+  - 저단계 콤보 (1~2): combo6.wav (0.2s)
+  - 고단계 콤보 (3 이상): combo4.wav (0.3s)
+
+퍼즐 차원에서는 블록 바꾼 SFX와 낮은 단계 콤보 SFX, 높은 단계 SFX를 재생해주면 된다.
+
+퍼즐이 매칭될때 매칭 숫자를 넘겨받아 그에 따른 사운드를 재생해주면 됨.
+
+### PuzzleComponentsBinder
+
+기존의 콤보 UI를 위해 인스펙터 상에서 보드 매니저를 할당받아 액션을 캐싱하고 리스너 추가 및 삭제를 관리하던 ComboDisplayBinder 스크립트를 PuzzleComponentsBinder로 변경
+
+BoardManager의 이벤트를 UI와 SFX 컴포넌트에 연결하는 중계 스크립트.
+
+- 의존성 최소화: 보드 매니저가 사운드나 UI의 구체적인 구현을 몰라도 되도록 설계 (느슨한 결합).
+- 이벤트 매핑:
+  - `OnSwapFinished` -> `PuzzleSFX.PlaySwapSfx`
+  - `OnComboUpdated` -> `ComboDisplayUI.OnComboUpdated` & `PuzzleSFX.PlayComboSfx`
+  - `OnPuzzleComplete` -> `ComboDisplayUI.OnChainComplete`
+
+- 인스펙터 작업
+  - 직렬화 참조: 모든 사운드 클립과 오디오 소스를 인스펙터에서 직접 할당하여 런타임 GetComponent 부하 제거 및 직관적인 데이터 관리.
+  - 프리팹화: 캔버스 하위에 SFX와 바인더를 포함하여 퍼즐 시스템의 모듈화 및 재사용성 극대화.
+
+**퍼즐 보드 프리팹 구조**
+```
+Canvas_PuzzleBoard_111
+├── BG
+├── GridsArea
+├── Blocks
+├── ComboUI
+└── PuzzleSFX
+   ├── SFX_Swap
+   └── SFX_Combo
+```
