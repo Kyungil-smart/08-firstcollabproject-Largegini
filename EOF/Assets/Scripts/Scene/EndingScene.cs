@@ -13,7 +13,7 @@ public class EndingScene : IScene
     
     public void Enter()
     {
-        SceneManager.LoadScene((int)ESceneType.Ending);
+        SceneLoader.Intance.Fade.ChangeScene(ESceneType.Ending);
        _timer = new Timer(5f);
     }
 

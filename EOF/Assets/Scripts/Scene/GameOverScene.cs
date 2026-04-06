@@ -9,7 +9,7 @@ public class GameOverScene : IScene
      */
     public void Enter()
     {
-        SceneManager.LoadScene((int)ESceneType.GameOver);
+        SceneLoader.Intance.Fade.ChangeScene(ESceneType.GameOver);
     }
 
     public void Update()

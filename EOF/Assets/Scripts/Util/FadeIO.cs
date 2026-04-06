@@ -62,7 +62,7 @@ public class FadeIO : MonoBehaviour
 
     public void FadeOut()
     {
-        _canvasGroup.DOFade(0, _fadeDuration)
+        _canvasGroup.DOFade(0, _fadeDuration+1f)
             .OnStart(() =>
             {
                 
@@ -82,10 +82,10 @@ public class FadeIO : MonoBehaviour
             })
             .OnComplete(()=>{
                 SceneManager.LoadScene((int)sceneType);
+                FadeOut();
                 //StartCoroutine("LoadScene", (int)sceneType); /// 씬 로드 코루틴 실행 ///
             });
     }
-
 
     //public GameObject Loading;
     //public Text Loading_text; //퍼센트 표시할 텍스트
@@ -112,6 +112,7 @@ public class FadeIO : MonoBehaviour
                     async.allowSceneActivation = true; //씬 전환 준비 완료
                 }
             }
+            
             else
             {
                 percentage = Mathf.Lerp(percentage, async.progress * 100f, past_time);
