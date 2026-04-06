@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 public class RedOak : Monster
 {
     public bool _berserker;
+    public StagewithMonster _oakSound;
     private void Awake()
     {
         _minDamage = 30;
@@ -49,13 +50,12 @@ public class RedOak : Monster
             yield return StartCoroutine(ThirdPattern());
         }
     }
-
-
+    
     public override IEnumerator FirstPattern()
     {
         Debug.Log("휘두르기");
         _animator.SetTrigger("FirstAttack");
-        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null;
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
     }
@@ -73,11 +73,16 @@ public class RedOak : Monster
     {
         Debug.Log("박살내기");
         _animator.SetTrigger("ThirdAttack");
-        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null;
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
         _damage = Random.Range(_minDamage, _minDamage + 11);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;
         Player.Instance.ReceiveDamage(_damage);
+    }
+
+    public void AttackSound(int clipNum)
+    {
+        SoundManager.Instance.PlaySFX(_oakSound.attackSFX[clipNum]);
     }
 }

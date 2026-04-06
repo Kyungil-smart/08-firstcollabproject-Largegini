@@ -55,6 +55,7 @@ MonoBehaviour:
   _minDamage: 0
   _invincibility: 0
   _berserker: 0
+  _oakSound: {fileID: 11400000, guid: 9a2473f24e9b8e943a0fbc02d42be966, type: 2}
 --- !u!114 &644823174725345157
 MonoBehaviour:
   m_ObjectHideFlags: 0
