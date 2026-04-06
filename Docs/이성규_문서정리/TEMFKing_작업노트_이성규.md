@@ -902,3 +902,18 @@ Canvas_PuzzleBoard_111
    ├── SFX_Swap
    └── SFX_Combo
 ```
+
+### 사운드 설정 개발(슬라이더바)
+
+SoundManager가 Addressable로 AudioMixer를 동적 로드하고, 볼륨 제어 로직은 MixerVolumeController 순수 C# 클래스로 분리.
+
+VolumeSlider 모노비헤이비어 스크립트가 SoundManager.Volume과 UI 슬라이더를 연결.
+- SoundManager.IsReady 대기 후 저장된 볼륨 값으로 슬라이더 초기화
+- 슬라이더 조작 시 MixerVolumeController.SetVolume()으로 실시간 반영
+
+PlayerPrefs 영구 저장은 기획상 배제, 런타임에 MixerVolumeController 인스턴스에 보관.
+
+**구조**
+- SoundManager: AudioSource 생성 + Addressable 믹서 로드 + 재생 API
+- MixerVolumeController: AudioMixer 볼륨 설정/조회 (순수 C#)
+- VolumeSlider: UI Slider ↔ MixerVolumeController 바인딩 (MonoBehaviour)

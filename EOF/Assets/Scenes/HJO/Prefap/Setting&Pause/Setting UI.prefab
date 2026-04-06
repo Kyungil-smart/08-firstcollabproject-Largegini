@@ -1544,6 +1544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3220399430534445228}
   - component: {fileID: 5935225422817555352}
+  - component: {fileID: 4876729045473168563}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -1624,6 +1625,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4876729045473168563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275722114200768793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd30d70ee52e9447925fa3e3f577c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
+  _parameterName: BGM
 --- !u!1 &6552221156476075692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,6 +2004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 216640073346205853}
   - component: {fileID: 304975148374832880}
+  - component: {fileID: 1014702986575088739}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -2070,6 +2085,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1014702986575088739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6894318239452786935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd30d70ee52e9447925fa3e3f577c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
+  _parameterName: SFX
 --- !u!1 &7334166116280355767
 GameObject:
   m_ObjectHideFlags: 0
