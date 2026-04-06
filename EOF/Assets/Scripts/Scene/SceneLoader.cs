@@ -24,6 +24,8 @@ public class SceneLoader : MonoBehaviour
    public int MaxStage;
    // 튜토리얼 여부
    public bool HasTutorial;
+
+   public FadeIO Fade;
    
    private void Awake()
    {
@@ -41,6 +43,7 @@ public class SceneLoader : MonoBehaviour
    private void Start()
    {
        _sceneMachine.ChangeScene(Title);
+       
    }
 
    private void Update()
@@ -55,6 +58,8 @@ public class SceneLoader : MonoBehaviour
    
    private void Init()
    {
+       Fade = gameObject.AddComponent<FadeIO>();
+       
        _sceneMachine = new SceneMachine();
        
        Title = new TitleScene();
