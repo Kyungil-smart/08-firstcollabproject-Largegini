@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] private TMP_Text storyText;
     [SerializeField] private Image storyImage;
-    [SerializeField] private Button prevButton;
+    //[SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
    
     
@@ -66,8 +66,8 @@ public class TutorialManager : MonoBehaviour
 
         if (popupImages != null && currentIndex < popupImages.Length)
             storyImage.sprite = popupImages[currentIndex];
-
-        prevButton.gameObject.SetActive(currentIndex > 0);
+        //이전 버튼 주석 처리
+        //prevButton.gameObject.SetActive(currentIndex > 0); 
         
         bool isLast = (currentIndex == testTexts.Length - 1);
         iconNext.sprite = isLast ? iconClose : iconContinue;
@@ -183,7 +183,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.SetInt("TutorialDone", 1);
     }
 
-    public void OnClickPrev()
+    /*public void OnClickPrev()
     {
         if (currentIndex > 1)
         {
@@ -191,7 +191,7 @@ public class TutorialManager : MonoBehaviour
             UpdatePopup();
             popup.SetActive(true);
         }
-    }
+    }*/
 
     public void OnClickSkip()
     {
