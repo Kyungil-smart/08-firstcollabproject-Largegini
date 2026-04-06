@@ -9,7 +9,8 @@ public class SoundManager : MonoBehaviour
 
     private static SoundManager _instance;
     public  static  SoundManager Instance { get; private set; }
-
+    private AudioSource _bgmSource;
+    private AudioSource _sfxSource;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,5 +27,16 @@ public class SoundManager : MonoBehaviour
     private void Init()
     {
         
+    }
+    
+    public void PlayBGM(AudioClip clip)
+    {
+        if (clip == null) return;
+        
+        if (_bgmSource.clip == clip && _bgmSource.isPlaying) return;
+
+        _bgmSource.Stop();
+        _bgmSource.clip = clip;
+        _bgmSource.Play();
     }
 }
