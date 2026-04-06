@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public float AddGaugeIncreaseRate { get; set; }
     [field: SerializeField] private float _finalDamage;
 
-
+    [SerializeField] private AudioClip[] _sfx;
     private RewardSkillController _rewardSkillController;
     private Animator _animator;
     public List<RuntimeAnimatorController> _evolutionAnimators; 
