@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResetConfirmUI
   btnResetConfirm: {fileID: 437680261}
   btnNo: {fileID: 437680260}
-  actionBarUI: {fileID: 0}
+  actionBarUI: {fileID: 1965284077}
   onResetConfirmed:
     m_PersistentCalls:
       m_Calls:
