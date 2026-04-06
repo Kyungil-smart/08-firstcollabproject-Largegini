@@ -206,7 +206,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009691
   - m_Id: 30001
-    m_Key: Blacksmith_Enter
+    m_Key: Blacksmith
     m_Metadata:
       m_Items:
       - rid: 3634112514202009692
@@ -220,7 +220,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009693
   - m_Id: 30004
-    m_Key: Blacksmith_Select02_
+    m_Key: Blacksmith_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30005
@@ -256,7 +256,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009697
   - m_Id: 30012
-    m_Key: Barrack_Enter
+    m_Key: Barrack
     m_Metadata:
       m_Items:
       - rid: 3634112514202009698
@@ -329,7 +329,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009706
   - m_Id: 30028
-    m_Key: Wasteland_Father_Enter
+    m_Key: Wasteland_Father
     m_Metadata:
       m_Items:
       - rid: 3634112514202009707
@@ -352,7 +352,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009709
   - m_Id: 30033
-    m_Key: Glacier_Angel_Enter
+    m_Key: Glacier_Angel
     m_Metadata:
       m_Items:
       - rid: 3634112514202009710
@@ -704,10 +704,6 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009762
-  - m_Id: 3762551078203392
-    m_Key: New Entry 1
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
