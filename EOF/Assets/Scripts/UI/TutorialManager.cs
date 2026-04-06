@@ -13,16 +13,16 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject storyUI;
     [SerializeField] private GameObject dimPanel;
-    [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject popup;  // 다이얼로그가 있는 팝업 창
     [SerializeField] private GameObject puzzleArea;
-    [SerializeField] private GameObject btnReset;
-    [SerializeField] private GameObject btnEndTurn;
+    [SerializeField] private GameObject btnReset;   // 인게임 리셋 버튼
+    [SerializeField] private GameObject btnEndTurn; // 인게임 턴 종료 버튼
 
     [SerializeField] private TMP_Text storyText;
     [SerializeField] private Image storyImage;
     //[SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
-    
+
     [SerializeField] private Sprite[] popupImages;
     [SerializeField] private Sprite iconClose;
     [SerializeField] private Image iconNext;
@@ -33,11 +33,12 @@ public class TutorialManager : MonoBehaviour
 
     private ITutorialBoardControl _board;
     private Action _savedProceed;
-    
-    [SerializeField] private DialogueTyper dialogueTyper;
-    
 
-    private int currentIndex = 0;
+    [SerializeField] private DialogueTyper dialogueTyper;
+
+
+    [field: SerializeField] public int currentIndex { get; set; } = 0;
+
     private UnityEngine.EventSystems.EventTrigger puzzleTrigger;
 
     // 로컬라이즈 테이블 불러오기(한성우)
@@ -81,9 +82,11 @@ public class TutorialManager : MonoBehaviour
             storyImage.sprite = popupImages[currentIndex];
         //이전 버튼 주석 처리
         //prevButton.gameObject.SetActive(currentIndex > 0); 
-        
+
+        // Debug.Log($"UpdatePopup S {currentIndex}");
         bool isLast = (currentIndex == testTexts.Length - 1);
         iconNext.sprite = isLast ? iconClose : iconContinue;
+        // Debug.Log($"UpdatePopup E {currentIndex}");
     }
 
     public void OnClickNext()
@@ -96,27 +99,41 @@ public class TutorialManager : MonoBehaviour
         //   19 콤보 대사
         //   20~24 전투 UI 안내 대사
 
-        if (currentIndex == 0)  
-        {
-            _board.SetInputLocked(false);
-            _board.SetInteractionFilter(_ => false);
-            _board.OnBoardTapped += OnBoardTapped;
-
-            popup.SetActive(false);
-            dimPanel.SetActive(true);
-            btnReset.SetActive(true);
-            btnEndTurn.SetActive(true);
-            puzzleTrigger.enabled = true;
-            currentIndex += 1;
-        }
-        else if (currentIndex == 2)
+        // 첫 대사
+        if (currentIndex == 0)
         {
             currentIndex++;
             UpdatePopup();
             popup.SetActive(true);
         }
-        else if (currentIndex == 3)
+        // 인게임 UI 보이기
+        else if (currentIndex == 1)
         {
+            Debug.Log($"튜토리얼 2 S, 인덱스 : {currentIndex}");
+            _board.SetInputLocked(false);
+            _board.SetInteractionFilter(_ => false);
+            _board.OnBoardTapped += OnBoardTapped;
+
+            popup.SetActive(false); // 다이얼로그가 있는 팝업 창 닫기
+            dimPanel.SetActive(true);
+            btnReset.SetActive(true);   // 인게임 리셋 버튼 활성화
+            btnEndTurn.SetActive(true); // 인게임 턴 종료 버튼 활성화
+            puzzleTrigger.enabled = true;
+            currentIndex++;
+            Debug.Log($"튜토리얼 2 E, 인덱스 : {currentIndex}");
+        }
+        // 대사
+        else if (currentIndex >= 2 && currentIndex <= 15)
+        {
+            Debug.Log($"튜토리얼 3 S, 인덱스 : {currentIndex}");
+            currentIndex++;
+            UpdatePopup();
+            popup.SetActive(true);
+            Debug.Log($"튜토리얼 3 E, 인덱스 : {currentIndex}");
+        }
+        else if (currentIndex == 16)
+        {
+            Debug.Log($"튜토리얼 4 S, 인덱스 : {currentIndex}");
             _board.SetInteractionFilter(pos => pos.Equals(preset.DragSource));
             _board.SetSwapFilter((from, to) =>
                 from.Equals(preset.DragSource) && to.Equals(preset.DragTarget));
@@ -124,30 +141,36 @@ public class TutorialManager : MonoBehaviour
             {
                 _savedProceed = proceed;
                 _board.SetChainInterceptor(null);
-                currentIndex = 4;
+                currentIndex++;
                 StartCoroutine(ShowPopupNextFrame());
             });
 
             popup.SetActive(false);
             btnReset.SetActive(true);
             btnEndTurn.SetActive(true);
+            Debug.Log($"튜토리얼 4 E, 인덱스 : {currentIndex}");
         }
-        else if (currentIndex == 4)
+        else if (currentIndex == 17)
         {
+            Debug.Log($"튜토리얼 5 S, 인덱스 : {currentIndex}");
             _board.ClearAllHighlights();
             _savedProceed?.Invoke();
             _savedProceed = null;
-            currentIndex = 5;
+            currentIndex++;
             popup.SetActive(false);
+            Debug.Log($"튜토리얼 5 E, 인덱스 : {currentIndex}");
         }
-        else if (currentIndex == 5)
+        else if (currentIndex >= 18 && currentIndex <= 23)
         {
+            Debug.Log($"튜토리얼 6 S, 인덱스 : {currentIndex}");
             currentIndex++;
             UpdatePopup();
             popup.SetActive(true);
+            Debug.Log($"튜토리얼 6 E, 인덱스 : {currentIndex}");
         }
         else if (currentIndex == testTexts.Length - 1)
         {
+            Debug.Log($"튜토리얼 7 S, 인덱스 : {currentIndex}");
             OnClickClose();
         }
     }
@@ -162,7 +185,7 @@ public class TutorialManager : MonoBehaviour
 
     private void OnPuzzleComplete(PuzzleResult result)
     {
-        if (currentIndex == 5)
+        if (currentIndex == 18)
         {
             UpdatePopup();
             storyUI.SetActive(true);
@@ -176,7 +199,7 @@ public class TutorialManager : MonoBehaviour
         _board.OnBoardTapped -= OnBoardTapped;
         _board.SetBlockHighlights(preset.GetHighlightPositions(), Color.yellow);
 
-        currentIndex = 2;
+        // currentIndex = 2;
         UpdatePopup();
         popup.SetActive(true);
     }
@@ -186,7 +209,7 @@ public class TutorialManager : MonoBehaviour
         _board.OnBoardTapped -= OnBoardTapped;
         OnPuzzleAreaClick();
     }
-    
+
     public void OnClickClose()
     {
         _board.SetInteractionFilter(null);
@@ -236,7 +259,7 @@ public class TutorialManager : MonoBehaviour
     private string[] testTexts = new string[25];
     private void InitText()
     {
-        Debug.Log("InitText");
+        // Debug.Log("InitText");
         // 로컬라이즈 테이블에서 텍스트 불러오기
         for (int i = 0; i < 12; i++)
         {
@@ -244,7 +267,7 @@ public class TutorialManager : MonoBehaviour
         }
         for (int j = 12; j < 25; j++)
         {
-            testTexts[j] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_King_{j + 1 - 12}");
+            testTexts[j] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_Princess_{j + 1 - 12}");
         }
     }
 
@@ -262,6 +285,6 @@ public class TutorialManager : MonoBehaviour
     };
     */
 
-    
-    
+
+
 }
