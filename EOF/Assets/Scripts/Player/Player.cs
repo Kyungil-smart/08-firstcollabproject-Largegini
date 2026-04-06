@@ -106,6 +106,7 @@ public class Player : MonoBehaviour
     public IEnumerator Dead()
     {
         _animator.SetTrigger("Dead");
+        SoundManager.Instance.PlaySFX(_sfx[5]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(0.5f);
     }
