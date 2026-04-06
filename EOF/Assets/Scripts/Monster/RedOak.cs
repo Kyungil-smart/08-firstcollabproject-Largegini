@@ -50,8 +50,7 @@ public class RedOak : Monster
             yield return StartCoroutine(ThirdPattern());
         }
     }
-
-
+    
     public override IEnumerator FirstPattern()
     {
         Debug.Log("휘두르기");
