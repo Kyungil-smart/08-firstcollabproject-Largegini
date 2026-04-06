@@ -13,7 +13,7 @@ public class WearWolf : Monster
     public override IEnumerator PatternProbability()
     {
         yield return null;
-        int _probability = Random.Range(60, 100);
+        int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
             yield return StartCoroutine(FirstPattern());

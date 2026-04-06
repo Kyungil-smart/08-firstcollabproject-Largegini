@@ -44,7 +44,7 @@ public class Envoy : Monster
     {
         Debug.Log("영혼가르기");
         Player.Instance._defensive = 0;
-        _animator.SetTrigger("FristAttack");
+        _animator.SetTrigger("FirstAttack");
         SoundManager.Instance.PlaySFX(_envoySound.attackSFX[0]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
@@ -62,7 +62,6 @@ public class Envoy : Monster
         Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage));
         Player.Instance._reverse = true;
         _soulHarvest++;
-
     }
 
     public override IEnumerator ThirdPattern()

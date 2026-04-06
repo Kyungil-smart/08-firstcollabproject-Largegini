@@ -209,6 +209,7 @@ public class Player : MonoBehaviour
         {
             ReceiveDamage(GiveDamageCalculator((_heal + AddHeal), count, combo));
             // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
+            _reverse = false;
         }
         else
         {
