@@ -4345,17 +4345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!114 &4516085363086972853 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6853492256351060241, guid: 39fa30ba08dde2243b67c2f65539abab, type: 3}
+--- !u!1 &4516085363086972853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2171678739782865015, guid: 39fa30ba08dde2243b67c2f65539abab, type: 3}
   m_PrefabInstance: {fileID: 4516085363086972850}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &4666604852980282377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4673,7 +4667,8 @@ MonoBehaviour:
   - {fileID: 264390078}
   - {fileID: 1763236607}
   descriptionText: {fileID: 171300902}
-  image: {fileID: 4516085363086972853}
+  imageBG: {fileID: 4516085363086972853}
+  imageEvent: {fileID: 0}
   skipButton: {fileID: 4516085363086972852}
   <SelectedIndex>k__BackingField: 0
 --- !u!114 &5674274413038271378
