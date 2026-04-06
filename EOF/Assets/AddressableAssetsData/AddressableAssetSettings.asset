@@ -54,12 +54,13 @@ MonoBehaviour:
     m_Id: 
   m_RemoteCatalogLoadPath:
     m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
+  - {fileID: 11400000, guid: 35d166b38c5bbbc489a2c06bdb0249e0, type: 2}
   - {fileID: 11400000, guid: 1411d1b86be63d7468146eef2fc3ae52, type: 2}
   - {fileID: 11400000, guid: f9c1f8a2e59c12e4699e495a8a852929, type: 2}
   - {fileID: 11400000, guid: 89b58111f591218419289d0c29e253b5, type: 2}

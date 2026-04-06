@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StageScene: IScene
@@ -17,7 +16,7 @@ public class StageScene: IScene
         }
         
         // 스테이지 씬 진입
-        SceneManager.LoadScene((int)ESceneType.Stage);
+        SceneLoader.Intance.Fade.ChangeScene(ESceneType.Stage);
     }
 
     public void Update()
