@@ -26,7 +26,19 @@ public class SoundManager : MonoBehaviour
 
     private void Init()
     {
+        if (_bgmSource == null)
+        {
+            _bgmSource = gameObject.AddComponent<AudioSource>();
+            _bgmSource.loop = true;
+            _bgmSource.playOnAwake = false;
+        }
         
+        if (_sfxSource == null)
+        {
+            _sfxSource = gameObject.AddComponent<AudioSource>();
+            _sfxSource.loop = false;
+            _sfxSource.playOnAwake = false;
+        }
     }
     
     public void PlayBGM(AudioClip clip)
@@ -39,4 +51,20 @@ public class SoundManager : MonoBehaviour
         _bgmSource.clip = clip;
         _bgmSource.Play();
     }
+
+    public void StopBGM()
+    {
+        if (_bgmSource.clip != null && _bgmSource.isPlaying)
+        {
+            _bgmSource.Stop();
+            _bgmSource.clip = null;
+        }
+    }
+    
+    public void PlaySFX(AudioClip clip)
+        {
+            if (clip == null) return;
+            
+            _sfxSource.PlayOneShot(clip);
+        }
 }

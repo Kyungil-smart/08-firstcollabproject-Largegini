@@ -66,12 +66,14 @@ public class BattleSystem : MonoBehaviour
             {
                 _enemy = spawnPoint.SpawnMonster(_tutorialMonster.Enemy);
                 _backSpawn.SpawnMonster(_tutorialMonster.Background);
+                SoundManager.Instance.PlayBGM(_tutorialMonster.monsterBGM);
             }
         }
         else
         {
             _enemy = spawnPoint.SpawnMonster(stages[_currentStageIndex].Enemy);
             _backSpawn.SpawnMonster(stages[_currentStageIndex].Background);
+            SoundManager.Instance.PlayBGM(stages[_currentStageIndex].monsterBGM);
         }
         while (true)
         {
@@ -175,6 +177,7 @@ public class BattleSystem : MonoBehaviour
     private void Victory()
     {
         IsVictory = true;
+        SoundManager.Instance.StopBGM();
         Destroy(_enemy.gameObject);
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
     }
