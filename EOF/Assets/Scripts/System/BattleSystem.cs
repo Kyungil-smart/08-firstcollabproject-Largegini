@@ -180,6 +180,7 @@ public class BattleSystem : MonoBehaviour
     private void Victory()
     {
         IsVictory = true;
+        PlayerPrefs.SetInt("BattleClear", 1);
         SoundManager.Instance.StopBGM();
         Destroy(_enemy.gameObject);
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);

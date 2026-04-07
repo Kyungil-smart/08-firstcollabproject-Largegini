@@ -20,7 +20,7 @@ public class EndingScene : IScene
     public void Update()
     {
         if(_timer.IsEnabled)
-            SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Title);
+            SceneLoader.Intance.ChangeScene(SceneLoader.Intance.EndCredit);
         
         _timer.UpdateTimer();
     }

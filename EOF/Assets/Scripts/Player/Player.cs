@@ -104,16 +104,9 @@ public class Player : MonoBehaviour
         _finalDamage = 0;
 
         // 스텟 Init은 PlayerStatController 스크립트에서 수정
-
-
+        
     }
-
-
-    private void Start()
-    {
-
-    }
-
+    
     public IEnumerator Dead()
     {
         _animator.SetTrigger("Dead");
@@ -200,23 +193,6 @@ public class Player : MonoBehaviour
         // 최종 데미지 초기화
         _finalDamage = 0;
     }
-
-    // public IEnumerator SpecialATK(int count, int combo)
-    // {
-    //     Debug.Log("특수 공격");
-    //     _animator.SetTrigger("SpecialAttack");
-    //     yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-    //     yield return new WaitForSeconds(.5f);
-    //     Monster.Instance.ReceiveDamage(GiveDamageCalculator(_attackSpecial, count, combo));
-    //     _behavioralGauge += (int)(count * (_gaugeIncreaseRate + AddGaugeIncreaseRate));
-    //
-    //     // 흡혈 기능을 위해 추가 (한성우)
-    //     if (_healthAbsorbRate > 0)
-    //     {
-    //         GetHPAbsorb(GiveDamageCalculator(_attackSpecial, count, combo));
-    //     }
-    //
-    // }
 
     public IEnumerator Heal(int count, int combo)
     {
