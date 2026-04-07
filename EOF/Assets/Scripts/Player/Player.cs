@@ -226,7 +226,7 @@ public class Player : MonoBehaviour
         SoundManager.Instance.PlaySFX(_sfx[2]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        _defensiveGauge += (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
+        _defensiveGauge = (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
     }
 
 
