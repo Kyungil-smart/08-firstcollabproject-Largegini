@@ -579,7 +579,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "\uC608\uC778\uD574\r\n\uC774\uB3C4\uBBFC\r\n\uAE40\uC2DC\uC628\r\n\uAE40\uBC94\uC9C4\r\n\uC774\uC900\uD601\r\n\uC774\uC2B9\uC9C4\r\n\uAE40\uC724\uADDC\r\n\uBC30\uC8FC\uBE48\r\n\uC548\uC815\uC5F0\r\n\uAE40\uB3D9\uD604\r\n\uC774\uC131\uADDC\r\n\uD55C\uC131\uC6B0\r\n\uD64D\uC815\uC625\r\nInhae
+    Yee\r\nDomin Lee\r\nSi_on Kim\r\nBeomjin Kim\r\nIAN\r\nSeungjin Lee\r\nYoonKyu\r\nJubin\r\nAhnJeongYeon\r\nKimdonghyun\r\nLee
+    seonggyu\r\nHan Seong-Woo\r\nHong Jeongok"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 251788fa5b47538449ff2db82fdd0ad6, type: 2}
   m_sharedMaterial: {fileID: 1775506108955489632, guid: 251788fa5b47538449ff2db82fdd0ad6, type: 2}
@@ -930,7 +932,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "PD\nPM\n\uBA54\uC778 \uC2DC\uC2A4\uD15C \uAE30\uD68D, PV \uC81C\uC791\n\uC804\uD22C
+    \uAE30\uD68D, Art Directing\n\uC804\uD22C \uAE30\uD68D, \uBC38\uB7F0\uC2A4 \uAE30\uD68D\n\uCEE8\uC149/\uC774\uBCA4\uD2B8
+    \uAE30\uD68D, UI/UX\n\uCEE8\uC149/\uC774\uBCA4\uD2B8 \uAE30\uD68D, \uC5F0\uCD9C
+    \uAE30\uD68D, \uC2DC\uB098\uB9AC\uC624\n\uD29C\uD1A0\uB9AC\uC5BC \uAE30\uD68D,
+    \uC5F0\uCD9C \uAE30\uD68D\n\uAC1C\uBC1C PM\n\uC804\uD22C \uB85C\uC9C1 \uAC1C\uBC1C\n\uD37C\uC990
+    \uB85C\uC9C1 \uAC1C\uBC1C\n\uB370\uC774\uD130 \uAD00\uB9AC\r\nUI\nPD\nPM\nMain
+    System Design\nBattle Design, Art Directing\nBattle Design, Balance Design\nConcept
+    & Event, UI/UX\nConcept & Event, Directing\nTutorial Design, Directing\nDevelop
+    PM\nBattle Logic\nPuzzle Logic\nData Managing\nUI"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 251788fa5b47538449ff2db82fdd0ad6, type: 2}
   m_sharedMaterial: {fileID: 1775506108955489632, guid: 251788fa5b47538449ff2db82fdd0ad6, type: 2}
@@ -964,7 +974,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
