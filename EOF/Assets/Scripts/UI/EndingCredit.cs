@@ -7,12 +7,10 @@ public class EndingCredit : MonoBehaviour
     public RectTransform creditContent;
     public AudioClip bgm;         
     public float scrollSpeed = 100f; 
-
-    private void Start()
+    
+    private void Start() 
     {
-        creditContent.anchoredPosition = new Vector2(0, -Screen.height);
-        
-        float endY = creditContent.sizeDelta.y + Screen.height;
+        float endY = 4000f; 
         float duration = endY / scrollSpeed;
 
         if (bgm != null) SoundManager.Instance.PlayBGM(bgm); 
@@ -21,6 +19,8 @@ public class EndingCredit : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnComplete(() => {
                 Debug.Log("크레딧 종료! 타이틀로 이동합니다.");
+                Time.timeScale = 1.0f;
+                SoundManager.Instance.StopBGM();
                 SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Title);
             });
     }
