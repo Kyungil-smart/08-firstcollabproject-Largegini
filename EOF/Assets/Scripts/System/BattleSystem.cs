@@ -87,9 +87,6 @@ public class BattleSystem : MonoBehaviour
                     _player._behavior--;
                     _player._freeze = false;
                 }
-                if (_player._theEnd) _player.ReceiveDamage(5f);
-                    // 죽는 기능
-                if (_player._health <= 0) yield return StartCoroutine(Resurrection());
                 while (_player._behavior > 0)
                 {
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
@@ -132,7 +129,14 @@ public class BattleSystem : MonoBehaviour
                     }
                     _isPuzzle = false;
                     _isSwap = false;
-
+                    
+                    if (_player._theEnd)
+                    {
+                        _player.ReceiveDamage(5f);
+                            // 죽는 기능
+                        if (_player._health <= 0) yield return StartCoroutine(Resurrection());
+                    }
+                    
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
@@ -180,6 +184,7 @@ public class BattleSystem : MonoBehaviour
     private void Victory()
     {
         IsVictory = true;
+        PlayerPrefs.SetInt("BattleClear", 1);
         SoundManager.Instance.StopBGM();
         Destroy(_enemy.gameObject);
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Stage);
@@ -196,8 +201,6 @@ public class BattleSystem : MonoBehaviour
         _isSwap = true;
         _puzzleResult = null;
     }
-    
-    
 }
 
 

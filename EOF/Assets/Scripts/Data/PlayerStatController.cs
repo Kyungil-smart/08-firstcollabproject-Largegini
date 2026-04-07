@@ -56,7 +56,7 @@ public class PlayerStatController : MonoBehaviour
             // 각종 스텟 초기 설정
             thisScript._maxHealth = myData.MaxHP;
             thisScript._health = myData.MaxHP;
-            Debug.Log($"InitializePlayer 플레이어 생명력 : {thisScript._health}");
+            // Debug.Log($"InitializePlayer 플레이어 생명력 : {thisScript._health}");
 
             thisScript._attack = myData.Damage_Normal;
             thisScript._attackSpecial = myData.Damage_Special;

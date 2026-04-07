@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// 요약: 퍼즐 전용 사운드 재생 컴포넌트
+// 작성자: 이성규
 public class PuzzleSFX : MonoBehaviour
 {
     [Header("Audio Clips")]

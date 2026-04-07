@@ -20,6 +20,7 @@ public class PauseSettingController : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
+            Debug.Log("ESC 눌림");
             if (settingCanvas != null && settingCanvas.activeSelf)
             {
                 CloseSettings();
@@ -32,6 +33,7 @@ public class PauseSettingController : MonoBehaviour
             {
                 Pause();
             }
+            return;
         }
     }
 
@@ -50,6 +52,7 @@ public class PauseSettingController : MonoBehaviour
 
     public void Pause()
     {
+        Debug.Log("Pause 호출");
         if(pauseCanvas != null)
             pauseCanvas.SetActive(true);
 

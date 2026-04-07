@@ -262,203 +262,195 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 30006
     m_Localized: You have come, my Lord... Even in this freezing darkness, we waited
-      only for the sound of your footsteps.
+      only for the sound of your footsteps.\n The failure was ours, My Lord. Do not
+      let guilt stay your hand. Please keep moving forward.
     m_Metadata:
       m_Items: []
   - m_Id: 30007
-    m_Localized: The failure was ours, My Lord. Do not let guilt stay your hand.
-      Please keep moving forward.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30008
     m_Localized: '[Heal the wounds with the breath of the people.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30009
+  - m_Id: 30008
     m_Localized: Cease your sorrow. Let our fading lives mend your broken spirit.
       Stand tall once more, and lead us forward.
     m_Metadata:
       m_Items: []
-  - m_Id: 30010
+  - m_Id: 30009
     m_Localized: '[Consecrate the life force of the people to the heart.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30011
+  - m_Id: 30010
     m_Localized: My Lord... take our final breath of life. Though our souls scatter
       to the wind, let us become your heart and fill the vessel. Do not let your
       spirit break.
     m_Metadata:
       m_Items: []
-  - m_Id: 30012
+  - m_Id: 30011
     m_Localized: Dusty treaties remain. Though the flesh is gone, the tactical gambits
       that shook the battlefield must be reawakened.
     m_Metadata:
       m_Items: []
-  - m_Id: 30013
+  - m_Id: 30012
     m_Localized: 'Tactics: Swift Move.'
     m_Metadata:
       m_Items: []
-  - m_Id: 30014
+  - m_Id: 30013
     m_Localized: "A swift strike. A masterpiece of war\u2014leaving no room for reaction."
     m_Metadata:
       m_Items: []
-  - m_Id: 30015
+  - m_Id: 30014
     m_Localized: 'Tactics: Rapid Volley.'
     m_Metadata:
       m_Items: []
-  - m_Id: 30016
+  - m_Id: 30015
     m_Localized: "The flow of the fray. One strike to feed the next\u2014a relentless
       chain of slaughter."
     m_Metadata:
       m_Items: []
-  - m_Id: 30017
+  - m_Id: 30016
     m_Localized: "A long, weary road you\u2019ve walked... Hehehe... You look so
-      tired, my poor, broken King."
+      tired, my poor, broken King. \\n I see it clinging to your straight back...
+      a bitter loneliness and a thirst for vengeance. Won't you stay a while and
+      ask this old crone for the way?"
     m_Metadata:
       m_Items: []
-  - m_Id: 30018
-    m_Localized: I see it clinging to your straight back... a bitter loneliness and
-      a thirst for vengeance. Won't you stay a while and ask this old crone for the
-      way?
-    m_Metadata:
-      m_Items: []
-  - m_Id: 30019
+  - m_Id: 30017
     m_Localized: '[Seek the old woman''s advice.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30020
+  - m_Id: 30018
     m_Localized: "My poor, pitied King... Listen to this old crone's whispers. Your
       guard may grow frail and your armor thin, but in exchange, I shall teach you
       a ruinous gambit\u2014one that will drive your blade deep into the very heart
       of your foe."
     m_Metadata:
       m_Items: []
-  - m_Id: 30021
+  - m_Id: 30019
     m_Localized: '[Embrace the old woman.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30022
+  - m_Id: 30020
     m_Localized: "Hehehe... Yes, my pitied King. Sink deeper into these withered
       arms. I shall take half the life that sustains you, but in return, I will make
       those dry bones strike with a speed you\u2019ve never known."
     m_Metadata:
       m_Items: []
-  - m_Id: 30023
+  - m_Id: 30021
     m_Localized: Even under a shattered sky, you seek a path. Your light has fallen,
       yet a single chance lingers in the warped orbit. Shall I unveil it?
     m_Metadata:
       m_Items: []
-  - m_Id: 30024
+  - m_Id: 30022
     m_Localized: '[Overlap the threads of fate.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30025
+  - m_Id: 30023
     m_Localized: The stars have crossed. Fate flows through your steel, and soon,
       a moment of unpredictable power shall unfurl. Will you place your faith in
       the luck of the high heavens?
     m_Metadata:
       m_Items: []
-  - m_Id: 30026
+  - m_Id: 30024
     m_Localized: '[Glimpse the twisted timeline.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30027
+  - m_Id: 30025
     m_Localized: A fractured future... Your steps grow heavy, but your blade now
       bears a second destiny. Every strike carries a shard of cruel fate. The price
       is yours to bear.
     m_Metadata:
       m_Items: []
-  - m_Id: 30028
+  - m_Id: 30026
     m_Localized: "To step into this ruin... my broken Lord, if my prayer can bring
       even a moment\u2019s rest to your shattered frame, I shall gladly bless the
       path you tread"
     m_Metadata:
       m_Items: []
-  - m_Id: 30029
+  - m_Id: 30027
     m_Localized: '[Receive the Martyr''s prayer.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30030
+  - m_Id: 30028
     m_Localized: May this prayer be a flicker of light upon your path. Though the
       power to heal your wounds may wane, the weight of your soul that you can now
       bear will be deeper and broader than ever before.
     m_Metadata:
       m_Items: []
-  - m_Id: 30031
+  - m_Id: 30029
     m_Localized: '[Take the remaining divine power.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30032
+  - m_Id: 30030
     m_Localized: Nothing but hollow screams here. Your maximum life will wither,
       yet the holy grace mending your wounds shall blaze with unrivaled intensity.
     m_Metadata:
       m_Items: []
-  - m_Id: 30033
+  - m_Id: 30031
     m_Localized: 'Spiteful phantom, wandering the dark... I grant the strength you
       crave. Yet remember: what the hand takes, the soul must repay.'
     m_Metadata:
       m_Items: []
-  - m_Id: 30034
+  - m_Id: 30032
     m_Localized: '[Accept the angel''s merciful touch.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30035
+  - m_Id: 30033
     m_Localized: Your yearning shall be the light. when your HP drops below half,
       the Sacred Touch will reach deeper into your wounds.
     m_Metadata:
       m_Items: []
-  - m_Id: 30036
+  - m_Id: 30034
     m_Localized: '[Don the angel''s holy protection.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30037
+  - m_Id: 30035
     m_Localized: Full of energy is your steadfast shield. While your form is whole,
       a Heavenly Aegis shall bolster you.
     m_Metadata:
       m_Items: []
-  - m_Id: 30038
+  - m_Id: 30036
     m_Localized: "Keke... Your searing heart led me here. Your soul\u2019s ruin is
       nothing to me. You want the power for revenge? Then pay the price. A life for
       a life, a soul for a soul."
     m_Metadata:
       m_Items: []
-  - m_Id: 30039
+  - m_Id: 30037
     m_Localized: '[Contract with the demon.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30040
+  - m_Id: 30038
     m_Localized: Very well. When you dance with death, your blade shall unleash a
       cataclysm. Enjoy your ruinous power. The deal is done.
     m_Metadata:
       m_Items: []
-  - m_Id: 30041
+  - m_Id: 30039
     m_Localized: '[Offer vitality to the demon.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30042
+  - m_Id: 30040
     m_Localized: I take your life as my tribute. In exchange, I shall grant you a
       fearsome speed. That fleeting moment will be your final, dying flame.
     m_Metadata:
       m_Items: []
-  - m_Id: 30043
+  - m_Id: 30041
     m_Localized: The wind has shifted... To think a pulsing heart still beats in
       this barren land. The children of the forest are curious about your wounded
       soul. Will you accept their playful blessing?
     m_Metadata:
       m_Items: []
-  - m_Id: 30044
+  - m_Id: 30042
     m_Localized: '[Absorb the spirit''s vital flow.]'
     m_Metadata:
       m_Items: []
-  - m_Id: 30045
+  - m_Id: 30043
     m_Localized: Heed the river of life. Breathe in the grace that nature yields.
     m_Metadata:
       m_Items: []
-  - m_Id: 30046
+  - m_Id: 30044
     m_Localized: Be promised the forest's last protection.
     m_Metadata:
       m_Items: []
-  - m_Id: 30047
+  - m_Id: 30045
     m_Localized: The forest promises protection. As your light fades, the spirits
       will ignite their souls to bring you back. A miracle granted but once.
     m_Metadata:
@@ -710,6 +702,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 60024
     m_Localized: curse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50024
+    m_Localized: Event
     m_Metadata:
       m_Items: []
   references:
