@@ -540,6 +540,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: p_HPText
       objectReference: {fileID: 0}
+    - target: {fileID: 7177905103983113991, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000071525574
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969160931555518260, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 46889f698bbbe6946804a490255b2c7e, type: 3}
     - target: {fileID: 8115734697869183689, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
       propertyPath: m_Name
       value: HPBar
@@ -632,6 +640,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9210935548120400261, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210935548120400261, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210935548120400261, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -47.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210935548120400261, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0000021458
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -639,6 +663,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5501950234557665246, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6152454289065649478}
+    - targetCorrespondingSourceObject: {fileID: 5501950234557665246, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4597033505804569086}
   m_SourcePrefab: {fileID: 100100000, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
 --- !u!114 &1586113671188282147 stripped
 MonoBehaviour:
@@ -685,6 +712,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDefenseUI
   defenseText: {fileID: 5860692539142898943}
+--- !u!223 &4597033505804569086
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667513687583205694}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 44
+  m_TargetDisplay: 0
 --- !u!224 &8313947212666588756 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6148455234473502900, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
