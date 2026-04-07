@@ -15,12 +15,13 @@ public class DottedLineRenderer : MonoBehaviour
     [SerializeField] private float pulseDuration = 0.6f;
     [SerializeField] private float minAlpha = 0.2f;
     [SerializeField] private float maxAlpha = 1.0f;
-    
+
     [SerializeField] private Color dotColor = new Color(1f, 0f, 0f, 1f);
     [SerializeField] private float dotSize = 15f;
-
-    private readonly List<GameObject> _dots = new();
-    private Coroutine _flowCoroutine;
+    
+    private readonly List<List<GameObject>> _allPaths = new();
+    
+    private readonly List<Coroutine> _flowCoroutines = new();
 
     private Vector3 GetBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
@@ -30,7 +31,8 @@ public class DottedLineRenderer : MonoBehaviour
 
     public void DrawPath(Vector3 from, Vector3 to)
     {
-        //ClearDots();
+        List<GameObject> pathDots = new();
+
         Vector3 mid = (from + to) / 2f + Vector3.up * curveHeight;
 
         for (int i = 0; i <= dotCount; i++)
@@ -38,64 +40,132 @@ public class DottedLineRenderer : MonoBehaviour
             float t = (float)i / dotCount;
             Vector3 pos = GetBezierPoint(t, from, mid, to);
 
-            var dot = Instantiate(dotPrefab, transform);
-            dot.transform.position = pos;
-            
-            var rect = dot.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(dotSize, dotSize);
-            
-            var img = dot.GetComponent<Image>();
-            img.color = new Color(dotColor.r, dotColor.g, dotColor.b, 0f);
+            GameObject dot = Instantiate(dotPrefab, transform);
+            RectTransform rect = dot.GetComponent<RectTransform>();
+            if (rect != null)
+            {
+                rect.sizeDelta = new Vector2(dotSize, dotSize);
+                rect.position = pos;
+            }
 
-            _dots.Add(dot);
+            Image img = dot.GetComponent<Image>();
+            if (img != null)
+                img.color = new Color(dotColor.r, dotColor.g, dotColor.b, 0f);
+
+            pathDots.Add(dot);
         }
+
+        _allPaths.Add(pathDots);
     }
     
+    public void DrawPathImmediate(Vector3 from, Vector3 to, float alpha = 0.35f)
+    {
+        List<GameObject> pathDots = new();
+
+        Vector3 mid = (from + to) / 2f + Vector3.up * curveHeight;
+
+        for (int i = 0; i <= dotCount; i++)
+        {
+            float t = (float)i / dotCount;
+            Vector3 pos = GetBezierPoint(t, from, mid, to);
+
+            GameObject dot = Instantiate(dotPrefab, transform);
+            dot.transform.position = pos;
+
+            RectTransform rect = dot.GetComponent<RectTransform>();
+            if (rect != null)
+                rect.sizeDelta = new Vector2(dotSize, dotSize);
+
+            Image img = dot.GetComponent<Image>();
+            if (img != null)
+                img.color = new Color(dotColor.r, dotColor.g, dotColor.b, alpha);
+
+            pathDots.Add(dot);
+        }
+
+        _allPaths.Add(pathDots);
+    }
+
     public Sequence RevealDots()
     {
+        if (_allPaths.Count == 0)
+            return DOTween.Sequence();
+
+        List<GameObject> latestPath = _allPaths[_allPaths.Count - 1];
+        return RevealDots(latestPath);
+    }
+
+    public Sequence RevealDots(List<GameObject> dots)
+    {
         Sequence seq = DOTween.Sequence();
-        foreach (var dot in _dots)
+
+        foreach (GameObject dot in dots)
         {
-            var img = dot.GetComponent<Image>();
+            if (dot == null) continue;
+
+            Image img = dot.GetComponent<Image>();
+            if (img == null) continue;
+
             seq.Append(img.DOFade(1f, flowSpeed));
         }
-        
-        seq.OnComplete(() => _flowCoroutine = StartCoroutine(FlowAnimation()));
+
+        seq.OnComplete(() =>
+        {
+            Coroutine flow = StartCoroutine(FlowAnimation(dots));
+            _flowCoroutines.Add(flow);
+        });
 
         return seq;
     }
-    
-    private IEnumerator FlowAnimation()
+
+    private IEnumerator FlowAnimation(List<GameObject> dots)
     {
         while (true)
         {
-            for (int i = 0; i < _dots.Count; i++)
+            for (int i = 0; i < dots.Count; i++)
             {
-                int index = i; // 캡처
-                var img = _dots[index].GetComponent<Image>();
-                
+                if (dots[i] == null) continue;
+
+                Image img = dots[i].GetComponent<Image>();
+                if (img == null) continue;
+
                 img.DOFade(maxAlpha, pulseDuration * 0.5f)
-                   .OnComplete(() => img.DOFade(minAlpha, pulseDuration * 0.5f));
+                   .OnComplete(() =>
+                   {
+                       if (img != null)
+                           img.DOFade(minAlpha, pulseDuration * 0.5f);
+                   });
 
                 yield return new WaitForSeconds(flowSpeed);
             }
+
             yield return null;
         }
     }
 
     public void ClearDots()
     {
-        if (_flowCoroutine != null)
+        foreach (Coroutine flow in _flowCoroutines)
         {
-            StopCoroutine(_flowCoroutine);
-            _flowCoroutine = null;
+            if (flow != null)
+                StopCoroutine(flow);
+        }
+        _flowCoroutines.Clear();
+
+        foreach (List<GameObject> path in _allPaths)
+        {
+            foreach (GameObject dot in path)
+            {
+                if (dot == null) continue;
+
+                Image img = dot.GetComponent<Image>();
+                if (img != null)
+                    DOTween.Kill(img);
+
+                Destroy(dot);
+            }
         }
 
-        foreach (var dot in _dots)
-        {
-            DOTween.Kill(dot.GetComponent<Image>());
-            Destroy(dot);
-        }
-        _dots.Clear();
+        _allPaths.Clear();
     }
 }
