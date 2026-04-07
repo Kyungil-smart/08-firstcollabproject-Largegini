@@ -1,10 +1,11 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EndingCredit : MonoBehaviour
 {
     public RectTransform creditContent;
-    public AudioSource bgm;         
+    public AudioClip bgm;         
     public float scrollSpeed = 100f; 
 
     private void Start()
@@ -13,18 +14,20 @@ public class EndingCredit : MonoBehaviour
         
         float endY = creditContent.sizeDelta.y + Screen.height;
         float duration = endY / scrollSpeed;
-        
-        if(bgm != null) bgm.Play();
+
+        if (bgm != null) SoundManager.Instance.PlayBGM(bgm); 
         
         creditContent.DOAnchorPosY(endY, duration)
             .SetEase(Ease.Linear)
             .OnComplete(() => {
+                Debug.Log("크레딧 종료! 타이틀로 이동합니다.");
                 SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Title);
             });
     }
 
-    private void Update()
+    public void OnFast(InputAction.CallbackContext ctx)
     {
-        Time.timeScale = Input.GetKey(KeyCode.Space) ? 5.0f : 1.0f;
+        if (ctx.performed) Time.timeScale = 5.0f;
+        else if (ctx.canceled) Time.timeScale = 1.0f;
     }
 }
