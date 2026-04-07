@@ -44,6 +44,11 @@ public class TutorialManager : MonoBehaviour
     // 로컬라이즈 테이블 불러오기(한성우)
     private string localeTableName = "LocalTable";
 
+    // 화자 스프라이트를 불러올 게임 오브젝트 (한성우)
+    [SerializeField] private GameObject speakerKing;
+    [SerializeField] private GameObject speakerQueen;
+
+
     private void Awake()
     {
         // 로컬라이즈 텍스트 초기화 (한성우)
@@ -64,6 +69,9 @@ public class TutorialManager : MonoBehaviour
         entry.callback.AddListener((_) => OnPuzzleAreaClick());
         puzzleTrigger.triggers.Add(entry);
         puzzleTrigger.enabled = false;
+
+        speakerKing.SetActive(true);
+        speakerQueen.SetActive(false);
 
         UpdatePopup();
         popup.SetActive(true);
@@ -100,14 +108,14 @@ public class TutorialManager : MonoBehaviour
         //   20~24 전투 UI 안내 대사
 
         // 첫 대사
-        if (currentIndex == 0)
+        if (currentIndex < 3)
         {
             currentIndex++;
-            UpdatePopup();
+            UpdatePopup();  // 0, 1, 2, 3
             popup.SetActive(true);
         }
         // 인게임 UI 보이기
-        else if (currentIndex == 1)
+        else if (currentIndex == 3)
         {
             Debug.Log($"튜토리얼 2 S, 인덱스 : {currentIndex}");
             _board.SetInputLocked(false);
@@ -120,18 +128,22 @@ public class TutorialManager : MonoBehaviour
             btnEndTurn.SetActive(true); // 인게임 턴 종료 버튼 활성화
             puzzleTrigger.enabled = true;
             currentIndex++;
+
+            speakerKing.SetActive(false);
+            speakerQueen.SetActive(true);
+
             Debug.Log($"튜토리얼 2 E, 인덱스 : {currentIndex}");
         }
         // 대사
-        else if (currentIndex >= 2 && currentIndex <= 15)
+        else if (currentIndex >= 4 && currentIndex <= 7)
         {
             Debug.Log($"튜토리얼 3 S, 인덱스 : {currentIndex}");
-            currentIndex++;
+            currentIndex++; // 4, 5, 6, 7
             UpdatePopup();
             popup.SetActive(true);
             Debug.Log($"튜토리얼 3 E, 인덱스 : {currentIndex}");
         }
-        else if (currentIndex == 16)
+        else if (currentIndex == 8)
         {
             Debug.Log($"튜토리얼 4 S, 인덱스 : {currentIndex}");
             _board.SetInteractionFilter(pos => pos.Equals(preset.DragSource));
@@ -150,7 +162,7 @@ public class TutorialManager : MonoBehaviour
             btnEndTurn.SetActive(true);
             Debug.Log($"튜토리얼 4 E, 인덱스 : {currentIndex}");
         }
-        else if (currentIndex == 17)
+        else if (currentIndex == 9)
         {
             Debug.Log($"튜토리얼 5 S, 인덱스 : {currentIndex}");
             _board.ClearAllHighlights();
@@ -160,7 +172,7 @@ public class TutorialManager : MonoBehaviour
             popup.SetActive(false);
             Debug.Log($"튜토리얼 5 E, 인덱스 : {currentIndex}");
         }
-        else if (currentIndex >= 18 && currentIndex <= 23)
+        else if (currentIndex >= 10 && currentIndex <= 15)
         {
             Debug.Log($"튜토리얼 6 S, 인덱스 : {currentIndex}");
             currentIndex++;
@@ -185,7 +197,7 @@ public class TutorialManager : MonoBehaviour
 
     private void OnPuzzleComplete(PuzzleResult result)
     {
-        if (currentIndex == 18)
+        if (currentIndex == 10)
         {
             UpdatePopup();
             storyUI.SetActive(true);
@@ -256,18 +268,18 @@ public class TutorialManager : MonoBehaviour
 
     // Todo: 데이터 연동 후 교체
     // 로컬라이즈 테이블 기반 튜토리얼 텍스트 교체 (한성우)
-    private string[] testTexts = new string[25];
+    private string[] testTexts = new string[17];
     private void InitText()
     {
         // Debug.Log("InitText");
         // 로컬라이즈 테이블에서 텍스트 불러오기
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 4; i++)
         {
             testTexts[i] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_King_{i + 1}");
         }
-        for (int j = 12; j < 25; j++)
+        for (int j = 4; j < 17; j++)
         {
-            testTexts[j] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_Princess_{j + 1 - 12}");
+            testTexts[j] = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Grave_Princess_{j - 3}");
         }
     }
 
