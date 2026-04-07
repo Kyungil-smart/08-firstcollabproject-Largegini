@@ -18,6 +18,7 @@ public class SceneLoader : MonoBehaviour
    public TutorialScene Tutorial;
    public EndingScene Ending;
    public GameOverScene GameOver;
+   public CreditScene EndCredit;
    
    // 스테이지 진행 정보
    public int StageIndex;
@@ -68,6 +69,7 @@ public class SceneLoader : MonoBehaviour
        Tutorial = new TutorialScene();
        Ending = new EndingScene();
        GameOver = new GameOverScene();
+       EndCredit = new CreditScene();
 
        StageIndex = 0;
        HasTutorial = false;
