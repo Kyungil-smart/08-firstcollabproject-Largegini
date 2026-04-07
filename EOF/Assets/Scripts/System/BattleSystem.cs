@@ -134,7 +134,7 @@ public class BattleSystem : MonoBehaviour
                     {
                         _player.ReceiveDamage(5f);
                             // 죽는 기능
-                        if (_player._health <= 0) yield return StartCoroutine(Resurrection());
+                        if (_player._health <= 0) yield return StartCoroutine(_player.Resurrectioner());
                     }
                     
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
@@ -142,6 +142,7 @@ public class BattleSystem : MonoBehaviour
                         _player._behavior++;
                         _player._behavioralGauge -= _player._maxbehavioralGauge;
                     }
+                    _player._reverse = false;
                     _boardManager.SetInteractable(true);
                     _enemy._invincibility = false;
                 }
@@ -153,31 +154,10 @@ public class BattleSystem : MonoBehaviour
                 yield return StartCoroutine(_enemy.PatternProbability());
                 
                     // 죽는 기능
-                if (_player._health <= 0) yield return StartCoroutine(Resurrection());
+                if (_player._health <= 0) yield return StartCoroutine(_player.Resurrectioner());
                 _battle = BattleTurn.pTurn;
             }
             yield return null;
-        }
-    }
-
-    private IEnumerator Resurrection()
-    {
-        // 조건 맞으면 부활 스킬 거쳐가기 (한성우)
-        if (_player.Resurrection == true && _player._isFirstDeath == true)
-        {
-            // 부활 기능
-            _player._health = _player._maxHealth * 0.5f;
-            _player._isFirstDeath = false;
-
-            // 부활 연출
-            yield return StartCoroutine(_player.IResurrection());
-        }
-        else 
-        {
-            yield return StartCoroutine(_player.Dead());
-
-            // 게임오버
-            SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
         }
     }
     

@@ -201,6 +201,7 @@ public class Player : MonoBehaviour
         {
             ReceiveDamage(GiveDamageCalculator((_heal + AddHeal), count, combo));
             // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
+            if (_health <= 0) yield return StartCoroutine(Resurrectioner());
             _reverse = false;
         }
         else
@@ -239,6 +240,26 @@ public class Player : MonoBehaviour
     }
 
 
+    public IEnumerator Resurrectioner()
+    {
+        // 조건 맞으면 부활 스킬 거쳐가기 (한성우)
+        if (Resurrection == true && _isFirstDeath == true)
+        {
+            // 부활 기능
+            _health = _maxHealth * 0.5f;
+            _isFirstDeath = false;
+
+            // 부활 연출
+            yield return StartCoroutine(IResurrection());
+        }
+        else 
+        {
+            yield return StartCoroutine(Dead());
+
+            // 게임오버
+            SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
+        }
+    }
     public void GetHPAbsorb(float totalDmg)
     {
         _health += (totalDmg * (_healthAbsorbRate / 100f));
