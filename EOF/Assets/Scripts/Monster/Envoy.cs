@@ -23,7 +23,7 @@ public class Envoy : Monster
         Debug.Log(_soulHarvest);
         _minDamage += _soulHarvest * 5;
         Debug.Log(_minDamage);
-        int _probability = Random.Range(85, 100);
+        int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
         {
             yield return StartCoroutine(FirstPattern());
