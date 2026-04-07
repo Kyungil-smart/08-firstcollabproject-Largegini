@@ -87,15 +87,11 @@ public class BattleSystem : MonoBehaviour
                     _player._behavior--;
                     _player._freeze = false;
                 }
-                if (_player._theEnd)
-                {
-                    _player.ReceiveDamage(5f);
-                        // 죽는 기능
-                    if (_player._health <= 0) yield return StartCoroutine(Resurrection());
-                    yield break;
-                }
                 while (_player._behavior > 0)
                 {
+                    if (_player._theEnd) _player.ReceiveDamage(5f);
+                        // 죽는 기능
+                    if (_player._health <= 0) yield return StartCoroutine(Resurrection());
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
                     _boardManager.SetInteractable(false);
                     
