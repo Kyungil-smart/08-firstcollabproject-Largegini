@@ -300,6 +300,7 @@ public class Player : MonoBehaviour
             if (uiIndex >= SkillIcons.Length) break;
 
             int nowSkillID = GetSkillIDs[i];
+            
             string skillIconName = "";
 
 
@@ -309,6 +310,11 @@ public class Player : MonoBehaviour
                 if (element.Value.RewardID == nowSkillID)
                 {
                     skillIconName = element.Value.ResourceID;
+
+                    // 스킬 아이콘의 툴입용 정보 전달
+                    SkillIcons[uiIndex].GetComponent<ToolTipController>().SkillID = element.Value.RewardID;
+                    SkillIcons[uiIndex].GetComponent<ToolTipController>().SkillDescKey = element.Value.RewardName;
+
                     break;
                 }
             }
@@ -319,6 +325,7 @@ public class Player : MonoBehaviour
                 // 스프라이트와 이미지 컴포넌트 가져오기
                 Sprite loadedSprite = Addressables.LoadAssetAsync<Sprite>(skillIconName).WaitForCompletion();   // 어드레서블에서 스프라이트 로드
                 Image iconImage = SkillIcons[uiIndex].GetComponent<Image>();    // 게임 오브젝트의 이미지 컴포넌트 가져오기
+                
 
                 // Image 컴포넌트에 로드한 Sprite 적용
                 if (iconImage != null && loadedSprite != null)
@@ -330,6 +337,9 @@ public class Player : MonoBehaviour
                     color.a = 1f;
                     iconImage.color = color;
                 }
+
+
+
             }
 
             
