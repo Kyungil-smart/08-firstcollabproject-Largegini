@@ -244,11 +244,7 @@ public class StageUI : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (settingCanvas != null && settingCanvas.activeSelf)
-                CloseSettings();
-        }
+        
     }
 
     public void OnClickEventRewardSelect(int index)

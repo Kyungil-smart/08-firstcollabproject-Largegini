@@ -1160,6 +1160,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8ed296723b36fe0478e92842e9b0a16b, type: 3}
+    - target: {fileID: 339464291025900587, guid: 472093b063d9078408cd375f150c573a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2110054050018823489, guid: 472093b063d9078408cd375f150c573a, type: 3}
       propertyPath: m_Name
       value: Pause UI
