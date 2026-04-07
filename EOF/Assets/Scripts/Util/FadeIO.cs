@@ -104,6 +104,7 @@ public class FadeIO : MonoBehaviour
                 _tmp.enabled = true;
             }).OnComplete(() =>
             {
+                FadeOut();
             });
     }
 }
