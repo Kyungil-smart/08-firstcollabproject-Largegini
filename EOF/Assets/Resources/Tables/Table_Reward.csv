@@ -12,8 +12,8 @@
 611,Buff_Father01,event_main_icon_06_01,1,Player_Stat_2,Interchange_Value,-1,20,회복 블록의 회복량이 감소하는 대신 최대 체력을 증가시킵니다.
 612,Buff_Father02,event_main_icon_06_02,1,Player_Stat_2,Interchange_Value,1,-10,회복 블록의 회복량이 증가하는 대신 최대 체력을 감소시킵니다.
 613,Buff_Angel01,event_main_icon_07_01,2,Player_Skill,Rejuvenate_Value,50,2,체력이 50% 이하로 떨어졌을때 체력 블록의 체력 회복량이 상승합니다.
-614,Buff_Angel02,event_main_icon_07_02,2,Player_Skill,Bulwark_Value,50,2,체력이 50% 이상일때 방어 블록의 쉴드량이 상승합니다.
+614,Buff_Angel02,event_main_icon_07_02,2,Player_Skill,Bulwark_Value,50,1,체력이 50% 이상일때 방어 블록의 쉴드량이 상승합니다.
 615,Buff_Devil01,event_main_icon_08_01,2,Player_Skill,Onslaught_Value01,30,2,체력이 30% 이하로 떨어졌을때 공격 블록의 공격력이 상승합니다.
 616,Buff_Devil02,event_main_icon_08_02,2,Player_Skill,Onslaught_Value02,40,1,체력이 40% 이하로 떨어졌을때 특수 블록의 행동력 게이지 상승률이 오릅니다.
-617,Buff_Sprit01,event_main_icon_09_01,2,Player_Stat,Drain_Value,1,30,공격시 체력을 흡수한다.
+617,Buff_Sprit01,event_main_icon_09_01,2,Player_Stat,Drain_Value,1,20,공격시 체력을 흡수한다.
 618,Buff_Sprit02,event_main_icon_09_02,2,Player_Skill,Resurrection_Value,1,50,"사망시, 게임 오버가 아닌 일정 HP 회복하며 1회 부활합니다."
