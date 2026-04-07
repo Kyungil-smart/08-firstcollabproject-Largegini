@@ -3,16 +3,28 @@ using UnityEngine;
 
 public class EndingCredit : MonoBehaviour
 {
-    public RectTransform creditRect;
-    public float scrollSpeed = 50f;
-    public float targetY = 2000f;
-    public void StartCredit()
+    public RectTransform creditContent;
+    public AudioSource bgm;         
+    public float scrollSpeed = 100f; 
+
+    private void Start()
     {
-        creditRect.DOAnchorPos(new Vector2(0, targetY), 50f)
-            .SetEase(Ease.Linear) 
+        creditContent.anchoredPosition = new Vector2(0, -Screen.height);
+        
+        float endY = creditContent.sizeDelta.y + Screen.height;
+        float duration = endY / scrollSpeed;
+        
+        if(bgm != null) bgm.Play();
+        
+        creditContent.DOAnchorPosY(endY, duration)
+            .SetEase(Ease.Linear)
             .OnComplete(() => {
-                SceneLoader.Intance.Fade.FadeIn();
                 SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Title);
             });
+    }
+
+    private void Update()
+    {
+        Time.timeScale = Input.GetKey(KeyCode.Space) ? 5.0f : 1.0f;
     }
 }
