@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3776482499478972829}
   - component: {fileID: 3696455434512987848}
   - component: {fileID: 8811079485362516108}
+  - component: {fileID: 3631407438407603852}
   m_Layer: 0
   m_Name: BlueDragon
   m_TagString: Untagged
@@ -168,6 +169,21 @@ MonoBehaviour:
   _maxHP: 0
   _hpBarfill: {fileID: 3788658467096141126}
   _hpText: {fileID: 5905934106256779313}
+--- !u!114 &3631407438407603852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033207694988195695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154dab7c04f7fe94da1102a7a6f7598a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterDefenseUI
+  defenseText: {fileID: 1630385449219971053}
+  defenseGroup: {fileID: 3286903350406838828}
+  blueDragon: {fileID: 4964023920066134231}
 --- !u!1001 &7045802146211935730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,8 +194,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5501950234557665246, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7177905103983113991, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000071525574
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969160931555518260, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 46889f698bbbe6946804a490255b2c7e, type: 3}
     - target: {fileID: 8115734697869183689, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
       propertyPath: m_Name
       value: HPBar
@@ -264,16 +288,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9210935548120400261, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -42.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210935548120400261, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0000019606
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5501950234557665246, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6682263813932919637}
   m_SourcePrefab: {fileID: 100100000, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+--- !u!114 &1630385449219971053 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8604124155855331871, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+  m_PrefabInstance: {fileID: 7045802146211935730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &2243947259985057720 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9143342554500784714, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
   m_PrefabInstance: {fileID: 7045802146211935730}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3286903350406838828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5501950234557665246, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
+  m_PrefabInstance: {fileID: 7045802146211935730}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &6682263813932919637
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3286903350406838828}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 10
+  m_TargetDisplay: 0
 --- !u!224 &3788658467096141126 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6148455234473502900, guid: 4c9e586ede0bf8b4c888583be23daa3b, type: 3}
