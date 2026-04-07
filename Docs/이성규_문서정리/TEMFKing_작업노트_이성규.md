@@ -931,3 +931,21 @@ PlayerPrefs 영구 저장은 기획상 배제, 런타임에 MixerVolumeControlle
 - **현상**: 에디터와 달리 빌드 시 퍼즐 효과음에 볼륨 믹서가 적용되지 않는 문제 발생.
 - **원인**: 사운드 매니저가 어드레서블(Addressable)로 AudioMixer를 비동기 로딩 중일 때, `PuzzleSFX`가 먼저 실행되면서 개별 AudioSource에 믹서 할당이 누락됨 (Race Condition).
 - **해결**: `PuzzleSFX` 시작 시 사운드 매니저의 믹서 로딩 완료를 대기하는 코루틴(`InitMixerGroupWhenReady`)을 추가. 로딩이 완벽히 보장된 후 믹서 그룹을 동적으로 할당하여 타이밍 이슈 안전하게 해결.
+
+### 캔버스 스케일 작업
+
+UI 캔버스 스케일을 1920×1080 기준, Match Height 1로 일괄 설정.
+다양한 해상도 테스트 후 필요에 따라 Match 값 조정.
+
+### 스프라이트 배경 레터박스 제거
+
+- 현상: 와이드 해상도에서 배경 양옆에 검은 띠 발생
+- 원인: 배경이 Sprite Renderer라서 화면 비율에 자동 대응 안 됨
+- 해결: 카메라 영역 대비 스프라이트 비율을 유지하면서 화면을 채우는 BackgroundFitter.cs 작성
+
+### 프리팹 유지하면서 UI 레이아웃 대응 (턴 종료 버튼)
+
+- 현상: 해상도 변경 시 턴 종료 버튼이 기준 패널을 벗어남
+- 제약: 프리팹 Unpack하면 원본 연결이 끊겨 유지보수 비용 증가
+- 해결: 런타임에 SetParent로 부모를 라이트 패널로 변경 + localPosition = Vector3.zero로 정렬하는 SetParent.cs 작성
+--- 
