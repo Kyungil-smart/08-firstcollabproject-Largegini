@@ -105,6 +105,12 @@ public class SoundManager : MonoBehaviour
         }
     }
     
+    // 다른 스크립트에서 SFX 믹서 그룹을 가져갈 수 있게 열어줌
+    public AudioMixerGroup GetSfxMixerGroup()
+    {
+        return _sfxMixerGroup;
+    }
+    
     // [정연 파트] 재생 컨트롤 로직
     public void PlayBGM(AudioClip clip)
     {
