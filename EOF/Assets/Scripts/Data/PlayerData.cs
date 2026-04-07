@@ -35,7 +35,8 @@ public class PlayerData
     public bool Onslaught02 { get; set; }
     public bool Resurrection { get; set; }
 
-
+    // 스킬 ID 저장용 리스트
+    public List<int> GetSkillIDs { get; set; } = new List<int>();
 
 
     public void SetPlayerData(Dictionary<string, object> row)
@@ -66,6 +67,7 @@ public class PlayerData
         Onslaught02 = false;
         Resurrection = false;
 
+        GetSkillIDs.Clear();    // 얻은 스킬 초기화
 
         // Debug.Log($"a : {HP}");
 

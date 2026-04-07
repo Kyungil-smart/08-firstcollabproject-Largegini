@@ -116,10 +116,10 @@ public class DataManager : MonoBehaviour
 
             
 
-            Debug.Log($"firstInitSave_01 : {originalPlayerData.Damage_Normal}");
+            // Debug.Log($"firstInitSave_01 : {originalPlayerData.Damage_Normal}");
 
             savedPlayerData.Damage_Normal = originalPlayerData.Damage_Normal;
-            Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
+            // Debug.Log($"firstInitSave_02 : {savedPlayerData.Damage_Normal}");
 
             savedPlayerData.Damage_Special = originalPlayerData.Damage_Special;
             savedPlayerData.Shield = originalPlayerData.Shield;
@@ -139,7 +139,7 @@ public class DataManager : MonoBehaviour
             savedPlayerData.Onslaught02 = false;
             savedPlayerData.Resurrection = false;
 
-
+            savedPlayerData.GetSkillIDs.Clear();    // 얻은 스킬 초기화
 
             hasSavedData = true;    // 임시로 true로 넣어놓음
         }
@@ -177,7 +177,13 @@ public class DataManager : MonoBehaviour
         savedPlayerData.Onslaught02 = playerObj.Onslaught02;
         savedPlayerData.Resurrection = playerObj.Resurrection;
 
-
+        // 획득한 스킬 ID 저장
+        savedPlayerData.GetSkillIDs.Clear();
+        savedPlayerData.GetSkillIDs.AddRange(playerObj.GetSkillIDs);
+        for (int i = 0; i < savedPlayerData.GetSkillIDs.Count; i++)
+        {
+            Debug.Log($"저장된 스킬 ID {i} : {savedPlayerData.GetSkillIDs[i]}");
+        }
 
         hasSavedData = true;
     }
@@ -192,16 +198,16 @@ public class DataManager : MonoBehaviour
 
         if (hasSavedData)
         {
-            Debug.Log(savedPlayerData.Damage_Normal);
+            // Debug.Log(savedPlayerData.Damage_Normal);
 
             // 스테이지 넘어갈 때 생명력 회복용
             playerObj._maxHealth = savedPlayerData.MaxHP;
 
-            Debug.Log($"OnGameSave 플레이어 생명력03 : {playerObj._health}");
+            // Debug.Log($"OnGameSave 플레이어 생명력03 : {playerObj._health}");
 
             playerObj._health = savedPlayerData.CurrentHP;
 
-            Debug.Log($"OnGameSave 플레이어 생명력04 : {playerObj._health}");
+            // Debug.Log($"OnGameSave 플레이어 생명력04 : {playerObj._health}");
 
             // 이벤트 에서 플레이어 기능 변환 한 것 (RewardController) 넘겨주기
             playerObj._attack = savedPlayerData.Damage_Normal;
@@ -219,6 +225,15 @@ public class DataManager : MonoBehaviour
             playerObj.Onslaught01 = savedPlayerData.Onslaught01;
             playerObj.Onslaught02 = savedPlayerData.Onslaught02;
             playerObj.Resurrection = savedPlayerData.Resurrection;
+
+
+            // 획득한 스킬 ID 저장
+            playerObj.GetSkillIDs.Clear();
+            playerObj.GetSkillIDs.AddRange(savedPlayerData.GetSkillIDs);
+            for (int i = 0; i < savedPlayerData.GetSkillIDs.Count; i++)
+            {
+                Debug.Log($"저장된 스킬 ID {i} : {savedPlayerData.GetSkillIDs[i]}");
+            }
 
         }
 

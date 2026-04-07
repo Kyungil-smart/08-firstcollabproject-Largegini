@@ -112,7 +112,7 @@ public class EventController : MonoBehaviour
             if(element.Value.EventType == CurrentEventType)
             {
                 targetEvent.Add(element.Value);
-                Debug.Log($"{element.Value.EventID} 저장");
+                // Debug.Log($"{element.Value.EventID} 저장");
             }
         }
 
@@ -142,10 +142,10 @@ public class EventController : MonoBehaviour
         EventText0201 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select01");
         EventText0202 = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, _target.EventName + "_Select02");
 
-        Debug.Log($"이벤트 대사 0 : {_target.EventName}");
-        Debug.Log($"이벤트 대사 1 : {EventText0101}");
-        Debug.Log($"이벤트 대사 2 : {EventText0201}");
-        Debug.Log($"이벤트 대사 3 : {EventText0202}");
+        //Debug.Log($"이벤트 대사 0 : {_target.EventName}");
+        //Debug.Log($"이벤트 대사 1 : {EventText0101}");
+        //Debug.Log($"이벤트 대사 2 : {EventText0201}");
+        //Debug.Log($"이벤트 대사 3 : {EventText0202}");
 
 
         // 이미지 보내기

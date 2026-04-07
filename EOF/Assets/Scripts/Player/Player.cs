@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.UI;   // 스킬 아이콘을 위해 추가 필요
 
 /*
  * 작성자 : 김동현
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
     public float _healthAbsorbRate;
     public bool _isFirstDeath;   // 전투 당 1회 부활 스킬용 변수
 
-    
+
     // 이벤트용 스킬해금 스텟
     [Header("스킬 해금 여부")]
     [field: SerializeField] public bool SkillChain01 { get; set; }
@@ -56,20 +58,29 @@ public class Player : MonoBehaviour
     [field: SerializeField] public bool Bulwark { get; set; }
     [field: SerializeField] public bool Onslaught01 { get; set; }
     [field: SerializeField] public bool Onslaught02 { get; set; }
-    [field:SerializeField] public bool Resurrection { get; set; }
+    [field: SerializeField] public bool Resurrection { get; set; }
 
     [Header("버프로 더해지는 스텟")]
     [field: SerializeField] public float AddAttack { get; set; }
     [field: SerializeField] public float AddDefensive { get; set; }
     [field: SerializeField] public float AddHeal { get; set; }
     [field: SerializeField] public float AddGaugeIncreaseRate { get; set; }
-    [field: SerializeField] private float _finalDamage;
+
+
+    // 스킬 ID 저장용 리스트 및 게임 오브젝트
+    [field: SerializeField] public List<int> GetSkillIDs { get; set; } = new List<int>();
+    [field: SerializeField] public GameObject[] SkillIcons { get; set; } = new GameObject[3];
+    RewardTable table;   // 불러올 이벤트 테이블
+
+
+
+    [field: SerializeField] private float _finalDamage; // 최종 데미지 계산용 변수
 
     [SerializeField] private AudioClip[] _sfx;
     private RewardSkillController _rewardSkillController;
     private Animator _animator;
-    public List<RuntimeAnimatorController> _evolutionAnimators; 
-    
+    public List<RuntimeAnimatorController> _evolutionAnimators;
+
     private void Awake()
     {
         Instance = this;
@@ -93,6 +104,8 @@ public class Player : MonoBehaviour
         _finalDamage = 0;
 
         // 스텟 Init은 PlayerStatController 스크립트에서 수정
+
+
     }
 
 
@@ -132,6 +145,10 @@ public class Player : MonoBehaviour
         // 최초 스폰 시 생명력 특정 % 이상일 때 발동하는 스킬을 위해 추가
         // Debug.Log($"Init에서 플레이어 생명력 : {_health} / {_maxHealth}");
         _rewardSkillController.ActivateStatSkillProcess();
+
+        // 스킬 아이콘 표시 기능을 위해 추가 (한성우)
+        if (DataManager._instance != null) table = DataManager._instance.GetRewardTable();
+        ActivateSkillIcon();
     }
 
     public IEnumerator PlayerStat(PuzzleResult result)
@@ -163,7 +180,7 @@ public class Player : MonoBehaviour
             yield return StartCoroutine(Attack(_animTag));
         }
     }
-    
+
     public IEnumerator Attack(string _anim)
     {
         Debug.Log("공격");
@@ -178,7 +195,7 @@ public class Player : MonoBehaviour
 
         Monster.Instance.ReceiveDamage(_finalDamage);
         // 이벤트 보상용 흡혈 기능을 위해 추가 (한성우)
-        if(_healthAbsorbRate > 0) GetHPAbsorb(_finalDamage);
+        if (_healthAbsorbRate > 0) GetHPAbsorb(_finalDamage);
 
         // 최종 데미지 초기화
         _finalDamage = 0;
@@ -200,7 +217,7 @@ public class Player : MonoBehaviour
     //     }
     //
     // }
-    
+
     public IEnumerator Heal(int count, int combo)
     {
         Debug.Log("회복");
@@ -222,7 +239,7 @@ public class Player : MonoBehaviour
             {
                 _health = _maxHealth;
             }
-            
+
         }
     }
 
@@ -235,7 +252,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         _defensiveGauge = (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
     }
-    
+
 
     // 플레이어가 주는 대미지 계산 기능
     public float GiveDamageCalculator(float damage, int count, int combo)
@@ -255,7 +272,7 @@ public class Player : MonoBehaviour
             _health = _maxHealth;
         }
     }
-    
+
     // 플레이어가 받는 대미지 계산 기능
     public void ReceiveDamage(float damage)
     {
@@ -286,9 +303,63 @@ public class Player : MonoBehaviour
         if (stageIndex < _evolutionAnimators.Count && _evolutionAnimators[stageIndex] != null)
         {
             _animator.runtimeAnimatorController = _evolutionAnimators[stageIndex];
-            _animator.Play("Player_Idle", 0, 0f); 
+            _animator.Play("Player_Idle", 0, 0f);
             _animator.Update(0f);
         }
-        
+
     }
+
+
+    // 스킬 아이콘 발동 기능을 위해 추가 (한성우)
+    // 추후 스킬 아이콘 컨트롤러 스크립트에서 기능을 호출할 수 있도록 수정 필요
+    public void ActivateSkillIcon()
+    {
+        // Debug.Log("ActivateSkillIcon 실행");
+        int uiIndex = 0;    // UI 슬롯을 가리키는 인덱스
+
+        
+        for (int i = 0; i < GetSkillIDs.Count; i++)
+        {
+            // 슬롯 개수 초과시 브레이크
+            if (uiIndex >= SkillIcons.Length) break;
+
+            int nowSkillID = GetSkillIDs[i];
+            string skillIconName = "";
+
+
+            // 테이블 순회하며 스킬 아이콘 이름 찾기
+            foreach (var element in table.RewardDic)
+            {
+                if (element.Value.RewardID == nowSkillID)
+                {
+                    skillIconName = element.Value.ResourceID;
+                    break;
+                }
+            }
+
+            // 스킬 아이콘 적용
+            if (!string.IsNullOrEmpty(skillIconName) && SkillIcons[uiIndex] != null)
+            {
+                // 스프라이트와 이미지 컴포넌트 가져오기
+                Sprite loadedSprite = Addressables.LoadAssetAsync<Sprite>(skillIconName).WaitForCompletion();   // 어드레서블에서 스프라이트 로드
+                Image iconImage = SkillIcons[uiIndex].GetComponent<Image>();    // 게임 오브젝트의 이미지 컴포넌트 가져오기
+
+                // Image 컴포넌트에 로드한 Sprite 적용
+                if (iconImage != null && loadedSprite != null)
+                {
+                    iconImage.sprite = loadedSprite;
+
+                    // 알파값 1로 변경
+                    Color color = iconImage.color;
+                    color.a = 1f;
+                    iconImage.color = color;
+                }
+            }
+
+            
+            uiIndex++;
+        }
+    }
+
+
 }

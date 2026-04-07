@@ -19,6 +19,8 @@ public class RewardController
         Init();
 
         _targetID = targetID;
+        DataManager._instance.savedPlayerData.GetSkillIDs.Add(_targetID);  // 스킬 ID 저장
+        Debug.Log($"RewardProcess 스킬 ID : {_targetID} 저장 완료");
 
         PickRewardData();
 

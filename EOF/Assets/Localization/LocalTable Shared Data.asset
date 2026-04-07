@@ -220,7 +220,7 @@ MonoBehaviour:
       m_Items:
       - rid: 3634112514202009693
   - m_Id: 30004
-    m_Key: Blacksmith_Select02_
+    m_Key: Blacksmith_Select02
     m_Metadata:
       m_Items: []
   - m_Id: 30005
@@ -578,6 +578,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009738
+  - m_Id: 50024
+    m_Key: Button_Event_Name
+    m_Metadata:
+      m_Items:
+      - rid: 3634112580457070675
   - m_Id: 60001
     m_Key: Buff_Blacksmith01
     m_Metadata:
@@ -698,8 +703,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009762
-  - m_Id: 4774566940848128
-    m_Key: New Entry 4
+  - m_Id: 4898356265955328
+    m_Key: New Entry
     m_Metadata:
       m_Items: []
   m_Metadata:
@@ -1068,6 +1073,10 @@ MonoBehaviour:
       data:
         m_CommentText: "\uC774 \uBC84\uD2BC\uC740 \uC774\uBBF8\uC9C0\uB77C\uC11C
           \uB85C\uCEEC\uB77C\uC774\uC9D5 \uC81C\uC678"
+    - rid: 3634112580457070675
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: "\uC2A4\uD14C\uC774\uC9C0 \uC774\uBCA4\uD2B8 \uBC84\uD2BC"
     - rid: 5564929059473850746
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
