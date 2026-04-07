@@ -89,9 +89,6 @@ public class BattleSystem : MonoBehaviour
                 }
                 while (_player._behavior > 0)
                 {
-                    if (_player._theEnd) _player.ReceiveDamage(5f);
-                        // 죽는 기능
-                    if (_player._health <= 0) yield return StartCoroutine(Resurrection());
                     yield return new WaitUntil(() => _isSwap || _isPuzzle);
                     _boardManager.SetInteractable(false);
                     
@@ -132,7 +129,14 @@ public class BattleSystem : MonoBehaviour
                     }
                     _isPuzzle = false;
                     _isSwap = false;
-
+                    
+                    if (_player._theEnd)
+                    {
+                        _player.ReceiveDamage(5f);
+                        // 죽는 기능
+                        if (_player._health <= 0) yield return StartCoroutine(Resurrection());
+                    }
+                    
                     while (_player._behavioralGauge >= _player._maxbehavioralGauge)
                     {
                         _player._behavior++;
