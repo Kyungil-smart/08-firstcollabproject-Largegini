@@ -36,7 +36,7 @@ public class WearWolf : Monster
         SoundManager.Instance.PlaySFX(_wolfSound.attackSFX[0]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("WereWolf_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("WereWolf_Idle")) yield return null; 
-        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 1));
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage -10, _minDamage + 1));
 
     }
 
@@ -58,6 +58,6 @@ public class WearWolf : Monster
         SoundManager.Instance.PlaySFX(_wolfSound.attackSFX[2]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("WereWolf_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("WereWolf_Idle")) yield return null; 
-        Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 21));
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 11));
     }
 }
