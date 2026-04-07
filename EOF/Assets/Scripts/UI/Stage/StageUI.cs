@@ -139,6 +139,14 @@ public class StageUI : MonoBehaviour
             // https://wolstar.tistory.com/14 기반
             Addressables.LoadAssetAsync<GameObject>(eventController.EventImageAddress).Completed += (op) =>
             {
+                // 예외 처리, 오브젝트 파괴 시 중단
+                if (this == null || imageBG == null)
+                {
+                    Addressables.Release(op);   // Release : LoadAssetAsync로 불러온 에셋 자체를 메모리에서 해제
+                    return;
+                }
+
+
                 // 로드가 완료 시 실행
                 imageEvent = op.Result;
 

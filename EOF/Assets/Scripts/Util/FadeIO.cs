@@ -1,11 +1,12 @@
-using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
 using DG.Tweening;
+using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class FadeIO : MonoBehaviour
 {
@@ -21,8 +22,11 @@ public class FadeIO : MonoBehaviour
     
     // 사신 등장 텍스트
     private TextMeshProUGUI _tmp;
-    private string _txt;
-    
+    // private string _txt;
+
+    // 로컬라이즈 테이블 불러오기(한성우)
+    private string localeTableName = "LocalTable";
+
     private void Awake()
     {
         _fadeDuration = 1f;
@@ -47,6 +51,7 @@ public class FadeIO : MonoBehaviour
         {
             _canvasGroup = op.Result.GetComponent<CanvasGroup>();
             _tmp = op.Result.GetComponentInChildren<TextMeshProUGUI>();
+            _tmp.text = LocalizationSettings.StringDatabase.GetLocalizedString(localeTableName, $"Unknown_Death_04");
         }
     else
 
@@ -79,6 +84,7 @@ public class FadeIO : MonoBehaviour
             .OnComplete(() =>
             {
                 _canvasGroup.blocksRaycasts = false;
+                _tmp.enabled = false;
             });
     }
     
@@ -102,10 +108,12 @@ public class FadeIO : MonoBehaviour
             {
                 _canvasGroup.blocksRaycasts = true;
                 _tmp.enabled = true;
+
             }).OnComplete(() =>
             {
                 SceneManager.LoadScene((int)ESceneType.Battle);
                 FadeOut();
+                
             });
     }
 }
