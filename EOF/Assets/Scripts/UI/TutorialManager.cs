@@ -30,6 +30,9 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] private BoardManager boardManager;
     [SerializeField] private TutorialBoardPreset preset;
+    
+    private Button _btnReset;
+    private Button _btnEndTurn;
 
     private ITutorialBoardControl _board;
     private Action _savedProceed;
@@ -51,6 +54,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
+        _btnReset = btnReset.GetComponent<Button>();
+        _btnEndTurn = btnEndTurn.GetComponent<Button>();
         // 로컬라이즈 텍스트 초기화 (한성우)
         InitText();
     }
@@ -81,7 +86,6 @@ public class TutorialManager : MonoBehaviour
     {
         btnReset.SetActive(false);
         btnEndTurn.SetActive(false);
-
         // Todo: 데이터 연동 후 교체
         //storyText.text = testTexts[currentIndex];
         dialogueTyper.ShowText(testTexts[currentIndex]);
@@ -124,8 +128,8 @@ public class TutorialManager : MonoBehaviour
 
             popup.SetActive(false); // 다이얼로그가 있는 팝업 창 닫기
             dimPanel.SetActive(true);
-            btnReset.SetActive(true);   // 인게임 리셋 버튼 활성화
-            btnEndTurn.SetActive(true); // 인게임 턴 종료 버튼 활성화
+            //btnReset.SetActive(true);   // 인게임 리셋 버튼 활성화
+            //btnEndTurn.SetActive(true); // 인게임 턴 종료 버튼 활성화
             puzzleTrigger.enabled = true;
             currentIndex++;
 
@@ -160,6 +164,8 @@ public class TutorialManager : MonoBehaviour
             popup.SetActive(false);
             btnReset.SetActive(true);
             btnEndTurn.SetActive(true);
+            _btnReset.interactable = false;
+            _btnEndTurn.interactable = false;
             Debug.Log($"튜토리얼 4 E, 인덱스 : {currentIndex}");
         }
         else if (currentIndex == 9)
@@ -199,6 +205,8 @@ public class TutorialManager : MonoBehaviour
     {
         if (currentIndex == 10)
         {
+            _btnReset.interactable = true;
+            _btnEndTurn.interactable = true;
             UpdatePopup();
             storyUI.SetActive(true);
             popup.SetActive(true);
@@ -234,8 +242,8 @@ public class TutorialManager : MonoBehaviour
         storyUI.SetActive(false);
         inGameUI.SetActive(true);
         dimPanel.SetActive(false);
-        btnReset.SetActive(true);
-        btnEndTurn.SetActive(true);
+        btnReset.GetComponent<Button>().interactable = true;
+        btnEndTurn.GetComponent<Button>().interactable = true;
         PlayerPrefs.SetInt("TutorialDone", 1);
     }
 
@@ -263,6 +271,8 @@ public class TutorialManager : MonoBehaviour
         dimPanel.SetActive(false);
         btnReset.SetActive(true);
         btnEndTurn.SetActive(true);
+        _btnReset.interactable = true;
+        _btnEndTurn.interactable = true;
         PlayerPrefs.SetInt("TutorialDone", 1);
     }
 
