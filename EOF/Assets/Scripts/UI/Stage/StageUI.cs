@@ -33,6 +33,7 @@ public class StageUI : MonoBehaviour
     [Header("노드이동")]
     [SerializeField] private MapNodeMover nodeMover;
     [SerializeField] private RectTransform tutorialNode;
+    [SerializeField] private RectTransform[] pathNodes;
     
     private int currentIndex;
     private StoryPage[] pages;
@@ -222,30 +223,42 @@ public class StageUI : MonoBehaviour
     private void Start()
     {
         SceneLoader.Intance.MaxStage = NodeBtns.Length - 1;
+
         foreach (GameObject btn in NodeBtns)
         {
             LockBtn(btn);
         }
 
-        if (SceneLoader.Intance.HasTutorial && SceneLoader.Intance.StageIndex == 0)
+        if (SceneLoader.Intance.StageIndex < NodeBtns.Length)
+            UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
+        
+        if (PlayerPrefs.GetInt("StageFirstEnter", 1) == 1)
         {
+            PlayerPrefs.SetInt("StageFirstEnter", 0);
+            SceneLoader.Intance.StageIndex = 0;
+
             UnLockBtn(NodeBtns[0]);
-            nodeMover.PlayMoveToNextNode(tutorialNode, NodeBtns[0].GetComponent<RectTransform>(), null);
-        }
-        else
-        {
-            if (SceneLoader.Intance.StageIndex < NodeBtns.Length)
-                UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
-            
-            if (PlayerPrefs.GetInt("BattleClear", 0) == 1)
+
+            if (tutorialNode != null && pathNodes.Length > 0 && pathNodes[0] != null)
             {
-                Debug.Log("BattleClear 감지!");
-                Debug.Log($"battleClearIndex: {SceneLoader.Intance.StageIndex - 1}");
-                PlayerPrefs.SetInt("BattleClear", 0);
-                int battleClearIndex = SceneLoader.Intance.StageIndex - 1;
-                RectTransform fromNode = NodeBtns[battleClearIndex].GetComponent<RectTransform>();
-                RectTransform toNode = NodeBtns[SceneLoader.Intance.StageIndex].GetComponent<RectTransform>();
-                nodeMover.PlayMoveToNextNode(fromNode, toNode, null);
+                nodeMover.PlayMoveToNextNode(tutorialNode, pathNodes[0], null);
+            }
+
+            return;
+        }
+        
+        RebuildVisitedPaths();
+        
+        if (PlayerPrefs.GetInt("BattleClear", 0) == 1)
+        {
+            PlayerPrefs.SetInt("BattleClear", 0);
+
+            int fromIndex = SceneLoader.Intance.StageIndex - 1;
+            int toIndex = SceneLoader.Intance.StageIndex;
+
+            if (fromIndex >= 0 && toIndex < pathNodes.Length)
+            {
+                nodeMover.PlayMoveToNextNode(pathNodes[fromIndex], pathNodes[toIndex], null);
             }
         }
     }
@@ -253,6 +266,31 @@ public class StageUI : MonoBehaviour
     private void Update()
     {
         
+    }
+    
+    private void RebuildVisitedPaths()
+    {
+        Debug.Log($"RebuildVisitedPaths StageIndex: {SceneLoader.Intance.StageIndex}");
+        if (SceneLoader.Intance.StageIndex <= 0)
+            return;
+        
+        if (tutorialNode != null && pathNodes.Length > 0 && pathNodes[0] != null)
+        {
+            nodeMover.DrawVisitedPath(tutorialNode, pathNodes[0]);
+        }
+
+        for (int i = 0; i < SceneLoader.Intance.StageIndex - 1; i++)
+        {
+            int nextIndex = i + 1;
+
+            if (i >= pathNodes.Length || nextIndex >= pathNodes.Length)
+                break;
+
+            if (pathNodes[i] == null || pathNodes[nextIndex] == null)
+                continue;
+
+            nodeMover.DrawVisitedPath(pathNodes[i], pathNodes[nextIndex]);
+        }
     }
 
     public void OnClickEventRewardSelect(int index)
@@ -267,7 +305,6 @@ public class StageUI : MonoBehaviour
 
     public void OnClickBattleNode()
     {
-        Debug.Log($"배틀 진입 전 StageIndex: {SceneLoader.Intance.StageIndex}");
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Battle);
     }
 
@@ -304,29 +341,25 @@ public class StageUI : MonoBehaviour
         eventPopup.SetActive(false);
         SceneLoader.Intance.StageIndex += 1;
 
-        int unlockIndex = SceneLoader.Intance.StageIndex - 1;
-        
-        
-        if (unlockIndex - 1 >= 0)
-            LockBtn(NodeBtns[unlockIndex - 1]);
-        
-        LockBtn(NodeBtns[unlockIndex]);
-        
-        if (unlockIndex + 1 < NodeBtns.Length)
-            UnLockBtn(NodeBtns[unlockIndex + 1]);
+        int nextStageIndex = SceneLoader.Intance.StageIndex;
+    
+        foreach (GameObject btn in NodeBtns)
+            LockBtn(btn);
+    
+        if (nextStageIndex < NodeBtns.Length)
+            UnLockBtn(NodeBtns[nextStageIndex]);
 
-        RectTransform fromNode = NodeBtns[unlockIndex].GetComponent<RectTransform>();
+        int fromIndex = nextStageIndex - 1;
+        int toIndex = nextStageIndex;
 
-        RectTransform toNode = NodeBtns[unlockIndex + 1 < NodeBtns.Length 
-            ? unlockIndex + 1 
-            : unlockIndex].GetComponent<RectTransform>();
-        
-        nodeMover.PlayMoveToNextNode(fromNode, toNode, null);
+        if (fromIndex >= 0 && toIndex < pathNodes.Length)
+        {
+            nodeMover.PlayMoveToNextNode(pathNodes[fromIndex], pathNodes[toIndex], null);
+        }
     }
 
     private void UpdateEventPopup()
     {
-        Debug.Log("UpdateEventPopup");
 
         eventPopup.SetActive(true);
 
