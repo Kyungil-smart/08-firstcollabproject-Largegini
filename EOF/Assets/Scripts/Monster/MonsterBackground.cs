@@ -11,6 +11,7 @@ public class MonsterBackground : MonoBehaviour
         {
             _currentBackground = Instantiate(_backgroundPrefab);
             _currentBackground.transform.position = Vector3.zero;
+            _currentBackground.AddComponent<BackgroundFitter>();
         }
     }
 }

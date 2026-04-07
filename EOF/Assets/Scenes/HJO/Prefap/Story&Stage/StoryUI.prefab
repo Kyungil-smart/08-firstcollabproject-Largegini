@@ -908,7 +908,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &7994323734010922715
 MonoBehaviour:
@@ -922,10 +922,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -967,12 +967,21 @@ MonoBehaviour:
   dimPanel: {fileID: 0}
   popup: {fileID: 6687092829572792011}
   puzzleArea: {fileID: 0}
+  btnReset: {fileID: 0}
+  btnEndTurn: {fileID: 0}
   storyText: {fileID: 6489311703115323266}
   storyImage: {fileID: 423323679537009553}
-  prevButton: {fileID: 1571195587743419773}
   nextButton: {fileID: 5546874412747667364}
-  closeButton: {fileID: 8768175099220172997}
   popupImages: []
+  iconClose: {fileID: 0}
+  iconNext: {fileID: 0}
+  iconContinue: {fileID: 0}
+  boardManager: {fileID: 0}
+  preset: {fileID: 0}
+  dialogueTyper: {fileID: 0}
+  <currentIndex>k__BackingField: 0
+  speakerKing: {fileID: 0}
+  speakerQueen: {fileID: 0}
 --- !u!1 &5484759770582440553
 GameObject:
   m_ObjectHideFlags: 0
