@@ -3,7 +3,7 @@
 **작성자**: 이성규  
 **게임명**: 스러진 왕의 영원한 행진(The Eternal March of the Fallen King)  
 **작성일**: 2026-03-23  
-**최종 수정**: 2026-03-26  
+**최종 수정**: 2026-04-07  
 
 ## 프로젝트 개요
 
@@ -917,3 +917,20 @@ PlayerPrefs 영구 저장은 기획상 배제, 런타임에 MixerVolumeControlle
 - SoundManager: AudioSource 생성 + Addressable 믹서 로드 + 재생 API
 - MixerVolumeController: AudioMixer 볼륨 설정/조회 (순수 C#)
 - VolumeSlider: UI Slider ↔ MixerVolumeController 바인딩 (MonoBehaviour)
+
+## Day 13 - 2026-04-07
+
+폴리싱 작업 서포트 및 문서정리
+
+### 스프라이트 아틀라스 패킹 작업 진행
+
+아틀라스로 묶을 수 있는 스프라이트들 아틀라스 패킹
+
+아틀라스에 들어가는 파일은 이중 압축이 되니 원본 에셋 압축은 None으로 설정
+
+AllowRotation 체크 해제  
+UI가 회전되어 출력되는 현상 방지
+
+외부 에셋스토어 에셋은 관리가 어려우니 아틀라스 패킹 고려 대상에서 제외
+
+퍼즐과 스킬아이콘, 통상적으로 자주 사용되는 이미지들을 각자 아틀라스로 패킹함
