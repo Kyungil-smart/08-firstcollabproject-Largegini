@@ -47,9 +47,6 @@ public class StageUI : MonoBehaviour
     private EventController eventController;
     [field: SerializeField] public int SelectedIndex { get; set; }  // 인덱스 선택용
 
-
-
-
     private string[] _eventText =
     {
         "이벤트 설명 1",
@@ -213,27 +210,16 @@ public class StageUI : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"StageScene 시작 StageIndex: {SceneLoader.Intance.StageIndex}");
         SceneLoader.Intance.MaxStage = NodeBtns.Length - 1;
         foreach (GameObject btn in NodeBtns)
         {
             LockBtn(btn);
         }
 
-        //if (SceneLoader.Intance.StageIndex < NodeBtns.Length)
-            UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
-        
-        /*if (SceneLoader.Intance.StageIndex == 1)
-        {
-            RectTransform toNode = NodeBtns[0].GetComponent<RectTransform>();
-            nodeMover.PlayMoveToNextNode(tutorialNode, toNode, null);
-        }*/
         if (SceneLoader.Intance.HasTutorial && SceneLoader.Intance.StageIndex == 0)
         {
-            SceneLoader.Intance.StageIndex = 1;
             UnLockBtn(NodeBtns[0]);
-            RectTransform toNode = NodeBtns[0].GetComponent<RectTransform>();
-            nodeMover.PlayMoveToNextNode(tutorialNode, toNode, null);
+            nodeMover.PlayMoveToNextNode(tutorialNode, NodeBtns[0].GetComponent<RectTransform>(), null);
         }
         else
         {
@@ -297,21 +283,19 @@ public class StageUI : MonoBehaviour
     {
         eventPopup.SetActive(false);
         SceneLoader.Intance.StageIndex += 1;
-        
-        int unlockIndex = SceneLoader.Intance.StageIndex - 1;
-        
-        if (SceneLoader.Intance.StageIndex > 1)
-            //LockBtn(NodeBtns[SceneLoader.Intance.StageIndex - 2]);
-        LockBtn(NodeBtns[SceneLoader.Intance.StageIndex - 1]);
-        //UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
-        
-        UnLockBtn(NodeBtns[unlockIndex]);
-        
-        RectTransform fromNode = SceneLoader.Intance.StageIndex == 1
-            ? tutorialNode
-            : NodeBtns[SceneLoader.Intance.StageIndex - 2].GetComponent<RectTransform>();
 
-        RectTransform toNode = NodeBtns[SceneLoader.Intance.StageIndex - 1].GetComponent<RectTransform>();
+        int unlockIndex = SceneLoader.Intance.StageIndex - 1;
+
+        if (unlockIndex - 1 >= 0)
+            LockBtn(NodeBtns[unlockIndex - 1]);
+
+        UnLockBtn(NodeBtns[unlockIndex]);
+
+        RectTransform fromNode = unlockIndex == 0
+            ? tutorialNode
+            : NodeBtns[unlockIndex - 1].GetComponent<RectTransform>();
+
+        RectTransform toNode = NodeBtns[unlockIndex].GetComponent<RectTransform>();
         nodeMover.PlayMoveToNextNode(fromNode, toNode, null);
     }
 
