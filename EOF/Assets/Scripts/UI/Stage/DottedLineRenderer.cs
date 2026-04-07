@@ -15,6 +15,9 @@ public class DottedLineRenderer : MonoBehaviour
     [SerializeField] private float pulseDuration = 0.6f;
     [SerializeField] private float minAlpha = 0.2f;
     [SerializeField] private float maxAlpha = 1.0f;
+    
+    [SerializeField] private Color dotColor = new Color(1f, 0f, 0f, 1f);
+    [SerializeField] private float dotSize = 15f;
 
     private readonly List<GameObject> _dots = new();
     private Coroutine _flowCoroutine;
@@ -27,8 +30,7 @@ public class DottedLineRenderer : MonoBehaviour
 
     public void DrawPath(Vector3 from, Vector3 to)
     {
-        ClearDots();
-
+        //ClearDots();
         Vector3 mid = (from + to) / 2f + Vector3.up * curveHeight;
 
         for (int i = 0; i <= dotCount; i++)
@@ -39,8 +41,11 @@ public class DottedLineRenderer : MonoBehaviour
             var dot = Instantiate(dotPrefab, transform);
             dot.transform.position = pos;
             
+            var rect = dot.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(dotSize, dotSize);
+            
             var img = dot.GetComponent<Image>();
-            img.color = new Color(1, 1, 1, 0);
+            img.color = new Color(dotColor.r, dotColor.g, dotColor.b, 0f);
 
             _dots.Add(dot);
         }

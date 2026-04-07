@@ -131,46 +131,49 @@ public class StageUI : MonoBehaviour
         SelectedIndex = 0;
 
         // 이벤트 팝업을 위해 추가 (한성우)
-        eventController.ActivateEventPopUp();
-
-        // 주소로 아이콘 게임 오브젝트 불러오기 (한성우) 
-        // https://wolstar.tistory.com/14 기반
-        Addressables.LoadAssetAsync<GameObject>(eventController.EventImageAddress).Completed += (op) =>
+        if (SceneLoader.Intance.StageIndex % 2 == 0)
         {
-            // 로드가 완료 시 실행
-            imageEvent = op.Result;
+            eventController.ActivateEventPopUp();
 
-            if (imageEvent != null)
+            // 주소로 아이콘 게임 오브젝트 불러오기 (한성우) 
+            // https://wolstar.tistory.com/14 기반
+            Addressables.LoadAssetAsync<GameObject>(eventController.EventImageAddress).Completed += (op) =>
             {
-                GameObject instanceImg = Instantiate(imageEvent, imageBG.transform);
-            }
+                // 로드가 완료 시 실행
+                imageEvent = op.Result;
 
-            // 예외 처리
-            else
-            {
-                Debug.LogError($"에셋 로드 실패: {eventController.EventImageAddress}");
-            }
-        };
+                if (imageEvent != null)
+                {
+                    GameObject instanceImg = Instantiate(imageEvent, imageBG.transform);
+                }
+
+                // 예외 처리
+                else
+                {
+                    Debug.LogError($"에셋 로드 실패: {eventController.EventImageAddress}");
+                }
+            };
+        }
 
 
 
         /*
         imageEvent = Resources.Load<GameObject>($"EventImagePrefabs/{eventController.EventImageAddress}");
         // Debug.Log($"이벤트 프리펩 주소 : EventImagePrefabs/{eventController.EventImageAddress}");
-        
+
         if (imageEvent != null)
         {
             GameObject instanceImg = Instantiate(imageEvent, imageBG.transform);
-            
+
             RectTransform rect = instanceImg.GetComponent<RectTransform>();
             // 크기 및 위치 초기화
-            
+
             if (rect != null)
             {
                 rect.localPosition = Vector3.zero;
                 rect.localScale = Vector3.one;
             }
-            
+
         }
         */
 
@@ -225,6 +228,17 @@ public class StageUI : MonoBehaviour
         {
             if (SceneLoader.Intance.StageIndex < NodeBtns.Length)
                 UnLockBtn(NodeBtns[SceneLoader.Intance.StageIndex]);
+            
+            if (PlayerPrefs.GetInt("BattleClear", 0) == 1)
+            {
+                Debug.Log("BattleClear 감지!");
+                Debug.Log($"battleClearIndex: {SceneLoader.Intance.StageIndex - 1}");
+                PlayerPrefs.SetInt("BattleClear", 0);
+                int battleClearIndex = SceneLoader.Intance.StageIndex - 1;
+                RectTransform fromNode = NodeBtns[battleClearIndex].GetComponent<RectTransform>();
+                RectTransform toNode = NodeBtns[SceneLoader.Intance.StageIndex].GetComponent<RectTransform>();
+                nodeMover.PlayMoveToNextNode(fromNode, toNode, null);
+            }
         }
     }
 
@@ -249,6 +263,7 @@ public class StageUI : MonoBehaviour
 
     public void OnClickBattleNode()
     {
+        Debug.Log($"배틀 진입 전 StageIndex: {SceneLoader.Intance.StageIndex}");
         SceneLoader.Intance.ChangeScene(SceneLoader.Intance.Battle);
     }
 
@@ -256,6 +271,7 @@ public class StageUI : MonoBehaviour
     {
         eventPopup.SetActive(true);
         _eventIndex = 0;
+        currentIndex = 0;
         ShowPage(currentIndex);
 
         // 이벤트 팝업을 위해 추가 (한성우)
@@ -285,17 +301,22 @@ public class StageUI : MonoBehaviour
         SceneLoader.Intance.StageIndex += 1;
 
         int unlockIndex = SceneLoader.Intance.StageIndex - 1;
-
+        
+        
         if (unlockIndex - 1 >= 0)
             LockBtn(NodeBtns[unlockIndex - 1]);
+        
+        LockBtn(NodeBtns[unlockIndex]);
+        
+        if (unlockIndex + 1 < NodeBtns.Length)
+            UnLockBtn(NodeBtns[unlockIndex + 1]);
 
-        UnLockBtn(NodeBtns[unlockIndex]);
+        RectTransform fromNode = NodeBtns[unlockIndex].GetComponent<RectTransform>();
 
-        RectTransform fromNode = unlockIndex == 0
-            ? tutorialNode
-            : NodeBtns[unlockIndex - 1].GetComponent<RectTransform>();
-
-        RectTransform toNode = NodeBtns[unlockIndex].GetComponent<RectTransform>();
+        RectTransform toNode = NodeBtns[unlockIndex + 1 < NodeBtns.Length 
+            ? unlockIndex + 1 
+            : unlockIndex].GetComponent<RectTransform>();
+        
         nodeMover.PlayMoveToNextNode(fromNode, toNode, null);
     }
 

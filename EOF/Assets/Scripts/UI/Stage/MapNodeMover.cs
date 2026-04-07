@@ -13,7 +13,7 @@ public class MapNodeMover : MonoBehaviour
     public void PlayMoveToNextNode(RectTransform fromNode, RectTransform toNode, System.Action onComplete)
     {
         dottedLine.DrawPath(fromNode.position, toNode.position);
-
+        
         Sequence seq = DOTween.Sequence();
         
         seq.Append(dottedLine.RevealDots());
