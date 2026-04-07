@@ -13,8 +13,16 @@ public class BattleScene:IScene
     
     public void Enter()
     {
-        // 배틀 씬 진입
-        SceneLoader.Intance.Fade.ChangeScene(ESceneType.Battle);
+        if (SceneLoader.Intance.StageIndex/2 == 2)
+        {
+            SceneLoader.Intance.Fade.EvonyFade();
+        }
+
+        else
+        {
+            // 배틀 씬 진입
+            SceneLoader.Intance.Fade.ChangeScene(ESceneType.Battle);
+        }
     }
 
     public void Update()
