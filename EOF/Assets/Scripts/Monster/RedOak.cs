@@ -57,7 +57,7 @@ public class RedOak : Monster
         _animator.SetTrigger("FirstAttack");
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null;
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
-        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 11));
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 1));
     }
 
     public override IEnumerator SecondPattern()
@@ -75,7 +75,7 @@ public class RedOak : Monster
         _animator.SetTrigger("ThirdAttack");
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null;
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
-        _damage = Random.Range(_minDamage, _minDamage + 11);
+        _damage = Random.Range(_minDamage, _minDamage + 1);
         _damage += Player.Instance._defensive;
         Player.Instance._defensive = 0;
         Player.Instance.ReceiveDamage(_damage);

@@ -201,6 +201,7 @@ public class Player : MonoBehaviour
         {
             ReceiveDamage(GiveDamageCalculator((_heal + AddHeal), count, combo));
             // Debug.Log($"({_heal} * {count}) * (1 + ({combo} - 1 ) * {_comboRate}) = {(_heal * count) * (1 + (combo - 1) * _comboRate)}");
+            if (_health <= 0) yield return StartCoroutine(Resurrectioner());
             _reverse = false;
         }
         else
@@ -226,7 +227,7 @@ public class Player : MonoBehaviour
         SoundManager.Instance.PlaySFX(_sfx[2]);
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(.5f);
-        _defensiveGauge = (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
+        _defensiveGauge += (GiveDamageCalculator((_defensive + AddDefensive), count, combo));
     }
 
 
@@ -239,6 +240,26 @@ public class Player : MonoBehaviour
     }
 
 
+    public IEnumerator Resurrectioner()
+    {
+        // 조건 맞으면 부활 스킬 거쳐가기 (한성우)
+        if (Resurrection == true && _isFirstDeath == true)
+        {
+            // 부활 기능
+            _health = _maxHealth * 0.5f;
+            _isFirstDeath = false;
+
+            // 부활 연출
+            yield return StartCoroutine(IResurrection());
+        }
+        else 
+        {
+            yield return StartCoroutine(Dead());
+
+            // 게임오버
+            SceneLoader.Intance.ChangeScene(SceneLoader.Intance.GameOver);
+        }
+    }
     public void GetHPAbsorb(float totalDmg)
     {
         _health += (totalDmg * (_healthAbsorbRate / 100f));
@@ -300,6 +321,7 @@ public class Player : MonoBehaviour
             if (uiIndex >= SkillIcons.Length) break;
 
             int nowSkillID = GetSkillIDs[i];
+            
             string skillIconName = "";
 
 
@@ -309,6 +331,11 @@ public class Player : MonoBehaviour
                 if (element.Value.RewardID == nowSkillID)
                 {
                     skillIconName = element.Value.ResourceID;
+
+                    // 스킬 아이콘의 툴입용 정보 전달
+                    SkillIcons[uiIndex].GetComponent<ToolTipController>().SkillID = element.Value.RewardID;
+                    SkillIcons[uiIndex].GetComponent<ToolTipController>().SkillDescKey = element.Value.RewardName;
+
                     break;
                 }
             }
@@ -319,6 +346,7 @@ public class Player : MonoBehaviour
                 // 스프라이트와 이미지 컴포넌트 가져오기
                 Sprite loadedSprite = Addressables.LoadAssetAsync<Sprite>(skillIconName).WaitForCompletion();   // 어드레서블에서 스프라이트 로드
                 Image iconImage = SkillIcons[uiIndex].GetComponent<Image>();    // 게임 오브젝트의 이미지 컴포넌트 가져오기
+                
 
                 // Image 컴포넌트에 로드한 Sprite 적용
                 if (iconImage != null && loadedSprite != null)
@@ -330,6 +358,9 @@ public class Player : MonoBehaviour
                     color.a = 1f;
                     iconImage.color = color;
                 }
+
+
+
             }
 
             

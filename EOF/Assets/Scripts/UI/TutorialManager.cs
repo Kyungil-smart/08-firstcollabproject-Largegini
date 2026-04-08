@@ -31,9 +31,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private BoardManager boardManager;
     [SerializeField] private TutorialBoardPreset preset;
     
-    private Button _btnReset;
-    private Button _btnEndTurn;
-
     private ITutorialBoardControl _board;
     private Action _savedProceed;
 
@@ -54,8 +51,6 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
-        _btnReset = btnReset.GetComponent<Button>();
-        _btnEndTurn = btnEndTurn.GetComponent<Button>();
         // 로컬라이즈 텍스트 초기화 (한성우)
         InitText();
     }
@@ -67,6 +62,8 @@ public class TutorialManager : MonoBehaviour
         _board.LoadPresetBoard(preset.ToGrid());
         _board.SetInputLocked(true);
         boardManager.OnPuzzleComplete.AddListener(OnPuzzleComplete);
+        
+        SetButtonsInteractable(false);
 
         puzzleTrigger = puzzleArea.AddComponent<UnityEngine.EventSystems.EventTrigger>();
         var entry = new UnityEngine.EventSystems.EventTrigger.Entry();
@@ -78,16 +75,18 @@ public class TutorialManager : MonoBehaviour
         speakerKing.SetActive(true);
         speakerQueen.SetActive(false);
 
+        SetButtonsVisible(false);
+        SetButtonsInteractable(false);
+        
         UpdatePopup();
         popup.SetActive(true);
     }
 
     private void UpdatePopup()
     {
-        btnReset.SetActive(false);
-        btnEndTurn.SetActive(false);
-        // Todo: 데이터 연동 후 교체
-        //storyText.text = testTexts[currentIndex];
+        SetButtonsVisible(false);
+        SetButtonsInteractable(false);
+        
         dialogueTyper.ShowText(testTexts[currentIndex]);
 
         if (popupImages != null && currentIndex < popupImages.Length)
@@ -110,7 +109,6 @@ public class TutorialManager : MonoBehaviour
         //   17~18 행동력 소모 안내 대사
         //   19 콤보 대사
         //   20~24 전투 UI 안내 대사
-
         // 첫 대사
         if (currentIndex < 3)
         {
@@ -130,6 +128,8 @@ public class TutorialManager : MonoBehaviour
             dimPanel.SetActive(true);
             //btnReset.SetActive(true);   // 인게임 리셋 버튼 활성화
             //btnEndTurn.SetActive(true); // 인게임 턴 종료 버튼 활성화
+            SetButtonsVisible(true);
+            SetButtonsInteractable(false);
             puzzleTrigger.enabled = true;
             currentIndex++;
 
@@ -143,6 +143,7 @@ public class TutorialManager : MonoBehaviour
         {
             Debug.Log($"튜토리얼 3 S, 인덱스 : {currentIndex}");
             currentIndex++; // 4, 5, 6, 7
+            
             UpdatePopup();
             popup.SetActive(true);
             Debug.Log($"튜토리얼 3 E, 인덱스 : {currentIndex}");
@@ -162,10 +163,8 @@ public class TutorialManager : MonoBehaviour
             });
 
             popup.SetActive(false);
-            btnReset.SetActive(true);
-            btnEndTurn.SetActive(true);
-            _btnReset.interactable = false;
-            _btnEndTurn.interactable = false;
+            SetButtonsVisible(true);
+            SetButtonsInteractable(false);
             Debug.Log($"튜토리얼 4 E, 인덱스 : {currentIndex}");
         }
         else if (currentIndex == 9)
@@ -182,7 +181,12 @@ public class TutorialManager : MonoBehaviour
         {
             Debug.Log($"튜토리얼 6 S, 인덱스 : {currentIndex}");
             currentIndex++;
+            
             UpdatePopup();
+            //btnReset.SetActive(true);
+            //btnEndTurn.SetActive(true);
+            //_btnReset.interactable = false;
+            //_btnEndTurn.interactable = false;
             popup.SetActive(true);
             Debug.Log($"튜토리얼 6 E, 인덱스 : {currentIndex}");
         }
@@ -191,6 +195,17 @@ public class TutorialManager : MonoBehaviour
             Debug.Log($"튜토리얼 7 S, 인덱스 : {currentIndex}");
             OnClickClose();
         }
+    }
+    private void SetButtonsVisible(bool visible)
+    {
+        btnReset.SetActive(visible);
+        btnEndTurn.SetActive(visible);
+    }
+    
+    private void SetButtonsInteractable(bool value)
+    {
+        btnReset.GetComponent<Button>().interactable = value;
+        btnEndTurn.GetComponent<Button>().interactable = value;
     }
 
     private System.Collections.IEnumerator ShowPopupNextFrame()
@@ -205,8 +220,6 @@ public class TutorialManager : MonoBehaviour
     {
         if (currentIndex == 10)
         {
-            _btnReset.interactable = true;
-            _btnEndTurn.interactable = true;
             UpdatePopup();
             storyUI.SetActive(true);
             popup.SetActive(true);
@@ -242,8 +255,8 @@ public class TutorialManager : MonoBehaviour
         storyUI.SetActive(false);
         inGameUI.SetActive(true);
         dimPanel.SetActive(false);
-        btnReset.GetComponent<Button>().interactable = true;
-        btnEndTurn.GetComponent<Button>().interactable = true;
+        SetButtonsVisible(true);
+        SetButtonsInteractable(true);
         PlayerPrefs.SetInt("TutorialDone", 1);
     }
 
@@ -271,8 +284,8 @@ public class TutorialManager : MonoBehaviour
         dimPanel.SetActive(false);
         btnReset.SetActive(true);
         btnEndTurn.SetActive(true);
-        _btnReset.interactable = true;
-        _btnEndTurn.interactable = true;
+        SetButtonsVisible(true);
+        SetButtonsInteractable(true);
         PlayerPrefs.SetInt("TutorialDone", 1);
     }
 

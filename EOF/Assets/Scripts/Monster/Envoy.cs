@@ -38,17 +38,18 @@ public class Envoy : Monster
         }
         
     }
-
-
+    
     public override IEnumerator FirstPattern()
     {
         Debug.Log("영혼가르기");
-        Player.Instance._defensive = 0;
+        float temp = Player.Instance._defensiveGauge;
+        Player.Instance._defensiveGauge = 0;
         _animator.SetTrigger("FirstAttack");
         SoundManager.Instance.PlaySFX(_envoySound.attackSFX[0]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
-        Player.Instance.ReceiveDamage(Random.Range(_minDamage, _minDamage + 11));
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage + 10, _minDamage + 11));
+        Player.Instance._defensiveGauge = temp;
         _soulHarvest++;
     }
 
@@ -59,7 +60,7 @@ public class Envoy : Monster
         SoundManager.Instance.PlaySFX(_envoySound.attackSFX[1]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
-        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage));
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage - 10, _minDamage + 1));
         Player.Instance._reverse = true;
         _soulHarvest++;
     }
@@ -71,7 +72,7 @@ public class Envoy : Monster
         SoundManager.Instance.PlaySFX(_envoySound.attackSFX[2]);
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Envoy_Idle")) yield return null; 
-        Player.Instance.ReceiveDamage(Random.Range(_minDamage + 20, _minDamage + 41));
+        Player.Instance.ReceiveDamage(Random.Range(_minDamage + 20, _minDamage + 21));
         Player.Instance._theEnd = true;
         _soulHarvest++;
     }
