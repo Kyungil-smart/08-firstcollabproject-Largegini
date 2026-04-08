@@ -119,6 +119,7 @@ Warning_Puzzle,50021,초기화 팝업 상단 텍스트,Consume 1 Stamina to rese
 Reset the board?"
 Warning_Turn,50022,턴 종료 팝업 상단 텍스트,Are you sure you want to end your turn?,,턴을 종료할까요?,,,
 Warning_Close,50023,턴 종료 취소 버튼,Cancel,,취소,,,
+Button_Event_Name,50024,스테이지 이벤트 버튼,Event,,이벤트,,,
 Buff_Blacksmith01,60001,대장간 이벤트 패시브 효과 설명 (툴팁),Sharpen the blade keenly,,[벼려진 칼날]\n공격 블록의 공격력이 상승합니다.,,,
 Buff_Blacksmith02,60002,대장간 이벤트 패시브 효과 설명 (툴팁),Modify the rusted armor,,[견고한 갑주]\n방어 블록의 쉴드량이 상승합니다.,,,
 Heal_Sanctum,60003,성소 이벤트 패시브 효과 설명 (툴팁),Restore the wounds with the breath of the people,,[백성의 염원]\n망국의 왕의 체력이 회복됩니다.,,,

@@ -19,63 +19,28 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 10001
-    m_Localized: As the cold, damp scent of earth fills my senses, it seems that
-      even death is denied to me.
+    m_Localized: It appears even the solace of death is denied to me, as the scent
+      of cold, damp earth begins to permeate my senses.
     m_Metadata:
       m_Items: []
   - m_Id: 10002
-    m_Localized: Not a shred of flesh remains, leaving only these crumbling shards
+    m_Localized: Not a shred of flesh remains. leaving only these crumbling shards
       of bone to sustain my existence.
     m_Metadata:
       m_Items: []
   - m_Id: 10003
-    m_Localized: How dare you, contemptible beast, desecrate the hallowed grounds
-      where my kin find their eternal rest.
+    m_Localized: How dare, contemptible beast desecrate the hallowed grounds where
+      my kin find their eternal rest.
     m_Metadata:
       m_Items: []
   - m_Id: 10004
-    m_Localized: "I will not allow your foul fangs to profane the sanctity of my
-      kin\u2019s remains."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10005
-    m_Localized: "I\u2019ll end you where you stand!"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10006
-    m_Localized: It feels as though the touch of those tiny hands, which brushed
-      against mine in the flames, still lingers on my fingertips.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10007
-    m_Localized: You dare defile this ground.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10008
-    m_Localized: Silence, you foul creature. I shall flay your wretched hide to appease
-      the souls of my kin.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10009
-    m_Localized: No warmth persists. All that remains of my child is this cold fragment...
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10010
-    m_Localized: The guilt of failing to protect my child weighs heavily on my bones.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10011
-    m_Localized: Do not weep, my child. I will pass judgment and offer up a blood
-      sacrifice for your sorrow.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10012
-    m_Localized: It is the only reason I awoke from the dead.
+    m_Localized: I shall not permit your foul fangs to desecrate the sanctity of
+      my kin's remains.
     m_Metadata:
       m_Items: []
   - m_Id: 20001
-    m_Localized: Grrr... The Grim Reaper has confirmed that your life has ended...
-      The screams you let out as that intense hatred is crushed must be all the sweeter.
+    m_Localized: Grrr... Death's prey has returned. Your broken screams...they were
+      nectar to my ears.
     m_Metadata:
       m_Items: []
   - m_Id: 20002
@@ -83,16 +48,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20003
-    m_Localized: Grrr... A rattling skull! The screams from that day continue to
-      echo in my ears. How could you possibly pursue revenge alone?
+    m_Localized: Grrr... A rattling skull! My axe buries you in the abyss. Never
+      to rise again!
     m_Metadata:
       m_Items: []
   - m_Id: 20004
-    m_Localized: Tell the Grim Reaper. "Now, I rise to crush your wretched world."
+    m_Localized: Tell Death. He lost grip. Now, I rise to crush your wretched world.
     m_Metadata:
       m_Items: []
   - m_Id: 20005
-    m_Localized: First, I shall stain this barren land with your crimson blood
+    m_Localized: The beginning. Your blood to soak this barren earth.
     m_Metadata:
       m_Items: []
   - m_Id: 20006
@@ -101,8 +66,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20007
-    m_Localized: Grrr... I'll trample that rusty crown and turn this place into a
-      proper slaughterhouse!
+    m_Localized: Grrr... With your rusted crown, I turn this dirt into a slaughterhouse!
     m_Metadata:
       m_Items: []
   - m_Id: 20008
@@ -112,8 +76,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20009
-    m_Localized: The tears of my people still soak the ground. Until those tears
-      freeze into icicles and pierce right through you, I cannot hold my breath.
+    m_Localized: Their frozen tears, still wet. No rest until I pierce your heart.
     m_Metadata:
       m_Items: []
   - m_Id: 20010
@@ -138,12 +101,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20014
-    m_Localized: "At last, You\u2019ve crossed the line, King of a fallen realm."
+    m_Localized: At last, thou hast reached the end... O King of a fallen realm.
     m_Metadata:
       m_Items: []
   - m_Id: 20015
-    m_Localized: Defier of eternal rest... tell me, is such a wretched grudge all
-      that fuels your hollow stride?
+    m_Localized: O King who denied eternal rest... Hast thou defied the providence
+      for a mere grudge?
     m_Metadata:
       m_Items: []
   - m_Id: 20016
@@ -151,20 +114,18 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20017
-    m_Localized: I refused to die just so I could rip out your hollow eyes and drown
-      them in the hell I survived.
+    m_Localized: To force your hollow eyes to witness my hell, I rose from the dead.
     m_Metadata:
       m_Items: []
   - m_Id: 20018
-    m_Localized: "What a truly futile obsession! The fall of the kingdom and the
-      decline of its people\u2026 It is the natural order of things, no different
-      from water flowing to the depths. You, too, were nothing more than a single
-      ripple in that current."
+    m_Localized: A hollow obsession. The fall of a kingdom and the fading of its
+      people... it is the same providence as water flowing to the depths. You, too,
+      were but a single ripple in that current.
     m_Metadata:
       m_Items: []
   - m_Id: 20019
-    m_Localized: I returned to shatter that providence. On the day my crown was shattered
-      and my heart was broken, I was no longer human.
+    m_Localized: I returned to shatter that providence. The day my crown broke and
+      my heart failed, I cast aside my humanity.
     m_Metadata:
       m_Items: []
   - m_Id: 20020
@@ -172,18 +133,18 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20021
-    m_Localized: Pitiable soul. I shall teach thee the brevity of thy wrath. Time
-      will swallow up your grandiose desire for revenge and your name, leaving them
-      forever lost in the silence of nothingness.
+    m_Localized: "Pitiable soul. I shall teach thee the brevity of thy wrath. When
+      the sands run dry, thy grand vengeance\u2014and thy name\u2014shall be swallowed
+      by the ever-silent void."
     m_Metadata:
       m_Items: []
   - m_Id: 20022
-    m_Localized: Before time runs out, I will hear your screams. This place will
-      not be the grave of the souls you have taken, but your own grave.
+    m_Localized: Grant me your screams, Death. This is no longer your hunting ground.
+      It is your grave.
     m_Metadata:
       m_Items: []
   - m_Id: 20023
-    m_Localized: The moment the Grim Reaper falls, the darkness shatters into a thousand
+    m_Localized: The moment the Death falls, the darkness shatters into a thousand
       shards.
     m_Metadata:
       m_Items: []
@@ -200,8 +161,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20026
-    m_Localized: No more, my Lord. Yield your heavy steel, and find your solace in
-      peace.
+    m_Localized: Enough, my King. Yield your heavy steel, and find your solace in
+      peace
     m_Metadata:
       m_Items: []
   - m_Id: 20027
@@ -244,7 +205,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30002
-    m_Localized: '[Sharpen the blade keenly.]'
+    m_Localized: 'Sharpen the blade keenly. [ATK+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30003
@@ -252,7 +213,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30004
-    m_Localized: '[enhance the rusted armor.]'
+    m_Localized: 'enhance the rusted armor. [DEF+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30005
@@ -267,7 +228,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30007
-    m_Localized: '[Heal the wounds with the breath of the people.]'
+    m_Localized: 'Heal the wounds with the breath of the people. [Heal 50]'
     m_Metadata:
       m_Items: []
   - m_Id: 30008
@@ -276,7 +237,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30009
-    m_Localized: '[Consecrate the life force of the people to the heart.]'
+    m_Localized: 'Consecrate the life force of the people to the heart. [REC+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30010
@@ -291,7 +252,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30012
-    m_Localized: 'Tactics: Swift Move.'
+    m_Localized: 'Tactics: Swift Move. [SP+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30013
@@ -299,7 +260,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30014
-    m_Localized: 'Tactics: Rapid Volley.'
+    m_Localized: 'Tactics: Rapid Volley. [APG+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30015
@@ -315,7 +276,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30017
-    m_Localized: '[Seek the old woman''s advice.]'
+    m_Localized: 'Seek the old woman''s advice. [ATK+2, DEF-1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30018
@@ -326,7 +287,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30019
-    m_Localized: '[Embrace the old woman.]'
+    m_Localized: 'Embrace the old woman.[HP-50%, APG+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30020
@@ -341,7 +302,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30022
-    m_Localized: '[Overlap the threads of fate.]'
+    m_Localized: 'Overlap the threads of fate. [ADD +30%]'
     m_Metadata:
       m_Items: []
   - m_Id: 30023
@@ -351,7 +312,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30024
-    m_Localized: '[Glimpse the twisted timeline.]'
+    m_Localized: 'Glimpse the twisted timeline. [ADD+100%]'
     m_Metadata:
       m_Items: []
   - m_Id: 30025
@@ -367,7 +328,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30027
-    m_Localized: '[Receive the Martyr''s prayer.]'
+    m_Localized: 'Receive the Martyr''s prayer. [REC-1, MaxHP+20]'
     m_Metadata:
       m_Items: []
   - m_Id: 30028
@@ -377,7 +338,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30029
-    m_Localized: '[Take the remaining divine power.]'
+    m_Localized: 'Take the remaining divine power.[REC+1, MaxHP-10]'
     m_Metadata:
       m_Items: []
   - m_Id: 30030
@@ -391,7 +352,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30032
-    m_Localized: '[Accept the angel''s merciful touch.]'
+    m_Localized: 'Accept the angel''s merciful touch. [HP 50% under, REC+2]'
     m_Metadata:
       m_Items: []
   - m_Id: 30033
@@ -400,7 +361,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30034
-    m_Localized: '[Don the angel''s holy protection.]'
+    m_Localized: 'Don the angel''s holy protection. [HP 50% over, DEP+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30035
@@ -415,7 +376,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30037
-    m_Localized: '[Contract with the demon.]'
+    m_Localized: 'Contract with the demon. [HP 30% under, ATK+2]'
     m_Metadata:
       m_Items: []
   - m_Id: 30038
@@ -424,7 +385,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30039
-    m_Localized: '[Offer vitality to the demon.]'
+    m_Localized: 'Offer vitality to the demon. [HP40% under, APG+1]'
     m_Metadata:
       m_Items: []
   - m_Id: 30040
@@ -439,7 +400,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30042
-    m_Localized: '[Absorb the spirit''s vital flow.]'
+    m_Localized: 'Absorb the spirit''s vital flow. [Drain HP (Dmg20%)]'
     m_Metadata:
       m_Items: []
   - m_Id: 30043
@@ -447,7 +408,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30044
-    m_Localized: Be promised the forest's last protection.
+    m_Localized: 'Be promised the forest''s last protection. [Resurrection, HP +50]'
     m_Metadata:
       m_Items: []
   - m_Id: 30045
@@ -461,7 +422,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 40002
     m_Localized: Can you feel it, My Lord? The unseen hand that guides you... an
-      inescapable pull within this wretched wheel.
+      escapable pull within this wretched wheel.
     m_Metadata:
       m_Items: []
   - m_Id: 40003
@@ -484,22 +445,22 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 40007
-    m_Localized: With every shard you shift, the shattered soul will slowly fade.
+    m_Localized: With every shard you shift, shattered soul will slowly fade.
     m_Metadata:
       m_Items: []
   - m_Id: 40008
-    m_Localized: Match three or more shards of the same hue to shatter them. That
-      fleeting union shall ignite a flame of destruction to consume your foes.
+    m_Localized: Align three shards of a single hue. That fleeting union shall ignite
+      a flare to consume them.
     m_Metadata:
       m_Items: []
   - m_Id: 40009
-    m_Localized: "The clock ticks with every move. As you finish your strike with
-      the shards, the enemy\u2019s blade draws near. Do not be reckless."
+    m_Localized: Choose wisely. Shards may grant great power, or they may do nothing
+      at all.
     m_Metadata:
       m_Items: []
   - m_Id: 40010
-    m_Localized: The red shards are your piercing steel. Align them to strike a mortal
-      blow.
+    m_Localized: The crimson shards are your piercing steel. Align them to strike
+      a mortal blow.
     m_Metadata:
       m_Items: []
   - m_Id: 40011
@@ -597,7 +558,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 50021
-    m_Localized: Expend 1 Stamina to reshuffle the board?
+    m_Localized: Consume 1 Stamina to reset the puzzle board?
     m_Metadata:
       m_Items: []
   - m_Id: 50022
@@ -613,11 +574,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 60002
-    m_Localized: enhance the rusted armor
+    m_Localized: Modify the rusted armor
     m_Metadata:
       m_Items: []
   - m_Id: 60003
-    m_Localized: Heal the wounds with the breath of the people
+    m_Localized: Restore the wounds with the breath of the people
     m_Metadata:
       m_Items: []
   - m_Id: 60004
@@ -625,11 +586,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 60005
-    m_Localized: 'Tactics: Swift Move'
+    m_Localized: 'Select Art of War: Book of Mobilit'
     m_Metadata:
       m_Items: []
   - m_Id: 60006
-    m_Localized: 'Tactics: Rapid Volley'
+    m_Localized: 'Select Art of War: Book of Continuous Strikes'
     m_Metadata:
       m_Items: []
   - m_Id: 60007
@@ -645,11 +606,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 60010
-    m_Localized: Glimpse the twisted timeline
+    m_Localized: Glimpse the distorted future
     m_Metadata:
       m_Items: []
   - m_Id: 60011
-    m_Localized: Receive the Martyr's prayer
+    m_Localized: Receive the Father's prayer
     m_Metadata:
       m_Items: []
   - m_Id: 60012
@@ -701,7 +662,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 60024
-    m_Localized: curse
+    m_Localized: Curse
     m_Metadata:
       m_Items: []
   - m_Id: 50024
