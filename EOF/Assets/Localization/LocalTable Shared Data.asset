@@ -32,42 +32,6 @@ MonoBehaviour:
     m_Key: Grave_King_4
     m_Metadata:
       m_Items: []
-  - m_Id: 10005
-    m_Key: Grave_King_5
-    m_Metadata:
-      m_Items:
-      - rid: 3634112514202009683
-  - m_Id: 10006
-    m_Key: Grave_King_6
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10007
-    m_Key: Grave_King_7
-    m_Metadata:
-      m_Items:
-      - rid: 3634112514202009684
-  - m_Id: 10008
-    m_Key: Grave_King_8
-    m_Metadata:
-      m_Items:
-      - rid: 3634112514202009685
-  - m_Id: 10009
-    m_Key: Grave_King_9
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10010
-    m_Key: Grave_King_10
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10011
-    m_Key: Grave_King_11
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10012
-    m_Key: Grave_King_12
-    m_Metadata:
-      m_Items:
-      - rid: 3634112514202009686
   - m_Id: 20001
     m_Key: Wasteland_Orc_01
     m_Metadata:
@@ -477,13 +441,11 @@ MonoBehaviour:
   - m_Id: 50001
     m_Key: Start
     m_Metadata:
-      m_Items:
-      - rid: 3634112565313536092
+      m_Items: []
   - m_Id: 50002
     m_Key: Exit
     m_Metadata:
-      m_Items:
-      - rid: 3634112565313536093
+      m_Items: []
   - m_Id: 50003
     m_Key: Exit_Confirm
     m_Metadata:
@@ -582,7 +544,7 @@ MonoBehaviour:
     m_Key: Button_Event_Name
     m_Metadata:
       m_Items:
-      - rid: 3634112580457070675
+      - rid: 3634112614426476626
   - m_Id: 60001
     m_Key: Buff_Blacksmith01
     m_Metadata:
@@ -703,8 +665,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 3634112514202009762
-  - m_Id: 4898356265955328
-    m_Key: New Entry
+  - m_Id: 5397910493016064
+    m_Key: New Entry 1
     m_Metadata:
       m_Items: []
   m_Metadata:
@@ -718,22 +680,6 @@ MonoBehaviour:
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC724\uD68C"
-    - rid: 3634112514202009683
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uBE44\uADF9 \uBAA9\uACA9"
-    - rid: 3634112514202009684
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC0DD\uC804 \uAE30\uC5B5"
-    - rid: 3634112514202009685
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC804\uD22C \uB3CC\uC785"
-    - rid: 3634112514202009686
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC801 \uCC98\uCE58 \uBC0F \uBCF4\uC0C1"
     - rid: 3634112514202009687
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
@@ -1063,17 +1009,7 @@ MonoBehaviour:
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC815\uB839 \uC785\uC7A5"
-    - rid: 3634112565313536092
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC774 \uBC84\uD2BC\uC740 \uC774\uBBF8\uC9C0\uB77C\uC11C
-          \uB85C\uCEEC\uB77C\uC774\uC9D5 \uC81C\uC678"
-    - rid: 3634112565313536093
-      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_CommentText: "\uC774 \uBC84\uD2BC\uC740 \uC774\uBBF8\uC9C0\uB77C\uC11C
-          \uB85C\uCEEC\uB77C\uC774\uC9D5 \uC81C\uC678"
-    - rid: 3634112580457070675
+    - rid: 3634112614426476626
       type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
         m_CommentText: "\uC2A4\uD14C\uC774\uC9C0 \uC774\uBCA4\uD2B8 \uBC84\uD2BC"
