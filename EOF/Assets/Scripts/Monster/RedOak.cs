@@ -76,8 +76,8 @@ public class RedOak : Monster
         while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null;
         while (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Orc_Idle")) yield return null; 
         _damage = Random.Range(_minDamage, _minDamage + 1);
-        _damage += Player.Instance._defensive;
-        Player.Instance._defensive = 0;
+        _damage += Player.Instance._defensiveGauge;
+        Player.Instance._defensiveGauge = 0;
         Player.Instance.ReceiveDamage(_damage);
     }
 
