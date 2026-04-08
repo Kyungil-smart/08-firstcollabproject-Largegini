@@ -132,7 +132,7 @@ public class BattleSystem : MonoBehaviour
                     
                     if (_player._theEnd)
                     {
-                        _player.ReceiveDamage(5f);
+                        _player.ReceiveDamage(2f);
                             // 죽는 기능
                         if (_player._health <= 0) yield return StartCoroutine(_player.Resurrectioner());
                     }

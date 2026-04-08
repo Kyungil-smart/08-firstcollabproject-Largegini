@@ -21,7 +21,7 @@ public class Envoy : Monster
     {
         yield return null;
         Debug.Log(_soulHarvest);
-        _minDamage += _soulHarvest * 5;
+        _minDamage += _soulHarvest * 2;
         Debug.Log(_minDamage);
         int _probability = Random.Range(0, 100);
         if (0 <= _probability && _probability < 60)
